@@ -1,4 +1,3 @@
-![](https://pbs.twimg.com/media/Da_yO9UX4AEB2r-.jpg)
 
 ### App installation
 
@@ -15,3 +14,5 @@ pod update // to get latest version
 ```
 
 3. Open the generated workspace file.
+
+![](https://pbs.twimg.com/media/Da_yO9UX4AEB2r-.jpg)
