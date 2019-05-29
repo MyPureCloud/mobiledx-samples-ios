@@ -7,11 +7,43 @@
 platform :ios, "9.0"
 use_frameworks!
 
-source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+install! 'cocoapods',
+         :deterministic_uuids => false
 
+# Uncomment to use a local copy of PlayKit
+# Eliza env
+ BLD_UI="../../BoldUI/BoldUI-Dev.podspec"
+ BLD_CORE="../../BoldCore/BoldCore-Dev.podspec"
+ BLD_AI_ENGINE="../../BoldAIEngine/BoldAIEngine-Dev.podspec"
+ BLD_AI_ACCESSIBILITY="../../BoldAIAccessibility/BoldAIAccessibility-Dev.podspec"
+ BLD_ENGINE="../../BoldEngine/BoldEngine-Dev.podspec"
+ BLD_360_AI="../../Bold360AI/Bold360AI-Dev.podspec"
+
+# Nisso env
+# BLD_UI="../../../BoldAI/BoldUI/Bold360AI-Dev.podspec"
+# BLD_CORE="../../../BoldAI/BoldCore/BoldCore-Dev.podspec"
+# BLD_AI_ENGINE="../../../BoldAI/BoldAIEngine/BoldAIEngine-Dev.podspec"
+# BLD_AI_ACCESSIBILITY="../../../BoldAI/BoldAIAccessibility/BoldAIAccessibility-Dev.podspec"
+# BLD_ENGINE="../../../BoldAI/BoldEngine/BoldEngine-Dev.podspec"
+# BLD_360_AI="../../../BoldAI/Bold360AI/Bold360AI-Dev.podspec"
+
+# Dev
+source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+# Production
+#source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
 target 'BasicSample' do
-    pod 'Bold360AI'
+    pod 'OpalImagePicker'
+    
+    if defined? BLD_360_AI 
+        pod 'BoldCore', :path => BLD_CORE
+        pod 'BoldAIEngine', :path => BLD_AI_ENGINE
+        pod 'BoldAIAccessibility', :path => BLD_AI_ACCESSIBILITY
+        pod 'BoldEngine', :path => BLD_ENGINE
+        pod 'Bold360AI', :path => BLD_360_AI
+    else
+        pod 'Bold360AI'
+    end
 end
