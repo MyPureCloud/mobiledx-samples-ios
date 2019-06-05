@@ -56,25 +56,25 @@ extension FileUploadDemoViewController: OpalImagePickerControllerDelegate {
     func imagePickerDidCancel(_ picker: OpalImagePickerController) {
         //Cancel action?
     }
-    
-    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
-        //Save Images, update UI
 
-        for image in images {
-            if let fileData = image.jpegData(compressionQuality: 1.0) {
-                let request = UploadRequest()
-                request.fileName = "fileName.mov"
-                request.fileType = .default
-                request.fileData = fileData
-                
-                self.chatController.uploadFile(request) { (info: FileUploadInfo!) in
-                    self.chatController.handle(BoldEvent.fileUploaded(info))
+    public func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        assets.forEach { asset in
+            let resources = PHAssetResource.assetResources(for: asset)
+            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .default, options: nil) { image, dictionary in
+                if let isDegraded = dictionary?[PHImageResultIsDegradedKey] as? Bool, !isDegraded {
+                    if let data = image?.jpegData(compressionQuality: 1.0) {
+                        let request = UploadRequest()
+                        request.fileName = (resources.first!).originalFilename
+                        request.fileType = .picture
+                        request.fileData = data
+                        self.chatController.uploadFile(request) { (info: FileUploadInfo!) in
+                            self.chatController.handle(BoldEvent.fileUploaded(info))
+                        }
+                    }
                 }
             }
         }
-        
-        //Dismiss Controller
-         self.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
