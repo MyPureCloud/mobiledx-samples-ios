@@ -67,7 +67,9 @@ extension FileUploadDemoViewController: OpalImagePickerControllerDelegate {
                         request.fileName = (resources.first!).originalFilename
                         request.fileType = .picture
                         request.fileData = data
-                        self.chatController.uploadFile(request) { (info: FileUploadInfo!) in
+                        self.chatController.uploadFile(request, progress: { (progress) in
+                            print("application file upload progress -> %.5f", progress)
+                        }) { (info: FileUploadInfo!) in
                             self.chatController.handle(BoldEvent.fileUploaded(info))
                         }
                     }
@@ -97,8 +99,10 @@ extension FileUploadDemoViewController: UIDocumentMenuDelegate, UIDocumentPicker
         
         request.fileData = data
         
-        self.chatController.uploadFile(request) { (info: FileUploadInfo!) in
-            self.chatController.handle(BoldEvent.fileUploaded(info))
+        self.chatController.uploadFile(request, progress: { (progress) in
+            print("application file upload progress ->")
+        }) { (info) in
+            self.chatController.handle(BoldEvent.fileUploaded(info!))
         }
     }
     
@@ -129,8 +133,10 @@ extension FileUploadDemoViewController: UIImagePickerControllerDelegate, UINavig
                 request.fileType = .picture
                 request.fileData = fileData
                 
-                self.chatController.uploadFile(request) { (info: FileUploadInfo!) in
-                    self.chatController.handle(BoldEvent.fileUploaded(info))
+                self.chatController.uploadFile(request, progress: { (progress) in
+                    print("application file upload progress ->")
+                }) { (info) in
+                    self.chatController.handle(BoldEvent.fileUploaded(info!))
                 }
             }
 
