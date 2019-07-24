@@ -34,7 +34,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARh-7J-SIm">
-                                            <rect key="frame" x="79" y="19.5" width="280" height="21"/>
+                                            <rect key="frame" x="79" y="20" width="280" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -62,25 +62,92 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Qre-9b-VwF"/>
+                    <connections>
+                        <segue destination="401-GB-6sh" kind="show" identifier="presentChat" id="Iok-dn-Tef"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vk8-aW-Tyy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="792.79999999999995" y="-43.628185907046479"/>
         </scene>
-        <!--View Controller-->
+        <!--Availibility View Controller-->
         <scene sceneID="Sri-DH-frb">
             <objects>
-                <viewController id="401-GB-6sh" sceneMemberID="viewController">
+                <viewController id="401-GB-6sh" customClass="AvailibilityViewController" customModule="BasicSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="F5N-h5-eg5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zj-TB-5lz">
+                                <rect key="frame" x="58" y="324" width="259" height="83"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pql-DS-RZW">
+                                        <rect key="frame" x="30" y="23.5" width="141" height="36"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="141" id="cgI-pJ-tzB"/>
+                                            <constraint firstAttribute="height" constant="36" id="fXg-tq-h7n"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Start Live Chat"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="presentChat:" destination="401-GB-6sh" eventType="touchUpInside" id="mkP-CO-8wJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDm-NR-xO0">
+                                        <rect key="frame" x="177" y="23.5" width="36" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="AjC-8x-Qzc"/>
+                                            <constraint firstAttribute="height" constant="36" id="wQM-90-RlQ"/>
+                                        </constraints>
+                                        <color key="tintColor" red="1" green="0.26068530909999998" blue="0.35801724410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" backgroundImage="availability">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="refreshAvailability:" destination="401-GB-6sh" eventType="touchUpInside" id="K9h-dK-EAX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pql-DS-RZW" firstAttribute="leading" secondItem="2Zj-TB-5lz" secondAttribute="leading" constant="30" id="LBo-0p-ilY"/>
+                                    <constraint firstItem="SDm-NR-xO0" firstAttribute="top" secondItem="pql-DS-RZW" secondAttribute="bottom" constant="-36" id="Pbt-h1-6wr"/>
+                                    <constraint firstAttribute="height" constant="83" id="Pj3-rF-oaz"/>
+                                    <constraint firstAttribute="width" constant="259" id="QBh-gT-YVK"/>
+                                    <constraint firstItem="SDm-NR-xO0" firstAttribute="leading" secondItem="pql-DS-RZW" secondAttribute="trailing" constant="6" id="SDd-ma-wSo"/>
+                                    <constraint firstItem="pql-DS-RZW" firstAttribute="centerY" secondItem="2Zj-TB-5lz" secondAttribute="centerY" id="ttN-HP-XU8"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2Zj-TB-5lz" firstAttribute="centerX" secondItem="ztw-L6-8dl" secondAttribute="centerX" id="QXu-pP-7bL"/>
+                            <constraint firstItem="2Zj-TB-5lz" firstAttribute="centerY" secondItem="ztw-L6-8dl" secondAttribute="centerY" id="voM-bd-Vqp"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ztw-L6-8dl"/>
                     </view>
+                    <connections>
+                        <outlet property="availabilityBtn" destination="SDm-NR-xO0" id="hTY-Q0-dgs"/>
+                        <outlet property="startChatBtn" destination="pql-DS-RZW" id="8vj-Nu-xrA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dBK-Gh-61T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1673" y="650"/>
+            <point key="canvasLocation" x="1604" y="-44.527736131934034"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rnu-Q4-D5j">
@@ -102,4 +169,7 @@
             <point key="canvasLocation" x="-81" y="-43"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="availability" width="36" height="36"/>
+    </resources>
 </document>

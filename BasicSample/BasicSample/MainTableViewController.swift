@@ -7,9 +7,8 @@
 import UIKit
 
 class MainTableViewController: UITableViewController {
-    
     var demos: [[String: String]]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,7 +38,6 @@ class MainTableViewController: UITableViewController {
         return cell
     }
     
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var boldController: BotDemoViewController
         switch indexPath.row {
@@ -58,8 +56,21 @@ class MainTableViewController: UITableViewController {
             boldController = BotDemoViewController()
             break
         }
+        
+        if boldController.isKind(of: AgentViewController.self) {
+            self.performSegue(withIdentifier: "presentChat", sender: boldController)
+            return
+        }
+        
         self.navigationController?.pushViewController(boldController, animated: true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? AvailibilityViewController {
+            controller.chatVC = sender as? BotDemoViewController
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

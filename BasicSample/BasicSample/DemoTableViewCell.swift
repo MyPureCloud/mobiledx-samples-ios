@@ -9,6 +9,7 @@ import UIKit
 class DemoTableViewCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var availabilityButton: UIButton!
     
     var model: [String: String]! {
         didSet {
@@ -18,7 +19,4 @@ class DemoTableViewCell: UITableViewCell {
             self.titleLabel.text = self.model["title"]
         }
     }
-
-    
-
 }

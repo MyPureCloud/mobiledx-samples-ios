@@ -28,6 +28,7 @@
 		AF12C8AA21D22C91007450EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A921D22C91007450EF /* Assets.xcassets */; };
 		AF12C8AD21D22C91007450EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */; };
 		AF68B7E5227F05C500DCB8F0 /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */; };
+		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		AF12C8AE21D22C91007450EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF31F5E722A3F1F00033786E /* BasicSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicSample.entitlements; sourceTree = "<group>"; };
 		AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
+		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */,
 				AF12C8AE21D22C91007450EF /* Info.plist */,
 				48A5A19722761AD50073F57B /* Demos.plist */,
+				AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */,
 				48A5A19922761DCB0073F57B /* MainTableViewController.swift */,
 				48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */,
 			);
@@ -257,11 +260,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BasicSample/Pods-BasicSample-frameworks.sh",
-				"${PODS_ROOT}/Bold360AI/Bold360AI.framework",
-				"${PODS_ROOT}/BoldAIAccessibility/BoldAIAccessibility.framework",
-				"${PODS_ROOT}/BoldAIEngine/BoldAIEngine.framework",
-				"${PODS_ROOT}/BoldCore/BoldCore.framework",
-				"${PODS_ROOT}/BoldEngine/BoldEngine.framework",
+				"${BUILT_PRODUCTS_DIR}/Bold360AI/Bold360AI.framework",
+				"${BUILT_PRODUCTS_DIR}/BoldAIAccessibility/BoldAIAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/BoldAIEngine/BoldAIEngine.framework",
+				"${BUILT_PRODUCTS_DIR}/BoldCore/BoldCore.framework",
+				"${BUILT_PRODUCTS_DIR}/BoldEngine/BoldEngine.framework",
 				"${BUILT_PRODUCTS_DIR}/HSAttachmentPicker/HSAttachmentPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/OpalImagePicker/OpalImagePicker.framework",
 			);
@@ -294,6 +297,7 @@
 				48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */,
 				48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */,
 				4899614422773FAD00D86590 /* RestoreChatDemoViewController.swift in Sources */,
+				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
 				4899614E22773FF700D86590 /* ChatConfiguration+CoreDataProperties.swift in Sources */,

@@ -17,7 +17,7 @@ install! 'cocoapods',
  BLD_AI_ENGINE="../../BoldAIEngine/BoldAIEngine-Dev.podspec"
  BLD_AI_ACCESSIBILITY="../../BoldAIAccessibility/BoldAIAccessibility-Dev.podspec"
  BLD_ENGINE="../../BoldEngine/BoldEngine-Dev.podspec"
-# BLD_360_AI="../../Bold360AI/Bold360AI-Dev.podspec"
+ BLD_360_AI="../../Bold360AI/Bold360AI-Dev.podspec"
 
 # Nisso env
 # BLD_UI="../../../BoldAI/BoldUI/Bold360AI-Dev.podspec"

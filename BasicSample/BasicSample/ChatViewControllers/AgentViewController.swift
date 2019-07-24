@@ -18,7 +18,6 @@ class AgentViewController: BotDemoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         
     }
@@ -27,7 +26,6 @@ class AgentViewController: BotDemoViewController {
         self.chatController.endChat()
     }
     
-
     override func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         super.shouldPresentChatViewController(viewController)
         viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(AgentViewController.endChat(_:)))
