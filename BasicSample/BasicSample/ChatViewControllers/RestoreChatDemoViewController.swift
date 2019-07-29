@@ -26,7 +26,7 @@ class RestoreChatDemoViewController: AgentViewController {
             self.restoreChat = RestoreChat(appDelegate.persistentContainer.viewContext)
             self.restoreChat?.groupId = "RestoreChatDemoViewController"
             self.restoreChat?.delegate = self
-            self.chatController.historyProvider = self.restoreChat
+            self.chatController.chatElementDelegate = self.restoreChat
         }
     }
     
