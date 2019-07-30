@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */; };
 		487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */; };
 		4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899613F22763AD500D86590 /* BotDemoViewController.swift */; };
 		4899614222763B1800D86590 /* AgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899614122763B1800D86590 /* AgentViewController.swift */; };
@@ -35,6 +36,7 @@
 		0C1B7595A8CD98CF0D16650B /* Pods_BasicSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C9D8DDC160564633DE4B638 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
 		47A074090647E49AD384BC4C /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
+		4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedDemoViewController.swift; sourceTree = "<group>"; };
 		487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDemoViewController.swift; sourceTree = "<group>"; };
 		4899613F22763AD500D86590 /* BotDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotDemoViewController.swift; sourceTree = "<group>"; };
 		4899614122763B1800D86590 /* AgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */,
 				4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */,
 				AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */,
+				4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */,
 			);
 			path = ChatViewControllers;
 			sourceTree = "<group>";
@@ -257,28 +260,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasicSample/Pods-BasicSample-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bold360AI/Bold360AI.framework",
-				"${BUILT_PRODUCTS_DIR}/BoldAIAccessibility/BoldAIAccessibility.framework",
-				"${BUILT_PRODUCTS_DIR}/BoldAIEngine/BoldAIEngine.framework",
-				"${BUILT_PRODUCTS_DIR}/BoldCore/BoldCore.framework",
-				"${BUILT_PRODUCTS_DIR}/BoldEngine/BoldEngine.framework",
-				"${BUILT_PRODUCTS_DIR}/HSAttachmentPicker/HSAttachmentPicker.framework",
-				"${BUILT_PRODUCTS_DIR}/OpalImagePicker/OpalImagePicker.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BasicSample/Pods-BasicSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bold360AI.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoldAIAccessibility.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoldAIEngine.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoldCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoldEngine.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HSAttachmentPicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpalImagePicker.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BasicSample/Pods-BasicSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -306,6 +292,7 @@
 				4899614D22773FF700D86590 /* ChatConfiguration+CoreDataClass.swift in Sources */,
 				AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */,
 				4899614222763B1800D86590 /* AgentViewController.swift in Sources */,
+				4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */,
 				4899615022773FF700D86590 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
 				4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */,
 				4899615F2278348000D86590 /* ChatHistoryGroup+CoreDataClass.swift in Sources */,

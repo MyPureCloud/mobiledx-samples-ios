@@ -5,6 +5,7 @@
 // ===================================================================================================
 
 import UIKit
+import Bold360AI
 
 class MainTableViewController: UITableViewController {
     var demos: [[String: String]]!
@@ -39,30 +40,53 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var boldController: BotDemoViewController
+        var boldController: UIViewController?
         switch indexPath.row {
         case 1:
             boldController = AgentViewController()
-            break
+            self.performSegue(withIdentifier: "presentChat", sender: boldController)
+            return
         case 2:
             boldController = HistoryDemoViewController()
             break
         case 3:
             boldController = RestoreChatDemoViewController()
+            break
         case 4:
             boldController = FileUploadDemoViewController()
+            break
+        case 5:
+            boldController = self.storyboard?.instantiateViewController(withIdentifier: "Embed")
+            break
+        case 6:
+            let account = BotAccount()
+            account.account = "jio"
+            account.knowledgeBase = "Staging_Updated"
+            account.perform(Selector("setServer:"), with: "qa07")
+            NanoRep.shared()?.prepare(with: account)
+            NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in
+                guard let config = configuration else {
+                    print(error.debugDescription)
+                    return
+                }
+                config.useLabels = true
+                DispatchQueue.main.async {
+                    let widgetViewController = NRWidgetViewController()
+//                    widgetViewController.infoHandler = self
+//                    widgetViewController.applicationHandler = self
+                    self.navigationController?.pushViewController(widgetViewController, animated: true)
+//                    self.navigationController?.present(widgetViewController, animated: true, completion: nil)
+                }
+            }
+
             break
         default:
             boldController = BotDemoViewController()
             break
         }
-        
-        if boldController.isKind(of: AgentViewController.self) {
-            self.performSegue(withIdentifier: "presentChat", sender: boldController)
-            return
+        if let controller = boldController {
+            self.navigationController?.pushViewController(controller, animated: true)
         }
-        
-        self.navigationController?.pushViewController(boldController, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

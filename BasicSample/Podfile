@@ -28,15 +28,14 @@ install! 'cocoapods',
 # BLD_360_AI="../../../BoldAI/Bold360AI/Bold360AI-Dev.podspec"
 
 # Dev
-#source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 # Production
-source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+#source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
 target 'BasicSample' do
     pod 'OpalImagePicker'
-    pod 'HSAttachmentPicker'
     
     if defined? BLD_360_AI 
         pod 'BoldCore', :path => BLD_CORE

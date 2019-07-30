@@ -18,7 +18,28 @@ protocol RestoreChatDelegate {
     func didReceiveBackgroundMessage(_ message: StorableChatElement)
 }
 
-class RestoreChat: HistoryProvider {
+class RestoreChat: ChatElementDelegate {
+    func didReceive(_ item: StorableChatElement!) {
+        let _item = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryItem", into: self.managedContext) as! ChatHistoryItem
+        _item.element = item
+        do {
+            try self.managedContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error)")
+        }
+        if self.state == .dismissed {
+            self.delegate?.didReceiveBackgroundMessage(item)
+        }
+        guard let group = self.group else {
+            let _group = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryGroup", into: self.managedContext) as! ChatHistoryGroup
+            _group.groupId = self.groupId
+            _group.addToItems(_item)
+            return
+        }
+        group.addToItems(_item)
+    }
+    
+    
     
     var managedContext: NSManagedObjectContext!
     var state = RestoreChatState.pending
@@ -55,26 +76,6 @@ class RestoreChat: HistoryProvider {
         }
     }
     
-    func store(_ item: StorableChatElement!) {
-        let _item = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryItem", into: self.managedContext) as! ChatHistoryItem
-        _item.element = item
-        do {
-            try self.managedContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error)")
-        }
-        if self.state == .dismissed {
-            self.delegate?.didReceiveBackgroundMessage(item)
-        }
-        guard let group = self.group else {
-            let _group = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryGroup", into: self.managedContext) as! ChatHistoryGroup
-            _group.groupId = self.groupId
-            _group.addToItems(_item)
-            return
-        }
-        group.addToItems(_item)
-    }
-    
     func remove(_ timestampId: TimeInterval) {
         
     }
@@ -87,7 +88,7 @@ class RestoreChat: HistoryProvider {
             let result = try self.managedContext.fetch(fetchRequest)
             if let item = result.first {
                 item.itemStatus = Int16(status.rawValue)
-                store(item.element)
+                didReceive(item.element)
                 self.managedContext.delete(result.first!)
             }
         } catch {

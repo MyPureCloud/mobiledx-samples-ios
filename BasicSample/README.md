@@ -3,7 +3,7 @@
 1. Open terminal and:
 
 ```
-cd sampleFile
+cd BasicSample
 ```
 
 2. Use cocoapods command:
