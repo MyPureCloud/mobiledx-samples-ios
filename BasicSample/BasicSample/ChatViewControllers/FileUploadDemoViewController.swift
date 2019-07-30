@@ -9,7 +9,6 @@ import OpalImagePicker
 import Photos
 import Bold360AI
 import MobileCoreServices
-import HSAttachmentPicker
 
 class FileUploadDemoViewController: AgentViewController {
     

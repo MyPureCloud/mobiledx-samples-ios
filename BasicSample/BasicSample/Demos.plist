@@ -32,5 +32,17 @@
 		<key>icon</key>
 		<string>upload</string>
 	</dict>
+	<dict>
+		<key>title</key>
+		<string>Embedded</string>
+		<key>icon</key>
+		<string>embed</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Search SDK</string>
+		<key>icon</key>
+		<string>search</string>
+	</dict>
 </array>
 </plist>

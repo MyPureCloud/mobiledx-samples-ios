@@ -18,7 +18,7 @@ class HistoryDemoViewController: BotDemoViewController {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             self.restoreChat = RestoreChat(appDelegate.persistentContainer.viewContext)
             self.restoreChat?.groupId = "HistoryDemoViewController"
-            self.chatController.historyProvider = self.restoreChat
+            self.chatController.chatElementDelegate = self.restoreChat
         }
     }
     
