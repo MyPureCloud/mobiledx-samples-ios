@@ -73,7 +73,9 @@ class RestoreChat: ChatElementDelegate {
                 first.timeStamp?.compare(second.timeStamp! as Date) == ComparisonResult.orderedAscending
             }
             handler(sorted)
+            return
         }
+        handler(nil)
     }
     
     func remove(_ timestampId: TimeInterval) {
