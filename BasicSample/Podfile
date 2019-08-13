@@ -17,7 +17,7 @@ install! 'cocoapods',
  BLD_AI_ENGINE="../../BoldAIEngine/BoldAIEngine-Dev.podspec"
  BLD_AI_ACCESSIBILITY="../../BoldAIAccessibility/BoldAIAccessibility-Dev.podspec"
  BLD_ENGINE="../../BoldEngine/BoldEngine-Dev.podspec"
- BLD_360_AI="../../Bold360AI/Bold360AI-Dev.podspec"
+ # BLD_360_AI="../../Bold360AI/Bold360AI-Dev.podspec"
 
 # Nisso env
 # BLD_UI="../../../BoldAI/BoldUI/Bold360AI-Dev.podspec"
@@ -28,9 +28,9 @@ install! 'cocoapods',
 # BLD_360_AI="../../../BoldAI/Bold360AI/Bold360AI-Dev.podspec"
 
 # Dev
-source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+#source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 # Production
-#source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
