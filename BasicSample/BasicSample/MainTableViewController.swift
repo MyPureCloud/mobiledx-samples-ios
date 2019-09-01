@@ -80,6 +80,9 @@ class MainTableViewController: UITableViewController {
             }
 
             break
+        case 7:
+            boldController = ContinuityDemoViewController()
+            break
         default:
             boldController = BotDemoViewController()
             break
