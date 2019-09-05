@@ -13,16 +13,6 @@ class ContinuityDemoViewController: AgentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        chatController.continuityProvider = self
-    }
-}
-
-extension ContinuityDemoViewController: ContinuityProvider{
-    func updateContinuityInfo(_ params: [String : String]!) {
-    }
     
-    func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
-        handler(key)
     }
 }
