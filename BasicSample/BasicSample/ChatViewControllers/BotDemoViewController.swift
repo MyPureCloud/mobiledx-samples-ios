@@ -24,6 +24,7 @@ class BotDemoViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         chatController = ChatController(account: createAccount())
+        chatController.continuityProvider = self
         chatController.delegate = self
     }
     
@@ -86,5 +87,18 @@ extension BotDemoViewController: ChatControllerDelegate {
         @unknown default:
             break
         }
+    }
+}
+
+extension BotDemoViewController: ContinuityProvider{
+    func updateContinuityInfo(_ params: [String : String]!) {
+        params.forEach { (key, value) in
+            UserDefaults.standard.set(value, forKey: key)
+        }
+        UserDefaults.standard.synchronize()
+    }
+    
+    func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
+        handler(UserDefaults.standard.value(forKey: key) as? String)
     }
 }

@@ -44,5 +44,11 @@
 		<key>icon</key>
 		<string>search</string>
 	</dict>
+	<dict>
+		<key>title</key>
+		<string>Continuity</string>
+		<key>icon</key>
+		<string>continuity</string>
+	</dict>
 </array>
 </plist>

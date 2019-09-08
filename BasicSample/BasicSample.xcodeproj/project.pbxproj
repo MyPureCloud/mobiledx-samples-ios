@@ -30,6 +30,7 @@
 		AF12C8AD21D22C91007450EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */; };
 		AF68B7E5227F05C500DCB8F0 /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */; };
 		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
+		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
 		FA862DA4EF45EA398B613F34 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
+		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */,
 				AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */,
 				4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */,
+				ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */,
 			);
 			path = ChatViewControllers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */,
 				48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */,
 				4899614422773FAD00D86590 /* RestoreChatDemoViewController.swift in Sources */,
+				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
