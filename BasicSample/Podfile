@@ -10,22 +10,11 @@ use_frameworks!
 install! 'cocoapods',
          :deterministic_uuids => false
 
-# Uncomment to use a local copy of PlayKit
-# Eliza env
- BLD_UI="../../BoldUI/BoldUI-Dev.podspec"
- BLD_CORE="../../BoldCore/BoldCore-Dev.podspec"
- BLD_AI_ENGINE="../../BoldAIEngine/BoldAIEngine-Dev.podspec"
- BLD_AI_ACCESSIBILITY="../../BoldAIAccessibility/BoldAIAccessibility-Dev.podspec"
- BLD_ENGINE="../../BoldEngine/BoldEngine-Dev.podspec"
-# BLD_360_AI="../../Bold360AI/Bold360AI-Dev.podspec"
-
-# Nisso env
-# BLD_UI="../../../BoldAI/BoldUI/Bold360AI-Dev.podspec"
-# BLD_CORE="../../../BoldAI/BoldCore/BoldCore-Dev.podspec"
-# BLD_AI_ENGINE="../../../BoldAI/BoldAIEngine/BoldAIEngine-Dev.podspec"
-# BLD_AI_ACCESSIBILITY="../../../BoldAI/BoldAIAccessibility/BoldAIAccessibility-Dev.podspec"
-# BLD_ENGINE="../../../BoldAI/BoldEngine/BoldEngine-Dev.podspec"
-# BLD_360_AI="../../../BoldAI/Bold360AI/Bold360AI-Dev.podspec"
+ BLD_CORE="../../boldcore-mobile-ios/BoldCore-Dev.podspec"
+ BLD_AI_ENGINE="../../bold360-mobile-ios-boldaiengine/BoldAIEngine-Dev.podspec"
+ BLD_AI_ACCESSIBILITY="../../bold360-mobile-ios-boldaiaccessibility/BoldAIAccessibility-Dev.podspec"
+ BLD_ENGINE="../../mobile-bold-engine-ios/BoldEngine-Dev.podspec"
+ BLD_360_AI="../../bold360ai-mobile-ios/Bold360AI-Dev.podspec"
 
 # Dev
 source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
