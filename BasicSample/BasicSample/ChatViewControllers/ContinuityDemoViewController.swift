@@ -2,7 +2,7 @@
 //  ContinuityDemoViewController.swift
 //  BasicSample
 //
-//  Created by Nissim on 29/08/2019.
+//  Created by Omer Rahmany on 01/09/2019.
 //  Copyright © 2019 bold360ai. All rights reserved.
 //
 
@@ -31,14 +31,3 @@ class ContinuityDemoViewController: AgentViewController {
 
 }
 
-extension ContinuityDemoViewController: ContinuityProvider {
-    func updateContinuityInfo(_ params: [String : String]!) {
-        
-    }
-    
-    func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
-        
-    }
-    
-    
-}

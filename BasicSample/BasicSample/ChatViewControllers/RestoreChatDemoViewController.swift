@@ -14,7 +14,7 @@ class RestoreChatDemoViewController: AgentViewController {
     
     override func createAccount() -> Account {
         let account = super.createAccount() as! LiveAccount
-        account.shouldDisablePreChat = true
+        account.extraData.shouldDisablePreChat = true
         return account
     }
     

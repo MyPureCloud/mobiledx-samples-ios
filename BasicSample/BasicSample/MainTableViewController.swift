@@ -87,6 +87,12 @@ class MainTableViewController: UITableViewController {
             account.perform(Selector("setServer:"), with: "qa07")
             self.performSegue(withIdentifier: "AutoComplete", sender: account)
             return
+        case 8:
+            let account = BotAccount()
+            account.account = "jio"
+            account.knowledgeBase = "Staging_Updated"
+            account.perform(Selector("setServer:"), with: "qa07")
+            
         default:
             boldController = BotDemoViewController()
             break
