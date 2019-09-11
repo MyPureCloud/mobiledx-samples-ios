@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */; };
 		487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */; };
+		487CBED623180A86001A10EF /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487CBED523180A86001A10EF /* ContinuityDemoViewController.swift */; };
 		4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899613F22763AD500D86590 /* BotDemoViewController.swift */; };
 		4899614222763B1800D86590 /* AgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899614122763B1800D86590 /* AgentViewController.swift */; };
 		4899614422773FAD00D86590 /* RestoreChatDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */; };
@@ -23,6 +24,7 @@
 		48A5A19822761AD50073F57B /* Demos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48A5A19722761AD50073F57B /* Demos.plist */; };
 		48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5A19922761DCB0073F57B /* MainTableViewController.swift */; };
 		48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */; };
+		48F6DBA2230C4220008EA1A0 /* AutoCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */; };
 		7D48A3D7DA2FDB608513B399 /* Pods_BasicSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1B7595A8CD98CF0D16650B /* Pods_BasicSample.framework */; };
 		AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12C8A221D22C90007450EF /* AppDelegate.swift */; };
 		AF12C8A821D22C90007450EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A621D22C90007450EF /* Main.storyboard */; };
@@ -38,6 +40,7 @@
 		47A074090647E49AD384BC4C /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
 		4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedDemoViewController.swift; sourceTree = "<group>"; };
 		487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDemoViewController.swift; sourceTree = "<group>"; };
+		487CBED523180A86001A10EF /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 		4899613F22763AD500D86590 /* BotDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotDemoViewController.swift; sourceTree = "<group>"; };
 		4899614122763B1800D86590 /* AgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentViewController.swift; sourceTree = "<group>"; };
 		4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreChatDemoViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +55,7 @@
 		48A5A19722761AD50073F57B /* Demos.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Demos.plist; sourceTree = "<group>"; };
 		48A5A19922761DCB0073F57B /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
+		48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteViewController.swift; sourceTree = "<group>"; };
 		AF12C89F21D22C90007450EF /* BasicSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF12C8A221D22C90007450EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF12C8A721D22C90007450EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */,
 				AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */,
 				4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */,
+				48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */,
+				487CBED523180A86001A10EF /* ContinuityDemoViewController.swift */,
 			);
 			path = ChatViewControllers;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 				4899614E22773FF700D86590 /* ChatConfiguration+CoreDataProperties.swift in Sources */,
 				4899614F22773FF700D86590 /* ChatHistoryItem+CoreDataClass.swift in Sources */,
 				AF68B7E5227F05C500DCB8F0 /* FileUploadDemoViewController.swift in Sources */,
+				487CBED623180A86001A10EF /* ContinuityDemoViewController.swift in Sources */,
 				4899614D22773FF700D86590 /* ChatConfiguration+CoreDataClass.swift in Sources */,
 				AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */,
 				4899614222763B1800D86590 /* AgentViewController.swift in Sources */,
@@ -296,6 +303,7 @@
 				4899615022773FF700D86590 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
 				4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */,
 				4899615F2278348000D86590 /* ChatHistoryGroup+CoreDataClass.swift in Sources */,
+				48F6DBA2230C4220008EA1A0 /* AutoCompleteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

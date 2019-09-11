@@ -80,6 +80,13 @@ class MainTableViewController: UITableViewController {
             }
 
             break
+        case 7:
+            let account = BotAccount()
+            account.account = "jio"
+            account.knowledgeBase = "Staging_Updated"
+            account.perform(Selector("setServer:"), with: "qa07")
+            self.performSegue(withIdentifier: "AutoComplete", sender: account)
+            return
         default:
             boldController = BotDemoViewController()
             break
@@ -92,6 +99,8 @@ class MainTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? AvailibilityViewController {
             controller.chatVC = sender as? BotDemoViewController
+        } else if let controller = segue.destination as? AutoCompleteViewController {
+            controller.account = sender as? Account
         }
     }
     

@@ -44,5 +44,11 @@
 		<key>icon</key>
 		<string>search</string>
 	</dict>
+	<dict>
+		<key>title</key>
+		<string>Auto Complete</string>
+		<key>icon</key>
+		<string>autocomplete</string>
+	</dict>
 </array>
 </plist>
