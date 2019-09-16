@@ -23,6 +23,7 @@
 		48A5A19822761AD50073F57B /* Demos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48A5A19722761AD50073F57B /* Demos.plist */; };
 		48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5A19922761DCB0073F57B /* MainTableViewController.swift */; };
 		48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */; };
+		48F6DBA2230C4220008EA1A0 /* AutoCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */; };
 		525DCC976EE04ADA93B5DF7A /* Pods_BasicSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7492039DEC6CFEA2E7A434C6 /* Pods_BasicSample.framework */; };
 		AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12C8A221D22C90007450EF /* AppDelegate.swift */; };
 		AF12C8A821D22C90007450EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A621D22C90007450EF /* Main.storyboard */; };
@@ -50,6 +51,7 @@
 		48A5A19722761AD50073F57B /* Demos.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Demos.plist; sourceTree = "<group>"; };
 		48A5A19922761DCB0073F57B /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
+		48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteViewController.swift; sourceTree = "<group>"; };
 		72BDBE00DA32CF8081F612FB /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
 		7492039DEC6CFEA2E7A434C6 /* Pods_BasicSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF12C89F21D22C90007450EF /* BasicSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,8 +63,8 @@
 		AF31F5E722A3F1F00033786E /* BasicSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicSample.entitlements; sourceTree = "<group>"; };
 		AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
-		FA862DA4EF45EA398B613F34 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
 		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
+		FA862DA4EF45EA398B613F34 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,8 @@
 				4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */,
 				AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */,
 				4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */,
+				48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */,
+				AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */,
 				ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */,
 			);
 			path = ChatViewControllers;
@@ -144,7 +148,6 @@
 				AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */,
 				AF12C8AE21D22C91007450EF /* Info.plist */,
 				48A5A19722761AD50073F57B /* Demos.plist */,
-				AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */,
 				48A5A19922761DCB0073F57B /* MainTableViewController.swift */,
 				48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */,
 			);
@@ -315,6 +318,7 @@
 				4899615022773FF700D86590 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
 				4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */,
 				4899615F2278348000D86590 /* ChatHistoryGroup+CoreDataClass.swift in Sources */,
+				48F6DBA2230C4220008EA1A0 /* AutoCompleteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
