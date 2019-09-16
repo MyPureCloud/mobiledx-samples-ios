@@ -43,7 +43,15 @@ class AutoCompleteViewController: UIViewController {
         }
         if segue.identifier == "Top" {
             controller.autoCompleteOnTop = true
+            
+            // Testing configuration
+            let config = SearchViewConfiguration()
+            let autoCompleteConfig = AutoCompleteConfiguration()
+            autoCompleteConfig.textColor = UIColor.red
+            config.autoCompleteConfiguration = autoCompleteConfig
+            controller.configuration = config
         }
+        
         controller.delegate = self
         controller.account = self.account
         controller.view.layer.borderColor = UIColor.red.cgColor
