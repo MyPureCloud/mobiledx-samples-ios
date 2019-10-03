@@ -81,6 +81,14 @@ class AutoCompleteViewController: UIViewController {
 }
 
 extension AutoCompleteViewController: SearchViewControllerDelegate {
+    func didClickUploadFile() {
+        
+    }
+    
+    func isTyping(_ isTyping: Bool) {
+        
+    }
+    
     func didSelectSuggestion(_ suggestion: [String : NSCopying]) {
         
     }
@@ -92,10 +100,4 @@ extension AutoCompleteViewController: SearchViewControllerDelegate {
     func speechRecognitionDidFail(with status: NRSpeechRecognizerAuthorizationStatus) {
         
     }
-    
-    func updateHeight(with diffHeight: CGFloat) {
-//        self.chatHeightConstraint.constant += diffHeight
-    }
-    
-    
 }
