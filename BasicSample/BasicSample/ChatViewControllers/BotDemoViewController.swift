@@ -13,8 +13,9 @@ class BotDemoViewController: UIViewController {
     
     func createAccount() -> Account {
         let account = BotAccount()
-        account.account = "nanorep"
-        account.knowledgeBase = "English"
+        account.account = "jio"
+        account.knowledgeBase = "Staging_Updated"
+        account.perform(Selector("setServer:"), with: "qa07")
         return account
     }
     
