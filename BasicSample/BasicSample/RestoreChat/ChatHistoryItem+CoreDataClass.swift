@@ -22,7 +22,7 @@ public class ChatHistoryItem: NSManagedObject, StorableChatElement {
             self.scope = Int16(newValue.rawValue)
         }
         get {
-            return StatementScope(rawValue: Int(self.scope)) ?? StatementScope.None
+            return StatementScope(rawValue: Int32(Int16(Int(self.scope)))) 
         }
     }
     

@@ -13,8 +13,9 @@ class BotDemoViewController: UIViewController {
     
     func createAccount() -> Account {
         let account = BotAccount()
-        account.account = "nanorep"
-        account.knowledgeBase = "English"
+        account.account = "jio"
+        account.knowledgeBase = "Staging_Updated"
+        account.perform(Selector("setServer:"), with: "qa07")
         return account
     }
     
@@ -25,6 +26,7 @@ class BotDemoViewController: UIViewController {
         self.view.backgroundColor = .white
         chatController = ChatController(account: createAccount())
         chatController.continuityProvider = self
+        chatController.speechReconitionDelegate = self
         chatController.delegate = self
     }
     
@@ -49,6 +51,7 @@ class BotDemoViewController: UIViewController {
 
 extension BotDemoViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
+        viewController.modalPresentationStyle = .fullScreen
         self.navigationController?.present(viewController, animated: false, completion: nil)
         viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(BotDemoViewController.dismissChat(_:)))
     }
@@ -101,4 +104,12 @@ extension BotDemoViewController: ContinuityProvider{
     func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
         handler(UserDefaults.standard.value(forKey: key) as? String)
     }
+}
+
+extension BotDemoViewController: SpeechReconitionDelegate {
+    func speechRecognitionStatus(_ status: NRSpeechRecognizerAuthorizationStatus) {
+        
+    }
+    
+    
 }
