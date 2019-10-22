@@ -66,7 +66,7 @@ class RestoreChat: ChatElementDelegate {
         return nil
     }
     
-    func fetch(_ from: Int, handler: (([Any]?) -> Void)!) {
+    func fetch(_ from: Int, handler: (([StorableChatElement]?) -> Void)!) {
         if let items = self.group?.items {
             let temp = items.allObjects as! [ChatHistoryItem]
             let sorted = temp.sorted { (first, second) -> Bool in
