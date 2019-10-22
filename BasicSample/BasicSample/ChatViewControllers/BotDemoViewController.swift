@@ -21,7 +21,12 @@ class BotDemoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+        
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         chatController = ChatController(account: createAccount())
@@ -36,17 +41,17 @@ class BotDemoViewController: UIViewController {
         })
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension BotDemoViewController: ChatControllerDelegate {
@@ -74,11 +79,11 @@ extension BotDemoViewController: ChatControllerDelegate {
             print("ChatEnded")
             break
         case .unavailable:
-//            let alert = UIAlertController(title: "Chat Unavailable", message: "Please try again later.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            self.navigationController?.presentedViewController?.present(alert, animated: true, completion: {
-//                self.dismissChat(nil)
-//            })
+            //            let alert = UIAlertController(title: "Chat Unavailable", message: "Please try again later.", preferredStyle: .alert)
+            //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            //            self.navigationController?.presentedViewController?.present(alert, animated: true, completion: {
+            //                self.dismissChat(nil)
+            //            })
             print("ChatUnavailable")
             break
         case .pending:
