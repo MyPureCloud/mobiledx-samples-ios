@@ -115,9 +115,11 @@ extension BotDemoViewController: SpeechReconitionDelegate {
 extension BotDemoViewController: ApplicationHandler {
     func didClickLink(_ url: String) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
-        } else {
-            // Fallback on earlier versions
+            if let link = URL(string: url) {
+                 UIApplication.shared.open(link, options: [:], completionHandler: nil)
+            }
+        } else if let link = URL(string: url) {
+           UIApplication.shared.openURL(link)
         }
     }
 
