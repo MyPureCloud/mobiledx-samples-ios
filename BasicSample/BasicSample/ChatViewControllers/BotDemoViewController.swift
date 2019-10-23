@@ -110,6 +110,18 @@ extension BotDemoViewController: SpeechReconitionDelegate {
     func speechRecognitionStatus(_ status: NRSpeechRecognizerAuthorizationStatus) {
         
     }
-    
-    
+}
+
+extension BotDemoViewController: ApplicationHandler {
+    func didClickLink(_ url: String) {
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+
+    func presenting(_ controller: UIViewController, shouldHandleClickedLink link: String) -> Bool {
+        return true
+    }
 }
