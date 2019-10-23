@@ -22,11 +22,6 @@ class BotDemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 13.0, *) {
-            // Always adopt a light interface style.
-            overrideUserInterfaceStyle = .light
-        }
-        
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         chatController = ChatController(account: createAccount())
