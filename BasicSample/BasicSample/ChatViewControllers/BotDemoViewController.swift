@@ -126,4 +126,13 @@ extension BotDemoViewController: ApplicationHandler {
     func presenting(_ controller: UIViewController, shouldHandleClickedLink link: String) -> Bool {
         return true
     }
+    
+    func didClick(toCall phoneNumber: String!) {
+        let phoneNum = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression, range: nil)
+        didClickLink("tel://" + phoneNum)
+    }
+    
+    func shouldHandleFormPresentation(_ formController: UIViewController!) -> Bool {
+        return false
+    }
 }
