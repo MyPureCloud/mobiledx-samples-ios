@@ -30,6 +30,7 @@ class BotDemoViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         chatController = ChatController(account: createAccount())
+        chatController.viewConfiguration.searchViewConfig.autoCompleteConfiguration?.backgroundColor = UIColor.red
         chatController.continuityProvider = self
         chatController.speechReconitionDelegate = self
         chatController.delegate = self
