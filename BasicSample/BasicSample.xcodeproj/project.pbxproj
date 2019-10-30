@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */; };
 		4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */; };
 		487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */; };
 		4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899613F22763AD500D86590 /* BotDemoViewController.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		2665FEF238F7DC8446694A24 /* Pods_BasicSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandOverHandler.swift; sourceTree = "<group>"; };
 		4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedDemoViewController.swift; sourceTree = "<group>"; };
 		487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDemoViewController.swift; sourceTree = "<group>"; };
 		4899613F22763AD500D86590 /* BotDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotDemoViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		483EA67A2369CA5000B9BBE1 /* HandOver */ = {
+			isa = PBXGroup;
+			children = (
+				483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */,
+			);
+			path = HandOver;
+			sourceTree = "<group>";
+		};
 		487351CA22784A260029F295 /* ChatViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +149,7 @@
 		AF12C8A121D22C90007450EF /* BasicSample */ = {
 			isa = PBXGroup;
 			children = (
+				483EA67A2369CA5000B9BBE1 /* HandOver */,
 				AF31F5E722A3F1F00033786E /* BasicSample.entitlements */,
 				487351CA22784A260029F295 /* ChatViewControllers */,
 				4899614522773FC200D86590 /* RestoreChat */,
@@ -291,6 +302,7 @@
 				4899614422773FAD00D86590 /* RestoreChatDemoViewController.swift in Sources */,
 				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
+				483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
 				4899614E22773FF700D86590 /* ChatConfiguration+CoreDataProperties.swift in Sources */,
