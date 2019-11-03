@@ -10,6 +10,8 @@ import Bold360AI
 class BotDemoViewController: UIViewController {
     
     var chatController: ChatController!
+    var handOver = HandOverHandler()
+    
     
     func createAccount() -> Account {
         let account = BotAccount()
@@ -25,7 +27,7 @@ class BotDemoViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         chatController = ChatController(account: createAccount())
-        chatController.viewConfiguration.searchViewConfig.autoCompleteConfiguration?.backgroundColor = UIColor.red
+        chatController.handOver = self.handOver
         chatController.continuityProvider = self
         chatController.speechReconitionDelegate = self
         chatController.delegate = self
@@ -137,3 +139,5 @@ extension BotDemoViewController: ApplicationHandler {
         return false
     }
 }
+
+
