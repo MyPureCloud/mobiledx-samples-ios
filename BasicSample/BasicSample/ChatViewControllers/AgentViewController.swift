@@ -7,18 +7,17 @@
 import UIKit
 import Bold360AI
 
-class AgentViewController: BotDemoViewController {
-
-    
+class AgentViewController: BotDemoViewController { 
     override func createAccount() -> Account {
         let liveAccount = LiveAccount()
         liveAccount.apiKey = "2300000001700000000:2279145895771367548:MGfXyj9naYgPjOZBruFSykZjIRPzT1jl"
+        // Oz account
+//        liveAccount.apiKey = "2300000001700000000:2278936004449775473:sHkdAhpSpMO/cnqzemsYUuf2iFOyPUYV"
         return liveAccount
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         
     }
@@ -27,7 +26,6 @@ class AgentViewController: BotDemoViewController {
         self.chatController.endChat()
     }
     
-
     override func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         super.shouldPresentChatViewController(viewController)
         viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(AgentViewController.endChat(_:)))

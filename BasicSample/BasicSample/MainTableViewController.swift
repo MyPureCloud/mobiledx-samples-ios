@@ -8,9 +8,8 @@ import UIKit
 import Bold360AI
 
 class MainTableViewController: UITableViewController {
-    
     var demos: [[String: String]]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,13 +39,13 @@ class MainTableViewController: UITableViewController {
         return cell
     }
     
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var boldController: UIViewController?
         switch indexPath.row {
         case 1:
             boldController = AgentViewController()
-            break
+            self.performSegue(withIdentifier: "presentChat", sender: boldController)
+            return
         case 2:
             boldController = HistoryDemoViewController()
             break
@@ -81,6 +80,19 @@ class MainTableViewController: UITableViewController {
             }
 
             break
+        case 7:
+            let account = BotAccount()
+            account.account = "jio"
+            account.knowledgeBase = "Staging_Updated"
+            account.perform(Selector("setServer:"), with: "qa07")
+            self.performSegue(withIdentifier: "AutoComplete", sender: account)
+            return
+        case 8:
+            let account = BotAccount()
+            account.account = "jio"
+            account.knowledgeBase = "Staging_Updated"
+            account.perform(Selector("setServer:"), with: "qa07")
+            
         default:
             boldController = BotDemoViewController()
             break
@@ -89,6 +101,19 @@ class MainTableViewController: UITableViewController {
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? AvailibilityViewController {
+            controller.chatVC = sender as? BotDemoViewController
+        } else if let controller = segue.destination as? AutoCompleteViewController {
+            controller.account = sender as? Account
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.tableView.reloadData()
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
