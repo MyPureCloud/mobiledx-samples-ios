@@ -7,10 +7,14 @@
 import UIKit
 import Bold360AI
 
-class AgentViewController: BotDemoViewController { 
+class AgentViewController: BotDemoViewController, AccountProvider {
+    var liveAccount = LiveAccount()
+    
     override func createAccount() -> Account {
-        let liveAccount = LiveAccount()
+        liveAccount = LiveAccount()
         liveAccount.apiKey = "2300000001700000000:2279145895771367548:MGfXyj9naYgPjOZBruFSykZjIRPzT1jl"
+       
+        liveAccount.extraData.setExtraParams(["initial_question":"why?","first_name":"eliza","address":"ADDRESS", "email":"w@w.com"])
         // Oz account
 //        liveAccount.apiKey = "2300000001700000000:2278936004449775473:sHkdAhpSpMO/cnqzemsYUuf2iFOyPUYV"
         return liveAccount
@@ -18,8 +22,8 @@ class AgentViewController: BotDemoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        chatController.accountProvider = self
         // Do any additional setup after loading the view.
-        
     }
     
     @objc func endChat(_ sender: UIBarButtonItem) {
