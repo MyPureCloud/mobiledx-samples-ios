@@ -49,25 +49,8 @@ class CustomFileUploadDemoVC: AgentViewController {
                     self.navigationController?.visibleViewController?.view.addSubview(self.uploadBtn)
                 }
             }
-            print("ChatStarted")
             break
-//        default:
-//            break
-        case .preparing:
-            break
-        case .started:
-            break
-        case .inQueue:
-            break
-        case .accepted:
-            break
-        case .ending:
-            break
-        case .ended:
-            break
-        case .unavailable:
-            break
-        @unknown default:
+        default:
             break
         }
     }
