@@ -10,6 +10,28 @@ import UIKit
 import Bold360AI
 
 class HandOverHandler: NSObject, ChatHandler {
+    var sessionID: String = ""
+    
+    var baseUrlComp =  URLComponents()
+    
+    var accountName: String = ""
+    
+    var knowledgeBase: String = ""
+    
+    var contextsNumber: Int = 0
+    
+    var kbLanguage: String = ""
+    
+    var from: String = ""
+    
+    var to: String = ""
+    
+    var chatProvider: String = ""
+    
+    var shouldPresentChatBar: Bool = false
+    
+    var tracker: EventTracker!
+    
     var delegate: ChatHandlerDelegate!
     
     var chatControllerDelegate: ChatControllerDelegate!

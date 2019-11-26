@@ -56,9 +56,11 @@ class MainTableViewController: UITableViewController {
             boldController = FileUploadDemoViewController()
             break
         case 5:
+            boldController = CustomFileUploadDemoVC()
+        case 6:
             boldController = self.storyboard?.instantiateViewController(withIdentifier: "Embed")
             break
-        case 6:
+        case 7:
             let account = BotAccount()
             account.account = "jio"
             account.knowledgeBase = "Staging_Updated"

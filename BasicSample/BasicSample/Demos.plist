@@ -34,6 +34,12 @@
 	</dict>
 	<dict>
 		<key>title</key>
+		<string>Custom File Upload</string>
+		<key>icon</key>
+		<string>upload</string>
+	</dict>
+	<dict>
+		<key>title</key>
 		<string>Embedded</string>
 		<key>icon</key>
 		<string>embed</string>
@@ -51,7 +57,7 @@
 		<string>autocomplete</string>
 	</dict>
 	<dict>
-        <key>title</key>
+		<key>title</key>
 		<string>Continuity</string>
 		<key>icon</key>
 		<string>continuity</string>

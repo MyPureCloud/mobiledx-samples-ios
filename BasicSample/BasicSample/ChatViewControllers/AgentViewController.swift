@@ -8,6 +8,8 @@ import UIKit
 import Bold360AI
 
 class AgentViewController: BotDemoViewController, AccountProvider {
+    var accountExtraData = AccountExtraData()
+    
     var liveAccount = LiveAccount()
     
     override func createAccount() -> Account {
@@ -32,6 +34,6 @@ class AgentViewController: BotDemoViewController, AccountProvider {
     
     override func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         super.shouldPresentChatViewController(viewController)
-        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(AgentViewController.endChat(_:)))
+//        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(AgentViewController.endChat(_:)))
     }
 }
