@@ -31,6 +31,7 @@
 		AF12C8AA21D22C91007450EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A921D22C91007450EF /* Assets.xcassets */; };
 		AF12C8AD21D22C91007450EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */; };
 		AF68B7E5227F05C500DCB8F0 /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */; };
+		AF911886238D5C1E007F5D3A /* CustomFileUploadDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF911885238D5C1E007F5D3A /* CustomFileUploadDemoVC.swift */; };
 		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
 		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		AF12C8AE21D22C91007450EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF31F5E722A3F1F00033786E /* BasicSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicSample.entitlements; sourceTree = "<group>"; };
 		AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
+		AF911885238D5C1E007F5D3A /* CustomFileUploadDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFileUploadDemoVC.swift; sourceTree = "<group>"; };
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
 		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 				4899614122763B1800D86590 /* AgentViewController.swift */,
 				487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */,
 				4899614322773FAD00D86590 /* RestoreChatDemoViewController.swift */,
+				AF911885238D5C1E007F5D3A /* CustomFileUploadDemoVC.swift */,
 				AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */,
 				4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */,
 				48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */,
@@ -300,6 +303,7 @@
 				48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */,
 				48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */,
 				4899614422773FAD00D86590 /* RestoreChatDemoViewController.swift in Sources */,
+				AF911886238D5C1E007F5D3A /* CustomFileUploadDemoVC.swift in Sources */,
 				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */,

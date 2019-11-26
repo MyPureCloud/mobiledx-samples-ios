@@ -13,10 +13,7 @@ class AgentViewController: BotDemoViewController, AccountProvider {
     override func createAccount() -> Account {
         liveAccount = LiveAccount()
         liveAccount.apiKey = "2300000001700000000:2279145895771367548:MGfXyj9naYgPjOZBruFSykZjIRPzT1jl"
-       
-        liveAccount.extraData.setExtraParams(["initial_question":"why?","first_name":"eliza","address":"ADDRESS", "email":"w@w.com"])
-        // Oz account
-//        liveAccount.apiKey = "2300000001700000000:2278936004449775473:sHkdAhpSpMO/cnqzemsYUuf2iFOyPUYV"
+
         return liveAccount
     }
     
