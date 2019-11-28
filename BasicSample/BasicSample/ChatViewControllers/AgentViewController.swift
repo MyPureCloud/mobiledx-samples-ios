@@ -14,7 +14,7 @@ class AgentViewController: BotDemoViewController, AccountProvider {
     
     override func createAccount() -> Account {
         liveAccount = LiveAccount()
-        liveAccount.apiKey = "{YOUR_API_KEY}"
+        liveAccount.apiKey = "2300000001700000000:2279145895771367548:MGfXyj9naYgPjOZBruFSykZjIRPzT1jl"
 
         return liveAccount
     }
