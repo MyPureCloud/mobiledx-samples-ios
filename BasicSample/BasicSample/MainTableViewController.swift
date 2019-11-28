@@ -62,9 +62,8 @@ class MainTableViewController: UITableViewController {
             break
         case 7:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
             NanoRep.shared()?.prepare(with: account)
             NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in
                 guard let config = configuration else {
@@ -82,18 +81,16 @@ class MainTableViewController: UITableViewController {
             }
 
             break
-        case 7:
-            let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
-            self.performSegue(withIdentifier: "AutoComplete", sender: account)
-            return
         case 8:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
+            self.performSegue(withIdentifier: "AutoComplete", sender: account)
+            return
+        case 9:
+            let account = BotAccount()
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
             
         default:
             boldController = BotDemoViewController()

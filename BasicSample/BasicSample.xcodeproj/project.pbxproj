@@ -30,8 +30,8 @@
 		AF12C8A821D22C90007450EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A621D22C90007450EF /* Main.storyboard */; };
 		AF12C8AA21D22C91007450EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A921D22C91007450EF /* Assets.xcassets */; };
 		AF12C8AD21D22C91007450EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */; };
-		AF68B7E5227F05C500DCB8F0 /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */; };
 		AF91186C238D1583007F5D3A /* CustomFileUploadDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91186B238D1583007F5D3A /* CustomFileUploadDemoVC.swift */; };
+		AF911888239000DB007F5D3A /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */; };
 		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
 		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -65,8 +65,8 @@
 		AF12C8AC21D22C91007450EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF12C8AE21D22C91007450EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF31F5E722A3F1F00033786E /* BasicSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicSample.entitlements; sourceTree = "<group>"; };
-		AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
 		AF91186B238D1583007F5D3A /* CustomFileUploadDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFileUploadDemoVC.swift; sourceTree = "<group>"; };
+		AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
 		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,7 +170,7 @@
 		AF91186D238D1590007F5D3A /* FileUpload */ = {
 			isa = PBXGroup;
 			children = (
-				AF68B7E4227F05C500DCB8F0 /* FileUploadDemoViewController.swift */,
+				AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */,
 				AF91186B238D1583007F5D3A /* CustomFileUploadDemoVC.swift */,
 			);
 			path = FileUpload;
@@ -318,8 +318,8 @@
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
 				4899614E22773FF700D86590 /* ChatConfiguration+CoreDataProperties.swift in Sources */,
+				AF911888239000DB007F5D3A /* FileUploadDemoViewController.swift in Sources */,
 				4899614F22773FF700D86590 /* ChatHistoryItem+CoreDataClass.swift in Sources */,
-				AF68B7E5227F05C500DCB8F0 /* FileUploadDemoViewController.swift in Sources */,
 				4899614D22773FF700D86590 /* ChatConfiguration+CoreDataClass.swift in Sources */,
 				AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */,
 				4899614222763B1800D86590 /* AgentViewController.swift in Sources */,
