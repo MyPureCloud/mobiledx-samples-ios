@@ -9,83 +9,53 @@
 import UIKit
 import Bold360AI
 
-class HandOverHandler: NSObject, ChatHandler {
-    var sessionID: String = ""
+class HandOverHandler: HandOver {
     
-    var baseUrlComp =  URLComponents()
     
-    var accountName: String = ""
-    
-    var knowledgeBase: String = ""
-    
-    var contextsNumber: Int = 0
-    
-    var kbLanguage: String = ""
-    
-    var from: String = ""
-    
-    var to: String = ""
-    
-    var chatProvider: String = ""
-    
-    var shouldPresentChatBar: Bool = false
-    
-    var tracker: EventTracker!
-    
-    var delegate: ChatHandlerDelegate!
-    
-    var chatControllerDelegate: ChatControllerDelegate!
-    
-    var chatHandlerProvider: ChatHandlerProvider!
-    
-    var isFileTransferEnabled: Bool {
+    override var isAutocompleteEnabled: Bool {
         return false
     }
     
-    var isAutocompleteEnabled: Bool {
-        return false
-    }
-    
-    func startChat(_ chatHandlerParams: [String : Any]?) {
+    override func startChat(_ chatHandlerParams: [String : Any]?) {
         // Present system message
         
         
         // Do the connection to the chat provider
     }
     
-    func endChat() {
+    override func endChat() {
         
     }
     
-    func postStatement(_ statement: StorableChatElement) {
+    override func postStatement(_ statement: StorableChatElement) {
         
         // Configure the bubble
-        statement.configuration = self.chatHandlerProvider.configuration(for: .OutgoingElement)
-        self.delegate.presentStatement(statement)
+        statement.configuration = self.chatHandlerProvider?.configuration(for: .OutgoingElement)
+        self.delegate?.presentStatement(statement)
         
         // Updated the double "V" sign for read notification
         self.perform(#selector(HandOverHandler.updateBubble(statement:)), with: statement, afterDelay: 3)
         
         // Just for testing you can cancel the handover by typing stop
         if statement.text == "Stop" {
-            self.chatHandlerProvider.didEndChat(self)
+            self.chatHandlerProvider?.didEndChat(self)
         }
     }
     
-    func didStartTyping(_ isTyping: Bool) {
+    override func didStartTyping(_ isTyping: Bool) {
         
     }
     
-    func handleClickedLink(_ link: URL!) {
+    override func handleClickedLink(_ link: URL!) {
         
     }
     
-    func handleEvent(_ eventParams: [AnyHashable : Any]!) {
+    override func handleEvent(_ eventParams: [AnyHashable : Any]!) {
         
     }
     
     @objc func updateBubble(statement: StorableChatElement) {
-        self.delegate.update(StatementStatus.Pending, element: statement)
+        self.delegate?.update(StatementStatus.Pending, element: statement)
     }
 }
 
