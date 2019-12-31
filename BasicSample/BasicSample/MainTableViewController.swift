@@ -62,11 +62,10 @@ class MainTableViewController: UITableViewController {
             break
         case 7:
             let account = BotAccount()
-            account.account = "Skrill"
-            account.knowledgeBase = "English"
-//            account.perform(Selector("setServer:"), with: "qa07")
-            account.apiKey = "961ce682-9f70-4b9a-b809-2a338714c31b"
-            account.nanorepContext = ["Platform": "Mobile"]
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
+            account.apiKey = "{YOUR_API_KEY}"
+            account.nanorepContext = ["{CONTEXT_NAME}": "{CONTEXT_VALUE}"]
             account.allContextsMandatory = true
             NanoRep.shared()?.prepare(with: account)
             NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in
@@ -87,17 +86,14 @@ class MainTableViewController: UITableViewController {
             break
         case 8:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
             self.performSegue(withIdentifier: "AutoComplete", sender: account)
             return
         case 9:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
-            
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
         default:
             boldController = BotDemoViewController()
             break

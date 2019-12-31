@@ -39,7 +39,7 @@ class AvailibilityViewController: UIViewController {
     
     func createAccount() -> LiveAccount {
         let liveAccount = LiveAccount()
-        liveAccount.apiKey = "2300000001700000000:2279145895771367548:MGfXyj9naYgPjOZBruFSykZjIRPzT1jl"
+        liveAccount.apiKey = "{YOUR_API_KEY}"
         return liveAccount
     }
 }

@@ -15,13 +15,8 @@ class BotDemoViewController: UIViewController {
     
     func createAccount() -> Account {
         let account = BotAccount()
-        account.account = "jio"
-        account.knowledgeBase = "Staging_Updated"
-        account.perform(Selector("setServer:"), with: "qa07")
-//        account.account = "icici"
-//        account.knowledgeBase = "iMobile"
-//        account.apiKey = "37a4b6ea-ba69-4644-a465-89e1bcc4e9d2"
-//        account.nanorepContext = ["features": "accbal|cc|ifsc|bill|vpa|offers|atm|gupshup"]
+        account.account = "{YOUR_ACCOUNT}"
+        account.knowledgeBase = "{YOUR_KB}"
         return account
     }
     
