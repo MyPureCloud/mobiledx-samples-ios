@@ -62,16 +62,18 @@ class MainTableViewController: UITableViewController {
             break
         case 7:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
+            account.apiKey = "{YOUR_API_KEY}"
+            account.nanorepContext = ["{CONTEXT_NAME}": "{CONTEXT_VALUE}"]
+            account.allContextsMandatory = true
             NanoRep.shared()?.prepare(with: account)
             NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in
                 guard let config = configuration else {
                     print(error.debugDescription)
                     return
                 }
-                config.useLabels = true
+                config.faqPresentationType = .supportCenter
                 DispatchQueue.main.async {
                     let widgetViewController = NRWidgetViewController()
 //                    widgetViewController.infoHandler = self
@@ -84,17 +86,14 @@ class MainTableViewController: UITableViewController {
             break
         case 8:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
             self.performSegue(withIdentifier: "AutoComplete", sender: account)
             return
         case 9:
             let account = BotAccount()
-            account.account = "jio"
-            account.knowledgeBase = "Staging_Updated"
-            account.perform(Selector("setServer:"), with: "qa07")
-            
+            account.account = "{YOUR_ACCOUNT}"
+            account.knowledgeBase = "{YOUR_KB}"
         default:
             boldController = BotDemoViewController()
             break
