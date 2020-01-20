@@ -49,7 +49,7 @@ class MainTableViewController: UITableViewController {
             if #available(iOS 13.0, *) {
                 liveVC = self.storyboard?.instantiateViewController(identifier: "LiveAccountViewController")
             } else {
-                // Fallback on earlier versions
+                liveVC = self.storyboard?.instantiateViewController(withIdentifier: "LiveAccountViewController") as? LiveAccountViewController
             }
             liveVC?.loadChat = {
                 let account = LiveAccount()
