@@ -9,15 +9,9 @@ import Bold360AI
 
 class AgentViewController: BotDemoViewController, AccountProvider {
     var accountExtraData = AccountExtraData()
-    
-    var liveAccount = LiveAccount()
-    
-    override func createAccount() -> Account {
-        liveAccount = LiveAccount()
-        liveAccount.apiKey = "{YOUR_API_KEY}"
 
-        return liveAccount
-    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

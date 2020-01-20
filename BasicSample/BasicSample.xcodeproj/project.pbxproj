@@ -9,6 +9,23 @@
 /* Begin PBXBuildFile section */
 		483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */; };
 		4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */; };
+		484F087023D5AFE30013046C /* LiveAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F086F23D5AFE30013046C /* LiveAccountViewController.swift */; };
+		486C0B1523D4620D00544AAE /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B1323D4620D00544AAE /* AccountTableViewController.swift */; };
+		486C0B1623D4620D00544AAE /* AccountTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B1423D4620D00544AAE /* AccountTableViewController.xib */; };
+		486C0B2023D4624700544AAE /* InputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B1723D4624500544AAE /* InputTableViewCell.xib */; };
+		486C0B2123D4624700544AAE /* AddContextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B1823D4624500544AAE /* AddContextTableViewCell.xib */; };
+		486C0B2223D4624700544AAE /* ContextsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B1923D4624600544AAE /* ContextsTableViewCell.swift */; };
+		486C0B2323D4624700544AAE /* ContextsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B1A23D4624600544AAE /* ContextsTableViewCell.xib */; };
+		486C0B2423D4624700544AAE /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B1B23D4624600544AAE /* InputTableViewCell.swift */; };
+		486C0B2523D4624700544AAE /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B1C23D4624600544AAE /* SwitchTableViewCell.xib */; };
+		486C0B2623D4624700544AAE /* AccountDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B1D23D4624600544AAE /* AccountDataTableViewCell.swift */; };
+		486C0B2723D4624700544AAE /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B1E23D4624600544AAE /* SwitchTableViewCell.swift */; };
+		486C0B2823D4624700544AAE /* AddContextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B1F23D4624600544AAE /* AddContextTableViewCell.swift */; };
+		486C0B2C23D462B000544AAE /* InitObjSearch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B2A23D462B000544AAE /* InitObjSearch.plist */; };
+		486C0B2D23D462B000544AAE /* InitObj.plist in Resources */ = {isa = PBXBuildFile; fileRef = 486C0B2B23D462B000544AAE /* InitObj.plist */; };
+		486C0B2F23D462CD00544AAE /* AccountHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B2E23D462CD00544AAE /* AccountHandler.swift */; };
+		486C0B3123D462F100544AAE /* InputItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B3023D462F100544AAE /* InputItemModel.swift */; };
+		486C0B3823D46C9100544AAE /* OptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C0B3723D46C9100544AAE /* OptionButton.swift */; };
 		487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */; };
 		4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899613F22763AD500D86590 /* BotDemoViewController.swift */; };
 		4899614222763B1800D86590 /* AgentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899614122763B1800D86590 /* AgentViewController.swift */; };
@@ -39,6 +56,23 @@
 /* Begin PBXFileReference section */
 		483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandOverHandler.swift; sourceTree = "<group>"; };
 		4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedDemoViewController.swift; sourceTree = "<group>"; };
+		484F086F23D5AFE30013046C /* LiveAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAccountViewController.swift; sourceTree = "<group>"; };
+		486C0B1323D4620D00544AAE /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
+		486C0B1423D4620D00544AAE /* AccountTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTableViewController.xib; sourceTree = "<group>"; };
+		486C0B1723D4624500544AAE /* InputTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputTableViewCell.xib; sourceTree = "<group>"; };
+		486C0B1823D4624500544AAE /* AddContextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddContextTableViewCell.xib; sourceTree = "<group>"; };
+		486C0B1923D4624600544AAE /* ContextsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextsTableViewCell.swift; sourceTree = "<group>"; };
+		486C0B1A23D4624600544AAE /* ContextsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContextsTableViewCell.xib; sourceTree = "<group>"; };
+		486C0B1B23D4624600544AAE /* InputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
+		486C0B1C23D4624600544AAE /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
+		486C0B1D23D4624600544AAE /* AccountDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDataTableViewCell.swift; sourceTree = "<group>"; };
+		486C0B1E23D4624600544AAE /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		486C0B1F23D4624600544AAE /* AddContextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContextTableViewCell.swift; sourceTree = "<group>"; };
+		486C0B2A23D462B000544AAE /* InitObjSearch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitObjSearch.plist; sourceTree = "<group>"; };
+		486C0B2B23D462B000544AAE /* InitObj.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitObj.plist; sourceTree = "<group>"; };
+		486C0B2E23D462CD00544AAE /* AccountHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountHandler.swift; sourceTree = "<group>"; };
+		486C0B3023D462F100544AAE /* InputItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputItemModel.swift; sourceTree = "<group>"; };
+		486C0B3723D46C9100544AAE /* OptionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionButton.swift; sourceTree = "<group>"; };
 		487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDemoViewController.swift; sourceTree = "<group>"; };
 		4899613F22763AD500D86590 /* BotDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotDemoViewController.swift; sourceTree = "<group>"; };
 		4899614122763B1800D86590 /* AgentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentViewController.swift; sourceTree = "<group>"; };
@@ -86,9 +120,38 @@
 		483EA67A2369CA5000B9BBE1 /* HandOver */ = {
 			isa = PBXGroup;
 			children = (
+				AF12C8A621D22C90007450EF /* Main.storyboard */,
 				483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */,
 			);
 			path = HandOver;
+			sourceTree = "<group>";
+		};
+		486C0B2923D4625600544AAE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				486C0B1D23D4624600544AAE /* AccountDataTableViewCell.swift */,
+				486C0B1F23D4624600544AAE /* AddContextTableViewCell.swift */,
+				486C0B1823D4624500544AAE /* AddContextTableViewCell.xib */,
+				486C0B1923D4624600544AAE /* ContextsTableViewCell.swift */,
+				486C0B1A23D4624600544AAE /* ContextsTableViewCell.xib */,
+				486C0B1B23D4624600544AAE /* InputTableViewCell.swift */,
+				486C0B1723D4624500544AAE /* InputTableViewCell.xib */,
+				486C0B1E23D4624600544AAE /* SwitchTableViewCell.swift */,
+				486C0B1C23D4624600544AAE /* SwitchTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		486C0B3223D462F600544AAE /* AccountHandler */ = {
+			isa = PBXGroup;
+			children = (
+				486C0B3723D46C9100544AAE /* OptionButton.swift */,
+				486C0B2E23D462CD00544AAE /* AccountHandler.swift */,
+				486C0B3023D462F100544AAE /* InputItemModel.swift */,
+				486C0B2B23D462B000544AAE /* InitObj.plist */,
+				486C0B2A23D462B000544AAE /* InitObjSearch.plist */,
+			);
+			path = AccountHandler;
 			sourceTree = "<group>";
 		};
 		487351CA22784A260029F295 /* ChatViewControllers */ = {
@@ -151,18 +214,22 @@
 		AF12C8A121D22C90007450EF /* BasicSample */ = {
 			isa = PBXGroup;
 			children = (
+				486C0B3223D462F600544AAE /* AccountHandler */,
+				486C0B2923D4625600544AAE /* Cells */,
 				483EA67A2369CA5000B9BBE1 /* HandOver */,
 				AF31F5E722A3F1F00033786E /* BasicSample.entitlements */,
 				487351CA22784A260029F295 /* ChatViewControllers */,
 				4899614522773FC200D86590 /* RestoreChat */,
 				AF12C8A221D22C90007450EF /* AppDelegate.swift */,
-				AF12C8A621D22C90007450EF /* Main.storyboard */,
 				AF12C8A921D22C91007450EF /* Assets.xcassets */,
+				48A5A19722761AD50073F57B /* Demos.plist */,
 				AF12C8AB21D22C91007450EF /* LaunchScreen.storyboard */,
 				AF12C8AE21D22C91007450EF /* Info.plist */,
-				48A5A19722761AD50073F57B /* Demos.plist */,
+				486C0B1323D4620D00544AAE /* AccountTableViewController.swift */,
+				486C0B1423D4620D00544AAE /* AccountTableViewController.xib */,
 				48A5A19922761DCB0073F57B /* MainTableViewController.swift */,
 				48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */,
+				484F086F23D5AFE30013046C /* LiveAccountViewController.swift */,
 			);
 			path = BasicSample;
 			sourceTree = "<group>";
@@ -250,10 +317,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				486C0B1623D4620D00544AAE /* AccountTableViewController.xib in Resources */,
 				AF12C8AD21D22C91007450EF /* LaunchScreen.storyboard in Resources */,
+				486C0B2C23D462B000544AAE /* InitObjSearch.plist in Resources */,
 				48A5A19822761AD50073F57B /* Demos.plist in Resources */,
 				AF12C8AA21D22C91007450EF /* Assets.xcassets in Resources */,
+				486C0B2023D4624700544AAE /* InputTableViewCell.xib in Resources */,
+				486C0B2323D4624700544AAE /* ContextsTableViewCell.xib in Resources */,
+				486C0B2523D4624700544AAE /* SwitchTableViewCell.xib in Resources */,
+				486C0B2D23D462B000544AAE /* InitObj.plist in Resources */,
 				AF12C8A821D22C90007450EF /* Main.storyboard in Resources */,
+				486C0B2123D4624700544AAE /* AddContextTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,26 +381,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				489961602278348000D86590 /* ChatHistoryGroup+CoreDataProperties.swift in Sources */,
+				486C0B2223D4624700544AAE /* ContextsTableViewCell.swift in Sources */,
 				48996152227741B300D86590 /* RestoreChat.swift in Sources */,
 				48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */,
 				48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */,
+				486C0B2723D4624700544AAE /* SwitchTableViewCell.swift in Sources */,
+				486C0B2423D4624700544AAE /* InputTableViewCell.swift in Sources */,
+				486C0B3823D46C9100544AAE /* OptionButton.swift in Sources */,
 				4899614422773FAD00D86590 /* RestoreChatDemoViewController.swift in Sources */,
 				AF91186C238D1583007F5D3A /* CustomFileUploadDemoVC.swift in Sources */,
 				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
+				486C0B2823D4624700544AAE /* AddContextTableViewCell.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
+				486C0B2623D4624700544AAE /* AccountDataTableViewCell.swift in Sources */,
 				4899614E22773FF700D86590 /* ChatConfiguration+CoreDataProperties.swift in Sources */,
 				AF911888239000DB007F5D3A /* FileUploadDemoViewController.swift in Sources */,
 				4899614F22773FF700D86590 /* ChatHistoryItem+CoreDataClass.swift in Sources */,
 				4899614D22773FF700D86590 /* ChatConfiguration+CoreDataClass.swift in Sources */,
 				AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */,
+				484F087023D5AFE30013046C /* LiveAccountViewController.swift in Sources */,
 				4899614222763B1800D86590 /* AgentViewController.swift in Sources */,
+				486C0B1523D4620D00544AAE /* AccountTableViewController.swift in Sources */,
 				4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */,
 				4899615022773FF700D86590 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
 				4899614022763AD500D86590 /* BotDemoViewController.swift in Sources */,
 				4899615F2278348000D86590 /* ChatHistoryGroup+CoreDataClass.swift in Sources */,
+				486C0B3123D462F100544AAE /* InputItemModel.swift in Sources */,
+				486C0B2F23D462CD00544AAE /* AccountHandler.swift in Sources */,
 				48F6DBA2230C4220008EA1A0 /* AutoCompleteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

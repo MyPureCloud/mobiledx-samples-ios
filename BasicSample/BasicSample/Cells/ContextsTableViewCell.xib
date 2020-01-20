@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="FvV-CU-w1E" customClass="ContextsTableViewCell" customModule="BoldDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FvV-CU-w1E" id="rFB-Hc-81k">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Context Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ahy-by-4LN">
+                        <rect key="frame" x="16" y="15" width="165" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="OM8-rS-0kM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="FvV-CU-w1E" id="ACb-hG-TfU"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Context Value" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tb9-4s-iTe">
+                        <rect key="frame" x="194" y="15" width="165" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="jIf-zX-2JB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="FvV-CU-w1E" id="hOZ-WV-aYX"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ahy-by-4LN" secondAttribute="bottom" constant="1" id="8Qa-7e-7Zh"/>
+                <constraint firstAttribute="trailing" secondItem="Tb9-4s-iTe" secondAttribute="trailing" constant="16" id="Idl-8M-hb1"/>
+                <constraint firstAttribute="bottom" secondItem="Tb9-4s-iTe" secondAttribute="bottom" constant="1" id="QeM-Qb-ifH"/>
+                <constraint firstItem="ahy-by-4LN" firstAttribute="width" secondItem="FvV-CU-w1E" secondAttribute="width" multiplier="0.44" id="XFm-mM-Dou"/>
+                <constraint firstItem="ahy-by-4LN" firstAttribute="leading" secondItem="FvV-CU-w1E" secondAttribute="leading" constant="16" id="tQq-Lk-Fy3"/>
+                <constraint firstItem="Tb9-4s-iTe" firstAttribute="width" secondItem="FvV-CU-w1E" secondAttribute="width" multiplier="0.44" id="vPy-bc-XvE"/>
+            </constraints>
+            <connections>
+                <outlet property="keyTextField" destination="ahy-by-4LN" id="4wo-im-a8Q"/>
+                <outlet property="valueTextField" destination="Tb9-4s-iTe" id="hxT-u4-hYR"/>
+            </connections>
+            <point key="canvasLocation" x="72.799999999999997" y="-52.173913043478265"/>
+        </tableViewCell>
+    </objects>
+</document>

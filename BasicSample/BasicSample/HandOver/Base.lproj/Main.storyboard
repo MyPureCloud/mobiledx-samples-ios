@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WMN-Tb-p2E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WMN-Tb-p2E">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -243,9 +243,6 @@
                                         <state key="normal" backgroundImage="availability">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <connections>
-                                            <action selector="refreshAvailability:" destination="401-GB-6sh" eventType="touchUpInside" id="K9h-dK-EAX"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -319,11 +316,51 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="CjK-gj-eKx" kind="relationship" relationship="rootViewController" id="oZ1-a8-o83"/>
+                        <segue destination="rjn-Wv-BKv" kind="presentation" identifier="LiveAgent" id="qCy-md-aWk"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v93-rm-5Bf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-81" y="-43"/>
+        </scene>
+        <!--Live Account View Controller-->
+        <scene sceneID="8z3-2f-5Kp">
+            <objects>
+                <viewController storyboardIdentifier="LiveAccountViewController" id="rjn-Wv-BKv" customClass="LiveAccountViewController" customModule="BasicSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="guv-C8-LSa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2300000001700000000:2279145895771367548:MGfXyj9naYgPjOZBruFSykZjIRPzT1jl" borderStyle="roundedRect" placeholder="Access Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oJD-6u-DXn">
+                                <rect key="frame" x="26" y="98" width="362" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHt-fv-xZO">
+                                <rect key="frame" x="171.5" y="287" width="71" height="30"/>
+                                <state key="normal" title="Start Chat"/>
+                                <connections>
+                                    <action selector="loadChat:" destination="rjn-Wv-BKv" eventType="touchUpInside" id="yaw-HU-a18"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GEW-kR-HqS" firstAttribute="trailing" secondItem="oJD-6u-DXn" secondAttribute="trailing" constant="26" id="8NX-iq-XIx"/>
+                            <constraint firstItem="ZHt-fv-xZO" firstAttribute="centerX" secondItem="GEW-kR-HqS" secondAttribute="centerX" id="9O5-7a-uyl"/>
+                            <constraint firstItem="oJD-6u-DXn" firstAttribute="leading" secondItem="GEW-kR-HqS" secondAttribute="leading" constant="26" id="9mz-9n-Jn8"/>
+                            <constraint firstItem="oJD-6u-DXn" firstAttribute="top" secondItem="GEW-kR-HqS" secondAttribute="top" constant="98" id="DJX-ZN-eEz"/>
+                            <constraint firstItem="ZHt-fv-xZO" firstAttribute="top" secondItem="oJD-6u-DXn" secondAttribute="bottom" constant="155" id="JzX-cL-Ut6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GEW-kR-HqS"/>
+                    </view>
+                    <connections>
+                        <outlet property="accessKeyTF" destination="oJD-6u-DXn" id="wIz-LU-HsN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5lh-h5-FZm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-81.159420289855078" y="685.71428571428567"/>
         </scene>
     </scenes>
     <resources>

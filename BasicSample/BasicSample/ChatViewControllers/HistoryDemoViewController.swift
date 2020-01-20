@@ -10,6 +10,7 @@ import CoreData
 class HistoryDemoViewController: BotDemoViewController {
 
     var restoreChat: RestoreChat?
+    var storeWelcomeMessage: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,5 +33,8 @@ class HistoryDemoViewController: BotDemoViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func shouldPresentWelcomeMessage() -> Bool {
+        return self.storeWelcomeMessage
+    }
 }

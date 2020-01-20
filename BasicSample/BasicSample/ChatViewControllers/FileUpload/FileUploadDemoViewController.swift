@@ -20,7 +20,7 @@ class FileUploadDemoViewController: AgentViewController {
 }
 
 extension FileUploadDemoViewController: OpalImagePickerControllerDelegate {
-    func didClickUploadFile() {
+    override func didClickUploadFile() {
         
         let actionSheet = UIAlertController(title: "Choose File Selector", message: nil, preferredStyle: .actionSheet)
         
