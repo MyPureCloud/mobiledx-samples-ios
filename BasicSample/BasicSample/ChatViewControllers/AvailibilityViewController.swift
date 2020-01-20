@@ -9,6 +9,7 @@ import Bold360AI
 
 class AvailibilityViewController: UIViewController {
     var chatVC: BotDemoViewController!
+    
     private var departments: [Department] = []
     @IBOutlet weak var availabilityBtn: UIButton!
     @IBOutlet weak var startChatBtn: UIButton!
@@ -29,18 +30,12 @@ class AvailibilityViewController: UIViewController {
         self.availabilityBtn.tintColor = UIColor.red
         self.startChatBtn.isEnabled = false
         
-        ChatController.fetchDepartments(self.createAccount()) { result in
+        ChatController.fetchDepartments(self.chatVC.account) { result in
             if let departments = result?.departments {
                 self.departments = departments
                 self.departmentsTableView.reloadData()
             }
         }
-    }
-    
-    func createAccount() -> LiveAccount {
-        let liveAccount = LiveAccount()
-        liveAccount.apiKey = "{YOUR_API_KEY}"
-        return liveAccount
     }
 }
 
@@ -65,10 +60,9 @@ extension AvailibilityViewController: UITableViewDataSource {
 
 extension AvailibilityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let account = self.createAccount()
-        account.extraData.departmentId = self.departments[indexPath.row].departmentId
+        (chatVC.account as? LiveAccount)?.extraData.departmentId = self.departments[indexPath.row].departmentId
         
-        ChatController.checkAvailability(account) { (availabilityResult) in
+        ChatController.checkAvailability(chatVC.account) { (availabilityResult) in
             print("refreshed availability")
             
             self.availabilityBtn.setBackgroundImage(#imageLiteral(resourceName: "availability"), for: .normal)

@@ -9,6 +9,7 @@ import Bold360AI
 
 class MainTableViewController: UITableViewController {
     var demos: [[String: String]]!
+    var boldController: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +41,24 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var boldController: UIViewController?
+        let accountVC = AccountTableViewController()
+        accountVC.dataFileName = "InitObjSearch"
         switch indexPath.row {
         case 1:
-            boldController = AgentViewController()
-            self.performSegue(withIdentifier: "presentChat", sender: boldController)
+            var liveVC: LiveAccountViewController?
+            if #available(iOS 13.0, *) {
+                liveVC = self.storyboard?.instantiateViewController(identifier: "LiveAccountViewController")
+            } else {
+                // Fallback on earlier versions
+            }
+            liveVC?.loadChat = {
+                let account = LiveAccount()
+                account.apiKey = $0
+                self.boldController = AgentViewController()
+                (self.boldController as? AgentViewController)?.account = account
+                self.performSegue(withIdentifier: "presentChat", sender: self.boldController)
+            }
+            self.navigationController?.present(liveVC!, animated: true, completion: nil)
             return
         case 2:
             boldController = HistoryDemoViewController()
@@ -61,34 +75,27 @@ class MainTableViewController: UITableViewController {
             boldController = self.storyboard?.instantiateViewController(withIdentifier: "Embed")
             break
         case 7:
-            let account = BotAccount()
-            account.account = "{YOUR_ACCOUNT}"
-            account.knowledgeBase = "{YOUR_KB}"
-            account.apiKey = "{YOUR_API_KEY}"
-            account.nanorepContext = ["{CONTEXT_NAME}": "{CONTEXT_VALUE}"]
-            account.allContextsMandatory = true
-            NanoRep.shared()?.prepare(with: account)
-            NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in
-                guard let config = configuration else {
-                    print(error.debugDescription)
-                    return
-                }
-                config.faqPresentationType = .supportCenter
-                DispatchQueue.main.async {
-                    let widgetViewController = NRWidgetViewController()
-//                    widgetViewController.infoHandler = self
-//                    widgetViewController.applicationHandler = self
-                    self.navigationController?.pushViewController(widgetViewController, animated: true)
-//                    self.navigationController?.present(widgetViewController, animated: true, completion: nil)
-                }
+            accountVC.didFetchAccount =  { account in
+                NanoRep.shared()?.prepare(with: account)
+                            NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in
+                                guard let config = configuration else {
+                                    print(error.debugDescription)
+                                    return
+                                }
+                                config.faqPresentationType = accountVC.faqPresentation
+                                DispatchQueue.main.async {
+                                    let widgetViewController = NRWidgetViewController()
+                                    self.navigationController?.pushViewController(widgetViewController, animated: true)
+                                }
+                            }
             }
-
-            break
+            self.navigationController?.pushViewController(accountVC, animated: true)
+            return
         case 8:
-            let account = BotAccount()
-            account.account = "{YOUR_ACCOUNT}"
-            account.knowledgeBase = "{YOUR_KB}"
-            self.performSegue(withIdentifier: "AutoComplete", sender: account)
+            accountVC.didFetchAccount = {
+                self.performSegue(withIdentifier: "AutoComplete", sender: $0)
+            }
+            self.navigationController?.pushViewController(accountVC, animated: true)
             return
         case 9:
             let account = BotAccount()
@@ -98,9 +105,9 @@ class MainTableViewController: UITableViewController {
             boldController = BotDemoViewController()
             break
         }
-        if let controller = boldController {
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+        accountVC.dataFileName = "InitObj"
+        accountVC.delegate = self
+        self.navigationController?.pushViewController(accountVC, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -114,52 +121,7 @@ class MainTableViewController: UITableViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.tableView.reloadData()
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     var extarctPlist: [[String: String]]? {
         if let path = Bundle.main.path(forResource: "Demos", ofType: "plist") {
             if let array = NSArray(contentsOfFile: path) as? [[String: String]] {
@@ -169,4 +131,17 @@ class MainTableViewController: UITableViewController {
         return nil
     }
 
+}
+
+extension MainTableViewController: AccountTableViewControllerDelegate {
+    func didPrepareAccount(handler: AccountHandler) {
+        guard let controller = self.boldController as? BotDemoViewController else {
+            return
+        }
+        controller.account = handler.botAccount
+        if let historyController = controller as? HistoryDemoViewController {
+            historyController.storeWelcomeMessage = handler.withWelcomeMessage
+        }
+         self.navigationController?.pushViewController(controller, animated: true)
+    }
 }

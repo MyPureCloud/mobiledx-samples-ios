@@ -11,21 +11,16 @@ class BotDemoViewController: UIViewController {
     
     var chatController: ChatController!
     var handOver = HandOverHandler()
+    var account: Account!
     
     
-    func createAccount() -> Account {
-        let account = BotAccount()
-        account.account = "{YOUR_ACCOUNT}"
-        account.knowledgeBase = "{YOUR_KB}"
-        return account
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        chatController = ChatController(account: createAccount())
+        chatController = ChatController(account: account)
         chatController.handOver = self.handOver
         chatController.continuityProvider = self
         chatController.speechReconitionDelegate = self
@@ -93,6 +88,10 @@ extension BotDemoViewController: ChatControllerDelegate {
             break
         }
     }
+    
+    func didClickUploadFile() {
+        
+    }
 }
 
 extension BotDemoViewController: ContinuityProvider{
@@ -104,7 +103,11 @@ extension BotDemoViewController: ContinuityProvider{
     }
     
     func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
-        handler(UserDefaults.standard.value(forKey: key) as? String)
+        if (key == "UserID") {
+            handler("112233443322154534")
+        } else {
+            handler(UserDefaults.standard.value(forKey: key) as? String)
+        }
     }
 }
 
