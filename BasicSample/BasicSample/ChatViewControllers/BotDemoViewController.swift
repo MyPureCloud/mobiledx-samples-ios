@@ -53,6 +53,14 @@ extension BotDemoViewController: ChatControllerDelegate {
         viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(BotDemoViewController.dismissChat(_:)))
     }
     
+    func didFailWithError(_ error: BLDError!) {
+        let alert = UIAlertController(title: "Error!", message: error.error.debugDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+            self.navigationController?.popToRootViewController(animated: true)
+        }))
+        self.navigationController?.present(alert, animated: true, completion: nil)
+    }
+    
     func didUpdateState(_ event: ChatStateEvent!) {
         switch event.state {
         case .preparing:
