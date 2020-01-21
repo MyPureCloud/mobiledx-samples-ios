@@ -18,7 +18,10 @@ class HandOverHandler: HandOver {
     
     override func startChat(_ chatHandlerParams: [String : Any]?) {
         // Present system message
-        
+        let system = RemoteChatElement(type: .SystemMessageElement, content: "This is Hand Over\nType Stop to get back to Bot")
+        system?.design = ChatElementDesignSystem
+        system?.configuration = self.chatHandlerProvider?.configuration(for: .SystemMessageElement)
+        self.delegate?.presentStatement(system!)
         
         // Do the connection to the chat provider
     }
@@ -35,11 +38,6 @@ class HandOverHandler: HandOver {
         
         // Updated the double "V" sign for read notification
         self.perform(#selector(HandOverHandler.updateBubble(statement:)), with: statement, afterDelay: 3)
-        
-        // Just for testing you can cancel the handover by typing stop
-        if statement.text == "Stop" {
-            self.chatHandlerProvider?.didEndChat(self)
-        }
     }
     
     override func didStartTyping(_ isTyping: Bool) {
@@ -55,7 +53,14 @@ class HandOverHandler: HandOver {
     }
     
     @objc func updateBubble(statement: StorableChatElement) {
-        self.delegate?.update(StatementStatus.Pending, element: statement)
+        self.delegate?.update(.OK, element: statement)
+        if statement.text == "Stop" {
+            let system = RemoteChatElement(type: .SystemMessageElement, content: "Bye Bye from Over")
+            system?.design = ChatElementDesignSystem
+            system?.configuration = self.chatHandlerProvider?.configuration(for: .SystemMessageElement)
+            self.delegate?.presentStatement(system!)
+            self.chatHandlerProvider?.didEndChat(self)
+        }
     }
 }
 
