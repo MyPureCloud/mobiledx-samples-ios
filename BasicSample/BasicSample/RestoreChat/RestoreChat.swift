@@ -82,7 +82,7 @@ class RestoreChat: ChatElementDelegate {
         
     }
     
-    func update(_ timestampId: TimeInterval, newTimestamp: TimeInterval, status: StatementStatus) {
+    func didUpdateChatElement(_ timestampId: TimeInterval, newTimestamp: TimeInterval, status: StatementStatus) {
         let fetchRequest = NSFetchRequest<ChatHistoryItem>(entityName: "ChatHistoryItem")
         let id = Int64(timestampId)
         fetchRequest.predicate = NSPredicate(format: "itemId == %@", NSNumber(value: id))
@@ -97,6 +97,4 @@ class RestoreChat: ChatElementDelegate {
             print("fetch failed")
         }
     }
-    
-
 }
