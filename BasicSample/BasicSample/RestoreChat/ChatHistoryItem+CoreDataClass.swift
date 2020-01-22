@@ -12,9 +12,6 @@ import Bold360AI
 public class ChatHistoryItem: NSManagedObject, StorableChatElement {
     public var userInputType: String!
     
-    
-    public var userInputType: String!
-    
     public var storageKey: String! {
         get {
             return self.json
