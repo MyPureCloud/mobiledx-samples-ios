@@ -29,6 +29,7 @@ class BotDemoViewController: UIViewController {
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         self.navigationController?.presentedViewController?.dismiss(animated: false, completion: {
+            self.chatController.terminate()
             self.navigationController?.popViewController(animated: true)
         })
     }

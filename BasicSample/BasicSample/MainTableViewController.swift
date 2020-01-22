@@ -105,6 +105,11 @@ class MainTableViewController: UITableViewController {
             boldController = BotDemoViewController()
             break
         }
+        
+        if #available(iOS 13.0, *) {
+            accountVC.view.backgroundColor = .systemBackground
+        }
+        
         accountVC.dataFileName = "InitObj"
         accountVC.delegate = self
         self.navigationController?.pushViewController(accountVC, animated: true)
