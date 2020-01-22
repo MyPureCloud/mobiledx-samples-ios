@@ -53,6 +53,7 @@ class HandOverHandler: HandOver {
     }
     
     @objc func updateBubble(statement: StorableChatElement) {
+        statement.status = .OK
         self.delegate?.update(.OK, element: statement)
         if statement.text == "Stop" {
             let system = RemoteChatElement(type: .SystemMessageElement, content: "Bye Bye from Over")
