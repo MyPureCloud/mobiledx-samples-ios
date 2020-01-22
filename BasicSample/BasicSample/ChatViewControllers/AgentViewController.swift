@@ -8,10 +8,7 @@ import UIKit
 import Bold360AI
 
 class AgentViewController: BotDemoViewController, AccountProvider {
-    var accountExtraData = AccountExtraData()
-
-    
-    
+    var accountExtraData: AccountExtraData = LiveAccountExtraData()
     
     override func viewDidLoad() {
         super.viewDidLoad()

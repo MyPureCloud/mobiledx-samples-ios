@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>value</key>
-		<string>nanorep</string>
+		<string>jio</string>
 		<key>key</key>
 		<string>account</string>
 		<key>type</key>
@@ -14,7 +14,7 @@
 	</dict>
 	<dict>
 		<key>value</key>
-		<string>English</string>
+		<string>Staging_Updated</string>
 		<key>key</key>
 		<string>kb</string>
 		<key>type</key>
@@ -30,7 +30,7 @@
 		<key>hint</key>
 		<string>API Key (optional)</string>
 		<key>value</key>
-		<string>cfeb2b63-785d-48dd-8546-b5444e25a63d</string>
+		<string>8bad6dea-8da4-4679-a23f-b10e62c84de8</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -39,6 +39,8 @@
 		<string>input</string>
 		<key>hint</key>
 		<string>Server (optional)</string>
+		<key>value</key>
+		<string>qa07</string>
 	</dict>
 	<dict>
 		<key>key</key>

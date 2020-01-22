@@ -48,16 +48,49 @@ class BotDemoViewController: UIViewController {
 
 extension BotDemoViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
-        viewController.modalPresentationStyle = .fullScreen
-        self.navigationController?.present(viewController, animated: false, completion: nil)
-        viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(BotDemoViewController.dismissChat(_:)))
+        DispatchQueue.main.async {
+           viewController.modalPresentationStyle = .fullScreen
+           self.navigationController?.present(viewController, animated: false, completion: nil)
+           viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(BotDemoViewController.dismissChat(_:)))
+        }
     }
     
     func didFailWithError(_ error: BLDError!) {
-        let alert = UIAlertController(title: "Error!", message: error.error.debugDescription, preferredStyle: .alert)
+        var errorMsg = String()
+        switch error.type {
+             case BLDChatErrorTypeFailedToStart:
+                 print("BLDChatErrorTypeFailedToStart")
+                 errorMsg = "BLDChatErrorTypeFailedToStart"
+                 break
+             case BLDChatErrorTypeFailedToFinish:
+                 print("BLDChatErrorTypeFailedToFinish")
+                 errorMsg = "BLDChatErrorTypeFailedToFinish"
+                 break
+             case BLDChatErrorTypeFailedToSubmitForm:
+                 print("BLDChatErrorTypeFailedToSubmitForm")
+                 errorMsg = "BLDChatErrorTypeFailedToSubmitForm"
+                 break
+             case GeneralErrorType:
+                 print("BLDChatErrorTypeGeneralErrorType")
+                 errorMsg = "BLDChatErrorTypeGeneralErrorType"
+                 break
+             case BLDChatErrorTypeNoAccesseKeyForLiveChat:
+                print("BLDChatErrorTypeNoAccesseKeyForLiveChat")
+                errorMsg = "BLDChatErrorTypeNoAccesseKeyForLiveChat"
+                 break
+             case BLDChatErrorTypeNoImplementationForHandOver:
+                print("BLDChatErrorTypeNoImplementationForHandOver")
+                errorMsg = "BLDChatErrorTypeNoImplementationForHandOver"
+                break
+             default:
+                 break
+         }
+        
+        let alert = UIAlertController(title: "Error!", message: errorMsg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
             self.navigationController?.popToRootViewController(animated: true)
         }))
+        
         self.navigationController?.present(alert, animated: true, completion: nil)
     }
     
@@ -97,9 +130,9 @@ extension BotDemoViewController: ChatControllerDelegate {
         }
     }
     
-    func didClickUploadFile() {
-        
-    }
+//    func didClickUploadFile() {
+//        
+//    }
 }
 
 extension BotDemoViewController: ContinuityProvider{
