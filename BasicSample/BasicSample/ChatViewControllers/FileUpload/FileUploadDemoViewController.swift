@@ -107,7 +107,6 @@ extension FileUploadDemoViewController: UIDocumentMenuDelegate, UIDocumentPicker
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         print("view was cancelled")
-        dismiss(animated: true, completion: nil)
     }
 }
 
