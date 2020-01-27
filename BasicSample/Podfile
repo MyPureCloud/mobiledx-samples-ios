@@ -14,7 +14,6 @@ install! 'cocoapods',
  BLD_AI_ENGINE="../../bold360-mobile-ios-boldaiengine/BoldAIEngine-Dev.podspec"
  BLD_AI_ACCESSIBILITY="../../bold360-mobile-ios-boldaiaccessibility/BoldAIAccessibility-Dev.podspec"
  BLD_ENGINE="../../mobile-bold-engine-ios/BoldEngine-Dev.podspec"
- BLD_360_AI="../../bold360ai-mobile-ios/Bold360AI-Dev.podspec"
 # BLD_360_AI="../../bold360ai-mobile-ios/Bold360AI-Dev.podspec"
 
 # Dev
