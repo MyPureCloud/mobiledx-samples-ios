@@ -101,7 +101,7 @@ extension FileUploadDemoViewController: UIDocumentMenuDelegate, UIDocumentPicker
         self.chatController.uploadFile(request, progress: { (progress) in
             print("application file upload progress ->")
         }) { (info) in
-            self.chatController.handle(BoldEvent.fileUploaded(info!))
+            self.chatController.handle(BoldEvent.fileUploaded(info))
         }
     }
     
@@ -134,7 +134,7 @@ extension FileUploadDemoViewController: UIImagePickerControllerDelegate, UINavig
                 self.chatController.uploadFile(request, progress: { (progress) in
                     print("application file upload progress ->")
                 }) { (info) in
-                    self.chatController.handle(BoldEvent.fileUploaded(info!))
+                    self.chatController.handle(BoldEvent.fileUploaded(info))
                 }
             }
 
