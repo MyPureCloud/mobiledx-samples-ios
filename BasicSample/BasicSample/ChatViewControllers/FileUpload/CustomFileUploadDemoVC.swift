@@ -163,7 +163,7 @@ extension CustomFileUploadDemoVC: UIDocumentMenuDelegate, UIDocumentPickerDelega
             print("application file upload progress ->")
         }) { (info) in
             self.uploadBtn.removeFromSuperview()
-            self.chatController.handle(BoldEvent.fileUploaded(info!))
+            self.chatController.handle(BoldEvent.fileUploaded(info))
         }
     }
     
@@ -188,7 +188,7 @@ extension CustomFileUploadDemoVC: UIImagePickerControllerDelegate, UINavigationC
                     print("application file upload progress ->")
                 }) { (info) in
                     self.uploadBtn.removeFromSuperview()
-                    self.chatController.handle(BoldEvent.fileUploaded(info!))
+                    self.chatController.handle(BoldEvent.fileUploaded(info))
                 }
             }
             

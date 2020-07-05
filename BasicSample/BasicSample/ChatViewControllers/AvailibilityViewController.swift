@@ -31,7 +31,7 @@ class AvailibilityViewController: UIViewController {
         self.startChatBtn.isEnabled = false
         
         ChatController.fetchDepartments(self.chatVC.account) { result in
-            if let departments = result?.departments {
+            if let departments = result.departments {
                 self.departments = departments
                 self.departmentsTableView.reloadData()
             }
@@ -67,7 +67,7 @@ extension AvailibilityViewController: UITableViewDelegate {
             
             self.availabilityBtn.setBackgroundImage(#imageLiteral(resourceName: "availability"), for: .normal)
             
-            if availabilityResult!.isAvailable {
+            if availabilityResult.isAvailable {
                 self.availabilityBtn.tintColor = UIColor.green
                 self.startChatBtn.isEnabled = true
             } else {
