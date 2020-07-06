@@ -10,6 +10,8 @@ import Bold360AI
 
 
 public class ChatHistoryItem: NSManagedObject, StorableChatElement {
+    public var readoutMessage: ReadoutMessage?
+    
     public var userInputType: String!
     
     public var storageKey: String! {
@@ -49,7 +51,12 @@ public class ChatHistoryItem: NSManagedObject, StorableChatElement {
     }
     
     public var text: String! {
-        return self.itemText
+        get {
+            return self.itemText
+        }
+        set {
+            self.itemText = newValue
+        }
     }
     
     public var source: ChatElementSource {
