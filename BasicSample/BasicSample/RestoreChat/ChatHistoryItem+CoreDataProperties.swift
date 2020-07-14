@@ -16,7 +16,9 @@ extension ChatHistoryItem {
 
     @NSManaged public var isRemovable: Bool
     @NSManaged public var itemId: Int64
+    @NSManaged public var likeStatus: Int16
     @NSManaged public var itemSource: Int16
+    @NSManaged public var messageId: String
     @NSManaged public var itemStatus: Int16
     @NSManaged public var itemText: String?
     @NSManaged public var itemType: Int16
