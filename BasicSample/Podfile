@@ -19,7 +19,7 @@ install! 'cocoapods',
 # Dev
 #source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 # Production
-source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+#source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
