@@ -10,6 +10,26 @@ import Bold360AI
 
 
 public class ChatHistoryItem: NSManagedObject, StorableChatElement {
+    
+    public var feedbackStatus: FeedbackStatus {
+        return FeedbackStatus(rawValue: Int(self.likeStatus)) ?? .default
+    }
+    
+    public var articleId: NSNumber {
+        set {
+            self.messageId = newValue.stringValue
+        }
+        
+        get {
+            if let num = Int64(messageId) {
+                return NSNumber(value: num)
+            }
+            return 0
+        }
+    }
+    
+    public var readoutMessage: ReadoutMessage?
+    
     public var userInputType: String!
     
     public var storageKey: String! {
@@ -49,7 +69,12 @@ public class ChatHistoryItem: NSManagedObject, StorableChatElement {
     }
     
     public var text: String! {
-        return self.itemText
+        get {
+            return self.itemText
+        }
+        set {
+            self.itemText = newValue
+        }
     }
     
     public var source: ChatElementSource {
@@ -89,6 +114,11 @@ public class ChatHistoryItem: NSManagedObject, StorableChatElement {
                 self.config = NSEntityDescription.insertNewObject(forEntityName: "ChatConfiguration", into: context) as? ChatConfiguration
                 self.config?.configuration = self.element.configuration
             }
+            if let id = self.element.articleId?.stringValue {
+                self.messageId = id
+            }
+            
+            self.likeStatus = Int16(self.element.feedbackStatus.rawValue)
             self.itemStatus = Int16(self.element.status.rawValue)
             self.scope = Int16(self.element.statementScope.rawValue)
             self.json = self.element.storageKey

@@ -18,7 +18,7 @@ protocol RestoreChatDelegate {
     func didReceiveBackgroundMessage(_ message: StorableChatElement)
 }
 
-class RestoreChat: ChatElementDelegate {
+class RestoreChat: NSObject, ChatElementDelegate {
     func didReceive(_ item: StorableChatElement!) {
         let _item = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryItem", into: self.managedContext) as! ChatHistoryItem
         _item.element = item
@@ -92,6 +92,24 @@ class RestoreChat: ChatElementDelegate {
                 item.itemStatus = Int16(status.rawValue)
                 didReceive(item.element)
                 self.managedContext.delete(result.first!)
+            }
+        } catch {
+            print("fetch failed")
+        }
+    }
+    
+    func didUpdateFeedback(_ articleId: String!, feedbackState: FeedbackStatus) {
+        let fetchRequest = NSFetchRequest<ChatHistoryItem>(entityName: "ChatHistoryItem")
+        fetchRequest.predicate = NSPredicate(format: "messageId == %@", articleId)
+        do {
+            let result = try self.managedContext.fetch(fetchRequest)
+            
+            // We can get multiple articles with the same article id
+            result.forEach { (item) in
+                item.likeStatus = Int16(feedbackState.rawValue)
+            }
+            do {
+                try self.managedContext.save()
             }
         } catch {
             print("fetch failed")
