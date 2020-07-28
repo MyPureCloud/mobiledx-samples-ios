@@ -87,12 +87,13 @@ extension BotDemoViewController: ChatControllerDelegate {
                  break
          }
         
-        let alert = UIAlertController(title: "Error!", message: errorMsg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
-            self.navigationController?.popToRootViewController(animated: true)
-        }))
-        
-        self.navigationController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+           let alert = UIAlertController(title: "Error!", message: errorMsg, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }))
+            self.navigationController?.present(alert, animated: true, completion: nil)
+        }
     }
     
     func didUpdateState(_ event: ChatStateEvent!) {
