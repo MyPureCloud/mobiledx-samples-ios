@@ -101,6 +101,17 @@ extension FileUploadDemoViewController: UIDocumentMenuDelegate, UIDocumentPicker
         self.chatController.uploadFile(request, progress: { (progress) in
             print("application file upload progress ->")
         }) { (info) in
+            if((info.error) != nil) {
+                print(info.error.localizedDescription)
+                
+                let alert = UIAlertController(title: "Error", message:info.error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                // show the alert
+                self.navigationController?.presentedViewController?.present(alert, animated: true, completion: nil)
+            }
             self.chatController.handle(BoldEvent.fileUploaded(info))
         }
     }
@@ -134,6 +145,9 @@ extension FileUploadDemoViewController: UIImagePickerControllerDelegate, UINavig
                 self.chatController.uploadFile(request, progress: { (progress) in
                     print("application file upload progress ->")
                 }) { (info) in
+                    if((info.error) != nil) {
+                        
+                    }
                     self.chatController.handle(BoldEvent.fileUploaded(info))
                 }
             }
