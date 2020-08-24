@@ -50,6 +50,7 @@
 		AF91186C238D1583007F5D3A /* CustomFileUploadDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91186B238D1583007F5D3A /* CustomFileUploadDemoVC.swift */; };
 		AF911888239000DB007F5D3A /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */; };
 		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
+		ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */; };
 		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
 		B58F964592AE2B3E9A13C59E /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
+		ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConfigurationHandler.swift; sourceTree = "<group>"; };
 		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 		F954F755342D6690877F2795 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +159,7 @@
 		487351CA22784A260029F295 /* ChatViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */,
 				4899613F22763AD500D86590 /* BotDemoViewController.swift */,
 				4899614122763B1800D86590 /* AgentViewController.swift */,
 				487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */,
@@ -393,6 +396,7 @@
 				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */,
+				ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				486C0B2823D4624700544AAE /* AddContextTableViewCell.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,

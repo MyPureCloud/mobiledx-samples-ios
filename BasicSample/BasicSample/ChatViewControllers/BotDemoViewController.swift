@@ -12,7 +12,8 @@ class BotDemoViewController: UIViewController {
     var chatController: ChatController!
     var handOver = HandOverHandler()
     var account: Account!
-
+    var chatConfigurationHandler = ChatConfigurationHandler()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ChatController.clearCache(withInvalidDays:0)
@@ -24,6 +25,7 @@ class BotDemoViewController: UIViewController {
         chatController.speechReconitionDelegate = self
         chatController.delegate = self
         chatController.viewConfiguration.voiceToVoiceConfiguration.type = .default
+        chatController.viewConfiguration = chatConfigurationHandler.defaultConfig
     }
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
