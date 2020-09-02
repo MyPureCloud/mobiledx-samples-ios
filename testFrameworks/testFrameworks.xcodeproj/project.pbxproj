@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF65842D24FF9C160077D48D /* BoldEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842824FF9C150077D48D /* BoldEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AF65842E24FF9C160077D48D /* BoldAIEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842924FF9C150077D48D /* BoldAIEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AF65842F24FF9C160077D48D /* BoldAIAccessibility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842A24FF9C160077D48D /* BoldAIAccessibility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AF65843024FF9C160077D48D /* Bold360AI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842B24FF9C160077D48D /* Bold360AI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AF65843124FF9C160077D48D /* BoldCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842C24FF9C160077D48D /* BoldCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF42DA99250001B9002C1825 /* BoldEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA94250001B8002C1825 /* BoldEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF42DA9A250001B9002C1825 /* BoldCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA95250001B8002C1825 /* BoldCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF42DA9B250001B9002C1825 /* Bold360AI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA96250001B8002C1825 /* Bold360AI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF42DA9C250001B9002C1825 /* BoldAIEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA97250001B8002C1825 /* BoldAIEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF42DA9D250001B9002C1825 /* BoldAIAccessibility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA98250001B8002C1825 /* BoldAIAccessibility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AFCCCC6B24C58E9D00C47A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6A24C58E9D00C47A43 /* AppDelegate.swift */; };
 		AFCCCC6D24C58E9D00C47A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6C24C58E9D00C47A43 /* SceneDelegate.swift */; };
 		AFCCCC6F24C58E9D00C47A43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6E24C58E9D00C47A43 /* ViewController.swift */; };
@@ -27,11 +27,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AF65842D24FF9C160077D48D /* BoldEngine.framework in Embed Frameworks */,
-				AF65842E24FF9C160077D48D /* BoldAIEngine.framework in Embed Frameworks */,
-				AF65842F24FF9C160077D48D /* BoldAIAccessibility.framework in Embed Frameworks */,
-				AF65843024FF9C160077D48D /* Bold360AI.framework in Embed Frameworks */,
-				AF65843124FF9C160077D48D /* BoldCore.framework in Embed Frameworks */,
+				AF42DA99250001B9002C1825 /* BoldEngine.framework in Embed Frameworks */,
+				AF42DA9A250001B9002C1825 /* BoldCore.framework in Embed Frameworks */,
+				AF42DA9B250001B9002C1825 /* Bold360AI.framework in Embed Frameworks */,
+				AF42DA9C250001B9002C1825 /* BoldAIEngine.framework in Embed Frameworks */,
+				AF42DA9D250001B9002C1825 /* BoldAIAccessibility.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,11 +39,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AF65842824FF9C150077D48D /* BoldEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldEngine.framework; sourceTree = "<group>"; };
-		AF65842924FF9C150077D48D /* BoldAIEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldAIEngine.framework; sourceTree = "<group>"; };
-		AF65842A24FF9C160077D48D /* BoldAIAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldAIAccessibility.framework; sourceTree = "<group>"; };
-		AF65842B24FF9C160077D48D /* Bold360AI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bold360AI.framework; sourceTree = "<group>"; };
-		AF65842C24FF9C160077D48D /* BoldCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldCore.framework; sourceTree = "<group>"; };
+		AF42DA94250001B8002C1825 /* BoldEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldEngine.framework; sourceTree = "<group>"; };
+		AF42DA95250001B8002C1825 /* BoldCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldCore.framework; sourceTree = "<group>"; };
+		AF42DA96250001B8002C1825 /* Bold360AI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bold360AI.framework; sourceTree = "<group>"; };
+		AF42DA97250001B8002C1825 /* BoldAIEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldAIEngine.framework; sourceTree = "<group>"; };
+		AF42DA98250001B8002C1825 /* BoldAIAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldAIAccessibility.framework; sourceTree = "<group>"; };
 		AFCCCC6724C58E9D00C47A43 /* testFrameworks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testFrameworks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFCCCC6A24C58E9D00C47A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFCCCC6C24C58E9D00C47A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,11 +99,11 @@
 		AFCCCC8024C5903D00C47A43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AF65842B24FF9C160077D48D /* Bold360AI.framework */,
-				AF65842A24FF9C160077D48D /* BoldAIAccessibility.framework */,
-				AF65842924FF9C150077D48D /* BoldAIEngine.framework */,
-				AF65842C24FF9C160077D48D /* BoldCore.framework */,
-				AF65842824FF9C150077D48D /* BoldEngine.framework */,
+				AF42DA96250001B8002C1825 /* Bold360AI.framework */,
+				AF42DA98250001B8002C1825 /* BoldAIAccessibility.framework */,
+				AF42DA97250001B8002C1825 /* BoldAIEngine.framework */,
+				AF42DA95250001B8002C1825 /* BoldCore.framework */,
+				AF42DA94250001B8002C1825 /* BoldEngine.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

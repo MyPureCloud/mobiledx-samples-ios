@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.1 
+// NanorepUI version number: v3.8.2. 
 
 //
 //  InfoViewConfiguration.h
