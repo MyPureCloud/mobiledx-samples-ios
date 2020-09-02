@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *readoutButton;
 #pragma mark GrowingTextView
 @property (weak, nonatomic) IBOutlet UIButton *fileUploadButton;
-@property (weak, nonatomic) IBOutlet UIButton *keyboardButton;
 @property (nonatomic, assign) PresentationState state;
 @end
 

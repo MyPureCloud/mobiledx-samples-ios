@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -33,3 +33,4 @@ FOUNDATION_EXPORT const unsigned char Bold360AIVersionString[];
 #import <Bold360AI/FormChatTableViewController.h>
 #import <Bold360AI/SearchViewPresentationState.h>
 #import <Bold360AI/TextToSpeechParser.h>
+

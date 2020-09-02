@@ -26,6 +26,15 @@ tbody {
     border: solid thin;
 }
 
+@media (prefers-color-scheme: dark) {
+    html{
+        filter: invert(1)  hue-rotate(.5turn);
+    }
+    img {
+        filter: invert(1)  hue-rotate(.5turn);
+    }
+}
+
 </style>
 <script>
 (function() {
@@ -62,12 +71,18 @@ tbody {
  }());
 </script>
 <script>
-var links = document.querySelectorAll("a[nanorepLinkId]");
+    var links = document.querySelectorAll("a[nanorepLinkId]");
 
-for (var i = 0; i < links.length; i++) {
-var link = links[i];
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
 
-var id = link.getAttribute('nanorepLinkId');
-link.href = "nanorep://id/"+ id;
+        var id = link.getAttribute('nanorepLinkId');
+        var linkMode = link.getAttribute('nanoreplinkmode');
+    
+        link.href = "nanorep://linkedArticle?answerId="+ id;
+        if (linkMode != null) {
+            linkMode = linkMode == 'context' ? 'true': 'false';
+            link.href += "&getAnswerByContext=" + linkMode + "&src=Link";
+        }
 }
 </script>

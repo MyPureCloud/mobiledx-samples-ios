@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -223,4 +223,10 @@ The Text To Speech Parser
  Should continue from last position (chat element).
  */
 @property(nonatomic, weak) id<ContinuityProvider> _Nullable continuityProvider;
+
+@required
+/**
+The placeholder text.
+*/
+@property (nonatomic, copy, readonly) NSString * _Nonnull placeholderText;
 @end

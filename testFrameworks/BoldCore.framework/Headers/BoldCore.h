@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.4.1 
+// NanorepUI version number: v3.4.2 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -32,3 +32,8 @@ FOUNDATION_EXPORT const unsigned char BoldCoreVersionString[];
 #import <BoldCore/UploadRequest.h>
 #import <BoldCore/NSDictionary+Extract.h>
 #import "ChatBarModel.h"
+#import "Macros.h"
+#import "BoldEventTrackerHandler.h"
+#import "FirstMessageEventParams.h"
+#import "FirstQueryEventParams.h"
+#import "ChanneledEventParams.h"

@@ -7,22 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF65842D24FF9C160077D48D /* BoldEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842824FF9C150077D48D /* BoldEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF65842E24FF9C160077D48D /* BoldAIEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842924FF9C150077D48D /* BoldAIEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF65842F24FF9C160077D48D /* BoldAIAccessibility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842A24FF9C160077D48D /* BoldAIAccessibility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF65843024FF9C160077D48D /* Bold360AI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842B24FF9C160077D48D /* Bold360AI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AF65843124FF9C160077D48D /* BoldCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF65842C24FF9C160077D48D /* BoldCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AFCCCC6B24C58E9D00C47A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6A24C58E9D00C47A43 /* AppDelegate.swift */; };
 		AFCCCC6D24C58E9D00C47A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6C24C58E9D00C47A43 /* SceneDelegate.swift */; };
 		AFCCCC6F24C58E9D00C47A43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6E24C58E9D00C47A43 /* ViewController.swift */; };
 		AFCCCC7224C58E9D00C47A43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFCCCC7024C58E9D00C47A43 /* Main.storyboard */; };
 		AFCCCC7424C58EA000C47A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFCCCC7324C58EA000C47A43 /* Assets.xcassets */; };
 		AFCCCC7724C58EA000C47A43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFCCCC7524C58EA000C47A43 /* LaunchScreen.storyboard */; };
-		AFCCCCAB24C595C400C47A43 /* BoldEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA624C595C400C47A43 /* BoldEngine.framework */; };
-		AFCCCCAC24C595C400C47A43 /* BoldEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA624C595C400C47A43 /* BoldEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AFCCCCAD24C595C400C47A43 /* BoldAIAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA724C595C400C47A43 /* BoldAIAccessibility.framework */; };
-		AFCCCCAE24C595C400C47A43 /* BoldAIAccessibility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA724C595C400C47A43 /* BoldAIAccessibility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AFCCCCAF24C595C400C47A43 /* BoldCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA824C595C400C47A43 /* BoldCore.framework */; };
-		AFCCCCB024C595C400C47A43 /* BoldCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA824C595C400C47A43 /* BoldCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AFCCCCB124C595C400C47A43 /* BoldAIEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA924C595C400C47A43 /* BoldAIEngine.framework */; };
-		AFCCCCB224C595C400C47A43 /* BoldAIEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCA924C595C400C47A43 /* BoldAIEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AFCCCCB324C595C400C47A43 /* Bold360AI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCAA24C595C400C47A43 /* Bold360AI.framework */; };
-		AFCCCCB424C595C400C47A43 /* Bold360AI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFCCCCAA24C595C400C47A43 /* Bold360AI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,11 +27,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AFCCCCB424C595C400C47A43 /* Bold360AI.framework in Embed Frameworks */,
-				AFCCCCAE24C595C400C47A43 /* BoldAIAccessibility.framework in Embed Frameworks */,
-				AFCCCCB024C595C400C47A43 /* BoldCore.framework in Embed Frameworks */,
-				AFCCCCAC24C595C400C47A43 /* BoldEngine.framework in Embed Frameworks */,
-				AFCCCCB224C595C400C47A43 /* BoldAIEngine.framework in Embed Frameworks */,
+				AF65842D24FF9C160077D48D /* BoldEngine.framework in Embed Frameworks */,
+				AF65842E24FF9C160077D48D /* BoldAIEngine.framework in Embed Frameworks */,
+				AF65842F24FF9C160077D48D /* BoldAIAccessibility.framework in Embed Frameworks */,
+				AF65843024FF9C160077D48D /* Bold360AI.framework in Embed Frameworks */,
+				AF65843124FF9C160077D48D /* BoldCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,6 +39,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF65842824FF9C150077D48D /* BoldEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldEngine.framework; sourceTree = "<group>"; };
+		AF65842924FF9C150077D48D /* BoldAIEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldAIEngine.framework; sourceTree = "<group>"; };
+		AF65842A24FF9C160077D48D /* BoldAIAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldAIAccessibility.framework; sourceTree = "<group>"; };
+		AF65842B24FF9C160077D48D /* Bold360AI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bold360AI.framework; sourceTree = "<group>"; };
+		AF65842C24FF9C160077D48D /* BoldCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoldCore.framework; sourceTree = "<group>"; };
 		AFCCCC6724C58E9D00C47A43 /* testFrameworks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testFrameworks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFCCCC6A24C58E9D00C47A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFCCCC6C24C58E9D00C47A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,11 +52,6 @@
 		AFCCCC7324C58EA000C47A43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFCCCC7624C58EA000C47A43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFCCCC7824C58EA000C47A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AFCCCCA624C595C400C47A43 /* BoldEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoldEngine.framework; path = ../Repositories/frameworks/BoldEngine.framework; sourceTree = "<group>"; };
-		AFCCCCA724C595C400C47A43 /* BoldAIAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoldAIAccessibility.framework; path = ../Repositories/frameworks/BoldAIAccessibility.framework; sourceTree = "<group>"; };
-		AFCCCCA824C595C400C47A43 /* BoldCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoldCore.framework; path = ../Repositories/frameworks/BoldCore.framework; sourceTree = "<group>"; };
-		AFCCCCA924C595C400C47A43 /* BoldAIEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoldAIEngine.framework; path = ../Repositories/frameworks/BoldAIEngine.framework; sourceTree = "<group>"; };
-		AFCCCCAA24C595C400C47A43 /* Bold360AI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bold360AI.framework; path = ../Repositories/frameworks/Bold360AI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,11 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFCCCCB324C595C400C47A43 /* Bold360AI.framework in Frameworks */,
-				AFCCCCAD24C595C400C47A43 /* BoldAIAccessibility.framework in Frameworks */,
-				AFCCCCAF24C595C400C47A43 /* BoldCore.framework in Frameworks */,
-				AFCCCCAB24C595C400C47A43 /* BoldEngine.framework in Frameworks */,
-				AFCCCCB124C595C400C47A43 /* BoldAIEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,11 +99,11 @@
 		AFCCCC8024C5903D00C47A43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AFCCCCAA24C595C400C47A43 /* Bold360AI.framework */,
-				AFCCCCA724C595C400C47A43 /* BoldAIAccessibility.framework */,
-				AFCCCCA924C595C400C47A43 /* BoldAIEngine.framework */,
-				AFCCCCA824C595C400C47A43 /* BoldCore.framework */,
-				AFCCCCA624C595C400C47A43 /* BoldEngine.framework */,
+				AF65842B24FF9C160077D48D /* Bold360AI.framework */,
+				AF65842A24FF9C160077D48D /* BoldAIAccessibility.framework */,
+				AF65842924FF9C150077D48D /* BoldAIEngine.framework */,
+				AF65842C24FF9C160077D48D /* BoldCore.framework */,
+				AF65842824FF9C150077D48D /* BoldEngine.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

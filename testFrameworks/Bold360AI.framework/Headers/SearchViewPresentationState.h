@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2019 bold360ai(LogMeIn).
@@ -24,14 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SearchViewPresentationState : NSObject
 - (instancetype)initWithConfiguration:(SearchViewConfiguration *)configuration;
 
-@property (nonatomic) SearchViewConfiguration *configuration;
+@property (nonatomic, strong) SearchViewConfiguration *configuration;
 @property (nonatomic) PresentationState state;
 
 @property (nonatomic, readonly) BOOL isSpeechButtonEnabled;
 @property (nonatomic, readonly) BOOL isSpeechButtonHidden;
 @property (nonatomic, readonly) BOOL isSendButtonEnabled;
 @property (nonatomic, readonly) BOOL isSendButtonHidden;
-@property (nonatomic, readonly) BOOL isKeyboardButtonHidden;
 @property (nonatomic, readonly) BOOL isReadoutButtonHidden;
 @property (nonatomic, readonly) BOOL isPlaceholderVisible;
 @property (nonatomic, copy) NSString *placeholderText;

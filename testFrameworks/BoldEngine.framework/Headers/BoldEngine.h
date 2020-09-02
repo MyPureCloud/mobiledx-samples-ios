@@ -1,13 +1,11 @@
 
-// NanorepUI version number: v2.4.5 
+// NanorepUI version number: v2.4.6 
 
-//
-//  BoldEngine.h
-//  BoldEngine
-//
-//  Created by Nissim Pardo on 13/09/2018.
-//  Copyright © 2018 Nissim Pardo. All rights reserved.
-//
+// ===================================================================================================
+// Copyright © 2018 bold360ai(LogMeIn).
+// Bold360AI SDK.
+// All rights reserved.
+// ===================================================================================================
 
 #import <UIKit/UIKit.h>
 
@@ -129,3 +127,6 @@ FOUNDATION_EXPORT const unsigned char BoldEngineVersionString[];
 #import "NSString+RandomIdentifier.h"
 #import "NSString+StrippingHtml.h"
 #import "Department.h"
+#import "BCAccountConstants.h"
+#import "BCBrandingConstants.h"
+#import "BCUnavailableInfo.h"

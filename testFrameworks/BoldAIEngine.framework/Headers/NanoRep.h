@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v1.8.2 
+// NanorepUI version number: v1.8.4 
 
 // ===================================================================================================
 // Copyright © 2016 bold360ai(LogMeIn).
@@ -18,25 +18,22 @@
 #import <BoldCore/NRConnectionHandler.h>
 #import "FeedbackItem.h"
 
-extern NSString *const NRAlertMessageKey;
-extern NSString *const NRAlertOKButtonKey;
-extern NSString *const NRAlertCancelButtonKey;
-
-@protocol NanoRepDelegate <NSObject>
-
-@optional
-- (void)accountReady:(BotAccount *)account;
-@end
-
+extern NSString * _Nullable const NRAlertMessageKey;
+extern NSString * _Nullable const NRAlertOKButtonKey;
+extern NSString * _Nullable const NRAlertCancelButtonKey;
 
 @protocol NRChatEngineDelegate <NSObject>
-- (void)didFetchConvesationId:(NSString *)conversationId;
-- (void)shouldHandleMissingEntities:(NRConversationalResponse *)response
-             missingEntitiesHandler:(void(^)(NRConversationMissingEntity *missingEntity))handler;
-- (void)shouldHandlePersonalInformation:(NRPersonalInfo *)personalInfo;
-
+- (void)didFetchConvesationId:(NSString *_Nonnull)conversationId;
+- (void)shouldHandleMissingEntities:(NRConversationalResponse *_Nonnull)response
+             missingEntitiesHandler:(void(^_Nonnull)(NRConversationMissingEntity *_Nonnull  missingEntity))handler;
+- (void)shouldHandlePersonalInformation:(NRPersonalInfo *_Nonnull)personalInfo;
 @end
 
+
+@protocol NanoRepDelegate <NSObject>
+@optional
+- (void)accountReady:(BotAccount *_Nonnull)account;
+@end
 
 
 /**
@@ -46,71 +43,66 @@ extern NSString *const NRAlertCancelButtonKey;
 @interface NanoRep : NSObject
 
 
-+ (NanoRep *)shared;
++ (NanoRep *_Nullable)shared;
 
-- (void)prepareWithBotAccount:(BotAccount *)botAccount;
+- (void)prepareWithBotAccount:(BotAccount *_Nullable)botAccount;
 
-@property (nonatomic, copy) void (^fetchConfiguration)(NRConfiguration *configuration, NSError *error);
+@property (nonatomic, copy) void (^ _Nullable fetchConfiguration)(NRConfiguration * _Nullable configuration, NSError * _Nullable error);
 
-@property (nonatomic, strong) BotAccount *botAccount;
+@property (nonatomic, strong) BotAccount * _Nullable botAccount;
 
-@property (nonatomic, strong, readonly) NRConfiguration *configuration;
+@property (nonatomic, strong, readonly) NRConfiguration * _Nullable configuration;
 
-@property (nonatomic, strong, readonly) NRErrorHandler *errorHandler;
+@property (nonatomic, strong, readonly) NRErrorHandler * _Nullable errorHandler;
 
-@property (nonatomic, weak) id<NRChatEngineDelegate> delegate;
+@property (nonatomic, weak) id<NRChatEngineDelegate> _Nullable delegate;
 
 @property (nonatomic, readonly) BOOL isPrepared;
 
-@property (nonatomic, readonly) NRLikeStateHandler *likeState;
+@property (nonatomic, readonly) NRLikeStateHandler * _Nullable likeState;
 
-@property (nonatomic, weak) id<NRChatEngineDelegate> chatDelegate;
+@property (nonatomic, weak) id<NRChatEngineDelegate> _Nullable chatDelegate;
 
-@property (nonatomic, strong) id<NRConnectionHandler> connectionHandler;
+@property (nonatomic, strong) id<NRConnectionHandler> _Nullable connectionHandler;
 
-- (void)fetchFAQAnswer:(NSString *)answerId
-                  hash:(NSNumber *)hash
-            completion:(void (^) (NRQueryResult *result, NSError *error))completion;
+- (void)fetchArticle:(NSString *_Nonnull)articleId completion:(void (^_Nonnull)(NRQueryResult *_Nullable, NSError *_Nullable))completion;
 
-- (void)fetchConversationCNF:(void (^)(NRConfiguration *configuration, NSError *error))completion;
+- (void)fetchAnswer:(NSArray<NSURLQueryItem *> *_Nonnull)items
+                  hash:(NSNumber *_Nullable)hash
+            completion:(void (^_Nonnull) (NRQueryResult * _Nullable result, NSError * _Nullable error))completion;
+
+
+- (void)fetchConversationCNF:(void (^_Nonnull)(NRConfiguration * _Nullable configuration, NSError * _Nullable error))completion;
 
 
 // Depends on cnf
-- (void)createConversationWithEntities:(NSArray<NSString *> *)entities
+- (void)createConversationWithEntities:(NSArray<NSString *> *_Nullable)entities
                               textOnly:(BOOL)textOnly
-                            completion:(void(^)(NSDictionary *cnversationParams, NSError *error))completion;
+                            completion:(void(^_Nullable)(NSDictionary * _Nullable cnversationParams, NSError * _Nullable error))completion;
 
-- (void)conversationWithEntities:(NSArray<NSString *> *)entities
+- (void)conversationWithEntities:(NSArray<NSString *> *_Nullable)entities
                         textOnly:(BOOL)textOnly
-                      completion:(void(^)(NSDictionary *cnversationParams, NSError *error))completion;
+                      completion:(void(^_Nullable)(NSDictionary * _Nullable cnversationParams, NSError * _Nullable error))completion;
 
-- (void)conversationStatement:(NSString *)statement
-                         type:(BOOL)isPostback
-               conversationId:(NSString *)conversationId
-                          src:(NSString *)src
-                   completion:(void(^)(NRConversationalResponse *response, NSError *error))completion;
 
-- (void)conversationArticle:(NSString *)articleId
-             conversationId:(NSString *)conversationId
-                  statement:(NSString *)statement
-                        src:(NSString *)src
-                 completion:(void (^)(NRConversationalResponse *, NSError *))completion;
+- (void)conversationStatement:(NSURLComponents *_Nonnull)componenets
+                   completion:(void (^_Nonnull)(NRConversationalResponse * _Nullable response, NSError * _Nullable error))completion;
 
-- (void)faqForLabel:(NRLabel *)label
-         completion:(void(^)(NSArray<NRQueryResult *> *results))completion;
+- (void)faqForLabel:(NRLabel *_Nullable)label
+         completion:(void(^_Nullable)(NSArray<NRQueryResult *> * _Nullable results))completion;
 
-- (void)searchText:(NSString *)text
-        completion:(void(^)(NRSearchResponse *searchResponse, NSError *error))completion;
+- (void)searchText:(NSString *_Nullable)text
+        completion:(void(^_Nullable)(NRSearchResponse * _Nullable searchResponse, NSError * _Nullable error))completion;
 
-- (void)contextValue:(NSString *)contexts
-          completion:(void(^)(NSDictionary *values, NSError *error))completion;
+- (void)contextValue:(NSString *_Nullable)contexts
+          completion:(void(^_Nullable)(NSDictionary * _Nullable values, NSError * _Nullable error))completion;
 
-- (void)changeContext:(NSDictionary<NSString *, NSString *> *)context
-           completion:(void(^)(BOOL success, NSError *error))completion;
+- (void)changeContext:(NSDictionary<NSString *, NSString *> *_Nullable)context
+           completion:(void(^_Nullable)(BOOL success, NSError * _Nullable error))completion;
 
-- (void)suggestionsForText:(NSString *)text
+- (void)suggestionsForText:(NSString *_Nullable)text
             isConversation:(BOOL)isConversation
-                completion:(void(^)(NRAutoCompleteResponse *response, NSError *error))completion;
+                completion:(void(^_Nullable)(NRAutoCompleteResponse * _Nullable response, NSError * _Nullable error))completion;
 
 - (void)channels:(NRQueryResult *_Nonnull)result
          context:(NSString *_Nullable)context
@@ -120,8 +112,8 @@ extern NSString *const NRAlertCancelButtonKey;
       completion:(void (^_Nullable)(NSArray<NRConversationQuickOption *> * _Nullable quickOptions, NSError * _Nullable error))completion;
 
 - (void)like:(int)likeType
-   forResult:(NRQueryResult *)result
-  completion:(void(^)(NSString *resultId, int type, BOOL success))completion;
+   forResult:(NRQueryResult *_Nullable)result
+  completion:(void(^_Nullable)(NSString * _Nullable resultId, int type, BOOL success))completion;
 
 /**
  * The api request that should be called for when user passes InstantFeedback value.
@@ -130,11 +122,11 @@ extern NSString *const NRAlertCancelButtonKey;
                    feedbackItem:(FeedbackItem *_Nullable)item
                        completion:(void(^_Nullable)(NSString * _Nullable resultId, int type, BOOL success))completion;
 
-- (void)trackEvent:(NSDictionary *)eventParams;
+- (void)trackEvent:(NSDictionary *_Nullable)eventParams;
 
-- (void)sendConversationFeedbackWithCompletion:(void(^)(NRConversationalResponse *respons))completion;
+- (void)sendConversationFeedbackWithCompletion:(void(^_Nullable)(NRConversationalResponse * _Nullable respons))completion;
 
-- (void)reportChanneling:(NRChanneling *)channel article:(NRQueryResult *)result;
+- (void)reportChanneling:(NRChanneling *_Nullable)channel article:(NRQueryResult *_Nullable)result;
 
 - (void)stop;
 

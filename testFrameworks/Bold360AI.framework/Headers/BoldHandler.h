@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -13,8 +13,8 @@
 #import "BLDError.h"
 #import "LiveAccount.h"
 
-static NSString * const VisitorID = @"VisitorID";
-static NSString * const ChatID = @"ChatID";
+static NSString * _Nonnull const VisitorID = @"VisitorID";
+static NSString * _Nonnull const ChatID = @"ChatID";
 
 /************************************************************/
 // MARK: - BoldHandler
@@ -26,18 +26,18 @@ static NSString * const ChatID = @"ChatID";
 // MARK: - Properties
 /************************************************************/
 
-@property (nonatomic, strong) id<BCCancelable> createChatCancelable;
-@property (nonatomic, strong) id<BCChatSession> chatSession;
+@property (nonatomic, strong) id<BCCancelable> _Nullable createChatCancelable;
+@property (nonatomic, strong) id<BCChatSession> _Nullable chatSession;
 
 /************************************************************/
 // MARK: - Functions
 /************************************************************/
 
-- (void)presentMsg:(NSString *)msg designType:(NSString *)designType;
-- (void)presentSystemMsg:(NSString *)msg removable:(BOOL)removable;
+- (void)presentMsg:(NSString *_Nonnull)msg designType:(NSString *_Nonnull)designType;
+- (void)presentSystemMsg:(NSString *_Nonnull)msg removable:(BOOL)removable;
 - (void)addChatDelegation;
-- (void)handleError:(BLDError *)error;
-- (instancetype)initWithAccount:(LiveAccount *)account;
-- (void)handleChatFinished;
+- (void)handleError:(BLDError *_Nullable)error;
+- (instancetype _Nullable)initWithAccount:(LiveAccount *_Nonnull)account;
+- (void)handleChatFinishedWithMessage:(NSString *_Nullable)msg;
 
 @end

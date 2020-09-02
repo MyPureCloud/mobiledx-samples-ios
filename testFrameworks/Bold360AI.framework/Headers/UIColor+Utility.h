@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -13,5 +13,15 @@
 /**
  Return representaiton in hex
  */
--(NSString*)representInHex;
+- (NSString *)representInHex;
+
+/**
+Return system background color
+*/
++ (UIColor *)systemModeBackgroundColor;
+
+/**
+Return system text color
+*/
++ (UIColor *)systemModeTextColor;
 @end

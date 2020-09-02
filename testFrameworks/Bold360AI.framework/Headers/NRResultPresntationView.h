@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -21,7 +21,7 @@
           resultView:(NRResultPresntationView *)resultView
            completion:(void(^)(NSString *resultId, int type, BOOL success))completion;
 - (void)updateChannelsAtResultview:(NRResultPresntationView *)resultView;
-- (void)resultView:(NRResultPresntationView *)resultView didSelectLinkedArticle:(NSString *)articleId;
+- (void)resultView:(NRResultPresntationView *)resultView didSelectLinkedArticle:(NSURLComponents *)components;
 - (void)resultView:(NRResultPresntationView *)resultView didClickLink:(NSURLRequest *)request;
 @end
 

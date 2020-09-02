@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol AutoCompletePickDelegate <NSObject>
 @optional
 - (void)didSelectSuggestion:(NSString *)articleId query:(NSString *)query;
-- (void)didFetchArticle:(NRConversationalResponse *)article;
 - (void)didFailToFetchAnArticleWithError:(NSError *)error;
 
 @end

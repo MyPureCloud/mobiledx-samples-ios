@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -10,8 +10,7 @@
 #import "BoldHandler.h"
 
 @interface BoldHandler (BCSubmitPostChatDelegate)<BCSubmitPostChatDelegate>
-- (void)handleChatFinished;
-- (void)handleForm:(BCForm *)form;
+- (void)handleForm:(BCForm *)form event:(ChatStateEvent *)event;
 - (void)handleUnavailableForm:(BCForm *)unavailableForm dataMsg:(NSString *)message
                        reason:(BCUnavailableReason)reason;
 @end

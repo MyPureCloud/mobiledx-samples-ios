@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -18,12 +18,12 @@
 /**
  Chat View Background Color
  */
-@property (strong, nonatomic) UIColor *textColor;
+@property (copy, nonatomic) UIColor *textColor;
 
 /**
  Chat View Background Color
  */
-@property (strong, nonatomic) UIColor *backgroundColor;
+@property (copy, nonatomic) UIColor *backgroundColor;
 
 /**
  Chat Custom Font.

@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v2.4.5 
+// NanorepUI version number: v2.4.6 
 
 //
 //   Copyright 2012 Square Inc.
@@ -92,17 +92,17 @@ extern NSString *const BC_SRWebSocketErrorDomain;
 
 @end
 
-#pragma mark - NSURLRequest (CertificateAdditions)
+#pragma mark - NSURLRequest (BCCertificateAdditions)
 
-@interface NSURLRequest (CertificateAdditions)
+@interface NSURLRequest (BCCertificateAdditions)
 
 @property (nonatomic, retain, readonly) NSArray *SR_SSLPinnedCertificates;
 
 @end
 
-#pragma mark - NSMutableURLRequest (CertificateAdditions)
+#pragma mark - NSMutableURLRequest (BCCertificateAdditions)
 
-@interface NSMutableURLRequest (CertificateAdditions)
+@interface NSMutableURLRequest (BCCertificateAdditions)
 
 @property (nonatomic, retain) NSArray *SR_SSLPinnedCertificates;
 

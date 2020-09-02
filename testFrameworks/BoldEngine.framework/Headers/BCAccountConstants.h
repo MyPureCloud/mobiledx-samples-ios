@@ -1,12 +1,11 @@
 
-// NanorepUI version number: v2.4.5 
+// NanorepUI version number: v2.4.6 
 
-//
-//  BCAccountConstants.h
-//  Bold360AI
-//
-//  Created by Omer Rahmany on 31/10/2019.
-//
+// ===================================================================================================
+// Copyright © 2018 bold360ai(LogMeIn).
+// Bold360AI SDK.
+// All rights reserved.
+// ===================================================================================================
 
 #import <Foundation/Foundation.h>
 

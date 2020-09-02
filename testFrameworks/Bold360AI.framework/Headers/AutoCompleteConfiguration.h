@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2019 bold360ai(LogMeIn).
@@ -8,13 +8,11 @@
 // ===================================================================================================
 
 #import <UIKit/UIKit.h>
+#import "TextConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AutoCompleteConfiguration : NSObject
-@property (nonatomic, copy) UIFont * _Nullable font;
-@property (nonatomic, copy) UIColor * _Nullable backgroundColor;
-@property (nonatomic, copy) UIColor * _Nullable textColor;
+@interface AutoCompleteConfiguration : TextConfiguration
 @property (nonatomic, assign, getter = isEnabled) BOOL enabled;
 @end
 

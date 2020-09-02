@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v1.8.2 
+// NanorepUI version number: v1.8.4 
 
 // ===================================================================================================
 // Copyright © 2016 bold360ai(LogMeIn).
@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NRComponentConfiguration : NSObject
 - (instancetype)initWithParams:(NSDictionary *)params;
-@property (nonatomic, strong) UIColor *backgroundColor;
-@property (nonatomic, strong) UIFont *font;
-@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, copy) UIColor *backgroundColor;
+@property (nonatomic, copy) UIFont *font;
+@property (nonatomic, copy) UIColor *textColor;
 @property (nonatomic, copy) NSDictionary *params;
 @property (nonatomic, copy, readonly) NSString *inJson;
 @end

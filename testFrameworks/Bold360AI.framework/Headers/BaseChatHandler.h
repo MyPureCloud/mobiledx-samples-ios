@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -15,10 +15,10 @@
 
 @interface BaseChatHandler : NSObject <ChatHandler, TrackingDatasource>
 
-- (void)presentStatement:(id<StorableChatElement>)statement;
+- (void)presentStatement:(id<StorableChatElement>_Nullable)statement;
 - (void)presentFeedbackStatement:(id<StorableChatElement> _Nonnull)statement;
 
-- (void)updateStatus:(StatementStatus)status element:(id<StorableChatElement>)element;
-- (void)preparePreChatInfo:(PreChatInfo *)info;
-- (void)updateChatState:(ChatStateEvent *)event;
+- (void)updateStatus:(StatementStatus)status element:(id<StorableChatElement>_Nullable)element;
+- (void)preparePreChatInfo:(PreChatInfo *_Nullable)info;
+- (void)updateChatState:(ChatStateEvent *_Nullable)event;
 @end

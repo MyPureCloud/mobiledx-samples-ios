@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2019 bold360ai(LogMeIn).
@@ -7,12 +7,11 @@
 // All rights reserved.
 // ===================================================================================================
 
-#import "AutoCompleteConfiguration.h"
+#import "TextConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlaceholderConfiguration : AutoCompleteConfiguration
-@property (nonatomic, copy) NSString *text;
+@interface PlaceholderConfiguration : TextConfiguration
 @property (nonatomic, copy) NSString *recordText;
 @property (nonatomic, copy) NSString *readoutext;
 @end

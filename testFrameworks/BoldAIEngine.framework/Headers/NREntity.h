@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v1.8.2 
+// NanorepUI version number: v1.8.4 
 
 // ===================================================================================================
 // Copyright © 2016 bold360ai(LogMeIn).
@@ -20,7 +20,7 @@ extern NSString * _Nonnull const EntityLifecycleTopic;
 
 
 @interface Property : NSObject
-- (instancetype)initWithKind:(NSString *)kind type:(NSString *)type value:(NSString *)value name:(NSString *)name;
+- (instancetype _Nullable )initWithKind:(NSString *_Nullable)kind type:(NSString *_Nullable)type value:(NSString *_Nullable)value name:(NSString *_Nullable)name;
 
 @property (nonatomic, copy) NSString * _Nullable kind;
 @property (nonatomic, copy) NSString * _Nullable type;

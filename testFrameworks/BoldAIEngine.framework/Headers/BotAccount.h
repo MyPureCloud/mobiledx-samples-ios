@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v1.8.2 
+// NanorepUI version number: v1.8.4 
 
 // ===================================================================================================
 // Copyright © 2016 bold360ai(LogMeIn).
@@ -9,8 +9,6 @@
 
 #import <BoldCore/Account.h>
 
-/// use in case welcome message shoulb be disabled.
-FOUNDATION_EXPORT NSString *const WelcomeMsgIdNone;
 
 @interface DynamicContext: NSObject
 - (instancetype)initWithContext:(NSString *)context;

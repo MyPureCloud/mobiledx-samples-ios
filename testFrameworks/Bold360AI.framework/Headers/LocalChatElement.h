@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -17,4 +17,7 @@
  The input type the user used e.g. AutoComplete
  */
 @property (nonatomic, copy) NSString *userInputType;
+@property (nonatomic, copy) NSString *userTrackingType;
+@property (nonatomic, copy) NSString *postback;
+@property (nonatomic, copy, readonly) NSArray<NSURLQueryItem *> *queryItems;
 @end

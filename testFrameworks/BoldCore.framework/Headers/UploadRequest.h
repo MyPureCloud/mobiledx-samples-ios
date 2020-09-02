@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.4.1 
+// NanorepUI version number: v3.4.2 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, UploadFileType) {
     UploadFileTypeCount // keep track of the enum size automatically
 } ;
 
-extern NSString *const UploadFileTypeName[UploadFileTypeCount];
+extern NSString * _Nonnull const UploadFileTypeName[UploadFileTypeCount];
 
 @interface UploadRequest : NSMutableURLRequest
 @property (nonatomic, copy) NSString *boundary;

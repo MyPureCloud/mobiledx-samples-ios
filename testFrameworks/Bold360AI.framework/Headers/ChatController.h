@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.0 
+// NanorepUI version number: v3.8.1 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -137,6 +137,13 @@ Hendles chat element injection.
 - (void)uploadFile:(UploadRequest *_Nonnull)request
           progress:(void (^_Nonnull)(float progress))progress
         completion:(void(^_Nonnull)(FileUploadInfo * _Nonnull fileInfo))completion;
+
+/**
+clear cache
+
+@param day days, for example 7 days, will automatically clear all caches after 7 days, this method can be called directly in application:didFinishLaunchingWithOptions
+*/
++ (void)clearCacheWithInvalidDays:(NSInteger)day;
 
 /**
  The availability of the chat.
