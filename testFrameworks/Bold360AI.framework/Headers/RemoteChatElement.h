@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.2. 
+// NanorepUI version number: v3.8.3 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -25,5 +25,11 @@ typedef NS_ENUM(NSInteger, RemoteMessageType) {
  The remote message type
  */
 @property (nonatomic, readonly) RemoteMessageType remoteMessageType;
+
+/**
+ If set to `YES` element will be replaced with auto message if exist.
+ */
+@property (nonatomic) BOOL autoMessagable;
+
 - (instancetype)initWithRespone:(NRConversationalResponse *)response statementScope:(StatementScope)statementScope;
 @end

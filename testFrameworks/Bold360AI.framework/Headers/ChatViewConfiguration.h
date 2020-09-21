@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.2. 
+// NanorepUI version number: v3.8.3 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -16,6 +16,7 @@
 @interface CustomFont: NSObject
 @property (nonatomic, copy) NSString *fontFileName;
 @property (nonatomic, copy) UIFont *font;
+@property (nonatomic, copy, readonly) NSString *fontWeight;
 @end
 
 /************************************************************/
@@ -38,6 +39,11 @@
  Chat Element Date Stamp Color
  */
 @property (copy, nonatomic) UIColor *dateStampColor;
+
+/**
+ Chat Element Date Stamp Font
+ */
+@property (copy, nonatomic) UIFont *dateStampFont;
 
 /**
  Chat Custom Font.

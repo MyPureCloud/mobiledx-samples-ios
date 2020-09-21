@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.2. 
+// NanorepUI version number: v3.8.3 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -9,9 +9,9 @@
 
 #import "BaseChatHandler.h"
 #import <BoldEngine/BoldEngine.h>
-#import <Bold360AI/ContentChatElement.h>
 #import "BLDError.h"
 #import "LiveAccount.h"
+#import "RemoteChatElement.h"
 
 static NSString * _Nonnull const VisitorID = @"VisitorID";
 static NSString * _Nonnull const ChatID = @"ChatID";
@@ -34,7 +34,7 @@ static NSString * _Nonnull const ChatID = @"ChatID";
 /************************************************************/
 
 - (void)presentMsg:(NSString *_Nonnull)msg designType:(NSString *_Nonnull)designType;
-- (void)presentSystemMsg:(NSString *_Nonnull)msg removable:(BOOL)removable;
+- (void)presentSystemMsg:(RemoteChatElement *_Nonnull)element;
 - (void)addChatDelegation;
 - (void)handleError:(BLDError *_Nullable)error;
 - (instancetype _Nullable)initWithAccount:(LiveAccount *_Nonnull)account;
