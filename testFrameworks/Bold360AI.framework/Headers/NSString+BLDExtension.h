@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.3 
+// NanorepUI version number: v3.8.4 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -17,5 +17,5 @@
  @param string string to sha1
  @return returns str after sha1
  */
-+ (NSString *)SHA1FromString:(NSString *)string;
++ (NSString *)bld_SHA1FromString:(NSString *)string;
 @end

@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.3 
+// NanorepUI version number: v3.8.4 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NRAbstractViews.h"
-#import "NSBundle+UIBundle.h"
+#import "NSBundle+BLDUIBundle.h"
 
 @interface NRBaseNegativeFeedbckView : UIView <NRNegativeFeedback>
 @property (nonatomic, weak) IBOutlet UIView *textHolder;

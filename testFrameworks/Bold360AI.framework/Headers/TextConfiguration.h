@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.3 
+// NanorepUI version number: v3.8.4 
 
 // ===================================================================================================
 // Copyright © 2019 bold360ai(LogMeIn).

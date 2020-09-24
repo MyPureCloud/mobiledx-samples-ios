@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.3 
+// NanorepUI version number: v3.8.4 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StorableChatElement.h"
-#import <BoldCore/NSString+Utilities.h>
+#import <BoldCore/NSString+BLDUtilities.h>
 
 /************************************************************/
 // MARK: - ContentChatElement

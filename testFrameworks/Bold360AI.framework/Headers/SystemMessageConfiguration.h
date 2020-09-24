@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.3 
+// NanorepUI version number: v3.8.4 
 
 //
 //  SystemMessageConfiguration.h

@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v1.8.4 
+// NanorepUI version number: v1.8.5 
 
 // ===================================================================================================
 // Copyright © 2016 bold360ai(LogMeIn).
@@ -20,17 +20,17 @@ FOUNDATION_EXPORT const unsigned char BoldAIEngineVersionString[];
 #import "NanoRep.h"
 #import "NRLabel.h"
 #import "NRChanneling.h"
-#import "NSString+Resources.h"
-#import "NSBundle+EngineBundle.h"
-#import "NSURLRequest+Channeling.h"
-#import "NSDictionary+Parsed.h"
+#import "NSString+BLDResources.h"
+#import "NSBundle+BLDEngineBundle.h"
+#import "NSURLRequest+BLDChanneling.h"
+#import "NSDictionary+BLDParsed.h"
 #import "NRCacheManager.h"
 #import "NRConnection.h"
-#import "UIFont+Utilities.h"
+#import "UIFont+BLDUtilities.h"
 #import "NRSessionResponse.h"
-#import "NSMutableDictionary+Params.h"
-#import "NSData+Utilities.h"
-#import "NSArray+Utilities.h"
+#import "NSMutableDictionary+BLDParams.h"
+#import "NSData+BLDUtilities.h"
+#import "NSArray+BLDUtilities.h"
 #import "NRCreateConversationResponse.h"
 #import "BotAutoCompleteProvider.h"
 #import "NROptionKind.h"
