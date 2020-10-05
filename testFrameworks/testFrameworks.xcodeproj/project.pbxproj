@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF1B074F2524FE2800F2F19D /* Bold360AI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA96250001B8002C1825 /* Bold360AI.framework */; };
-		AF1B07502524FE2800F2F19D /* Bold360AI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA96250001B8002C1825 /* Bold360AI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AF1B07512524FE2800F2F19D /* BoldAIEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA97250001B8002C1825 /* BoldAIEngine.framework */; };
 		AF1B07522524FE2800F2F19D /* BoldAIEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA97250001B8002C1825 /* BoldAIEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AF2D8F96251D2863003D13B2 /* BoldCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA95250001B8002C1825 /* BoldCore.framework */; };
-		AF2D8F97251D2863003D13B2 /* BoldCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA95250001B8002C1825 /* BoldCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AF42DA99250001B9002C1825 /* BoldEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA94250001B8002C1825 /* BoldEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AF42DA9D250001B9002C1825 /* BoldAIAccessibility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA98250001B8002C1825 /* BoldAIAccessibility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AFBEB477252BB7D4009729D2 /* Bold360AI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA96250001B8002C1825 /* Bold360AI.framework */; };
+		AFBEB478252BB7D4009729D2 /* Bold360AI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA96250001B8002C1825 /* Bold360AI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AFBEB479252BB7D6009729D2 /* BoldCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA95250001B8002C1825 /* BoldCore.framework */; };
+		AFBEB47A252BB7D6009729D2 /* BoldCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF42DA95250001B8002C1825 /* BoldCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AFCCCC6B24C58E9D00C47A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6A24C58E9D00C47A43 /* AppDelegate.swift */; };
 		AFCCCC6D24C58E9D00C47A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6C24C58E9D00C47A43 /* SceneDelegate.swift */; };
 		AFCCCC6F24C58E9D00C47A43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCCCC6E24C58E9D00C47A43 /* ViewController.swift */; };
@@ -31,10 +31,10 @@
 			dstSubfolderSpec = 10;
 			files = (
 				AF42DA99250001B9002C1825 /* BoldEngine.framework in Embed Frameworks */,
-				AF2D8F97251D2863003D13B2 /* BoldCore.framework in Embed Frameworks */,
 				AF42DA9D250001B9002C1825 /* BoldAIAccessibility.framework in Embed Frameworks */,
-				AF1B07502524FE2800F2F19D /* Bold360AI.framework in Embed Frameworks */,
 				AF1B07522524FE2800F2F19D /* BoldAIEngine.framework in Embed Frameworks */,
+				AFBEB478252BB7D4009729D2 /* Bold360AI.framework in Embed Frameworks */,
+				AFBEB47A252BB7D6009729D2 /* BoldCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,8 +63,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF1B07512524FE2800F2F19D /* BoldAIEngine.framework in Frameworks */,
-				AF2D8F96251D2863003D13B2 /* BoldCore.framework in Frameworks */,
-				AF1B074F2524FE2800F2F19D /* Bold360AI.framework in Frameworks */,
+				AFBEB479252BB7D6009729D2 /* BoldCore.framework in Frameworks */,
+				AFBEB477252BB7D4009729D2 /* Bold360AI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
