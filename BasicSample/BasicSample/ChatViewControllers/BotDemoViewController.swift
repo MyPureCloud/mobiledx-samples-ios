@@ -12,18 +12,20 @@ class BotDemoViewController: UIViewController {
     var chatController: ChatController!
     var handOver = HandOverHandler()
     var account: Account!
-
+    var chatConfigurationHandler = ChatConfigurationHandler()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ChatController.clearCache(withInvalidDays:0)
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .white
         chatController = ChatController(account: account)
         chatController.handOver = self.handOver
         chatController.continuityProvider = self
         chatController.speechReconitionDelegate = self
         chatController.delegate = self
+        
         chatController.viewConfiguration.voiceToVoiceConfiguration.type = .default
+        chatController.viewConfiguration = chatConfigurationHandler.defaultConfig
     }
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
@@ -149,7 +151,9 @@ extension BotDemoViewController: ContinuityProvider {
         if (key == "UserID") {
             handler("112233443322154534")
         } else {
-            handler(UserDefaults.standard.value(forKey: key) as? String)
+//            handler(UserDefaults.standard.value(forKey: key) as? String)
+            handler("112233443322154534")
+
         }
     }
 }
