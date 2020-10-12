@@ -179,9 +179,9 @@ class ChatConfigurationHandler: NSObject {
 //            // ReadMoreTitleConfiguration : AutoCompleteConfiguration
 //            config.readMoreViewConfig.title.isEnabled = false
 //            config.readMoreViewConfig.title.text = "hey"
-//            config.readMoreViewConfig.title.font = customFont.font
-//            config.readMoreViewConfig.title.textColor = UIColor.green
-//            config.readMoreViewConfig.title.backgroundColor = UIColor.purple
+            config.readMoreViewConfig.title.font = customFont.font
+            config.readMoreViewConfig.title.textColor = UIColor.green
+            config.readMoreViewConfig.title.backgroundColor = UIColor.purple
 //
 //            // ChatBarConfiguration
 //            config.chatBarConfiguration.image = UIImage(named: "bold")!
