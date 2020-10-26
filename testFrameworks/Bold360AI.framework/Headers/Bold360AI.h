@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 #import "NRDefaultViewAdapter.h"
 #import "NRContentTableViewCell.h"
@@ -118,6 +118,7 @@
 #import "ChatConfiguration.h"
 #import "ChatViewConfiguration.h"
 #import "IncomingBotConfiguration.h"
+#import "MultipleSelectionConfiguration.h"
 #import "QuickOptionConfiguration.h"
 #import "OutgoingConfiguration.h"
 #import "PlaceholderConfiguration.h"

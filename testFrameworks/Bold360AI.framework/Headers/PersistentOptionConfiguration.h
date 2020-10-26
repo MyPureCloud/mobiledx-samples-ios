@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -10,5 +10,5 @@
 #import <Foundation/Foundation.h>
 #import "ChatElementConfiguration.h"
 
-@interface PersistentOptionConfiguration : ChatElementConfiguration
+@interface PersistentOptionConfiguration : ChatElementConfigurationParent
 @end

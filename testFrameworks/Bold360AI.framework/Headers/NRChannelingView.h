@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -13,5 +13,4 @@
 
 
 @interface NRChannelingView : UIView <NRChannelingView>
-
 @end

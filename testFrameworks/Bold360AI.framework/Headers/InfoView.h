@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 //
 //  InfoView.h

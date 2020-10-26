@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v2.4.6 
+// NanorepUI version number: v2.4.7. 
 
 //
 //  BCHTTPConnection_URLSession.h

@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "NRSearchBarDelegate.h"
 #import <BoldAIEngine/BoldAIEngine.h>
+#import "QuickOptionConfiguration.h"
 
 typedef NS_ENUM(NSInteger, NRAnimationType) {
     NRAnimationTypeDefault,
@@ -82,7 +83,8 @@ typedef NS_ENUM(NSInteger, NRAnimationType) {
 @end
 
 @protocol NRChannelingView <NSObject>
-
+/// Channels Configuration.
+@property (strong, nonatomic) QuickOptionConfiguration *config;
 @property (nonatomic, copy) NSArray<NRChanneling *> *channels;
 
 @optional

@@ -37,6 +37,24 @@ tbody {
 
 </style>
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    window.webkit.messageHandlers.callback.postMessage({"status":"ready"});
+}, false);
+
+function updateUI(config) {
+    if(config.textColor) {
+        document.body.style.color = config.textColor;
+    }
+
+    if(config.fontName.length) {
+        document.body.style.fontFamily = config.fontName;
+    }
+    
+    if(config.fontSize) {
+        document.body.style.fontSize = config.fontSize;
+    }
+}
+
 (function() {
  var embeds = document.querySelectorAll('iframe');
  for (var i = 0, embed, content, width, height, ratio, wrapper; i < embeds.length; i++) {

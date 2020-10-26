@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -27,7 +27,9 @@ typedef NS_ENUM(NSInteger, ChatElementType) {
     /// Chat element type is carousel
     CarouselElement = 3,
     /// Chat element type is remote
-    SystemMessageElement = 4
+    SystemMessageElement = 4,
+    /// Chat element type is remote
+    IncomingBotMultipleSelectionElement = 5
 };
 
 typedef NS_ENUM(NSInteger, ChatElementSource) {

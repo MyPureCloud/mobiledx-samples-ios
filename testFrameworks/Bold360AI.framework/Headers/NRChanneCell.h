@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.6 
+// NanorepUI version number: v3.8.7. 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -9,7 +9,9 @@
 
 #import <UIKit/UIKit.h>
 #import <BoldAIEngine/BoldAIEngine.h>
+#import "QuickOptionConfiguration.h"
 
 @interface NRChanneCell : UICollectionViewCell
 @property (nonatomic, strong) NRChanneling *channel;
+@property (strong, nonatomic) QuickOptionConfiguration *config;
 @end
