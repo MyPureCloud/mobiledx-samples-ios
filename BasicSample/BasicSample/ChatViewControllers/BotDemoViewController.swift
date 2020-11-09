@@ -57,6 +57,22 @@ extension BotDemoViewController: ChatControllerDelegate {
         }
     }
     
+    
+    func shouldPresent(_ form: BrandedForm!, handler completionHandler: (((UIViewController & BoldForm)?) -> Void)!) {
+        if (completionHandler != nil) {
+            DispatchQueue.main.async {
+                if form.form?.type == BCFormTypePostChat {
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                   let postVC = mainStoryboard.instantiateViewController(withIdentifier: "boldForm") as! BoldFormViewController
+                   postVC.form = form
+                   completionHandler(postVC)
+                } else {
+                    completionHandler(nil)
+                }
+           }
+        }
+    }
+    
     func didFailWithError(_ error: BLDError!) {
         var errorMsg = String()
         switch error.type {
