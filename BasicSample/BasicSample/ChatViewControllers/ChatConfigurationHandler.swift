@@ -14,10 +14,7 @@ class ChatConfigurationHandler: NSObject {
     private var customFont:CustomFont
     
     override init() {
-        customFont = CustomFont()
-        customFont.font = UIFont.systemFont(ofSize: 12)
-        // TODO:: understand how to set fontFileName
-        //        customFont.fontFileName = ""    }
+        customFont = CustomFont(font: .systemFont(ofSize: 12))
     }
     
     var defaultConfig: Bold360AI.ChatConfiguration {
@@ -179,7 +176,7 @@ class ChatConfigurationHandler: NSObject {
 //            // ReadMoreTitleConfiguration : AutoCompleteConfiguration
 //            config.readMoreViewConfig.title.isEnabled = false
 //            config.readMoreViewConfig.title.text = "hey"
-            config.readMoreViewConfig.title.font = customFont.font
+            config.readMoreViewConfig.title.font = UIFont.systemFont(ofSize: 20)
             config.readMoreViewConfig.title.textColor = UIColor.green
             config.readMoreViewConfig.title.backgroundColor = UIColor.purple
 //
