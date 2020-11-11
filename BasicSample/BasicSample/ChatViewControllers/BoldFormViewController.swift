@@ -18,13 +18,13 @@ class BoldFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let formField = self.formInfo.form.formFields[0] as? BCFormField{
+        if let formField = self.formInfo.form.formFields.first as? BCFormField{
             self.formTitle.text = formField.label
         }
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-        (self.formInfo.form.formFields[0] as? BCFormField)?.label = self.formTitle.text
+        (self.formInfo.form.formFields.first as? BCFormField)?.label = self.formTitle.text
         self.delegate.submitForm(self.form)
     }
     
