@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		117F9628027092819701291C /* Pods_BasicSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E2E9C5B0AFCDBBF1BC6751 /* Pods_BasicSample.framework */; };
 		483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */; };
 		4848892022EEF871000CF01E /* EmbedDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */; };
 		484F087023D5AFE30013046C /* LiveAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F086F23D5AFE30013046C /* LiveAccountViewController.swift */; };
@@ -42,7 +43,6 @@
 		48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5A19922761DCB0073F57B /* MainTableViewController.swift */; };
 		48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */; };
 		48F6DBA2230C4220008EA1A0 /* AutoCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */; };
-		70C202F694A74F6E9395CD9F /* Pods_BasicSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716BEB2BF8B887A84DE4858E /* Pods_BasicSample.framework */; };
 		AF12C8A321D22C90007450EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12C8A221D22C90007450EF /* AppDelegate.swift */; };
 		AF12C8A821D22C90007450EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A621D22C90007450EF /* Main.storyboard */; };
 		AF12C8AA21D22C91007450EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF12C8A921D22C91007450EF /* Assets.xcassets */; };
@@ -50,10 +50,13 @@
 		AF91186C238D1583007F5D3A /* CustomFileUploadDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91186B238D1583007F5D3A /* CustomFileUploadDemoVC.swift */; };
 		AF911888239000DB007F5D3A /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */; };
 		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
+		EC4BF4DF2554602F00AF438D /* BoldFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */; };
+		ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */; };
 		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		460F34D57B754A571CF96822 /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
 		483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandOverHandler.swift; sourceTree = "<group>"; };
 		4848891F22EEF871000CF01E /* EmbedDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedDemoViewController.swift; sourceTree = "<group>"; };
 		484F086F23D5AFE30013046C /* LiveAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAccountViewController.swift; sourceTree = "<group>"; };
@@ -89,9 +92,7 @@
 		48A5A19922761DCB0073F57B /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		48A5A19B227635FD0073F57B /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
 		48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteViewController.swift; sourceTree = "<group>"; };
-		567A596874F0DFCA554E587C /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
-		716BEB2BF8B887A84DE4858E /* Pods_BasicSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A94C83895BEB749345637473 /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
+		86E2E9C5B0AFCDBBF1BC6751 /* Pods_BasicSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF12C89F21D22C90007450EF /* BasicSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF12C8A221D22C90007450EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF12C8A721D22C90007450EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +103,9 @@
 		AF91186B238D1583007F5D3A /* CustomFileUploadDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFileUploadDemoVC.swift; sourceTree = "<group>"; };
 		AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploadDemoViewController.swift; sourceTree = "<group>"; };
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
+		C10093AD161A26F8875E4BC3 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
+		EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldFormViewController.swift; sourceTree = "<group>"; };
+		ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConfigurationHandler.swift; sourceTree = "<group>"; };
 		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,13 +114,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70C202F694A74F6E9395CD9F /* Pods_BasicSample.framework in Frameworks */,
+				117F9628027092819701291C /* Pods_BasicSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FA818ECA61C16220CBC0169 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86E2E9C5B0AFCDBBF1BC6751 /* Pods_BasicSample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		483EA67A2369CA5000B9BBE1 /* HandOver */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +169,7 @@
 		487351CA22784A260029F295 /* ChatViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */,
 				4899613F22763AD500D86590 /* BotDemoViewController.swift */,
 				4899614122763B1800D86590 /* AgentViewController.swift */,
 				487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */,
@@ -166,6 +179,7 @@
 				48F6DBA1230C4220008EA1A0 /* AutoCompleteViewController.swift */,
 				AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */,
 				ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */,
+				EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */,
 			);
 			path = ChatViewControllers;
 			sourceTree = "<group>";
@@ -185,21 +199,13 @@
 			path = RestoreChat;
 			sourceTree = "<group>";
 		};
-		66BA36762FAFD6F85F90A58C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				716BEB2BF8B887A84DE4858E /* Pods_BasicSample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		AF12C89621D22C90007450EF = {
 			isa = PBXGroup;
 			children = (
 				AF12C8A121D22C90007450EF /* BasicSample */,
 				AF12C8A021D22C90007450EF /* Products */,
 				B7C6AE904CE1881071FF9D83 /* Pods */,
-				66BA36762FAFD6F85F90A58C /* Frameworks */,
+				2FA818ECA61C16220CBC0169 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,8 +252,8 @@
 		B7C6AE904CE1881071FF9D83 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				567A596874F0DFCA554E587C /* Pods-BasicSample.debug.xcconfig */,
-				A94C83895BEB749345637473 /* Pods-BasicSample.release.xcconfig */,
+				C10093AD161A26F8875E4BC3 /* Pods-BasicSample.debug.xcconfig */,
+				460F34D57B754A571CF96822 /* Pods-BasicSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -259,11 +265,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF12C8B121D22C91007450EF /* Build configuration list for PBXNativeTarget "BasicSample" */;
 			buildPhases = (
-				C61500C395C2E54F8C60C0CC /* [CP] Check Pods Manifest.lock */,
+				ECB204F3E623BF23101324C5 /* [CP] Check Pods Manifest.lock */,
 				AF12C89B21D22C90007450EF /* Sources */,
 				AF12C89C21D22C90007450EF /* Frameworks */,
 				AF12C89D21D22C90007450EF /* Resources */,
-				6F16FEBC99C7BE7BB0F2E34D /* [CP] Embed Pods Frameworks */,
+				BBCD852A61BA3C7CED430E91 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -281,7 +287,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = bold360ai;
 				TargetAttributes = {
 					AF12C89E21D22C90007450EF = {
@@ -334,7 +340,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6F16FEBC99C7BE7BB0F2E34D /* [CP] Embed Pods Frameworks */ = {
+		BBCD852A61BA3C7CED430E91 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -351,7 +357,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasicSample/Pods-BasicSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C61500C395C2E54F8C60C0CC /* [CP] Check Pods Manifest.lock */ = {
+		ECB204F3E623BF23101324C5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -385,6 +391,7 @@
 				48996152227741B300D86590 /* RestoreChat.swift in Sources */,
 				48A5A19C227635FD0073F57B /* DemoTableViewCell.swift in Sources */,
 				48A5A19A22761DCB0073F57B /* MainTableViewController.swift in Sources */,
+				EC4BF4DF2554602F00AF438D /* BoldFormViewController.swift in Sources */,
 				486C0B2723D4624700544AAE /* SwitchTableViewCell.swift in Sources */,
 				486C0B2423D4624700544AAE /* InputTableViewCell.swift in Sources */,
 				486C0B3823D46C9100544AAE /* OptionButton.swift in Sources */,
@@ -393,6 +400,7 @@
 				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */,
+				ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				486C0B2823D4624700544AAE /* AddContextTableViewCell.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
@@ -463,6 +471,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -523,6 +532,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -553,7 +563,7 @@
 		};
 		AF12C8B221D22C91007450EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 567A596874F0DFCA554E587C /* Pods-BasicSample.debug.xcconfig */;
+			baseConfigurationReference = C10093AD161A26F8875E4BC3 /* Pods-BasicSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -573,7 +583,7 @@
 		};
 		AF12C8B321D22C91007450EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A94C83895BEB749345637473 /* Pods-BasicSample.release.xcconfig */;
+			baseConfigurationReference = 460F34D57B754A571CF96822 /* Pods-BasicSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

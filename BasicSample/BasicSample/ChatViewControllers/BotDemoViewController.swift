@@ -12,19 +12,20 @@ class BotDemoViewController: UIViewController {
     var chatController: ChatController!
     var handOver = HandOverHandler()
     var account: Account!
-    
-    
+    var chatConfigurationHandler = ChatConfigurationHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ChatController.clearCache(withInvalidDays:0)
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .white
         chatController = ChatController(account: account)
         chatController.handOver = self.handOver
         chatController.continuityProvider = self
         chatController.speechReconitionDelegate = self
         chatController.delegate = self
+        
+        chatController.viewConfiguration.voiceToVoiceConfiguration.type = .default
+        chatController.viewConfiguration = chatConfigurationHandler.defaultConfig
     }
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
@@ -53,6 +54,22 @@ extension BotDemoViewController: ChatControllerDelegate {
            viewController.modalPresentationStyle = .fullScreen
            self.navigationController?.present(viewController, animated: false, completion: nil)
            viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(BotDemoViewController.dismissChat(_:)))
+        }
+    }
+    
+    
+    func shouldPresent(_ form: BrandedForm!, handler completionHandler: (((UIViewController & BoldForm)?) -> Void)!) {
+        if (completionHandler != nil) {
+            DispatchQueue.main.async {
+                if form.form?.type == BCFormTypePostChat {
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                   let postVC = mainStoryboard.instantiateViewController(withIdentifier: "boldForm") as! BoldFormViewController
+                   postVC.form = form
+                   completionHandler(postVC)
+                } else {
+                    completionHandler(nil)
+                }
+           }
         }
     }
     
@@ -87,12 +104,13 @@ extension BotDemoViewController: ChatControllerDelegate {
                  break
          }
         
-        let alert = UIAlertController(title: "Error!", message: errorMsg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
-            self.navigationController?.popToRootViewController(animated: true)
-        }))
-        
-        self.navigationController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+           let alert = UIAlertController(title: "Error!", message: errorMsg, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }))
+            self.navigationController?.present(alert, animated: true, completion: nil)
+        }
     }
     
     func didUpdateState(_ event: ChatStateEvent!) {
@@ -102,6 +120,7 @@ extension BotDemoViewController: ChatControllerDelegate {
             break
         case .started:
             print("ChatStarted")
+//            self.chatController.clearCache(withInvalidDays: 0)
             break
         case .accepted:
             print("ChatAccepted")
@@ -136,7 +155,7 @@ extension BotDemoViewController: ChatControllerDelegate {
 //    }
 }
 
-extension BotDemoViewController: ContinuityProvider{
+extension BotDemoViewController: ContinuityProvider {
     func updateContinuityInfo(_ params: [String : String]!) {
         params.forEach { (key, value) in
             UserDefaults.standard.set(value, forKey: key)
@@ -148,7 +167,9 @@ extension BotDemoViewController: ContinuityProvider{
         if (key == "UserID") {
             handler("112233443322154534")
         } else {
-            handler(UserDefaults.standard.value(forKey: key) as? String)
+//            handler(UserDefaults.standard.value(forKey: key) as? String)
+            handler("112233443322154534")
+
         }
     }
 }

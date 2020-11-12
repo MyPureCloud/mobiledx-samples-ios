@@ -4,7 +4,7 @@
 # All rights reserved.
 #===================================================================================================
 
-platform :ios, "9.0"
+platform :ios, "10.0"
 use_frameworks!
 
 install! 'cocoapods',
@@ -19,7 +19,7 @@ install! 'cocoapods',
 # Dev
 #source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 # Production
-source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+#source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
