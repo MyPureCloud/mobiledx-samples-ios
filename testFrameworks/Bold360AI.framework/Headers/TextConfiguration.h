@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.7. 
+// NanorepUI version number: v3.8.10 
 
 // ===================================================================================================
 // Copyright © 2019 bold360ai(LogMeIn).
@@ -9,12 +9,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "CustomFont.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BasicConfiguration : NSObject
 /// Text Font.
-@property (nonatomic, copy) UIFont * _Nullable font;
+@property (strong, nonatomic) CustomFont *customFont;
+
 /// View Background Color.
 @property (nonatomic, copy) UIColor * _Nullable backgroundColor;
 /// Text Color.

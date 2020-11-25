@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.4.6. 
+// NanorepUI version number: v3.4.7 
 
 //
 //   Copyright 2012 Square Inc.

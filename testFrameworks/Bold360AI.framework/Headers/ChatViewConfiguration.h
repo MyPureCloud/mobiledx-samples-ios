@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.7. 
+// NanorepUI version number: v3.8.10 
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).
@@ -8,16 +8,7 @@
 // ===================================================================================================
 
 #import <UIKit/UIKit.h>
-
-/************************************************************/
-// MARK: - CustomFont
-/************************************************************/
-
-@interface CustomFont: NSObject
-@property (nonatomic, copy) NSString *fontFileName;
-@property (nonatomic, copy) UIFont *font;
-@property (nonatomic, copy, readonly) NSString *fontWeight;
-@end
+#import "CustomFont.h"
 
 /************************************************************/
 // MARK: - ChatViewConfiguration

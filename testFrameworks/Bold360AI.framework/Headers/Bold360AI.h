@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.7. 
+// NanorepUI version number: v3.8.10 
 
 #import "NRDefaultViewAdapter.h"
 #import "NRContentTableViewCell.h"
@@ -195,6 +195,7 @@
 #import "ChatTextView.h"
 #import "FAQTableViewCell.h"
 #import "MultilineTextTableViewCell.h"
+#import "CustomFont.h"
 
 // ===================================================================================================
 // Copyright © 2018 bold360ai(LogMeIn).

@@ -45,13 +45,25 @@ function updateUI(config) {
     if(config.textColor) {
         document.body.style.color = config.textColor;
     }
-
-    if(config.fontName.length) {
-        document.body.style.fontFamily = config.fontName;
-    }
     
     if(config.fontSize) {
         document.body.style.fontSize = config.fontSize;
+    }
+
+    if(config.fontName.length) {
+        if(config.fontUrl && config.fontUrl.length) {
+            var newStyle = document.createElement('style');
+            newStyle.appendChild(document.createTextNode("\
+            @font-face {\
+                font-family: " + config.fontName + ";\
+                src: url('" + config.fontUrl + "') format('opentype');\
+            }\
+            "));
+
+            document.head.appendChild(newStyle);
+        }
+        
+        document.body.style.fontFamily = config.fontName;
     }
 }
 

@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v3.8.7. 
+// NanorepUI version number: v3.8.10 
 
 // ===================================================================================================
 // Copyright © 2019 bold360ai(LogMeIn).
@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Title Configuration.
 @property (nonatomic, strong) ReadMoreTitleConfiguration *title;
-
-/// Text Configuration.
-@property (nonatomic, copy, readonly) NSMutableDictionary<NSString*, NSString*> *textConfig;
 
 /// Channels Configuration.
 @property (strong, nonatomic, readonly) QuickOptionConfiguration *channelsConfig;

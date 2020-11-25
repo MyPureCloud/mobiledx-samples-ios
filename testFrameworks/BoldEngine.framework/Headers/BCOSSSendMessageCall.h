@@ -1,5 +1,5 @@
 
-// NanorepUI version number: v2.4.7. 
+// NanorepUI version number: v2.4.8 
 
 //
 //  BCOSSSendMessageCall.h
