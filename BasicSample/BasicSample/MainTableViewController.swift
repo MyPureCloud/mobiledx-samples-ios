@@ -42,7 +42,7 @@ class MainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accountVC = AccountTableViewController()
-        accountVC.dataFileName = "InitObjSearch"
+        accountVC.dataFileName = "InitObj"
         switch indexPath.row {
         case 1:
             var liveVC: LiveAccountViewController?
@@ -75,6 +75,7 @@ class MainTableViewController: UITableViewController {
             boldController = self.storyboard?.instantiateViewController(withIdentifier: "Embed")
             break
         case 7:
+            accountVC.dataFileName = "InitObjSearch"
             accountVC.didFetchAccount =  { account in
                 NanoRep.shared()?.prepare(with: account)
                             NanoRep.shared()?.fetchConfiguration = { (configuration: NRConfiguration?, error: Error?) -> Void in

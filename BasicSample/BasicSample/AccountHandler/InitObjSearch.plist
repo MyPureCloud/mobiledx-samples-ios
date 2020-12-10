@@ -32,6 +32,16 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>apiKey</string>
+		<key>type</key>
+		<string>input</string>
+		<key>hint</key>
+		<string>API Key (optional)</string>
+		<key>value</key>
+		<string>8bad6dea-8da4-4679-a23f-b10e62c84de8</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>urlIsInternal</string>
 		<key>type</key>
 		<string>switch</string>
