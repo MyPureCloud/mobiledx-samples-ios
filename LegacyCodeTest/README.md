@@ -3,7 +3,7 @@
 This doc will explains how to move from v2 to v3 legacy SDK.
 
 >Note: You should move to v3 since v2 contains UIWebView and
-App Store will no longer accept new apps using UIWebView as of April 2020 and app updates using UIWebView as of December 2020.
+[App Store will no longer accept new apps using UIWebView as of April 2020 and app updates using UIWebView as of December 2020](https://developer.apple.com/news/?id=12232019b).
 
 # How to move?
 
