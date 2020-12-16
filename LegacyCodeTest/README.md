@@ -12,7 +12,11 @@ https://github.com/bold360ai/bold360-mobile-samples-ios/blob/develop/LegacyCodeT
 2. Open terminal and:
 cd to your sample
 3. Use cocoapods command:
+
+```
 pod update // to get latest version
+```
+
 4. Open the generated workspace file.
 5. Inside your project 
 Make sure you replace `BoldChatVisitorSDK` with `BoldEngineUI`.
