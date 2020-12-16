@@ -20,6 +20,8 @@ Make sure you replace `BoldChatVisitorSDK` with `BoldEngineUI`.
 >Example
 
 ```
+// Before
 #import <BoldChatVisitorSDK/BoldChatViewController.h>
+// After
 #import <BoldEngineUI/BoldChatViewController.h>
 ```
