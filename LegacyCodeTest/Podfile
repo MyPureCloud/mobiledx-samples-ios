@@ -1,0 +1,13 @@
+platform :ios, "10.0"
+use_frameworks!
+
+install! 'cocoapods',
+         :deterministic_uuids => false
+
+source 'https://github.com/CocoaPods/Specs'
+source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+
+
+target 'LegacyCodeTest' do
+  pod 'BoldEngineUI'
+end
