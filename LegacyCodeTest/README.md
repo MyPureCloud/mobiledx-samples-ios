@@ -25,4 +25,4 @@ Make sure you replace `BoldChatVisitorSDK` with `BoldEngineUI`.
 // After
 #import <BoldEngineUI/BoldChatViewController.h>
 ```
-Sample: https://github.com/bold360ai/bold360-mobile-samples-ios/tree/develop/LegacyCodeTest
+>[Sample](https://github.com/bold360ai/bold360-mobile-samples-ios/tree/develop/LegacyCodeTest)
