@@ -18,11 +18,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let botAccount = BotAccount()
+        botAccount.account = "nanorep"
+        botAccount.knowledgeBase = "English"
+        botAccount.perform(Selector.init(("setServer:")), with:"mobilestaging")
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .white
-        self.account.apiKey = "2300000001700000000:2279740578451875484:w+8/nRppLqulxknuMDWbiwyAbWbNgv/Y:gamma"
-        self.chatController = ChatController(account: self.account)
+//        self.view.backgroundColor = .white
+//        self.account.apiKey = "2300000001700000000:2279740578451875484:w+8/nRppLqulxknuMDWbiwyAbWbNgv/Y:gamma"
+        self.chatController = ChatController(account: botAccount)
         chatController.delegate = self
     }
     
@@ -32,7 +35,7 @@ class ViewController: UIViewController {
 extension ViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
 //        viewController.modalPresentationStyle = .overFullScreen
-        self.chatVC = viewController
+//        self.tabBarController?.addChild(viewController)
 //        weak var presentingViewController = self.presentingViewController
 //
 //        self.dismiss(animated: true, completion: {
