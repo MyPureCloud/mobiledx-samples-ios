@@ -35,14 +35,18 @@ class ViewController: UIViewController {
 extension ViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
 //        viewController.modalPresentationStyle = .overFullScreen
-//        self.tabBarController?.addChild(viewController)
+        var items = self.tabBarController?.viewControllers
+        self.tabBarController?.tabBar.isHidden = true
+        items?.append(viewController)
+        self.tabBarController?.viewControllers = items
+        self.tabBarController?.selectedIndex = 2
 //        weak var presentingViewController = self.presentingViewController
 //
 //        self.dismiss(animated: true, completion: {
 //            presentingViewController?.present(viewController, animated: false, completion: nil)
 //        })
         
-        self.show(viewController, sender: self)
+//        self.show(viewController, sender: self)
 //        self.present(viewController, animated: true) { () -> Void in
 //            viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(ViewController.dismissChat(_:)))
 //        }
