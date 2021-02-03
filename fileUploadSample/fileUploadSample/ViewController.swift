@@ -25,7 +25,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
 //        self.view.backgroundColor = .white
 //        self.account.apiKey = "2300000001700000000:2279740578451875484:w+8/nRppLqulxknuMDWbiwyAbWbNgv/Y:gamma"
+        
         self.chatController = ChatController(account: botAccount)
+        self.chatController.viewConfiguration.incomingBotConfig.backgroundColor = UIColor(named: "IncomingBGColor")
+        self.chatController.viewConfiguration.outgoingConfig.backgroundColor = UIColor(named: "OutgoingBGColor")
         chatController.delegate = self
     }
     
