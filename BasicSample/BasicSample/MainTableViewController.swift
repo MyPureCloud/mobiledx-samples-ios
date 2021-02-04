@@ -70,6 +70,7 @@ class MainTableViewController: UITableViewController {
                 account.apiKey = $0
                 self.boldController = AgentViewController()
                 (self.boldController as? AgentViewController)?.account = account
+                (self.boldController as? AgentViewController)?.chatConfiguration = self.configHandler.chatConfig
                 self.performSegue(withIdentifier: "presentChat", sender: self.boldController)
             }
             self.navigationController?.present(liveVC!, animated: true, completion: nil)
