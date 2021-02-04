@@ -17,9 +17,9 @@ install! 'cocoapods',
 # BLD_360_AI="../../bold360ai-mobile-ios/Bold360AI-Dev.podspec"
 
 # Dev
-#source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 # Production
-source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+# source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 

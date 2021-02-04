@@ -50,6 +50,8 @@
 		AF911888239000DB007F5D3A /* FileUploadDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF911887239000DB007F5D3A /* FileUploadDemoViewController.swift */; };
 		AFE7767DD441813DB5EF49A7 /* Pods_BasicSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7550B306EA434173A417F6 /* Pods_BasicSample.framework */; };
 		AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */; };
+		CEB582A325CC15ED001C2CDA /* ColorTypeSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB582A225CC15ED001C2CDA /* ColorTypeSwitcher.xib */; };
+		CEB582A625CC18EB001C2CDA /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB582A525CC18EB001C2CDA /* Config.swift */; };
 		EC4BF4DF2554602F00AF438D /* BoldFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */; };
 		ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */; };
 		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
@@ -103,6 +105,8 @@
 		AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailibilityViewController.swift; sourceTree = "<group>"; };
 		BA80E9076A29ED3FA7074703 /* Pods-BasicSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.release.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.release.xcconfig"; sourceTree = "<group>"; };
 		CC7550B306EA434173A417F6 /* Pods_BasicSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB582A225CC15ED001C2CDA /* ColorTypeSwitcher.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTypeSwitcher.xib; sourceTree = "<group>"; };
+		CEB582A525CC18EB001C2CDA /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		DC471EDB9771219B161567B8 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
 		EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldFormViewController.swift; sourceTree = "<group>"; };
 		ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConfigurationHandler.swift; sourceTree = "<group>"; };
@@ -124,7 +128,6 @@
 		483EA67A2369CA5000B9BBE1 /* HandOver */ = {
 			isa = PBXGroup;
 			children = (
-				AF12C8A621D22C90007450EF /* Main.storyboard */,
 				483EA67B2369CA7000B9BBE1 /* HandOverHandler.swift */,
 			);
 			path = HandOver;
@@ -172,6 +175,7 @@
 				AFF9BCAA22E86CC60078DD8A /* AvailibilityViewController.swift */,
 				ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */,
 				EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */,
+				CEB582A525CC18EB001C2CDA /* Config.swift */,
 			);
 			path = ChatViewControllers;
 			sourceTree = "<group>";
@@ -220,6 +224,8 @@
 		AF12C8A121D22C90007450EF /* BasicSample */ = {
 			isa = PBXGroup;
 			children = (
+				CEB582A125CC15BD001C2CDA /* Configuration */,
+				AF12C8A621D22C90007450EF /* Main.storyboard */,
 				486C0B3223D462F600544AAE /* AccountHandler */,
 				486C0B2923D4625600544AAE /* Cells */,
 				483EA67A2369CA5000B9BBE1 /* HandOver */,
@@ -256,6 +262,14 @@
 				BA80E9076A29ED3FA7074703 /* Pods-BasicSample.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CEB582A125CC15BD001C2CDA /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				CEB582A225CC15ED001C2CDA /* ColorTypeSwitcher.xib */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,6 +337,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB582A325CC15ED001C2CDA /* ColorTypeSwitcher.xib in Resources */,
 				486C0B1623D4620D00544AAE /* AccountTableViewController.xib in Resources */,
 				AF12C8AD21D22C91007450EF /* LaunchScreen.storyboard in Resources */,
 				486C0B2C23D462B000544AAE /* InitObjSearch.plist in Resources */,
@@ -403,6 +418,7 @@
 				ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				486C0B2823D4624700544AAE /* AddContextTableViewCell.swift in Sources */,
+				CEB582A625CC18EB001C2CDA /* Config.swift in Sources */,
 				4899614822773FD300D86590 /* RestoredChatDemo.xcdatamodeld in Sources */,
 				486C0B2623D4624700544AAE /* AccountDataTableViewCell.swift in Sources */,
 				4899614E22773FF700D86590 /* ChatConfiguration+CoreDataProperties.swift in Sources */,
