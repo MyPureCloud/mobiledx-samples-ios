@@ -368,7 +368,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2300000001700000000:2279466355967586781:hPyy+L9JzbTC2P+6z4hPx02BPC7kLTQ1:gamma" borderStyle="roundedRect" placeholder="Access Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oJD-6u-DXn">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2300000001700000000:2279796363776050121:8TSyCKQ63iE+v9w+nuJoUK0/RRdEThOW" borderStyle="roundedRect" placeholder="Access Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oJD-6u-DXn">
                                 <rect key="frame" x="26" y="98" width="362" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
