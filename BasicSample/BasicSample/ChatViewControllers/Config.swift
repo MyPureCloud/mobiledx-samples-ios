@@ -21,11 +21,14 @@ class ConfigFactory {
         }
     }
     
-    lazy var chatConfig = {
-        Bold360AI.ChatConfiguration()
+    lazy var chatConfig = { () -> Bold360AI.ChatConfiguration in
+        var config = Bold360AI.ChatConfiguration()
+//        self.colorType = .basic
+        return config
     }()
     
     func updateConfig() {
+        self.chatConfig.chatViewConfig.maxLength = 50
         self.updateLiveIncoming()
         self.updateBotIncoming()
         self.updateMultiLine()
@@ -39,13 +42,26 @@ class ConfigFactory {
     func updateBotIncoming() {
         self.chatConfig.incomingBotConfig.backgroundColor = self.bgColor
         self.chatConfig.incomingBotConfig.textColor = self.textColor
+        self.updateQuickOption()
+    }
+    
+    func updateQuickOption() {
+        self.chatConfig.incomingBotConfig.quickOptionConfig.textColor = self.textColor
+        self.chatConfig.incomingBotConfig.quickOptionConfig.backgroundColor = self.bgColor
     }
     
     func updateMultiLine() {
-        self.chatConfig.multipleSelectionConfiguration.titleConfig.backgroundColor = self.bgColor
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.textColor = self.textColor
         self.chatConfig.multipleSelectionConfiguration.titleConfiguration.backgroundColor = self.bgColor
+        self.chatConfig.multipleSelectionConfiguration.dateStampColor = self.dateStampColor
+        self.updateMultilineItem()
 //        self.chatConfig.multipleSelectionConfiguration.backgroundColor = self.bgColor
 //        self.chatConfig.multipleSelectionConfiguration.textColor = self.textColor
+    }
+    
+    func updateMultilineItem() {
+        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.backgroundColor = self.bgColor
+        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.textColor = self.textColor
     }
     
     var bgColor: UIColor {
@@ -69,7 +85,17 @@ class ConfigFactory {
         case .system:
             return UIColor.systemBlue
         }
-        
+    }
+    
+    var dateStampColor: UIColor {
+        switch self.colorType {
+        case .basic:
+            return UIColor.lightGray
+        case .asset:
+            return UIColor(named: "dateStampColor")!
+        case .system:
+            return UIColor.systemTeal
+        }
     }
 }
 

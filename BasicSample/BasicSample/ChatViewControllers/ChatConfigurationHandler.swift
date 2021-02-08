@@ -81,11 +81,11 @@ class ChatConfigurationHandler: NSObject {
 //
 //            // IncomingBotConfiguration - PersistentOptionConfiguration *persistentOptionConfig
 //            // PersistentOptionConfiguration : ChatElementConfiguration
-            config.incomingBotConfig.persistentOptionConfig.backgroundColor = UIColor.systemRed
+//            config.incomingBotConfig.persistentOptionConfig.backgroundColor = UIColor.systemRed
 //            config.incomingBotConfig.persistentOptionConfig.backgroundImage = UIImage(named: "bold")
-            config.incomingBotConfig.persistentOptionConfig.dateStampColor = UIColor.brown
-            config.incomingBotConfig.persistentOptionConfig.customFont = customFont
-            config.incomingBotConfig.persistentOptionConfig.maxLength = 2
+//            config.incomingBotConfig.persistentOptionConfig.dateStampColor = UIColor.brown
+//            config.incomingBotConfig.persistentOptionConfig.customFont = customFont
+//            config.incomingBotConfig.persistentOptionConfig.maxLength = 2
 //
 //            // IncomingBotConfiguration - InstantFeedbackConfiguration *instantFeedbackConfig
 //            // IncomingBotTitleConfiguration : ChatElementConfiguration
