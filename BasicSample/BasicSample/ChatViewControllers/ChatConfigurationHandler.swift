@@ -58,8 +58,8 @@ class ChatConfigurationHandler: NSObject {
 //            // IncomingBotConfiguration : ChatElementConfiguration
             config.incomingBotConfig.backgroundColor = UIColor(named: "incomingTest")
 //            config.incomingBotConfig.backgroundImage = UIImage(named: "bold")
-            config.incomingBotConfig.dateStampColor = UIColor.systemGreen
-            config.incomingBotConfig.dateStampFont = UIFont.italicSystemFont(ofSize: 30)
+//            config.incomingBotConfig.dateStampColor = UIColor.systemGreen
+//            config.incomingBotConfig.dateStampFont = UIFont.italicSystemFont(ofSize: 30)
             customFont.font = UIFont.italicSystemFont(ofSize: 30)
             config.incomingBotConfig.customFont = customFont
 //            config.incomingBotConfig.maxLength = 3
@@ -115,8 +115,8 @@ class ChatConfigurationHandler: NSObject {
 //            // OutgoingConfiguration : ChatElementConfiguration
             config.outgoingConfig.backgroundColor = UIColor.blue
 //            config.outgoingConfig.backgroundImage = UIImage(named: "bold")
-            config.outgoingConfig.dateStampColor = UIColor.red
-            config.outgoingConfig.dateStampFont = UIFont(name: "Times New Roman", size: 13.0)//            config.outgoingConfig.customFont = customFont
+//            config.outgoingConfig.dateStampColor = UIColor.red
+//            config.outgoingConfig.dateStampFont = UIFont(name: "Times New Roman", size: 13.0)//            config.outgoingConfig.customFont = customFont
 //            config.outgoingConfig.maxLength = 3
 //            
 //            config.outgoingConfig.avatarPosition = AvatarPosition.bottomRight
