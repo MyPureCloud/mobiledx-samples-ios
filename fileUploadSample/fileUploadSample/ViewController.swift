@@ -18,11 +18,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let botAccount = BotAccount()
+        botAccount.account = "nanorep"
+        botAccount.knowledgeBase = "English"
+        botAccount.perform(Selector.init(("setServer:")), with:"mobilestaging")
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .white
-        self.account.apiKey = "2300000001700000000:2279740578451875484:w+8/nRppLqulxknuMDWbiwyAbWbNgv/Y:gamma"
-        self.chatController = ChatController(account: self.account)
+//        self.view.backgroundColor = .white
+//        self.account.apiKey = "2300000001700000000:2279740578451875484:w+8/nRppLqulxknuMDWbiwyAbWbNgv/Y:gamma"
+        
+        self.chatController = ChatController(account: botAccount)
+        self.chatController.viewConfiguration.incomingBotConfig.backgroundColor = UIColor(named: "IncomingBGColor")
+        self.chatController.viewConfiguration.outgoingConfig.backgroundColor = UIColor(named: "OutgoingBGColor")
         chatController.delegate = self
     }
     
@@ -32,14 +38,18 @@ class ViewController: UIViewController {
 extension ViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
 //        viewController.modalPresentationStyle = .overFullScreen
-        self.chatVC = viewController
+        var items = self.tabBarController?.viewControllers
+        self.tabBarController?.tabBar.isHidden = true
+        items?.append(viewController)
+        self.tabBarController?.viewControllers = items
+        self.tabBarController?.selectedIndex = 2
 //        weak var presentingViewController = self.presentingViewController
 //
 //        self.dismiss(animated: true, completion: {
 //            presentingViewController?.present(viewController, animated: false, completion: nil)
 //        })
         
-        self.show(viewController, sender: self)
+//        self.show(viewController, sender: self)
 //        self.present(viewController, animated: true) { () -> Void in
 //            viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(ViewController.dismissChat(_:)))
 //        }
