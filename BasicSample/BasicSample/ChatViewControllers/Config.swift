@@ -60,24 +60,30 @@ class ConfigFactory {
     // ###########
     
     func updateChatView() {
-                self.chatConfig.chatViewConfig.backgroundColor = self.bgColor
-                self.chatConfig.chatViewConfig.backgroundImage = self.image
-        
+        self.chatConfig.chatViewConfig.backgroundColor = self.bgColor
+        self.chatConfig.chatViewConfig.backgroundImage = self.image
+        if #available(iOS 13.0, *) {
+            self.chatConfig.chatViewConfig.hyperlinkColor = self.textColor
+        } else {
+            // Fallback on earlier versions
+            self.chatConfig.chatViewConfig.hyperlinkColor = UIColor.red
+        }
+
         updateDateStamp(datestampConfig: self.chatConfig.chatViewConfig.dateStamp)
         updateDateStamp(datestampConfig: self.chatConfig.chatViewConfig.timeStamp)
     }
     
     func updateBotIncoming() {
 //        self.chatConfig.incomingBotConfig.maxLength = 3
-        self.chatConfig.incomingBotConfig.hyperlinkColor = UIColor.red
-        updateMessageConfiguration(messageConfiguration: self.chatConfig.incomingBotConfig!)
+        updateIncomingMessageConfiguration(incomingMessageConfiguration: self.chatConfig.incomingBotConfig!)
         
 //        self.updateQuickOptions()
     }
     
     
     func updateSystemMessage() {
-        //        updateFullCornersItemConfiguration(fullCornerItemConfiguration: self.chatConfig.systemMessageConfig)
+        updateFullCornersItemConfiguration(fullCornerItemConfiguration: self.chatConfig.systemMessageConfig)
+        self.chatConfig.systemMessageConfig.backgroundImage = self.image // not working
         self.chatConfig.systemMessageConfig.borderRadius = BorderRadius(top: Corners(left: 0, right: 70 ), bottom: Corners(left: 40, right: 70 ))
     }
     
@@ -89,7 +95,7 @@ class ConfigFactory {
     }
     
     func updateLiveIncoming() {
-        updateMessageConfiguration(messageConfiguration: self.chatConfig.incomingLiveConfig)
+        updateIncomingMessageConfiguration(incomingMessageConfiguration: self.chatConfig.incomingLiveConfig)
     }
     
     func updateMultiLine() {
@@ -122,18 +128,23 @@ class ConfigFactory {
         commonConfig.backgroundColor = self.bgColor
         commonConfig.textColor = self.textColor
         commonConfig.customFont = self.customFont
-//        commonConfig.backgroundImage = self.image
+        commonConfig.backgroundImage = self.image
+    }
+    
+    func updateIncomingMessageConfiguration(incomingMessageConfiguration: IncomingMessageConfiguration) {
+        self.updateMessageConfiguration(messageConfiguration: incomingMessageConfiguration)
+        incomingMessageConfiguration.maxLength = 15
     }
     
     func updateMessageConfiguration(messageConfiguration: MessageConfiguration) {
         self.updateFullCornersItemConfiguration(fullCornerItemConfiguration: messageConfiguration)
-//        messageConfiguration.avatar = self.image
-        messageConfiguration.avatarPosition = AvatarPosition.topLeft
+        messageConfiguration.avatar = self.image
+        messageConfiguration.avatarPosition = AvatarPosition.topRight
     }
     
     func updateFullCornersItemConfiguration(fullCornerItemConfiguration:FullCornersItemConfiguration) {
         updateCommonConfig(commonConfig: fullCornerItemConfiguration)
-        fullCornerItemConfiguration.borderRadius = BorderRadius(top: Corners(left: 0, right: 70 ), bottom: Corners(left: 40, right: 70 ))
+//        fullCornerItemConfiguration.borderRadius = BorderRadius(top: Corners(left: 0, right: 0 ), bottom: Corners(left: 0, right: 0 ))
     }
     
     func updatePartialCornerItemConfiguration(partialCornerItemConfiguration:PartialCornerItemConfiguration){
@@ -164,7 +175,13 @@ class ConfigFactory {
         case .asset:
             return UIColor(named: "bgColor")!
         case .system:
-            return UIColor.systemRed
+            if #available(iOS 13.0, *) {
+                return UIColor.systemBackground
+            } else {
+                // Fallback on earlier versions
+                return UIColor.systemGreen
+
+            }
         }
         
     }
@@ -176,7 +193,12 @@ class ConfigFactory {
         case .asset:
             return UIColor(named: "textColor")!
         case .system:
-            return UIColor.systemBlue
+            if #available(iOS 13.0, *) {
+                return UIColor.label
+            } else {
+                // Fallback on earlier versions
+                return UIColor.systemBlue
+            }
         }
         
     }
