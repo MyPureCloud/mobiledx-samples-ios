@@ -41,18 +41,18 @@ class ConfigFactory {
     }
     
     func updateWeb() {
-        self.updateChatView() // eliza
-        self.updateOutgoing() // eliza
-        self.updateBotIncoming() // nissim
-        self.updateMultiLine()  // nissim
-        self.updateLiveIncoming() // omer
-        self.updateSystemMessage() // omer
+        self.updateChatView()
+        self.updateOutgoing()
+        self.updateBotIncoming()
+        self.updateMultiLine()
+        self.updateLiveIncoming()
+        self.updateSystemMessage()
     }
     
     func updateNative() {
         updateReadMore()
         updateSearchView()
-//        self.chatConfig.chatBarConfiguration.enabled = false
+        updateChatBar()
     }
     
     // ###########
@@ -62,6 +62,8 @@ class ConfigFactory {
     func updateChatView() {
         self.chatConfig.chatViewConfig.backgroundColor = self.bgColor
         self.chatConfig.chatViewConfig.backgroundImage = self.image
+        self.chatConfig.chatViewConfig.avatarSize = CGSize(width: 80, height: 80)
+        
         if #available(iOS 13.0, *) {
             self.chatConfig.chatViewConfig.hyperlinkColor = self.textColor
         } else {
@@ -74,17 +76,14 @@ class ConfigFactory {
     }
     
     func updateBotIncoming() {
-//        self.chatConfig.incomingBotConfig.maxLength = 3
         updateIncomingMessageConfiguration(incomingMessageConfiguration: self.chatConfig.incomingBotConfig!)
         
-//        self.updateQuickOptions()
+        self.updateQuickOptions()
     }
     
     
     func updateSystemMessage() {
         updateFullCornersItemConfiguration(fullCornerItemConfiguration: self.chatConfig.systemMessageConfig)
-        self.chatConfig.systemMessageConfig.backgroundImage = self.image // not working
-        self.chatConfig.systemMessageConfig.borderRadius = BorderRadius(top: Corners(left: 0, right: 70 ), bottom: Corners(left: 40, right: 70 ))
     }
     
     func updateOutgoing() {
@@ -115,7 +114,6 @@ class ConfigFactory {
     
     func updateQuickOptions() {
         updateFullCornersItemConfiguration(fullCornerItemConfiguration: self.chatConfig.incomingBotConfig.quickOptionConfig)
-        //        self.chatConfig.incomingBotConfig.quickOptionConfig.borderRadius = BorderRadius(top: Corners(left: 0, right: 0 ), bottom: Corners(left: 0, right: 0 ))
     }
     
     func updateDateStamp(datestampConfig:DateStampConfiguration) {
@@ -144,7 +142,7 @@ class ConfigFactory {
     
     func updateFullCornersItemConfiguration(fullCornerItemConfiguration:FullCornersItemConfiguration) {
         updateCommonConfig(commonConfig: fullCornerItemConfiguration)
-//        fullCornerItemConfiguration.borderRadius = BorderRadius(top: Corners(left: 0, right: 0 ), bottom: Corners(left: 0, right: 0 ))
+        fullCornerItemConfiguration.borderRadius = BorderRadius(top: Corners(left: 15, right: 15 ), bottom: Corners(left: 15, right: 15 ))
     }
     
     func updatePartialCornerItemConfiguration(partialCornerItemConfiguration:PartialCornerItemConfiguration){
@@ -159,13 +157,27 @@ class ConfigFactory {
     func updateReadMore() {
         self.chatConfig.readMoreViewConfig.channelsConfig.backgroundColor = self.bgColor
         self.chatConfig.readMoreViewConfig.channelsConfig.customFont = self.customFont
-        self.chatConfig.readMoreViewConfig.channelsConfig.textColor = self.textColor // not working
+        self.chatConfig.readMoreViewConfig.channelsConfig.textColor = self.textColor
+        self.chatConfig.readMoreViewConfig.channelsConfig.cornerRadius = 10
     }
     
     func updateSearchView() {
         self.chatConfig.searchViewConfig.border.color = UIColor.red
         self.chatConfig.searchViewConfig.border.width = 3.0
         self.chatConfig.searchViewConfig.border.cornerRadius = 10.0
+    }
+    
+    func updateChatBar() {
+        let chatBarConfig = self.chatConfig.chatBarConfiguration!
+        chatBarConfig.agentName = "Agent"
+        chatBarConfig.image = self.image
+        chatBarConfig.endChatBtnTitle = "End Here"
+        chatBarConfig.endChatBtnTextColor = self.textColor
+        chatBarConfig.backgroundColor = self.bgColor
+        chatBarConfig.textColor = UIColor.red
+        chatBarConfig.font = self.customFont.font
+        chatBarConfig.endChatButtonEnabled = true
+        chatBarConfig.enabled = true
     }
     
     var bgColor: UIColor {
