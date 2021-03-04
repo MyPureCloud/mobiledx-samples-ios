@@ -10,6 +10,7 @@ import Bold360AI
 class MainTableViewController: UITableViewController {
     var demos: [[String: String]]!
     var boldController: UIViewController?
+    var configHandler = ConfigFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,14 @@ class MainTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    
+    @IBAction func changeColorType(_ sender: UISegmentedControl) {
+        self.configHandler.colorType = ColorType(rawValue: sender.selectedSegmentIndex) ?? .basic
+    }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -38,6 +46,12 @@ class MainTableViewController: UITableViewController {
         // Configure the cell...
         cell.model = self.demos[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let switcher = Bundle.main.loadNibNamed("ColorTypeSwitcher", owner: self, options: nil)?.first as? UIView
+        switcher?.frame = CGRect(origin: .zero, size: CGSize(width: tableView.frame.width, height: 44))
+        return switcher
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -56,6 +70,7 @@ class MainTableViewController: UITableViewController {
                 account.apiKey = $0
                 self.boldController = AgentViewController()
                 (self.boldController as? AgentViewController)?.account = account
+                (self.boldController as? AgentViewController)?.chatConfiguration = self.configHandler.chatConfig
                 self.performSegue(withIdentifier: "presentChat", sender: self.boldController)
             }
             self.navigationController?.present(liveVC!, animated: true, completion: nil)
@@ -104,6 +119,7 @@ class MainTableViewController: UITableViewController {
             account.knowledgeBase = "{YOUR_KB}"
         default:
             boldController = BotDemoViewController()
+            (boldController as? BotDemoViewController)?.chatConfiguration = self.configHandler.chatConfig
             break
         }
         

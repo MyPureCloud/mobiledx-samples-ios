@@ -12,7 +12,7 @@ class BotDemoViewController: UIViewController {
     var chatController: ChatController!
     var handOver = HandOverHandler()
     var account: Account!
-    var chatConfigurationHandler = ChatConfigurationHandler()
+    var chatConfiguration: Bold360AI.ChatConfiguration?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,10 @@ class BotDemoViewController: UIViewController {
         chatController.delegate = self
         
         chatController.viewConfiguration.voiceToVoiceConfiguration.type = .default
-        chatController.viewConfiguration = chatConfigurationHandler.defaultConfig
+        if let config = self.chatConfiguration {
+            chatController.viewConfiguration = config
+        }
+        
     }
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {

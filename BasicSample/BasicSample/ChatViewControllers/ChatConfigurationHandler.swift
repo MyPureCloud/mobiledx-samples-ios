@@ -56,11 +56,12 @@ class ChatConfigurationHandler: NSObject {
 //            // IncomingBotConfiguration
 //
 //            // IncomingBotConfiguration : ChatElementConfiguration
-            config.incomingBotConfig.backgroundColor = UIColor.systemYellow 
+            config.incomingBotConfig.backgroundColor = UIColor(named: "incomingTest")
 //            config.incomingBotConfig.backgroundImage = UIImage(named: "bold")
-            config.incomingBotConfig.dateStampColor = UIColor.green
-            config.incomingBotConfig.dateStampFont = UIFont(name: "Times New Roman", size: 19.0)
-//            config.incomingBotConfig.customFont = customFont
+//            config.incomingBotConfig.dateStampColor = UIColor.systemGreen
+//            config.incomingBotConfig.dateStampFont = UIFont.italicSystemFont(ofSize: 30)
+            customFont.font = UIFont.italicSystemFont(ofSize: 30)
+            config.incomingBotConfig.customFont = customFont
 //            config.incomingBotConfig.maxLength = 3
             
 //            config.incomingBotConfig.avatarPosition = AvatarPosition.bottomRight
@@ -80,11 +81,7 @@ class ChatConfigurationHandler: NSObject {
 //
 //            // IncomingBotConfiguration - PersistentOptionConfiguration *persistentOptionConfig
 //            // PersistentOptionConfiguration : ChatElementConfiguration
-//            config.incomingBotConfig.persistentOptionConfig.backgroundColor = UIColor.purple
 //            config.incomingBotConfig.persistentOptionConfig.backgroundImage = UIImage(named: "bold")
-//            config.incomingBotConfig.persistentOptionConfig.dateStampColor = UIColor.brown
-//            config.incomingBotConfig.persistentOptionConfig.customFont = customFont
-//            config.incomingBotConfig.persistentOptionConfig.maxLength = 2
 //
 //            // IncomingBotConfiguration - InstantFeedbackConfiguration *instantFeedbackConfig
 //            // IncomingBotTitleConfiguration : ChatElementConfiguration
@@ -118,8 +115,8 @@ class ChatConfigurationHandler: NSObject {
 //            // OutgoingConfiguration : ChatElementConfiguration
             config.outgoingConfig.backgroundColor = UIColor.blue
 //            config.outgoingConfig.backgroundImage = UIImage(named: "bold")
-            config.outgoingConfig.dateStampColor = UIColor.red
-            config.outgoingConfig.dateStampFont = UIFont(name: "Times New Roman", size: 13.0)//            config.outgoingConfig.customFont = customFont
+//            config.outgoingConfig.dateStampColor = UIColor.red
+//            config.outgoingConfig.dateStampFont = UIFont(name: "Times New Roman", size: 13.0)//            config.outgoingConfig.customFont = customFont
 //            config.outgoingConfig.maxLength = 3
 //            
 //            config.outgoingConfig.avatarPosition = AvatarPosition.bottomRight
