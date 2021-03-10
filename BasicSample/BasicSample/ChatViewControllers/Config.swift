@@ -87,7 +87,7 @@ class ConfigFactory {
     
     
     func updateQuickOption() {
-        self.chatConfig.incomingBotConfig.quickOptionConfig.chcekCorners(self.colorType)
+        self.chatConfig.incomingBotConfig.quickOptionConfig.checkCorners(self.colorType)
     }
     
     func updateMultiLine() {
@@ -171,7 +171,7 @@ extension CommonConfig {
 
 // MARK: extends CommonConfig
 extension FullCornersItemConfiguration {
-    func chcekCorners(_ colorType: ColorType) {
+    func checkCorners(_ colorType: ColorType) {
         self.checkCommon(colorType)
         self.borderRadius = BorderRadius(top: Corners(left: 5, right: 5), bottom: Corners(left: 0, right: 0))
     }
@@ -181,7 +181,7 @@ extension FullCornersItemConfiguration {
 // MARK: extends FullCornersItemConfiguration
 extension MessageConfiguration {
     func checkMessage(_ colorType: ColorType) {
-        self.chcekCorners(colorType)
+        self.checkCorners(colorType)
         self.avatar = UIImage(named: "bold")
     }
 }
