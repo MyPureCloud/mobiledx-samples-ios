@@ -30,9 +30,14 @@ class ConfigFactory {
     func updateConfig() {
         self.updateLiveIncoming()
         self.updateChatViewConfig()
+        self.updateOutgoingConfig()
         self.updateBotIncoming()
         self.updateMultiLine()
         self.updateSearchBar()
+    }
+    
+    func updateOutgoingConfig() {
+        self.chatConfig.outgoingConfig.checkOutgoing()
     }
     
     func updateChatViewConfig() {
@@ -177,11 +182,7 @@ extension FullCornersItemConfiguration {
 extension MessageConfiguration {
     func checkMessage(_ colorType: ColorType) {
         self.chcekCorners(colorType)
-        if #available(iOS 13.0, *) {
-            self.avatar = UIImage(systemName: "love")
-        } else {
-            // Fallback on earlier versions
-        }
+        self.avatar = UIImage(named: "bold")
     }
 }
 
@@ -196,7 +197,8 @@ extension IncomingMessageConfiguration {
 // MARK: extends MessageConfiguration
 extension OutgoingConfiguration {
     func checkOutgoing() {
-        
+        self.checkMessage(.basic)
+        self.avatar = UIImage(named: "robot")
         if #available(iOS 13.0, *) {
             self.pendingIcon = UIImage(systemName: "shuffle")
             self.sentFailureIcon = UIImage(systemName: "prohibit")
