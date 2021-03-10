@@ -22,6 +22,7 @@ class MainTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.demos = self.extarctPlist
         self.title = "Bold360 SDK Demos"
+        self.configHandler.colorType = .basic
     }
 
     // MARK: - Table view data source

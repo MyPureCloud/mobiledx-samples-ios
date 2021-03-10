@@ -21,167 +21,100 @@ class ConfigFactory {
         }
     }
     
-    
-    var customFont:CustomFont = CustomFont()
-    var image:UIImage = UIImage()
-    
-    var dateFormatterGet = DateFormatter()
-    
-    lazy var chatConfig = {
-        Bold360AI.ChatConfiguration()
+    lazy var chatConfig = { () -> Bold360AI.ChatConfiguration in
+        var config = Bold360AI.ChatConfiguration()
+//        self.colorType = .basic
+        return config
     }()
     
     func updateConfig() {
-        self.image = UIImage(named: "agent")!
-        self.customFont.font = UIFont.italicSystemFont(ofSize: 30)
-        self.dateFormatterGet.dateFormat = "yyyy-MM-dd"
-        
-        self.updateWeb()
-        self.updateNative()
-    }
-    
-    func updateWeb() {
-        self.updateChatView()
-        self.updateOutgoing()
+        self.updateLiveIncoming()
+        self.updateChatViewConfig()
+        self.updateOutgoingConfig()
         self.updateBotIncoming()
         self.updateMultiLine()
-        self.updateLiveIncoming()
-        self.updateSystemMessage()
+        self.updateSearchBar()
     }
     
-    func updateNative() {
-        updateReadMore()
-        updateSearchView()
-        updateChatBar()
+    func updateOutgoingConfig() {
+        self.chatConfig.outgoingConfig.checkOutgoing()
     }
     
-    // ###########
-    // MARK: WEB
-    // ###########
-    
-    func updateChatView() {
-        self.chatConfig.chatViewConfig.backgroundColor = self.bgColor
-        self.chatConfig.chatViewConfig.backgroundImage = self.image
-        self.chatConfig.chatViewConfig.avatarSize = CGSize(width: 80, height: 80)
-        
-        if #available(iOS 13.0, *) {
-            self.chatConfig.chatViewConfig.hyperlinkColor = self.textColor
-        } else {
-            // Fallback on earlier versions
-            self.chatConfig.chatViewConfig.hyperlinkColor = UIColor.red
-        }
-
-        updateDateStamp(datestampConfig: self.chatConfig.chatViewConfig.dateStamp)
-        updateDateStamp(datestampConfig: self.chatConfig.chatViewConfig.timeStamp)
-    }
-    
-    func updateBotIncoming() {
-        updateIncomingMessageConfiguration(incomingMessageConfiguration: self.chatConfig.incomingBotConfig!)
-        
-        self.updateQuickOptions()
-    }
-    
-    
-    func updateSystemMessage() {
-        updateFullCornersItemConfiguration(fullCornerItemConfiguration: self.chatConfig.systemMessageConfig)
-    }
-    
-    func updateOutgoing() {
-        self.chatConfig.outgoingConfig.sentFailureIcon = self.image
-        self.chatConfig.outgoingConfig.sentSuccessfullyIcon = self.image
-        self.chatConfig.outgoingConfig.pendingIcon = self.image
-        updateMessageConfiguration(messageConfiguration: self.chatConfig.outgoingConfig)
+    func updateChatViewConfig() {
+        self.chatConfig.chatViewConfig.hyperlinkColor = UIColor.red
+        self.chatConfig.chatViewConfig.avatarSize = CGSize(width: 50.0, height: 50.0)
+        let dateStamp = DateStampConfiguration()
+        dateStamp.formatter = DateFormatter()
+        dateStamp.formatter.dateFormat = "MMM dd,yyyy"
+        dateStamp.customFont = CustomFont(font: UIFont.boldSystemFont(ofSize: 12))
+        dateStamp.textColor = UIColor.black
+        let timeStamp = DateStampConfiguration()
+        timeStamp.formatter = DateFormatter()
+        timeStamp.formatter.dateFormat = "HH:mm"
+        timeStamp.customFont = CustomFont(font: UIFont.boldSystemFont(ofSize: 8))
+        timeStamp.textColor = self.colorType.dateStampColor
+        self.chatConfig.chatViewConfig.dateStamp = dateStamp
+        self.chatConfig.chatViewConfig.timeStamp = timeStamp
     }
     
     func updateLiveIncoming() {
-        updateIncomingMessageConfiguration(incomingMessageConfiguration: self.chatConfig.incomingLiveConfig)
+        self.chatConfig.incomingLiveConfig.checkIncoming(self.colorType)
+    }
+    
+    func updateBotIncoming() {
+        self.chatConfig.incomingBotConfig.checkIncoming(self.colorType)
+        updateQuickOption()
+    }
+    
+    
+    func updateSearchBar() {
+        self.chatConfig.searchViewConfig.backgroundColor = self.colorType.bgColor
+        self.chatConfig.searchViewConfig.textColor = self.colorType.textColor
+        self.chatConfig.searchViewConfig.speechOnIcon = UIImage(named: "restore")
+        self.chatConfig.searchViewConfig.speechOffIcon = UIImage(named: "search")
+        self.chatConfig.searchViewConfig.sendIcon = UIImage(named: "history")
+        let border = Border()
+        border.width = 1
+        border.color = UIColor.red
+        border.cornerRadius = 5
+        self.chatConfig.searchViewConfig.border = border
+        self.chatConfig.searchViewConfig.autoCompleteConfiguration?.backgroundColor = self.colorType.bgColor
+        self.chatConfig.searchViewConfig.autoCompleteConfiguration?.textColor = self.colorType.textColor
+        self.chatConfig.searchViewConfig.autoCompleteConfiguration?.customFont = CustomFont(font: UIFont.systemFont(ofSize: 20))
+        self.chatConfig.searchViewConfig.placeholderConfiguration?.customFont = CustomFont(font: UIFont.systemFont(ofSize: 10))
+    }
+    
+    
+    
+    func updateQuickOption() {
+        self.chatConfig.incomingBotConfig.quickOptionConfig.checkCorners(self.colorType)
     }
     
     func updateMultiLine() {
-        updateMessageConfiguration(messageConfiguration: self.chatConfig.multipleSelectionConfiguration!)
-        
-        updatePersistentOptionsTitle()
-        updatePersistentOptions()
+        self.chatConfig.multipleSelectionConfiguration.checkMessage(self.colorType)
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.textColor = self.colorType.bgColor
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.cornersRadius = Corners(left: 10, right: 10)
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.backgroundColor = UIColor.green
+        self.updateMultilineItem()
     }
     
-    func updatePersistentOptionsTitle() {
-        updatePartialCornerItemConfiguration(partialCornerItemConfiguration: self.chatConfig.multipleSelectionConfiguration.titleConfiguration)
+    func updateMultilineItem() {
+        if #available(iOS 13.0, *) {
+            self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.backgroundColor = UIColor.systemBackground
+        } else {
+            // Fallback on earlier versions
+        }
+        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.textColor = self.colorType.textColor
+        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.customFont = CustomFont(font: UIFont(name: "Times New Roman", size: 9.0)!)
     }
     
-    func updatePersistentOptions() {
-        updatePartialCornerItemConfiguration(partialCornerItemConfiguration: self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration)
-    }
     
-    func updateQuickOptions() {
-        updateFullCornersItemConfiguration(fullCornerItemConfiguration: self.chatConfig.incomingBotConfig.quickOptionConfig)
-    }
-    
-    func updateDateStamp(datestampConfig:DateStampConfiguration) {
-        datestampConfig.formatter = self.dateFormatterGet
-        datestampConfig.textColor = self.textColor
-        datestampConfig.customFont = self.customFont
-    }
-    
-    func updateCommonConfig(commonConfig: CommonConfig) {
-        commonConfig.backgroundColor = self.bgColor
-        commonConfig.textColor = self.textColor
-        commonConfig.customFont = self.customFont
-        commonConfig.backgroundImage = self.image
-    }
-    
-    func updateIncomingMessageConfiguration(incomingMessageConfiguration: IncomingMessageConfiguration) {
-        self.updateMessageConfiguration(messageConfiguration: incomingMessageConfiguration)
-        incomingMessageConfiguration.maxLength = 15
-    }
-    
-    func updateMessageConfiguration(messageConfiguration: MessageConfiguration) {
-        self.updateFullCornersItemConfiguration(fullCornerItemConfiguration: messageConfiguration)
-        messageConfiguration.avatar = self.image
-        messageConfiguration.avatarPosition = AvatarPosition.topRight
-    }
-    
-    func updateFullCornersItemConfiguration(fullCornerItemConfiguration:FullCornersItemConfiguration) {
-        updateCommonConfig(commonConfig: fullCornerItemConfiguration)
-        fullCornerItemConfiguration.borderRadius = BorderRadius(top: Corners(left: 15, right: 15 ), bottom: Corners(left: 15, right: 15 ))
-    }
-    
-    func updatePartialCornerItemConfiguration(partialCornerItemConfiguration:PartialCornerItemConfiguration){
-        self.updateCommonConfig(commonConfig: partialCornerItemConfiguration)
-        partialCornerItemConfiguration.cornersRadius = Corners(left: 30, right: 30 )
-    }
-    
-    // ###########
-    // MARK: Native
-    // ###########
-    
-    func updateReadMore() {
-        self.chatConfig.readMoreViewConfig.channelsConfig.backgroundColor = self.bgColor
-        self.chatConfig.readMoreViewConfig.channelsConfig.customFont = self.customFont
-        self.chatConfig.readMoreViewConfig.channelsConfig.textColor = self.textColor
-        self.chatConfig.readMoreViewConfig.channelsConfig.cornerRadius = 10
-    }
-    
-    func updateSearchView() {
-        self.chatConfig.searchViewConfig.border.color = UIColor.red
-        self.chatConfig.searchViewConfig.border.width = 3.0
-        self.chatConfig.searchViewConfig.border.cornerRadius = 10.0
-    }
-    
-    func updateChatBar() {
-        let chatBarConfig = self.chatConfig.chatBarConfiguration!
-        chatBarConfig.agentName = "Agent"
-        chatBarConfig.image = self.image
-        chatBarConfig.endChatBtnTitle = "End Here"
-        chatBarConfig.endChatBtnTextColor = self.textColor
-        chatBarConfig.backgroundColor = self.bgColor
-        chatBarConfig.textColor = UIColor.red
-        chatBarConfig.font = self.customFont.font
-        chatBarConfig.endChatButtonEnabled = true
-        chatBarConfig.enabled = true
-    }
-    
+}
+
+
+extension ColorType {
     var bgColor: UIColor {
-        switch self.colorType {
+        switch self {
         case .basic:
             return UIColor.red
         case .asset:
@@ -199,7 +132,7 @@ class ConfigFactory {
     }
     
     var textColor: UIColor {
-        switch self.colorType {
+        switch self {
         case .basic:
             return UIColor.blue
         case .asset:
@@ -212,9 +145,68 @@ class ConfigFactory {
                 return UIColor.systemBlue
             }
         }
-        
+    }
+    
+    var dateStampColor: UIColor {
+        switch self {
+        case .basic:
+            return UIColor.lightGray
+        case .asset:
+            return UIColor(named: "dateStampColor")!
+        case .system:
+            return UIColor.systemTeal
+        }
     }
 }
 
 
+
+extension CommonConfig {
+    func checkCommon(_ colorType: ColorType) {
+        self.backgroundColor = colorType.bgColor
+        self.textColor = colorType.textColor
+        self.customFont = CustomFont(font: UIFont.italicSystemFont(ofSize: 20))
+    }
+}
+
+// MARK: extends CommonConfig
+extension FullCornersItemConfiguration {
+    func checkCorners(_ colorType: ColorType) {
+        self.checkCommon(colorType)
+        self.borderRadius = BorderRadius(top: Corners(left: 5, right: 5), bottom: Corners(left: 0, right: 0))
+    }
+}
+
+
+// MARK: extends FullCornersItemConfiguration
+extension MessageConfiguration {
+    func checkMessage(_ colorType: ColorType) {
+        self.checkCorners(colorType)
+        self.avatar = UIImage(named: "bold")
+    }
+}
+
+// MARK: extends MessageConfiguration
+extension IncomingMessageConfiguration {
+    func checkIncoming(_ colorType: ColorType) {
+        self.checkMessage(colorType)
+        self.maxLength = 100
+    }
+}
+
+// MARK: extends MessageConfiguration
+extension OutgoingConfiguration {
+    func checkOutgoing() {
+        self.checkMessage(.basic)
+        self.avatar = UIImage(named: "robot")
+        if #available(iOS 13.0, *) {
+            self.pendingIcon = UIImage(systemName: "shuffle")
+            self.sentFailureIcon = UIImage(systemName: "prohibit")
+            self.sentSuccessfullyIcon = UIImage(named: "invitation")
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+}
 
