@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>value</key>
-		<string>jio</string>
+		<string>nanorep</string>
 		<key>key</key>
 		<string>account</string>
 		<key>type</key>
@@ -14,7 +14,7 @@
 	</dict>
 	<dict>
 		<key>value</key>
-		<string>Staging_Updated</string>
+		<string>English</string>
 		<key>key</key>
 		<string>kb</string>
 		<key>type</key>
@@ -40,7 +40,7 @@
 		<key>hint</key>
 		<string>Server (optional)</string>
 		<key>value</key>
-		<string>qa07</string>
+		<string>mobilestaging</string>
 	</dict>
 	<dict>
 		<key>key</key>

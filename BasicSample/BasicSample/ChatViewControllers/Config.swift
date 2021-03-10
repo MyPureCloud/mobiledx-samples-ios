@@ -115,7 +115,13 @@ extension ColorType {
         case .asset:
             return UIColor(named: "bgColor")!
         case .system:
-            return UIColor.systemRed
+            if #available(iOS 13.0, *) {
+                return UIColor.systemBackground
+            } else {
+                // Fallback on earlier versions
+                return UIColor.systemGreen
+
+            }
         }
         
     }
@@ -127,7 +133,12 @@ extension ColorType {
         case .asset:
             return UIColor(named: "textColor")!
         case .system:
-            return UIColor.systemBlue
+            if #available(iOS 13.0, *) {
+                return UIColor.label
+            } else {
+                // Fallback on earlier versions
+                return UIColor.systemBlue
+            }
         }
     }
     

@@ -22,6 +22,7 @@ class MainTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.demos = self.extarctPlist
         self.title = "Bold360 SDK Demos"
+        self.configHandler.colorType = .basic
     }
 
     // MARK: - Table view data source
@@ -70,6 +71,7 @@ class MainTableViewController: UITableViewController {
                 account.apiKey = $0
                 self.boldController = AgentViewController()
                 (self.boldController as? AgentViewController)?.account = account
+                (self.boldController as? AgentViewController)?.chatConfiguration = self.configHandler.chatConfig
                 self.performSegue(withIdentifier: "presentChat", sender: self.boldController)
             }
             self.navigationController?.present(liveVC!, animated: true, completion: nil)
