@@ -47,7 +47,7 @@ class ConfigFactory {
         timeStamp.formatter = DateFormatter()
         timeStamp.formatter.dateFormat = "HH:mm"
         timeStamp.customFont = CustomFont(font: UIFont.boldSystemFont(ofSize: 8))
-        timeStamp.textColor = UIColor.blue
+        timeStamp.textColor = self.colorType.dateStampColor
         self.chatConfig.chatViewConfig.dateStamp = dateStamp
         self.chatConfig.chatViewConfig.timeStamp = timeStamp
     }
