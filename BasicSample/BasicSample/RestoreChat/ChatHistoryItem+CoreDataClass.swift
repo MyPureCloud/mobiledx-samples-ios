@@ -86,7 +86,7 @@ public class ChatHistoryItem: NSManagedObject, StorableChatElement {
         }
     }
     
-    public var configuration: ChatElementConfiguration!
+    public var configuration: MessageConfiguration!
     
     public var removable: Bool {
         set {

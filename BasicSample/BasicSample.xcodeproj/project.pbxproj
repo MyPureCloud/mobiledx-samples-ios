@@ -53,7 +53,6 @@
 		CEB582A325CC15ED001C2CDA /* ColorTypeSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB582A225CC15ED001C2CDA /* ColorTypeSwitcher.xib */; };
 		CEB582A625CC18EB001C2CDA /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB582A525CC18EB001C2CDA /* Config.swift */; };
 		EC4BF4DF2554602F00AF438D /* BoldFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */; };
-		ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */; };
 		ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,7 +108,6 @@
 		CEB582A525CC18EB001C2CDA /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		DC471EDB9771219B161567B8 /* Pods-BasicSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSample.debug.xcconfig"; path = "Target Support Files/Pods-BasicSample/Pods-BasicSample.debug.xcconfig"; sourceTree = "<group>"; };
 		EC4BF4DE2554602F00AF438D /* BoldFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldFormViewController.swift; sourceTree = "<group>"; };
-		ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConfigurationHandler.swift; sourceTree = "<group>"; };
 		ECE12750231BB34700A362C7 /* ContinuityDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,7 +162,6 @@
 		487351CA22784A260029F295 /* ChatViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				ECDE8DF824EC749E00BC3152 /* ChatConfigurationHandler.swift */,
 				4899613F22763AD500D86590 /* BotDemoViewController.swift */,
 				4899614122763B1800D86590 /* AgentViewController.swift */,
 				487351CB22784A7F0029F295 /* HistoryDemoViewController.swift */,
@@ -415,7 +412,6 @@
 				ECE12751231BB34700A362C7 /* ContinuityDemoViewController.swift in Sources */,
 				AFF9BCAB22E86CC60078DD8A /* AvailibilityViewController.swift in Sources */,
 				483EA67C2369CA7100B9BBE1 /* HandOverHandler.swift in Sources */,
-				ECDE8DF924EC749F00BC3152 /* ChatConfigurationHandler.swift in Sources */,
 				487351CC22784A7F0029F295 /* HistoryDemoViewController.swift in Sources */,
 				486C0B2823D4624700544AAE /* AddContextTableViewCell.swift in Sources */,
 				CEB582A625CC18EB001C2CDA /* Config.swift in Sources */,

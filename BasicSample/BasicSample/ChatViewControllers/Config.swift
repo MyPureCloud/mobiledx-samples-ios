@@ -28,44 +28,88 @@ class ConfigFactory {
     }()
     
     func updateConfig() {
-        self.chatConfig.chatViewConfig.maxLength = 50
         self.updateLiveIncoming()
+        self.updateChatViewConfig()
         self.updateBotIncoming()
         self.updateMultiLine()
+        self.updateSearchBar()
+    }
+    
+    func updateChatViewConfig() {
+        self.chatConfig.chatViewConfig.hyperlinkColor = UIColor.red
+        self.chatConfig.chatViewConfig.avatarSize = CGSize(width: 50.0, height: 50.0)
+        let dateStamp = DateStampConfiguration()
+        dateStamp.formatter = DateFormatter()
+        dateStamp.formatter.dateFormat = "MMM dd,yyyy"
+        dateStamp.customFont = CustomFont(font: UIFont.boldSystemFont(ofSize: 12))
+        dateStamp.textColor = UIColor.black
+        let timeStamp = DateStampConfiguration()
+        timeStamp.formatter = DateFormatter()
+        timeStamp.formatter.dateFormat = "HH:mm"
+        timeStamp.customFont = CustomFont(font: UIFont.boldSystemFont(ofSize: 8))
+        timeStamp.textColor = UIColor.blue
+        self.chatConfig.chatViewConfig.dateStamp = dateStamp
+        self.chatConfig.chatViewConfig.timeStamp = timeStamp
     }
     
     func updateLiveIncoming() {
-        self.chatConfig.incomingLiveConfig.backgroundColor = self.bgColor
-        self.chatConfig.incomingLiveConfig.textColor = self.textColor
+        self.chatConfig.incomingLiveConfig.checkIncoming(self.colorType)
     }
     
     func updateBotIncoming() {
-        self.chatConfig.incomingBotConfig.backgroundColor = self.bgColor
-        self.chatConfig.incomingBotConfig.textColor = self.textColor
-        self.updateQuickOption()
+        self.chatConfig.incomingBotConfig.checkIncoming(self.colorType)
+        updateQuickOption()
     }
     
+    
+    func updateSearchBar() {
+        self.chatConfig.searchViewConfig.backgroundColor = self.colorType.bgColor
+        self.chatConfig.searchViewConfig.textColor = self.colorType.textColor
+        self.chatConfig.searchViewConfig.speechOnIcon = UIImage(named: "restore")
+        self.chatConfig.searchViewConfig.speechOffIcon = UIImage(named: "search")
+        self.chatConfig.searchViewConfig.sendIcon = UIImage(named: "history")
+        let border = Border()
+        border.width = 1
+        border.color = UIColor.red
+        border.cornerRadius = 5
+        self.chatConfig.searchViewConfig.border = border
+        self.chatConfig.searchViewConfig.autoCompleteConfiguration?.backgroundColor = self.colorType.bgColor
+        self.chatConfig.searchViewConfig.autoCompleteConfiguration?.textColor = self.colorType.textColor
+        self.chatConfig.searchViewConfig.autoCompleteConfiguration?.customFont = CustomFont(font: UIFont.systemFont(ofSize: 20))
+        self.chatConfig.searchViewConfig.placeholderConfiguration?.customFont = CustomFont(font: UIFont.systemFont(ofSize: 10))
+    }
+    
+    
+    
     func updateQuickOption() {
-        self.chatConfig.incomingBotConfig.quickOptionConfig.textColor = self.textColor
-        self.chatConfig.incomingBotConfig.quickOptionConfig.backgroundColor = self.bgColor
+        self.chatConfig.incomingBotConfig.quickOptionConfig.chcekCorners(self.colorType)
     }
     
     func updateMultiLine() {
-        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.textColor = self.textColor
-        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.backgroundColor = self.bgColor
-        self.chatConfig.multipleSelectionConfiguration.dateStampColor = self.dateStampColor
+        self.chatConfig.multipleSelectionConfiguration.checkMessage(self.colorType)
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.textColor = self.colorType.bgColor
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.cornersRadius = Corners(left: 10, right: 10)
+        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.backgroundColor = UIColor.green
         self.updateMultilineItem()
-//        self.chatConfig.multipleSelectionConfiguration.backgroundColor = self.bgColor
-//        self.chatConfig.multipleSelectionConfiguration.textColor = self.textColor
     }
     
     func updateMultilineItem() {
-        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.backgroundColor = self.bgColor
-        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.textColor = self.textColor
+        if #available(iOS 13.0, *) {
+            self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.backgroundColor = UIColor.systemBackground
+        } else {
+            // Fallback on earlier versions
+        }
+        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.textColor = self.colorType.textColor
+        self.chatConfig.multipleSelectionConfiguration.persistentOptionConfiguration.customFont = CustomFont(font: UIFont(name: "Times New Roman", size: 9.0)!)
     }
     
+    
+}
+
+
+extension ColorType {
     var bgColor: UIColor {
-        switch self.colorType {
+        switch self {
         case .basic:
             return UIColor.red
         case .asset:
@@ -77,7 +121,7 @@ class ConfigFactory {
     }
     
     var textColor: UIColor {
-        switch self.colorType {
+        switch self {
         case .basic:
             return UIColor.blue
         case .asset:
@@ -88,7 +132,7 @@ class ConfigFactory {
     }
     
     var dateStampColor: UIColor {
-        switch self.colorType {
+        switch self {
         case .basic:
             return UIColor.lightGray
         case .asset:
@@ -100,4 +144,56 @@ class ConfigFactory {
 }
 
 
+
+extension CommonConfig {
+    func checkCommon(_ colorType: ColorType) {
+        self.backgroundColor = colorType.bgColor
+        self.textColor = colorType.textColor
+        self.customFont = CustomFont(font: UIFont.italicSystemFont(ofSize: 20))
+    }
+}
+
+// MARK: extends CommonConfig
+extension FullCornersItemConfiguration {
+    func chcekCorners(_ colorType: ColorType) {
+        self.checkCommon(colorType)
+        self.borderRadius = BorderRadius(top: Corners(left: 5, right: 5), bottom: Corners(left: 0, right: 0))
+    }
+}
+
+
+// MARK: extends FullCornersItemConfiguration
+extension MessageConfiguration {
+    func checkMessage(_ colorType: ColorType) {
+        self.chcekCorners(colorType)
+        if #available(iOS 13.0, *) {
+            self.avatar = UIImage(systemName: "love")
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}
+
+// MARK: extends MessageConfiguration
+extension IncomingMessageConfiguration {
+    func checkIncoming(_ colorType: ColorType) {
+        self.checkMessage(colorType)
+        self.maxLength = 100
+    }
+}
+
+// MARK: extends MessageConfiguration
+extension OutgoingConfiguration {
+    func checkOutgoing() {
+        
+        if #available(iOS 13.0, *) {
+            self.pendingIcon = UIImage(systemName: "shuffle")
+            self.sentFailureIcon = UIImage(systemName: "prohibit")
+            self.sentSuccessfullyIcon = UIImage(named: "invitation")
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+}
 

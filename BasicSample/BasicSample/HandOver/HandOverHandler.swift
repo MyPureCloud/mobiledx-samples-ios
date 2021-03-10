@@ -20,7 +20,9 @@ class HandOverHandler: HandOver {
         // Present system message
         let system = RemoteChatElement(type: .SystemMessageElement, content: "This is Hand Over\nType Stop to get back to Bot")
         system?.design = ChatElementDesignSystem
-        system?.configuration = self.chatHandlerProvider?.configuration(for: .SystemMessageElement) as! ChatElementConfiguration
+        if let config = self.chatHandlerProvider?.configuration(for: .SystemMessageElement) {
+            system?.configuration = config
+        }
         self.delegate?.presentStatement(system!)
         
         // Do the connection to the chat provider
@@ -33,11 +35,12 @@ class HandOverHandler: HandOver {
     override func postStatement(_ statement: StorableChatElement) {
         
         // Configure the bubble
-        statement.configuration = self.chatHandlerProvider?.configuration(for: .OutgoingElement) as! ChatElementConfiguration
-        self.delegate?.presentStatement(statement)
-        
-        // Updated the double "V" sign for read notification
-        self.perform(#selector(HandOverHandler.updateBubble(statement:)), with: statement, afterDelay: 3)
+        if let config = self.chatHandlerProvider?.configuration(for: .OutgoingElement) {
+            statement.configuration = config
+            self.delegate?.presentStatement(statement)
+            // Updated the double "V" sign for read notification
+            self.perform(#selector(HandOverHandler.updateBubble(statement:)), with: statement, afterDelay: 3)
+        }
     }
     
     override func didStartTyping(_ isTyping: Bool) {
@@ -58,7 +61,9 @@ class HandOverHandler: HandOver {
         if statement.text == "Stop" {
             let system = RemoteChatElement(type: .SystemMessageElement, content: "Bye Bye from Over")
             system?.design = ChatElementDesignSystem
-            system?.configuration = self.chatHandlerProvider?.configuration(for: .SystemMessageElement) as! ChatElementConfiguration
+            if let config = self.chatHandlerProvider?.configuration(for: .SystemMessageElement) {
+                system?.configuration = config
+            }
             self.delegate?.presentStatement(system!)
             self.chatHandlerProvider?.didEndChat(self)
         }
