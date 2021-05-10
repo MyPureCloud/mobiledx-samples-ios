@@ -26,6 +26,10 @@ class BotDemoViewController: UIViewController {
         
         chatController.viewConfiguration.voiceToVoiceConfiguration.type = .default
         if let config = self.chatConfiguration {
+            config.incomingBotConfig.avatrImageName = "robot"
+            config.incomingBotConfig.maxLength = 50
+//            config.multipleSelectionConfiguration.avatrImageName = "robot"
+//            config.chatViewConfig.avatarSize = CGSize(width: 30, height: 30)
             chatController.viewConfiguration = config
         }
         
@@ -167,13 +171,14 @@ extension BotDemoViewController: ContinuityProvider {
     }
     
     func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
-        if (key == "UserID") {
-            handler("112233443322154534")
-        } else {
-//            handler(UserDefaults.standard.value(forKey: key) as? String)
-            handler("112233443322154534")
-
-        }
+        handler(UserDefaults.standard.value(forKey: key) as? String)
+//        if (key == "UserID") {
+//            handler("112233443322154534")
+//        } else {
+////            handler(UserDefaults.standard.value(forKey: key) as? String)
+//            handler("112233443322154534")
+//
+//        }
     }
 }
 
@@ -219,5 +224,3 @@ extension BotDemoViewController: ApplicationHandler {
         return false
     }
 }
-
-
