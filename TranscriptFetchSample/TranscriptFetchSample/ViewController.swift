@@ -12,8 +12,9 @@ class ViewController: UIViewController {
     var chatController: ChatController!
     var account = BotAccount()
     var chatVC: UINavigationController!
+    @IBOutlet weak var printTranscriptBtn: UIButton!
     
-// Transcript Handler
+    // Transcript Handler
     var transcriptHandler = TranscriptHandler()
 
     override func viewDidLoad() {
@@ -49,6 +50,7 @@ extension ViewController: ChatControllerDelegate {
         self.navigationController?.presentedViewController?.dismiss(animated: false, completion: {
             self.chatController.terminate()
             self.navigationController?.popViewController(animated: true)
+            self.printTranscriptBtn.isHidden = false
         })
     }
 }
@@ -56,12 +58,21 @@ extension ViewController: ChatControllerDelegate {
 extension ViewController: ChatElementDelegate {
     func didReceive(_ item: StorableChatElement!) {
         var prefix = "";
-        switch item.statementScope {
-        case StatementScopeBot:
+        
+        switch item.type {
+        case .OutgoingElement:
+            prefix = "END_USER: "
+            break
+        case .IncomingLiveElement:
+            prefix = "LIVE: "
+            break
+        case .IncomingBotElement,
+             .CarouselElement,
+             .IncomingBotMultipleSelectionElement:
             prefix = "BOT: "
             break
-        case StatementScopeLive:
-            prefix = "LIVE: "
+        case .SystemMessageElement:
+            prefix = "SYSTEM: "
             break
         default:
             break

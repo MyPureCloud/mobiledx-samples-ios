@@ -8,12 +8,12 @@ import Foundation
 
 class TranscriptHandler: NSObject {
     private let filepath = Bundle.main.path(forResource: "transcript", ofType: "txt")!
+    private var transcriptStr = ""
     
     var transcript: String! {
         get {
-            var transcriptStr = ""
             do {
-                transcriptStr = try String(contentsOfFile: self.filepath, encoding: .utf8)
+                self.transcriptStr = try String(contentsOfFile: self.filepath, encoding: .utf8)
             } catch {/* error handling here */}
             
             return transcriptStr
@@ -22,7 +22,8 @@ class TranscriptHandler: NSObject {
     
     func addMessage(_ text: String!) {
         do {
-            try text.write(toFile: self.filepath, atomically: false, encoding: .utf8)
+            self.transcriptStr = self.transcriptStr + "\n" + text;
+            try self.transcriptStr.write(toFile: self.filepath, atomically: false, encoding: .utf8)
         }
         catch {/* error handling here */}
     }

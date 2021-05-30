@@ -16,9 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OC-xl-lyK">
-                                <rect key="frame" x="154" y="314" width="106" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OC-xl-lyK">
+                                <rect key="frame" x="154" y="460" width="106" height="30"/>
                                 <state key="normal" title="Print Transcript"/>
                                 <connections>
                                     <action selector="printTranscrip:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vfU-52-Yfp"/>
@@ -27,8 +26,15 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8OC-xl-lyK" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aLI-cz-dis"/>
+                            <constraint firstItem="8OC-xl-lyK" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="qc3-Cx-gYl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="l3q-xQ-TPx"/>
+                    <connections>
+                        <outlet property="printTranscriptBtn" destination="8OC-xl-lyK" id="tKQ-1E-IQU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
