@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         botAccount.perform(Selector.init(("setServer:")), with:"mobilestaging")
         self.chatController = ChatController(account: botAccount)
         chatController.delegate = self
-        chatController.chatElementDelegate = self
+        chatController.chatElementDelegate = self.transcriptHandler
     }
     
     @IBAction func printTranscrip(_ sender: Any) {
@@ -52,32 +52,5 @@ extension ViewController: ChatControllerDelegate {
             self.navigationController?.popViewController(animated: true)
             self.printTranscriptBtn.isHidden = false
         })
-    }
-}
-
-extension ViewController: ChatElementDelegate {
-    func didReceive(_ item: StorableChatElement!) {
-        var prefix = "";
-        
-        switch item.type {
-        case .OutgoingElement:
-            prefix = "END_USER: "
-            break
-        case .IncomingLiveElement:
-            prefix = "LIVE: "
-            break
-        case .IncomingBotElement,
-             .CarouselElement,
-             .IncomingBotMultipleSelectionElement:
-            prefix = "BOT: "
-            break
-        case .SystemMessageElement:
-            prefix = "SYSTEM: "
-            break
-        default:
-            break
-        }
-        
-        self.transcriptHandler.addMessage(prefix + item.text!)
     }
 }
