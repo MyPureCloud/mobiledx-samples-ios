@@ -5,8 +5,37 @@
 // ===================================================================================================
 
 import Foundation
+import Bold360AI
 
-class TranscriptHandler: NSObject {
+class TranscriptHandler: NSObject, ChatElementDelegate {
+    
+    // MARK: ChatElementDelegate
+    func didReceive(_ item: StorableChatElement!) {
+        var prefix = "";
+        
+        switch item.type {
+        case .OutgoingElement:
+            prefix = "END_USER: "
+            break
+        case .IncomingLiveElement:
+            prefix = "LIVE: "
+            break
+        case .IncomingBotElement,
+             .CarouselElement,
+             .IncomingBotMultipleSelectionElement:
+            prefix = "BOT: "
+            break
+        case .SystemMessageElement:
+            prefix = "SYSTEM: "
+            break
+        default:
+            break
+        }
+        
+        self.addMessage(prefix + item.text!)
+    }
+
+    
     private let filepath = Bundle.main.path(forResource: "transcript", ofType: "txt")!
     private var transcriptStr = ""
     
@@ -32,3 +61,4 @@ class TranscriptHandler: NSObject {
        return Bundle.main.path(forResource: "input", ofType: "txt")!
     }
 }
+
