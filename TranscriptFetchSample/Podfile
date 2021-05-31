@@ -1,0 +1,20 @@
+#===================================================================================================
+# Copyright © 2018 nanorep.
+# NanorepUI SDK.
+# All rights reserved.
+#===================================================================================================
+
+platform :ios, "10.0"
+use_frameworks!
+
+install! 'cocoapods',
+         :deterministic_uuids => false
+
+         # Production
+source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+
+source 'https://github.com/CocoaPods/Specs'
+
+target 'TranscriptFetchSample' do
+    pod 'Bold360AI'
+end
