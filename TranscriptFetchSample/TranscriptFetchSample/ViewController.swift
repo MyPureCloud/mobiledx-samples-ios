@@ -20,9 +20,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let botAccount = BotAccount()
-        botAccount.account = "nanorep"
-        botAccount.knowledgeBase = "English"
-        botAccount.perform(Selector.init(("setServer:")), with:"mobilestaging")
+        botAccount.account = ""
+        botAccount.knowledgeBase = ""
         self.chatController = ChatController(account: botAccount)
         chatController.delegate = self
         chatController.chatElementDelegate = self.transcriptHandler as ChatElementDelegate
