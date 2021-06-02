@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         botAccount.perform(Selector.init(("setServer:")), with:"mobilestaging")
         self.chatController = ChatController(account: botAccount)
         chatController.delegate = self
-        chatController.chatElementDelegate = self.transcriptHandler
+        chatController.chatElementDelegate = self.transcriptHandler as ChatElementDelegate
     }
     
     @IBAction func printTranscrip(_ sender: Any) {
