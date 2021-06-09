@@ -1,0 +1,28 @@
+#===================================================================================================
+# Copyright © 2018 nanorep.
+# NanorepUI SDK.
+# All rights reserved.
+#===================================================================================================
+
+platform :ios, "10.0"
+use_frameworks!
+
+install! 'cocoapods',
+         :deterministic_uuids => false
+ BLD_ENGINE="../../mobile-bold-engine-ios/BoldEngine-Dev.podspec"
+#  BLD_ENGINE_UI="../../mobile-bold-engine-ui-ios/BoldEngineUI-Dev.podspec"
+
+# Dev
+# source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+# Production
+source 'https://github.com/nanorepsdk/NRSDK-specs.git'
+source 'https://github.com/CocoaPods/Specs'
+
+target 'BoldChatVisitorSDKDemo' do
+    if defined? BLD_ENGINE_UI
+        pod 'BoldEngine', :path => BLD_ENGINE
+        pod 'BoldEngineUI', :path => BLD_ENGINE_UI
+    else
+        pod 'BoldEngineUI'
+    end
+end
