@@ -25,11 +25,9 @@ class BotDemoViewController: UIViewController {
         chatController.delegate = self
         
         chatController.viewConfiguration.voiceToVoiceConfiguration.type = .default
+        chatController.viewConfiguration.incomingBotConfig.maxLength = 500
         if let config = self.chatConfiguration {
             config.incomingBotConfig.avatrImageName = "robot"
-            config.incomingBotConfig.maxLength = 50
-//            config.multipleSelectionConfiguration.avatrImageName = "robot"
-//            config.chatViewConfig.avatarSize = CGSize(width: 30, height: 30)
             chatController.viewConfiguration = config
         }
         
@@ -166,19 +164,27 @@ extension BotDemoViewController: ContinuityProvider {
     func updateContinuityInfo(_ params: [String : String]!) {
         params.forEach { (key, value) in
             UserDefaults.standard.set(value, forKey: key)
+            switch key {
+            case ChatID:
+                print("Chat ID: \(value)")
+                break
+            case "ConversationID":
+                print("Conversation ID: \(value)")
+                break
+            default:
+                break
+            }
         }
         UserDefaults.standard.synchronize()
     }
     
     func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
-        handler(UserDefaults.standard.value(forKey: key) as? String)
-//        if (key == "UserID") {
-//            handler("112233443322154534")
-//        } else {
-////            handler(UserDefaults.standard.value(forKey: key) as? String)
-//            handler("112233443322154534")
-//
-//        }
+        if key == "ConversationID" {
+            // The app already has stored conversation id, so the method "updateContinuityInfo" won't get called
+        }
+        if let id = UserDefaults.standard.string(forKey: key) {
+            handler(id)
+        }
     }
 }
 
