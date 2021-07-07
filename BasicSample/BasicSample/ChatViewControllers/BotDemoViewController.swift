@@ -162,29 +162,19 @@ extension BotDemoViewController: ChatControllerDelegate {
 
 extension BotDemoViewController: ContinuityProvider {
     func updateContinuityInfo(_ params: [String : String]!) {
-        params.forEach { (key, value) in
-            UserDefaults.standard.set(value, forKey: key)
-            switch key {
-            case ChatID:
-                print("Chat ID: \(value)")
-                break
-            case "ConversationID":
-                print("Conversation ID: \(value)")
-                break
-            default:
-                break
+           // Permanent storage for the values
+            params.forEach { (key, value) in
+                if (key == "ChatID" || key == "VisitorID" || key == "UserID") {
+                    // store the value if you want to continue with the same session
+                }
+               UserDefaults.standard.set(value, forKey: key)
             }
-        }
-        UserDefaults.standard.synchronize()
+            UserDefaults.standard.synchronize()
     }
-    
+        
     func fetchContinuity(forKey key: String!, handler: ((String?) -> Void)!) {
-        if key == "ConversationID" {
-            // The app already has stored conversation id, so the method "updateContinuityInfo" won't get called
-        }
-        if let id = UserDefaults.standard.string(forKey: key) {
-            handler(id)
-        }
+         // Extract the values from the permanent storage
+         handler(UserDefaults.standard.value(forKey: key) as? String)
     }
 }
 
