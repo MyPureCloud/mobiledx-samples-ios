@@ -92,8 +92,8 @@ class ConfigFactory {
     
     func updateMultiLine() {
         self.chatConfig.multipleSelectionConfiguration.checkMessage(self.colorType)
+        self.chatConfig.multipleSelectionConfiguration.borderRadius = BorderRadius(top: Corners(left: 0, right: 0 ), bottom: Corners(left: 0, right: 0 ))
         self.chatConfig.multipleSelectionConfiguration.titleConfiguration.textColor = self.colorType.bgColor
-        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.cornersRadius = Corners(left: 10, right: 10)
         self.chatConfig.multipleSelectionConfiguration.titleConfiguration.backgroundColor = UIColor.green
         self.updateMultilineItem()
     }
