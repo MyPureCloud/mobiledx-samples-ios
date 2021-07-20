@@ -92,8 +92,8 @@ class ConfigFactory {
     
     func updateMultiLine() {
         self.chatConfig.multipleSelectionConfiguration.checkMessage(self.colorType)
+        self.chatConfig.multipleSelectionConfiguration.borderRadius = BorderRadius(top: Corners(left: 0, right: 0 ), bottom: Corners(left: 0, right: 0 ))
         self.chatConfig.multipleSelectionConfiguration.titleConfiguration.textColor = self.colorType.bgColor
-        self.chatConfig.multipleSelectionConfiguration.titleConfiguration.cornersRadius = Corners(left: 10, right: 10)
         self.chatConfig.multipleSelectionConfiguration.titleConfiguration.backgroundColor = UIColor.green
         self.updateMultilineItem()
     }
@@ -182,7 +182,7 @@ extension FullCornersItemConfiguration {
 extension MessageConfiguration {
     func checkMessage(_ colorType: ColorType) {
         self.checkCorners(colorType)
-        self.avatar = UIImage(named: "bold")
+        self.avatrImageName = "bold"
     }
 }
 
@@ -198,7 +198,7 @@ extension IncomingMessageConfiguration {
 extension OutgoingConfiguration {
     func checkOutgoing() {
         self.checkMessage(.basic)
-        self.avatar = UIImage(named: "robot")
+        self.avatrImageName = "robot"
         if #available(iOS 13.0, *) {
             self.pendingIcon = UIImage(systemName: "shuffle")
             self.sentFailureIcon = UIImage(systemName: "prohibit")
