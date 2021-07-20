@@ -113,7 +113,9 @@ public class ChatHistoryItem: NSManagedObject, StorableChatElement {
             self.isRemovable = self.element.removable
             if let context = self.managedObjectContext {
                 self.config = NSEntityDescription.insertNewObject(forEntityName: "ChatConfiguration", into: context) as? ChatConfiguration
-                self.config?.configuration = self.element.configuration
+                if self.element is MessageConfiguration {
+                    self.config?.configuration = self.element.configuration
+                }
             }
             if let id = self.element.articleId {
                 self.messageId = id
