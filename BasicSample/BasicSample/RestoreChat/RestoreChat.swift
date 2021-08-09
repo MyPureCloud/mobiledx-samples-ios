@@ -20,25 +20,26 @@ protocol RestoreChatDelegate {
 
 class RestoreChat: NSObject, ChatElementDelegate {
     func didReceive(_ item: StorableChatElement!) {
-        let _item = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryItem", into: self.managedContext) as! ChatHistoryItem
-        _item.element = item
-        do {
-            try self.managedContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error)")
+        if (item.type != .SystemMessageElement) {
+            let _item = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryItem", into: self.managedContext) as! ChatHistoryItem
+            _item.element = item
+            do {
+                try self.managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error)")
+            }
+            if self.state == .dismissed {
+                self.delegate?.didReceiveBackgroundMessage(item)
+            }
+            guard let group = self.group else {
+                let _group = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryGroup", into: self.managedContext) as! ChatHistoryGroup
+                _group.groupId = self.groupId
+                _group.addToItems(_item)
+                return
+            }
+            group.addToItems(_item)
         }
-        if self.state == .dismissed {
-            self.delegate?.didReceiveBackgroundMessage(item)
-        }
-        guard let group = self.group else {
-            let _group = NSEntityDescription.insertNewObject(forEntityName: "ChatHistoryGroup", into: self.managedContext) as! ChatHistoryGroup
-            _group.groupId = self.groupId
-            _group.addToItems(_item)
-            return
-        }
-        group.addToItems(_item)
     }
-    
     
     
     var managedContext: NSManagedObjectContext!

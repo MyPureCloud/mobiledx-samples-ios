@@ -10,16 +10,19 @@ import Bold360AI
 
 
 public class ChatConfiguration: NSManagedObject {
-    var configuration: MessageConfiguration! {
+    var configuration: FullCornersItemConfiguration! {
         set {
             guard newValue != nil else {
                 return
             }
-            self.position = Int16(newValue.avatarPosition.rawValue)
-            self.textColorHex = newValue.textColor?.toHex
-            if let img = newValue.avatar, let iconData = img.pngData() as NSData? {
-                self.avatarData = iconData
+            if let messageConfig = newValue as? MessageConfiguration {
+                self.position = Int16(messageConfig.avatarPosition.rawValue)
+                if let img = messageConfig.avatar, let iconData = img.pngData() as NSData? {
+                    self.avatarData = iconData
+                }
             }
+            self.textColorHex = newValue.textColor?.toHex
+          
         }
         get {
             let config = MessageConfiguration()
