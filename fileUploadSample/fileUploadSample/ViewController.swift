@@ -6,7 +6,7 @@
 
 import UIKit
 import Bold360AI
-import OpalImagePicker
+//import OpalImagePicker
 import Photos
 
 
@@ -59,56 +59,56 @@ extension ViewController: ChatControllerDelegate {
     }
 }
 
-extension ViewController: OpalImagePickerControllerDelegate {
-    func didClickUploadFile() {
-        let actionSheet = UIAlertController(title: "Choose File Selector", message: nil, preferredStyle: .actionSheet)
-        
-        // Create your actions - take a look at different style attributes
-        let mediaAction = UIAlertAction(title: "Choose media", style: .default) { (action) in
-            //Example instantiating OpalImagePickerController with delegate
-            let imagePicker = OpalImagePickerController()
-            imagePicker.imagePickerDelegate = self
-            imagePicker.maximumSelectionsAllowed = 10
-            self.navigationController?.presentedViewController?.present(imagePicker, animated: true, completion: nil)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            print("didPress cancel")
-        }
-        
-        // Add the actions to your actionSheet
-        actionSheet.addAction(mediaAction)
-        actionSheet.addAction(cancelAction)
-        // Present the controller
-        self.navigationController?.presentedViewController?.present(actionSheet, animated: true, completion: nil)
-    }
-    
-    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
-        //Cancel action?
-    }
-
-    public func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
-        assets.forEach { asset in
-            let resources = PHAssetResource.assetResources(for: asset)
-            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .default, options: nil) { image, dictionary in
-                if let isDegraded = dictionary?[PHImageResultIsDegradedKey] as? Bool, !isDegraded {
-                    if let data = image?.jpegData(compressionQuality: 1.0) {
-                        let request = UploadRequest()
-                        request.fileName = (resources.first!).originalFilename
-                        request.fileType = .picture
-                        request.fileData = data
-                        self.chatController.uploadFile(request, progress: { (progress) in
-                            print("application file upload progress -> %.5f", progress)
-                        }) { (info: FileUploadInfo!) in
-                            self.chatController.handle(BoldEvent.fileUploaded(info))
-                        }
-                    }
-                }
-            }
-        }
-        self.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
-    }
-}
+//extension ViewController: OpalImagePickerControllerDelegate {
+//    func didClickUploadFile() {
+//        let actionSheet = UIAlertController(title: "Choose File Selector", message: nil, preferredStyle: .actionSheet)
+//
+//        // Create your actions - take a look at different style attributes
+//        let mediaAction = UIAlertAction(title: "Choose media", style: .default) { (action) in
+//            //Example instantiating OpalImagePickerController with delegate
+//            let imagePicker = OpalImagePickerController()
+//            imagePicker.imagePickerDelegate = self
+//            imagePicker.maximumSelectionsAllowed = 10
+//            self.navigationController?.presentedViewController?.present(imagePicker, animated: true, completion: nil)
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+//            print("didPress cancel")
+//        }
+//
+//        // Add the actions to your actionSheet
+//        actionSheet.addAction(mediaAction)
+//        actionSheet.addAction(cancelAction)
+//        // Present the controller
+//        self.navigationController?.presentedViewController?.present(actionSheet, animated: true, completion: nil)
+//    }
+//
+//    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+//        //Cancel action?
+//    }
+//
+//    public func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+//        assets.forEach { asset in
+//            let resources = PHAssetResource.assetResources(for: asset)
+//            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .default, options: nil) { image, dictionary in
+//                if let isDegraded = dictionary?[PHImageResultIsDegradedKey] as? Bool, !isDegraded {
+//                    if let data = image?.jpegData(compressionQuality: 1.0) {
+//                        let request = UploadRequest()
+//                        request.fileName = (resources.first!).originalFilename
+//                        request.fileType = .picture
+//                        request.fileData = data
+//                        self.chatController.uploadFile(request, progress: { (progress) in
+//                            print("application file upload progress -> %.5f", progress)
+//                        }) { (info: FileUploadInfo!) in
+//                            self.chatController.handle(BoldEvent.fileUploaded(info))
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        self.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
+//    }
+//}
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

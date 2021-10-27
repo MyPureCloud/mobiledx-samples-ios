@@ -23,11 +23,10 @@ source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
-target 'fileUploadSample' do
+target 'DXSample' do
     pod 'OpalImagePicker'
     
     if defined? BLD_360_AI
-        pod 'OpalImagePicker'
         pod 'BoldCore', :path => BLD_CORE
         pod 'BoldAIEngine', :path => BLD_AI_ENGINE
         pod 'BoldAIAccessibility', :path => BLD_AI_ACCESSIBILITY
