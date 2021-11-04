@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  DXSample
+//  GenesysMessengerSample
 //
-//  Created by Eliza Koren on 28/10/2021.
+//  Created by Eliza Koren on 04/11/2021.
 //
 
 import UIKit
@@ -22,28 +22,12 @@ class ViewController: UIViewController {
         meesengerAccount.tokenStoreKey = "com.genesys.cloud.messenger"
 //        meesengerAccount.logging.pointee.boolValue = true
         
-//        let botAccount = BotAccount()
-//        botAccount.account = "nanorep"
-//        botAccount.knowledgeBase = "English"
-//        botAccount.perform(Selector.init(("setServer:")), with:"mobileStaging")
-//         self.chatController = ChatController(account: botAccount)
-        
-        
-        // Do any additional setup after loading the view.
-//        self.view.backgroundColor = .white
-//        self.account.apiKey = "2300000001700000000:2279740578451875484:w+8/nRppLqulxknuMDWbiwyAbWbNgv/Y:gamma"
-        
         self.chatController = ChatController(account: meesengerAccount)
         chatController.delegate = self
     }
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         self.chatController.terminate()
-//        self.navigationController?.popViewController(animated: true)
-//        self.navigationController?.presentedViewController?.dismiss(animated: false, completion: {
-//            self.chatController.terminate()
-//            self.navigationController?.popViewController(animated: true)
-//        })
     }
 }
 

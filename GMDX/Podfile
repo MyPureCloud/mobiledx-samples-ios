@@ -6,6 +6,7 @@
 
 platform :ios, "11.0"
 install! 'cocoapods', :disable_input_output_paths => true
+#inhibit_all_warnings!
 use_frameworks!
 
 install! 'cocoapods',
@@ -15,18 +16,18 @@ install! 'cocoapods',
  BLD_AI_ENGINE="../../../BitBucket/mobiledx-ios-sdk-bot-engine/BoldAIEngine-Dev.podspec"
  BLD_AI_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/BoldAIAccessibility-Dev.podspec"
  BLD_ENGINE="../../../BitBucket/mobiledx-ios-sdk-live-engine/BoldEngine-Dev.podspec"
- BLD_360_AI="../../../BitBucket/mobiledx-ios-sdk-ui/Bold360AI-Dev.podspec"
+#  BLD_360_AI="../../../BitBucket/mobiledx-ios-sdk-ui/Bold360AI-Dev.podspec"
 
-# source 'https://github.com/genesys/dx-sdk-specs-dev'
+ source 'https://github.com/genesys/dx-sdk-specs-dev'
 # Dev
-source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
+# source 'https://github.com/nanorepsdk/NRSDK-Dev-specs.git'
 # Production
 #source 'https://github.com/nanorepsdk/NRSDK-specs.git'
 
 source 'https://github.com/CocoaPods/Specs'
 
 
-target 'DXSample' do    
+target 'GMDX' do
     if defined? BLD_360_AI
         pod 'BoldCore', :path => BLD_CORE
         pod 'BoldAIEngine', :path => BLD_AI_ENGINE
@@ -35,5 +36,20 @@ target 'DXSample' do
         pod 'Bold360AI', :path => BLD_360_AI
     else
         pod 'Bold360AI'
+    end
+end
+
+#post_install do |installer|
+#  installer.pods_project.build_configurations.each do |config|
+#    config.build_settings.delete('CODE_SIGNING_ALLOWED')
+#    config.build_settings.delete('CODE_SIGNING_REQUIRED')
+#  end
+#end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        end
     end
 end
