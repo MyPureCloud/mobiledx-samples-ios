@@ -1,0 +1,46 @@
+PODS:
+  - Bold360AI (0.0.2):
+    - Bold360AI/Core (= 0.0.2)
+  - Bold360AI/Core (0.0.2):
+    - BoldAIAccessibility (= 1.8.0)
+    - BoldAIEngine (= 1.12.1)
+    - BoldEngine (= 2.7.0)
+    - MessengerTransport
+  - BoldAIAccessibility (1.8.0)
+  - BoldAIEngine (1.12.1):
+    - BoldCore (= 3.7.0)
+  - BoldCore (3.7.0)
+  - BoldEngine (2.7.0):
+    - BoldCore (= 3.7.0)
+  - jetfire (0.1.5)
+  - MessengerTransport (0.0.6):
+    - MessengerTransport/Core (= 0.0.6)
+  - MessengerTransport/Core (0.0.6):
+    - jetfire (~> 0.1.5)
+
+DEPENDENCIES:
+  - Bold360AI
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs:
+    - jetfire
+  https://github.com/genesys/dx-sdk-specs-dev:
+    - Bold360AI
+    - BoldAIAccessibility
+    - BoldAIEngine
+    - BoldCore
+    - BoldEngine
+    - MessengerTransport
+
+SPEC CHECKSUMS:
+  Bold360AI: 37467a8e183afd191295f78c038d79cddbcba5ad
+  BoldAIAccessibility: b640608aa8d46fb51aed9eb2803bf6b6a4ad5022
+  BoldAIEngine: bb58978ffd87f18cb92c170d63b2fa7acf2e0462
+  BoldCore: 5a950d77163aeaae1767efbfa301270fb96d20d5
+  BoldEngine: d2d0bb94dc7701aa36973d00e5983fef6221683a
+  jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
+  MessengerTransport: ab8b351de732213e8359b26945090ba1e84312df
+
+PODFILE CHECKSUM: 359ef0971419adb55d82207c4fb1c364853d547e
+
+COCOAPODS: 1.11.2

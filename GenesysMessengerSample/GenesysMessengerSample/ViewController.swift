@@ -11,7 +11,6 @@ import Bold360AI
 class ViewController: UIViewController {
 
     var chatController: ChatController!
-    var account = LiveAccount()
     var chatVC: UINavigationController!
     
     override func viewDidLoad() {
@@ -20,6 +19,10 @@ class ViewController: UIViewController {
         meesengerAccount.deploymentId = "f8aad9d7-f8e7-48e9-ab02-eef92bc4fd2f"
         meesengerAccount.domain = "inindca.com"
         meesengerAccount.tokenStoreKey = "com.genesys.cloud.messenger"
+        meesengerAccount.extraData.email = ""
+        meesengerAccount.extraData.firstName = ""
+        meesengerAccount.extraData.lastName = ""
+        meesengerAccount.extraData.phoneNumber = ""
 //        meesengerAccount.logging.pointee.boolValue = true
         
         self.chatController = ChatController(account: meesengerAccount)
