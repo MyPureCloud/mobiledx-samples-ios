@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let meesengerAccount = MessengerAccount()
-        meesengerAccount.deploymentId = "f8aad9d7-f8e7-48e9-ab02-eef92bc4fd2f"
-        meesengerAccount.domain = "inindca.com"
-        meesengerAccount.tokenStoreKey = "com.genesys.cloud.messenger"
+        meesengerAccount.deploymentId = {DEPLOYMENT_ID} //Please replace {DEPLOYMENT_ID}
+        meesengerAccount.domain = {DOMAIN} //Please replace {DOMAIN}
+        meesengerAccount.tokenStoreKey = {TOKEN_STORE_KEY} //Please replace {TOKEN_STORE_KEY} 
         self.chatController = ChatController(account: meesengerAccount)
         chatController.delegate = self
     }

@@ -12,27 +12,11 @@ use_frameworks!
 install! 'cocoapods',
          :deterministic_uuids => false
 
-DX_CORE="../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
-DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec"
-DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
-DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
-DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-# DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
-
 source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
-    if defined? DX_UI
-       pod 'GenesysCloudCore', :path => DX_CORE
-       pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
-       pod 'GenesysCloudBot', :path => DX_BOT
-       pod 'GenesysCloudBold', :path => DX_LIVE
-       pod 'GenesysCloudMessenger', :path => DX_MESSENGER
-       pod 'GenesysCloud', :path => DX_UI
-    else
-        pod 'GenesysCloud'
-    end
+  pod 'GenesysCloud'
 end
 
 post_install do |pi|
