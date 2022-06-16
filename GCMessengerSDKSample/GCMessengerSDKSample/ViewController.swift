@@ -1,12 +1,11 @@
-//
-//  ViewController.swift
-//  GenesysMessengerSample
-//
-//  Created by Eliza Koren on 04/11/2021.
-//
+// ===================================================================================================
+// Copyright © 2022 GenesysCloud(Genesys).
+// GenesysCloud SDK.
+// All rights reserved.
+// ===================================================================================================
 
 import UIKit
-import Bold360AI
+import GenesysCloud
 
 class ViewController: UIViewController {
 
@@ -19,16 +18,10 @@ class ViewController: UIViewController {
         meesengerAccount.deploymentId = "f8aad9d7-f8e7-48e9-ab02-eef92bc4fd2f"
         meesengerAccount.domain = "inindca.com"
         meesengerAccount.tokenStoreKey = "com.genesys.cloud.messenger"
-        meesengerAccount.extraData.email = ""
-        meesengerAccount.extraData.firstName = ""
-        meesengerAccount.extraData.lastName = ""
-        meesengerAccount.extraData.phoneNumber = ""
-//        meesengerAccount.logging.pointee.boolValue = true
-        
         self.chatController = ChatController(account: meesengerAccount)
         chatController.delegate = self
     }
-    
+
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         self.chatController.terminate()
     }
@@ -41,8 +34,11 @@ extension ViewController: ChatControllerDelegate {
             viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ViewController.dismissChat(_:)))
         }
     }
-    
+
     func didFailWithError(_ error: BLDError!) {
+        NSLog(error.error.debugDescription);
     }
 }
+
+
 

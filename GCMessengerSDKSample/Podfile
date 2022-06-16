@@ -1,0 +1,45 @@
+#===================================================================================================
+# Copyright © 2018 nanorep.
+# NanorepUI SDK.
+# All rights reserved.
+#===================================================================================================
+
+platform :ios, "11.0"
+install! 'cocoapods', :disable_input_output_paths => true
+#inhibit_all_warnings!
+use_frameworks!
+
+install! 'cocoapods',
+         :deterministic_uuids => false
+
+DX_CORE="../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
+DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec"
+DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
+DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
+DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
+# DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+
+source 'https://github.com/genesys/dx-sdk-specs-dev'
+source 'https://github.com/CocoaPods/Specs'
+
+target 'GCMessengerSDKSample' do
+    if defined? DX_UI
+       pod 'GenesysCloudCore', :path => DX_CORE
+       pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
+       pod 'GenesysCloudBot', :path => DX_BOT
+       pod 'GenesysCloudBold', :path => DX_LIVE
+       pod 'GenesysCloudMessenger', :path => DX_MESSENGER
+       pod 'GenesysCloud', :path => DX_UI
+    else
+        pod 'GenesysCloud'
+    end
+end
+
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+      t.build_configurations.each do |config|
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      end
+    end
+end

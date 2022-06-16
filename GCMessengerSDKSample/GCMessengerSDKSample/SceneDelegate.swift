@@ -1,9 +1,8 @@
-//
-//  SceneDelegate.swift
-//  GenesysMessengerSample
-//
-//  Created by Eliza Koren on 04/11/2021.
-//
+// ===================================================================================================
+// Copyright © 2022 GenesysCloud(Genesys).
+// GenesysCloud SDK.
+// All rights reserved.
+// ===================================================================================================
 
 import UIKit
 
