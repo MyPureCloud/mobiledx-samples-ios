@@ -1,9 +1,8 @@
-//
-//  UITextField+Extensions.swift
-//  GCMessengerSDKSample
-//
-//  Created by Golan Shoval Gil on 29/06/2022.
-//
+// ===================================================================================================
+// Copyright © 2022 GenesysCloud(Genesys).
+// GenesysCloud SDK.
+// All rights reserved.
+// ===================================================================================================
 
 import Foundation
 import UIKit
