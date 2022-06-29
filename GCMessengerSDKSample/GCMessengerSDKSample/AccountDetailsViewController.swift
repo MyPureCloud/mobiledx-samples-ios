@@ -23,15 +23,8 @@ class AccountDetailsViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
-    //Calls this function when the tap is recognized.
     @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
-    }
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     private func setupFields() {
@@ -43,16 +36,33 @@ class AccountDetailsViewController: UIViewController {
     }
 
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        
-        let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
-                                       domain: domainIdTextField.text ?? "",
-                                       tokenStoreKey: tokenTextField.text ?? "",
-                                       logging: loggingSwitch.isOn)
-        
-        updateUserDefaults()
-        openMainController(with: account)
+        if deploymentIdTextField.text?.isEmpty == true || domainIdTextField.text?.isEmpty == true {
+            markInvalidTextFields(requiredTextFields: [deploymentIdTextField, domainIdTextField])
+            
+            let alert = UIAlertController(title: nil, message: "One or more required fields needed, please check & try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+
+        } else {
+            let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
+                                           domain: domainIdTextField.text ?? "",
+                                           tokenStoreKey: tokenTextField.text ?? "",
+                                           logging: loggingSwitch.isOn)
+            
+            updateUserDefaults()
+            openMainController(with: account)
+
+        }
     }
     
+    private func markInvalidTextFields(requiredTextFields: [UITextField]) {
+        for field in requiredTextFields {
+            if field.text?.isEmpty == true {
+                field.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 3, revert: true)
+            }
+        }
+    }
+        
     private func updateUserDefaults() {
         UserDefaults.deploymentId = deploymentIdTextField.text ?? ""
         UserDefaults.domainId = domainIdTextField.text ?? ""
