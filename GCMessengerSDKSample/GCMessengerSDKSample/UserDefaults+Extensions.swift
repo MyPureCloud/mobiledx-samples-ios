@@ -1,9 +1,8 @@
-//
-//  UserDefaults+Extensions.swift
-//  GCMessengerSDKSample
-//
-//  Created by Golan Shoval Gil on 28/06/2022.
-//
+// ===================================================================================================
+// Copyright © 2022 GenesysCloud(Genesys).
+// GenesysCloud SDK.
+// All rights reserved.
+// ===================================================================================================
 
 import Foundation
 
