@@ -10,10 +10,13 @@
 		8D38A17E271557699635AD61 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66333A22139368FE9524535 /* Pods_GCMessengerSDKSample.framework */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B7285B4940000CCF10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B6285B4940000CCF10 /* SceneDelegate.swift */; };
-		AF9463B9285B4940000CCF10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ViewController.swift */; };
+		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
 		AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BA285B4940000CCF10 /* Main.storyboard */; };
 		AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BD285B4943000CCF10 /* Assets.xcassets */; };
 		AF9463C1285B4943000CCF10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BF285B4943000CCF10 /* LaunchScreen.storyboard */; };
+		FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */; };
+		FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */; };
+		FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F0A286C771E007599BD /* UITextField+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +25,15 @@
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B4285B4940000CCF10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF9463B6285B4940000CCF10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AF9463B8285B4940000CCF10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWrapperViewController.swift; sourceTree = "<group>"; };
 		AF9463BB285B4940000CCF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF9463BD285B4943000CCF10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF9463C0285B4943000CCF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF9463C2285B4943000CCF10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C66333A22139368FE9524535 /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		FC341F0A286C771E007599BD /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +80,9 @@
 			children = (
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B6285B4940000CCF10 /* SceneDelegate.swift */,
-				AF9463B8285B4940000CCF10 /* ViewController.swift */,
+				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
+				FC341F09286C7709007599BD /* Extensions */,
+				FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */,
 				AF9463BA285B4940000CCF10 /* Main.storyboard */,
 				AF9463BD285B4943000CCF10 /* Assets.xcassets */,
 				AF9463BF285B4943000CCF10 /* LaunchScreen.storyboard */,
@@ -89,6 +97,15 @@
 				C66333A22139368FE9524535 /* Pods_GCMessengerSDKSample.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC341F09286C7709007599BD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */,
+				FC341F0A286C771E007599BD /* UITextField+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,9 +223,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF9463B9285B4940000CCF10 /* ViewController.swift in Sources */,
+				AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */,
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
 				AF9463B7285B4940000CCF10 /* SceneDelegate.swift in Sources */,
+				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
+				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
+				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +376,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99JFR953C3;
+				DEVELOPMENT_TEAM = 9Q993P8C7D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -385,7 +405,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99JFR953C3;
+				DEVELOPMENT_TEAM = 9Q993P8C7D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
