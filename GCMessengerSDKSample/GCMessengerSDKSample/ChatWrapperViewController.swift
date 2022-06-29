@@ -34,7 +34,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
 
     func didFailWithError(_ error: BLDError!) {
-        NSLog(error.error.debugDescription);
+        let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            self?.dismissChat(nil)
+        }))
+        present(alert, animated: true)
     }
 }
 
