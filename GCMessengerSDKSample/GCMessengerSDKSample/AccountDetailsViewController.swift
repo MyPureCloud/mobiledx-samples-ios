@@ -35,13 +35,8 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func setupFields() {
-        deploymentIdTextField.placeholder = "Deployment id"
         deploymentIdTextField.text = UserDefaults.deploymentId
-
-        domainIdTextField.placeholder = "Domain id"
         domainIdTextField.text = UserDefaults.domainId
-        
-        tokenTextField.placeholder = "Token store id"
         tokenTextField.text = UserDefaults.token
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
