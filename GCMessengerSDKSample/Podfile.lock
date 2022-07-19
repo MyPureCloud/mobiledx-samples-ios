@@ -1,19 +1,19 @@
 PODS:
-  - GenesysCloud (4.0.2):
-    - GenesysCloud/Core (= 4.0.2)
-  - GenesysCloud/Core (4.0.2):
+  - GenesysCloud (4.1.0):
+    - GenesysCloud/Core (= 4.1.0)
+  - GenesysCloud/Core (4.1.0):
     - GenesysCloudAccessibility (= 2.0.1)
     - GenesysCloudBold (= 3.0.1)
     - GenesysCloudBot (= 2.0.2)
-    - GenesysCloudMessenger (= 1.0.2)
+    - GenesysCloudMessenger (= 1.1.0)
   - GenesysCloudAccessibility (2.0.1)
   - GenesysCloudBold (3.0.1):
-    - GenesysCloudCore (= 4.0.2)
+    - GenesysCloudCore (= 4.0.3)
   - GenesysCloudBot (2.0.2):
-    - GenesysCloudCore (= 4.0.2)
-  - GenesysCloudCore (4.0.2)
-  - GenesysCloudMessenger (1.0.2):
-    - GenesysCloudCore (= 4.0.2)
+    - GenesysCloudCore (= 4.0.3)
+  - GenesysCloudCore (4.0.3)
+  - GenesysCloudMessenger (1.1.0):
+    - GenesysCloudCore (= 4.0.3)
     - GenesysCloudMessengerTransport
   - GenesysCloudMessengerTransport (1.2.1):
     - jetfire (= 0.1.5)
@@ -35,15 +35,15 @@ SPEC REPOS:
     - GenesysCloudMessenger
 
 SPEC CHECKSUMS:
-  GenesysCloud: ba5e721ffe257b4e1b4160e47e1bcddf42f0c2d9
+  GenesysCloud: efb4f1f16ca0eaaac9ae27bb6577d8be1013dd83
   GenesysCloudAccessibility: 778aa40e15589369b254861ba2f3e0abcd891c83
-  GenesysCloudBold: f3564dc63c11367bbbf3e2e6b90456ec9a5f2159
-  GenesysCloudBot: 8b320a6b6fae83cc98a2cb277f66b9baa015be37
-  GenesysCloudCore: 21616798d1447caf8b171c9957281c64dafa460c
-  GenesysCloudMessenger: e33f1d85b1990338365e579e27f9a432d62ea424
+  GenesysCloudBold: 7e896e1379c8d72cdee94ad6e60f315889d2ca90
+  GenesysCloudBot: 82374c21a9a12b918f858301fdfe28e55583d773
+  GenesysCloudCore: 56e0a6420658a6c5b1960ae846406a1552bfe6d9
+  GenesysCloudMessenger: f998877fff8e7d8ef5af39f42f606e806c1abd48
   GenesysCloudMessengerTransport: 942808e83a64850111a0394239e5082f03e370c1
   jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
 
-PODFILE CHECKSUM: 6f71082a293cd1a1bcf5eaf91abaa66d6a9ab3bc
+PODFILE CHECKSUM: 47cef82ab0cef1f70baa137447e4ee408ea4135b
 
 COCOAPODS: 1.11.3
