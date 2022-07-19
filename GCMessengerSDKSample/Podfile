@@ -4,7 +4,7 @@
 # All rights reserved.
 #===================================================================================================
 
-platform :ios, "11.0"
+platform :ios, "13.0"
 install! 'cocoapods', :disable_input_output_paths => true
 #inhibit_all_warnings!
 use_frameworks!
