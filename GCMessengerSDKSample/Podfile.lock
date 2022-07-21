@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   GenesysCloudBold: 7e896e1379c8d72cdee94ad6e60f315889d2ca90
   GenesysCloudBot: 82374c21a9a12b918f858301fdfe28e55583d773
   GenesysCloudCore: 56e0a6420658a6c5b1960ae846406a1552bfe6d9
-  GenesysCloudMessenger: f998877fff8e7d8ef5af39f42f606e806c1abd48
+  GenesysCloudMessenger: b6e511c1fc2dccc5410f9e278a4e345056b4f58e
   GenesysCloudMessengerTransport: 942808e83a64850111a0394239e5082f03e370c1
   jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
 
