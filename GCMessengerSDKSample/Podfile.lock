@@ -15,9 +15,7 @@ PODS:
   - GenesysCloudMessenger (1.1.0):
     - GenesysCloudCore (= 4.0.3)
     - GenesysCloudMessengerTransport
-  - GenesysCloudMessengerTransport (1.2.1):
-    - jetfire (= 0.1.5)
-  - jetfire (0.1.5)
+  - GenesysCloudMessengerTransport (1.2.2)
 
 DEPENDENCIES:
   - GenesysCloud
@@ -25,7 +23,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
     - GenesysCloudMessengerTransport
-    - jetfire
   https://github.com/genesys/dx-sdk-specs-dev:
     - GenesysCloud
     - GenesysCloudAccessibility
@@ -40,9 +37,8 @@ SPEC CHECKSUMS:
   GenesysCloudBold: 7e896e1379c8d72cdee94ad6e60f315889d2ca90
   GenesysCloudBot: 82374c21a9a12b918f858301fdfe28e55583d773
   GenesysCloudCore: 56e0a6420658a6c5b1960ae846406a1552bfe6d9
-  GenesysCloudMessenger: b6e511c1fc2dccc5410f9e278a4e345056b4f58e
-  GenesysCloudMessengerTransport: 942808e83a64850111a0394239e5082f03e370c1
-  jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
+  GenesysCloudMessenger: 8ac64dd38bf9e1c6db38d9cad444ab1d3fe0e9d0
+  GenesysCloudMessengerTransport: 64da7d6ab8e20a96264fe818f840ea062fab27bc
 
 PODFILE CHECKSUM: 47cef82ab0cef1f70baa137447e4ee408ea4135b
 
