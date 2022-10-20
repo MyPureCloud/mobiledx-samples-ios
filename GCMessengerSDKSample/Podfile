@@ -17,7 +17,7 @@ DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podsp
 DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
 DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
 DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+#DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
 source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
@@ -31,6 +31,7 @@ target 'GCMessengerSDKSample' do
        pod 'GenesysCloudMessenger', :path => DX_MESSENGER
        pod 'GenesysCloud', :path => DX_UI
     else
+        pod 'GenesysCloudMessengerTransport', '1.2.2'
         pod 'GenesysCloud'
     end
 end
@@ -40,6 +41,7 @@ post_install do |pi|
       t.build_configurations.each do |config|
         config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        config.build_settings["DEVELOPMENT_TEAM"] = "9U57N843V9"
       end
     end
 end
