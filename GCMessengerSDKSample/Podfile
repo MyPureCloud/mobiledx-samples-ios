@@ -4,7 +4,7 @@
 # All rights reserved.
 #===================================================================================================
 
-platform :ios, "13.0"
+platform :ios, "14.0"
 install! 'cocoapods', :disable_input_output_paths => true
 #inhibit_all_warnings!
 use_frameworks!
@@ -17,13 +17,14 @@ DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podsp
 DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
 DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
 DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-#DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
 source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     if defined? DX_UI
+      pod 'GenesysCloudMessengerTransport'
        pod 'GenesysCloudCore', :path => DX_CORE
        pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
        pod 'GenesysCloudBot', :path => DX_BOT
