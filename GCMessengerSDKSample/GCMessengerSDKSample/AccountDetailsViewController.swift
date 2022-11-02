@@ -46,8 +46,7 @@ class AccountDetailsViewController: UIViewController {
         } else {
             let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
                                            domain: domainIdTextField.text ?? "",
-                                           logging: loggingSwitch.isOn,
-                                           reconnectionTimeout: 300)
+                                           logging: loggingSwitch.isOn)
             
             updateUserDefaults()
             openMainController(with: account)
