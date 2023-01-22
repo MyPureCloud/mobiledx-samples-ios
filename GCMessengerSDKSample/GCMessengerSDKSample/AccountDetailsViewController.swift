@@ -11,7 +11,6 @@ import GenesysCloud
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
     @IBOutlet weak var domainIdTextField: UITextField!
-    @IBOutlet weak var tokenTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
     
@@ -30,7 +29,6 @@ class AccountDetailsViewController: UIViewController {
     private func setupFields() {
         deploymentIdTextField.text = UserDefaults.deploymentId
         domainIdTextField.text = UserDefaults.domainId
-        tokenTextField.text = UserDefaults.token
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
     }
@@ -65,7 +63,6 @@ class AccountDetailsViewController: UIViewController {
     private func updateUserDefaults() {
         UserDefaults.deploymentId = deploymentIdTextField.text ?? ""
         UserDefaults.domainId = domainIdTextField.text ?? ""
-        UserDefaults.token = tokenTextField.text ?? ""
         UserDefaults.logging = loggingSwitch.isOn
     }
     
