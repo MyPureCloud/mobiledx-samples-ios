@@ -3,31 +3,37 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D38A17E271557699635AD61 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66333A22139368FE9524535 /* Pods_GCMessengerSDKSample.framework */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B7285B4940000CCF10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B6285B4940000CCF10 /* SceneDelegate.swift */; };
-		AF9463B9285B4940000CCF10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ViewController.swift */; };
+		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
 		AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BA285B4940000CCF10 /* Main.storyboard */; };
 		AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BD285B4943000CCF10 /* Assets.xcassets */; };
 		AF9463C1285B4943000CCF10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BF285B4943000CCF10 /* LaunchScreen.storyboard */; };
+		BCDF23E6CE82DDBC86FC43A6 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F57FE4AF561D5C5E541B0D /* Pods_GCMessengerSDKSample.framework */; };
+		FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */; };
+		FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */; };
+		FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F0A286C771E007599BD /* UITextField+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4773DFFBA099DE82D8936FBC /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
-		9980FE5C41A6FBBCDFF5A292 /* Pods-GCMessengerSDKSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.release.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.release.xcconfig"; sourceTree = "<group>"; };
+		32F57FE4AF561D5C5E541B0D /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38C6696667BCA1DB67D67DC2 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
+		3DABE13F00B1986BC3538736 /* Pods-GCMessengerSDKSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.release.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.release.xcconfig"; sourceTree = "<group>"; };
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B4285B4940000CCF10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF9463B6285B4940000CCF10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AF9463B8285B4940000CCF10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWrapperViewController.swift; sourceTree = "<group>"; };
 		AF9463BB285B4940000CCF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF9463BD285B4943000CCF10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF9463C0285B4943000CCF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF9463C2285B4943000CCF10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C66333A22139368FE9524535 /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		FC341F0A286C771E007599BD /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,18 +41,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D38A17E271557699635AD61 /* Pods_GCMessengerSDKSample.framework in Frameworks */,
+				BCDF23E6CE82DDBC86FC43A6 /* Pods_GCMessengerSDKSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A6D963E50171EDD76267B95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32F57FE4AF561D5C5E541B0D /* Pods_GCMessengerSDKSample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9EB7896BFB4B7CF33E61D178 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4773DFFBA099DE82D8936FBC /* Pods-GCMessengerSDKSample.debug.xcconfig */,
-				9980FE5C41A6FBBCDFF5A292 /* Pods-GCMessengerSDKSample.release.xcconfig */,
+				38C6696667BCA1DB67D67DC2 /* Pods-GCMessengerSDKSample.debug.xcconfig */,
+				3DABE13F00B1986BC3538736 /* Pods-GCMessengerSDKSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -57,7 +71,7 @@
 				AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */,
 				AF9463B2285B4940000CCF10 /* Products */,
 				9EB7896BFB4B7CF33E61D178 /* Pods */,
-				ED6074B5360E94F15DD8BDED /* Frameworks */,
+				1A6D963E50171EDD76267B95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,7 +88,9 @@
 			children = (
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B6285B4940000CCF10 /* SceneDelegate.swift */,
-				AF9463B8285B4940000CCF10 /* ViewController.swift */,
+				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
+				FC341F09286C7709007599BD /* Extensions */,
+				FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */,
 				AF9463BA285B4940000CCF10 /* Main.storyboard */,
 				AF9463BD285B4943000CCF10 /* Assets.xcassets */,
 				AF9463BF285B4943000CCF10 /* LaunchScreen.storyboard */,
@@ -83,12 +99,13 @@
 			path = GCMessengerSDKSample;
 			sourceTree = "<group>";
 		};
-		ED6074B5360E94F15DD8BDED /* Frameworks */ = {
+		FC341F09286C7709007599BD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C66333A22139368FE9524535 /* Pods_GCMessengerSDKSample.framework */,
+				FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */,
+				FC341F0A286C771E007599BD /* UITextField+Extensions.swift */,
 			);
-			name = Frameworks;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,11 +115,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF9463C5285B4943000CCF10 /* Build configuration list for PBXNativeTarget "GCMessengerSDKSample" */;
 			buildPhases = (
-				6661B306D8EEDF18C1CAE61F /* [CP] Check Pods Manifest.lock */,
+				8487AC405C9464C71A02426B /* [CP] Check Pods Manifest.lock */,
 				AF9463AD285B4940000CCF10 /* Sources */,
 				AF9463AE285B4940000CCF10 /* Frameworks */,
 				AF9463AF285B4940000CCF10 /* Resources */,
-				695F88351817BAFA03075ABD /* [CP] Embed Pods Frameworks */,
+				EFC3359932C3B105003E58C9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,7 +146,7 @@
 				};
 			};
 			buildConfigurationList = AF9463AC285B4940000CCF10 /* Build configuration list for PBXProject "GCMessengerSDKSample" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -160,7 +177,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6661B306D8EEDF18C1CAE61F /* [CP] Check Pods Manifest.lock */ = {
+		8487AC405C9464C71A02426B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -182,7 +199,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		695F88351817BAFA03075ABD /* [CP] Embed Pods Frameworks */ = {
+		EFC3359932C3B105003E58C9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -206,9 +223,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF9463B9285B4940000CCF10 /* ViewController.swift in Sources */,
+				AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */,
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
 				AF9463B7285B4940000CCF10 /* SceneDelegate.swift in Sources */,
+				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
+				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
+				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -338,9 +358,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -350,27 +371,32 @@
 		};
 		AF9463C6285B4943000CCF10 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4773DFFBA099DE82D8936FBC /* Pods-GCMessengerSDKSample.debug.xcconfig */;
+			baseConfigurationReference = 38C6696667BCA1DB67D67DC2 /* Pods-GCMessengerSDKSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99JFR953C3;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need microphone access for uploading videos";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Need your permission for recognising your speech";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.GCMessengerSDKSample;
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -379,27 +405,32 @@
 		};
 		AF9463C7285B4943000CCF10 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9980FE5C41A6FBBCDFF5A292 /* Pods-GCMessengerSDKSample.release.xcconfig */;
+			baseConfigurationReference = 3DABE13F00B1986BC3538736 /* Pods-GCMessengerSDKSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99JFR953C3;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need microphone access for uploading videos";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Need your permission for recognising your speech";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.GCMessengerSDKSample;
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
