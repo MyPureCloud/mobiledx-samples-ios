@@ -17,7 +17,7 @@ DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podsp
 DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
 DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
 DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+#DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
 source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
@@ -32,8 +32,7 @@ target 'GCMessengerSDKSample' do
        pod 'GenesysCloudMessenger', :path => DX_MESSENGER
        pod 'GenesysCloud', :path => DX_UI
     else
-        pod 'GenesysCloudMessengerTransport', '1.2.2'
-        pod 'GenesysCloud'
+        pod 'GenesysCloud', '4.2.0'
     end
 end
 
