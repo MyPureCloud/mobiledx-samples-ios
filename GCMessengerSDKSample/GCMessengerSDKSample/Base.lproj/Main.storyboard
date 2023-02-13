@@ -60,13 +60,15 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdI-Eg-8at">
                                                         <rect key="frame" x="0.0" y="0.0" width="179" height="34.333333333333336"/>
+                                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.94117647410000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="tinted" title="Chat availability"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Chat availability"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgw-jG-Gp0">
                                                         <rect key="frame" x="209" y="0.0" width="179" height="34.333333333333336"/>
+                                                        <color key="backgroundColor" red="0.83529412749999998" green="0.90196073060000004" blue="0.99215686319999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="tinted" title="Start chat"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Start chat"/>
                                                         <connections>
                                                             <action selector="startChatButtonTapped:" destination="kEO-zj-gdG" eventType="touchUpInside" id="EdR-YJ-zuO"/>
                                                         </connections>
