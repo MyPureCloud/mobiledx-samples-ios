@@ -29,7 +29,7 @@ PODS:
   - GenesysCloudMessenger (1.x.y-dev):
     - GenesysCloudCore
     - GenesysCloudMessengerTransport
-  - GenesysCloudMessengerTransport (2.2.0)
+  - GenesysCloudMessengerTransport (2.0.0)
 
 DEPENDENCIES:
   - GenesysCloud (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
@@ -38,7 +38,7 @@ DEPENDENCIES:
   - GenesysCloudBot (from `../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec`)
   - GenesysCloudCore (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
   - GenesysCloudMessenger (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
-  - GenesysCloudMessengerTransport
+  - GenesysCloudMessengerTransport (= 2.0.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
@@ -65,8 +65,8 @@ SPEC CHECKSUMS:
   GenesysCloudBot: aec1a27b5423cf7a8496f3c4fa5df0a990ef29ac
   GenesysCloudCore: 0d9606bbe348b37bb6ed8cf31de0433d47e68fe1
   GenesysCloudMessenger: cc6eedf8c45f76107b104ddecfa234855130ba7d
-  GenesysCloudMessengerTransport: 797355f92e6340ef6d4491d536d09fc5a550e22b
+  GenesysCloudMessengerTransport: 496ad34fcbf5d1eebd98822332c6fc53b0cd5652
 
-PODFILE CHECKSUM: dc50e84aaceb6cbc084d9ca582c4a3f41a418f56
+PODFILE CHECKSUM: 3a5a4713444b82e7df12d700f47348c44279691d
 
 COCOAPODS: 1.11.3
