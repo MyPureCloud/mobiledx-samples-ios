@@ -80,6 +80,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
+    func handleClickedLink(_ link: String) {
+        print("Link \(link) was pressed in the chat")
+    }
 }
 
 
