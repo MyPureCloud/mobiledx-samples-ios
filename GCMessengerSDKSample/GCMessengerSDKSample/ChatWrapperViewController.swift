@@ -13,7 +13,8 @@ class ChatWrapperViewController: UIViewController {
     var chatController: ChatController!
     var chatVC: UINavigationController!
     var messengerAccount = MessengerAccount()
-    
+    var chatState: ChatState?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         chatController = ChatController(account: messengerAccount)
@@ -52,9 +53,11 @@ class ChatWrapperViewController: UIViewController {
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
-        self.present(viewController, animated: true) { () -> Void in
-            viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
-            
+        if self.chatState == .prepared {
+            self.present(viewController, animated: true) { () -> Void in
+                viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
+                
+            }
         }
     }
 
@@ -68,6 +71,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didUpdateState(_ event: ChatStateEvent!) {
         print("Chat state: \(event.state)")
+        self.chatState = event.state
         
         switch event.state {
         case .preparing:
