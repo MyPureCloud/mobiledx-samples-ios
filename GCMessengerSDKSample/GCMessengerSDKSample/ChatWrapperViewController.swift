@@ -8,8 +8,9 @@ import UIKit
 import GenesysCloud
 
 class ChatWrapperViewController: UIViewController {
-    let activityView = UIActivityIndicatorView(style: .large)
-    
+    let wrapperActivityView = UIActivityIndicatorView(style: .large)
+    let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
+
     var chatController: ChatController!
     var chatVC: UINavigationController!
     var messengerAccount = MessengerAccount()
@@ -23,7 +24,7 @@ class ChatWrapperViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setSpinner()
+        setSpinner(activityView: wrapperActivityView, view: view)
     }
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
@@ -31,22 +32,22 @@ class ChatWrapperViewController: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
-    func startSpinner() {
+    func startSpinner(activityView: UIActivityIndicatorView) {
         activityView.startAnimating()
     }
     
-    func stopSpinner() {
+    func stopSpinner(activityView: UIActivityIndicatorView) {
         activityView.stopAnimating()
     }
     
-    func setSpinner() {
-        activityView.frame = view.frame
+    func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
+        activityView.frame = view?.frame ?? .zero
         activityView.layer.backgroundColor = UIColor(white: 0.0, alpha: 0.3).cgColor
-        activityView.center = view.center
+        activityView.center = view?.center ?? .zero
         
         activityView.hidesWhenStopped = true
         
-        view.addSubview(activityView)
+        view?.addSubview(activityView)
     }
 }
 
@@ -54,10 +55,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if self.chatState == .prepared {
-            self.present(viewController, animated: true) { () -> Void in
+            self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
-                
+                self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
+
             }
+
         }
     }
 
@@ -76,9 +79,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         switch event.state {
         case .preparing:
             print("preparing")
-            startSpinner()
+            startSpinner(activityView: wrapperActivityView)
+            startSpinner(activityView: chatViewControllerActivityView)
         case .started:
             print("started")
+            stopSpinner(activityView: chatViewControllerActivityView)
         default:
             print(event.state)
         }
