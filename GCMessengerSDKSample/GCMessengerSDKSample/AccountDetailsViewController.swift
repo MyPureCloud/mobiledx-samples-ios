@@ -13,6 +13,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var domainIdTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var versionAndBuildLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,11 @@ class AccountDetailsViewController: UIViewController {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+           let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
+        }
     }
 
     @objc func dismissKeyboard() {
