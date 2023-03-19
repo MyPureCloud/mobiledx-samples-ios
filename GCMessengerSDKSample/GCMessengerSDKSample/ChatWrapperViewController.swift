@@ -12,7 +12,7 @@ class ChatWrapperViewController: UIViewController {
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
     var chatController: ChatController!
-    var chatVC: UINavigationController!
+    var chatVC: UINavigationController?
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
 
@@ -29,7 +29,9 @@ class ChatWrapperViewController: UIViewController {
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         chatController.terminate()
-        presentingViewController?.dismiss(animated: true)
+        presentingViewController?.dismiss(animated: true, completion: {
+            self.chatVC = nil
+        })
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -96,7 +98,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
                 self.dismissChat(nil)
             }))
-            chatVC.present(alert, animated: true)
+            chatVC?.present(alert, animated: true)
             
         default:
             print(event.state)
