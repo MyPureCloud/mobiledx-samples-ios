@@ -28,7 +28,7 @@ class ChatWrapperViewController: UIViewController {
     }
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
-        chatController.endChat()
+        chatController.terminate()
         presentingViewController?.dismiss(animated: true)
     }
     
