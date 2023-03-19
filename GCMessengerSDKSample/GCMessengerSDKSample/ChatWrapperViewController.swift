@@ -28,7 +28,7 @@ class ChatWrapperViewController: UIViewController {
     }
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
-        self.chatController.terminate()
+        chatController.endChat()
         presentingViewController?.dismiss(animated: true)
     }
     
@@ -58,9 +58,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-
             }
-
         }
     }
 
@@ -84,6 +82,24 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         case .started:
             print("started")
             stopSpinner(activityView: chatViewControllerActivityView)
+        case .disconnected:
+            
+//            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.\nWould you like to continue with the chat or dismiss it?", preferredStyle: .alert)
+
+            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
+            
+//            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+////                self.chatController.continueChat()
+//            }))
+            
+            alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
+                self.dismissChat(nil)
+            }))
+            
+            if let topVC = UIApplication.getTopViewController() {
+               topVC.present(alert, animated: true, completion: nil)
+            }
+            
         default:
             print(event.state)
         }
@@ -96,3 +112,19 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
 
 
+extension UIApplication {
+
+    class func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+
+        if let nav = base as? UINavigationController {
+            return getTopViewController(base: nav.visibleViewController)
+
+        } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return getTopViewController(base: selected)
+
+        } else if let presented = base?.presentedViewController {
+            return getTopViewController(base: presented)
+        }
+        return base
+    }
+}
