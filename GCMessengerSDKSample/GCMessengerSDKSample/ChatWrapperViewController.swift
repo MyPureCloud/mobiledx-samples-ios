@@ -53,6 +53,7 @@ class ChatWrapperViewController: UIViewController {
 
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
+        chatVC = viewController
         viewController.modalPresentationStyle = .overFullScreen
         if self.chatState == .prepared {
             self.present(viewController, animated: true) {
@@ -95,10 +96,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
                 self.dismissChat(nil)
             }))
-            
-            if let topVC = UIApplication.getTopViewController() {
-               topVC.present(alert, animated: true, completion: nil)
-            }
+            chatVC.present(alert, animated: true)
             
         default:
             print(event.state)
@@ -107,24 +105,5 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
-    }
-}
-
-
-
-extension UIApplication {
-
-    class func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-
-        if let nav = base as? UINavigationController {
-            return getTopViewController(base: nav.visibleViewController)
-
-        } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
-            return getTopViewController(base: selected)
-
-        } else if let presented = base?.presentedViewController {
-            return getTopViewController(base: presented)
-        }
-        return base
     }
 }
