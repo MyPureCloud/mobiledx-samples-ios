@@ -12,7 +12,6 @@ class ChatWrapperViewController: UIViewController {
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
     var chatController: ChatController!
-    var chatVC: UINavigationController?
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
 
@@ -29,9 +28,7 @@ class ChatWrapperViewController: UIViewController {
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         chatController.terminate()
-        presentingViewController?.dismiss(animated: true, completion: {
-            self.chatVC = nil
-        })
+        presentingViewController?.dismiss(animated: true)
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -55,7 +52,6 @@ class ChatWrapperViewController: UIViewController {
 
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
-        chatVC = viewController
         viewController.modalPresentationStyle = .overFullScreen
         if self.chatState == .prepared {
             self.present(viewController, animated: true) {
@@ -98,8 +94,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
                 self.dismissChat(nil)
             }))
-            chatVC?.present(alert, animated: true)
             
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+            }
+
         default:
             print(event.state)
         }
