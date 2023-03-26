@@ -23,6 +23,7 @@ source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
+  pod 'FirebaseCrashlytics'
     if defined? DX_UI
       pod 'GenesysCloudMessengerTransport', '2.0.0'
        pod 'GenesysCloudCore', :path => DX_CORE

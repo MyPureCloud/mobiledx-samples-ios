@@ -1,4 +1,33 @@
 PODS:
+  - FirebaseCore (10.6.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreExtension (10.6.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseCoreInternal (10.6.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseCrashlytics (10.6.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseSessions (~> 10.5)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (~> 2.1)
+  - FirebaseInstallations (10.6.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseSessions (10.6.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseCoreExtension (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.10)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesSwift (~> 2.1)
   - GenesysCloud (4.3.0):
     - GenesysCloud/Core (= 4.3.0)
   - GenesysCloud/Core (4.3.0):
@@ -15,15 +44,46 @@ PODS:
   - GenesysCloudCore (4.2.0)
   - GenesysCloudMessenger (1.3.0):
     - GenesysCloudCore (= 4.2.0)
-    - GenesysCloudMessengerTransport
-  - GenesysCloudMessengerTransport (2.2.0)
+    - GenesysCloudMessengerTransport (= 2.0.0)
+  - GenesysCloudMessengerTransport (2.0.0)
+  - GoogleDataTransport (9.2.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Environment (7.11.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.0):
+    - GoogleUtilities/Environment
+  - "GoogleUtilities/NSData+zlib (7.11.0)"
+  - GoogleUtilities/UserDefaults (7.11.0):
+    - GoogleUtilities/Logger
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - PromisesObjC (2.2.0)
+  - PromisesSwift (2.2.0):
+    - PromisesObjC (= 2.2.0)
 
 DEPENDENCIES:
+  - FirebaseCrashlytics
   - GenesysCloud
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - FirebaseSessions
     - GenesysCloudMessengerTransport
+    - GoogleDataTransport
+    - GoogleUtilities
+    - nanopb
+    - PromisesObjC
+    - PromisesSwift
   https://github.com/genesys/dx-sdk-specs-dev:
     - GenesysCloud
     - GenesysCloudAccessibility
@@ -33,14 +93,25 @@ SPEC REPOS:
     - GenesysCloudMessenger
 
 SPEC CHECKSUMS:
-  GenesysCloud: 51747720d94ebc7c5d9861fa9b106a5ea7df142c
+  FirebaseCore: fa80ad16a62d52f67274b5b88304c3a318bbf9a4
+  FirebaseCoreExtension: 318e5ee9ad4092b00423c2bddd51c3f5c3585973
+  FirebaseCoreInternal: c7cd505e2136811096b225ac388d6254a2622362
+  FirebaseCrashlytics: ede07e7f433a0a2270112baf2d156b111cfb422d
+  FirebaseInstallations: 13dde135fa0524e15bddb133ccc8465c53a1b3f3
+  FirebaseSessions: 60e877d5159eb571a3d82df68947a7941b475a20
+  GenesysCloud: 8a8df77df4ee0838f304e3757f1308dabfc37a06
   GenesysCloudAccessibility: 2458186d42bbc8dbf2ee9b81280ff75097443d54
-  GenesysCloudBold: 9f46e0dd68c5c6220a3155e24bfecae042c70c90
-  GenesysCloudBot: 8647a02d9e90d39218680eedd1233b6cc84c1a5e
-  GenesysCloudCore: 2064af24c1291a0d1f35305dbc175716c2546557
-  GenesysCloudMessenger: 2d1b7e2e654d8e2a5ee7241fb6aaabd1c3e14aa6
-  GenesysCloudMessengerTransport: 797355f92e6340ef6d4491d536d09fc5a550e22b
+  GenesysCloudBold: 26e7afe7b382dcb260af41facc478b31862011f4
+  GenesysCloudBot: 9513a9705d0b751f19e32625b3db56e98f1265c1
+  GenesysCloudCore: 1888400d70e6c46d020030200e3ce9332ddd6af9
+  GenesysCloudMessenger: d14ca53af1d68d83d1ab031b6746307ef2afbe8f
+  GenesysCloudMessengerTransport: 496ad34fcbf5d1eebd98822332c6fc53b0cd5652
+  GoogleDataTransport: ea169759df570f4e37bdee1623ec32a7e64e67c4
+  GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
 
-PODFILE CHECKSUM: 257c93481406dff5216032d247c0f41a1296c677
+PODFILE CHECKSUM: 13d271274d061555b102036c7e92c76553c33a08
 
 COCOAPODS: 1.10.2
