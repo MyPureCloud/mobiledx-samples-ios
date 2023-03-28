@@ -12,7 +12,6 @@ class ChatWrapperViewController: UIViewController {
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
     var chatController: ChatController!
-    var chatVC: UINavigationController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
 
@@ -28,7 +27,7 @@ class ChatWrapperViewController: UIViewController {
     }
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
-        self.chatController.terminate()
+        chatController.terminate()
         presentingViewController?.dismiss(animated: true)
     }
     
@@ -58,9 +57,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-
             }
-
         }
     }
 
@@ -84,6 +81,24 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         case .started:
             print("started")
             stopSpinner(activityView: chatViewControllerActivityView)
+        case .disconnected:
+            
+//            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.\nWould you like to continue with the chat or dismiss it?", preferredStyle: .alert)
+
+            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
+            
+//            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+////                self.chatController.continueChat()
+//            }))
+            
+            alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
+                self.dismissChat(nil)
+            }))
+            
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+            }
+
         default:
             print(event.state)
         }
@@ -93,6 +108,3 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         print("Link \(url) was pressed in the chat")
     }
 }
-
-
-
