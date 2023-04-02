@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A7493EF29D428850006D10A /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7493EE29D428850006D10A /* UIApplication+Extensions.swift */; };
+		0A7493F229D460AF0006D10A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7493F129D460AF0006D10A /* Toast.swift */; };
 		1F80E9DCAFB2BDC9E61FC519 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E096C2C72CD8228B7E47D45E /* Pods_GCMessengerSDKSample.framework */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
@@ -16,11 +18,12 @@
 		FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */; };
 		FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */; };
 		FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F0A286C771E007599BD /* UITextField+Extensions.swift */; };
-		FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04402E5443C4061D5AB2F59D /* Pods-GCMessengerSDKSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.release.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.release.xcconfig"; sourceTree = "<group>"; };
+		0A7493EE29D428850006D10A /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		0A7493F129D460AF0006D10A /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		A538693CA802083F33452664 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B4285B4940000CCF10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +36,6 @@
 		FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FC341F0A286C771E007599BD /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
-		FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A7493F029D4609F0006D10A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0A7493F129D460AF0006D10A /* Toast.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		9EB7896BFB4B7CF33E61D178 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +88,7 @@
 		AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */ = {
 			isa = PBXGroup;
 			children = (
+				0A7493F029D4609F0006D10A /* Helper */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
 				FC341F09286C7709007599BD /* Extensions */,
@@ -101,8 +112,8 @@
 		FC341F09286C7709007599BD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0A7493EE29D428850006D10A /* UIApplication+Extensions.swift */,
 				FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */,
-				FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */,
 				FC341F0A286C771E007599BD /* UITextField+Extensions.swift */,
 			);
 			path = Extensions;
@@ -120,7 +131,7 @@
 				AF9463AE285B4940000CCF10 /* Frameworks */,
 				AF9463AF285B4940000CCF10 /* Resources */,
 				803DAB10ECE5295E4886916A /* [CP] Embed Pods Frameworks */,
-				4A79641DA9050E2F74E35DEE /* [CP] Copy Pods Resources */,
+				8B5B2173C7E565867C795D8C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,23 +211,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A79641DA9050E2F74E35DEE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		803DAB10ECE5295E4886916A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +228,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8B5B2173C7E565867C795D8C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -243,10 +254,11 @@
 			files = (
 				AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */,
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
-				FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */,
+				0A7493EF29D428850006D10A /* UIApplication+Extensions.swift in Sources */,
 				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
 				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
 				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,
+				0A7493F229D460AF0006D10A /* Toast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +338,6 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

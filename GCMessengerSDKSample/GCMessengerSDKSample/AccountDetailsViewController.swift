@@ -38,24 +38,42 @@ class AccountDetailsViewController: UIViewController {
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
     }
-
+    
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
+        validateFields(shouldStartChat: true)
+    }
+    
+    @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
+        validateFields(shouldStartChat: false)
+    }
+    
+    private func validateFields(shouldStartChat: Bool) {
         if deploymentIdTextField.text?.isEmpty == true || domainIdTextField.text?.isEmpty == true {
             markInvalidTextFields(requiredTextFields: [deploymentIdTextField, domainIdTextField])
             
-            let alert = UIAlertController(title: nil, message: "One or more required fields needed, please check & try again", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-
+            showErrorAlert()
         } else {
             let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
                                            domain: domainIdTextField.text ?? "",
                                            logging: loggingSwitch.isOn)
             
             updateUserDefaults()
-            openMainController(with: account)
-
+            if shouldStartChat {
+                openMainController(with: account)
+            } else {
+                ChatAvailabilityChecker.checkAvailability(account, completion: { result in
+                    if let result {
+                        Toast.show(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                    }
+                })
+            }
         }
+    }
+    
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: nil, message: "One or more required fields needed, please check & try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     private func markInvalidTextFields(requiredTextFields: [UITextField]) {
