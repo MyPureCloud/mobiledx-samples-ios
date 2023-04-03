@@ -48,6 +48,7 @@ class AccountDetailsViewController: UIViewController {
             present(alert, animated: true)
 
         } else {
+            loggingSwitch.setOn(false, animated: false) // TODO: GMDX-1514 this is a check to see if Transport stop crashing app
             let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
                                            domain: domainIdTextField.text ?? "",
                                            logging: loggingSwitch.isOn)
