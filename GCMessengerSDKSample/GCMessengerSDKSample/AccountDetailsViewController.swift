@@ -40,33 +40,34 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        validateFields(shouldStartChat: true)
+        if let account = createAccountForValidInputFields() {
+            openMainController(with: account)
+        }
     }
     
     @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
-        validateFields(shouldStartChat: false)
+        if let account = createAccountForValidInputFields() {
+            ChatAvailabilityChecker.checkAvailability(account, completion: { result in
+                if let result {
+                    Toast.show(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                }
+            })
+        }
     }
     
-    private func validateFields(shouldStartChat: Bool) {
+    private func createAccountForValidInputFields() -> MessengerAccount? {
         if deploymentIdTextField.text?.isEmpty == true || domainIdTextField.text?.isEmpty == true {
             markInvalidTextFields(requiredTextFields: [deploymentIdTextField, domainIdTextField])
             
             showErrorAlert()
+            return nil
         } else {
             let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
                                            domain: domainIdTextField.text ?? "",
                                            logging: loggingSwitch.isOn)
             
             updateUserDefaults()
-            if shouldStartChat {
-                openMainController(with: account)
-            } else {
-                ChatAvailabilityChecker.checkAvailability(account, completion: { result in
-                    if let result {
-                        Toast.show(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
-                    }
-                })
-            }
+            return account
         }
     }
     
