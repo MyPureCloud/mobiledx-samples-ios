@@ -61,12 +61,19 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
 
-    func didFailWithError(_ error: BLDError!) {
-        let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-            self?.dismissChat(nil)
-        }))
-        present(alert, animated: true)
+    func didFailWithError(_ error: Error?) {
+        if let _: BLDError = error as? BLDError {
+            let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+                self?.dismissChat(nil)
+            }))
+            present(alert, animated: true)
+        }
+        
+        if let error: ChatStatementsError = error as? ChatStatementsError {
+            print("** CAN'T SEND MESSAGE: \(error.rawValue)")
+            Toast.show(message: error.rawValue)
+        }
     }
     
     func didUpdateState(_ event: ChatStateEvent!) {
