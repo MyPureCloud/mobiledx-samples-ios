@@ -8,18 +8,11 @@ import Foundation
 import UIKit
 
 public class Toast {
-    public static func show(message: String, backgroundColor: UIColor? = nil, textColor: UIColor? = nil) {
+    public static func show(message: String, backgroundColor: UIColor) {
         DispatchQueue.main.async {
             let toastView = UILabel()
-            toastView.backgroundColor = .gray
-            toastView.textColor = .black
-
-            if let backgroundColor {
-                toastView.backgroundColor = backgroundColor
-            }
-            if let textColor {
-                toastView.textColor = textColor
-            }
+            toastView.backgroundColor = backgroundColor
+            toastView.textColor = UIColor.black
             toastView.textAlignment = .center
             toastView.font = UIFont.preferredFont(forTextStyle: .caption1)
             toastView.layer.cornerRadius = 15
