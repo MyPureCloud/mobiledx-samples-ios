@@ -62,11 +62,19 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
 
     func didFailWithError(_ error: BLDError!) {
-        let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-            self?.dismissChat(nil)
-        }))
-        present(alert, animated: true)
+        let errorType = error.type
+        
+        if errorType == BLDChatErrorTypeFailedToLoadHistory {
+            print(error.error?.localizedDescription ?? "")
+            
+        } else {
+            let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+                self?.dismissChat(nil)
+            }))
+            present(alert, animated: true)
+
+        }
     }
     
     func didUpdateState(_ event: ChatStateEvent!) {
