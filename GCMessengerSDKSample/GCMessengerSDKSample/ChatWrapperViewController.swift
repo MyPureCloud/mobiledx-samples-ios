@@ -76,6 +76,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     Toast.show(message: errorDescription)
                 }
+                
+            case .illegalStateError, .clientError:
+                print("\(error.errorType.description ?? "\(error.errorType)")")
+
             default:
                 break
             }
