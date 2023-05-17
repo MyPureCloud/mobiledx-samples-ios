@@ -100,9 +100,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
             let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
             
-//            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
-////                self.chatController.continueChat()
-//            }))
+            alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
+                self.chatController.reconnectChat()
+            }))
             
             alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
                 self.dismissChat(nil)
