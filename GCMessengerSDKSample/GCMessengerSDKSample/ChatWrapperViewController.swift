@@ -63,6 +63,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
     func didFailWithError(_ error: GCError?) {
         if let error = error {
+            if let errorDescription = error.errorDescription {
+                print("Error: \(errorDescription)")
+            }
+
             switch error.errorType {
             case .failedToLoad:
                 let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
@@ -76,10 +80,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     Toast.show(message: errorDescription)
                 }
-                
-            case .illegalStateError, .clientError:
-                print("\(error.errorType.description ?? "\(error.errorType)")")
-
             default:
                 break
             }
