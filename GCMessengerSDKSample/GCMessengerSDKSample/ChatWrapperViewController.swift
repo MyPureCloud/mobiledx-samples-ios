@@ -63,6 +63,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
     func didFailWithError(_ error: GCError?) {
         if let error = error {
+            if let errorDescription = error.errorDescription {
+                print("Error: \(errorDescription)")
+            }
+
             switch error.errorType {
             case .failedToLoad:
                 let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
@@ -100,9 +104,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
             let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
             
-//            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
-////                self.chatController.continueChat()
-//            }))
+            alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
+                self.chatController.reconnectChat()
+            }))
             
             alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
                 self.dismissChat(nil)
