@@ -68,12 +68,14 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             }
 
             switch error.errorType {
-            case .failedToLoad:
+            case .failedToLoad, .failedMessengerChatErrorDisableState:
                 let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
                     self?.dismissChat(nil)
                 }))
-                present(alert, animated: true)
+                if let topViewController = UIApplication.getTopViewController() {
+                    topViewController.present(alert, animated: true)
+                }
                 
             case .failedToSendMessage:
                 print("** CAN'T SEND MESSAGE: \(error.errorType.rawValue)")
