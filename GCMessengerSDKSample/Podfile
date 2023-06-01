@@ -25,12 +25,12 @@ source 'https://github.com/CocoaPods/Specs'
 target 'GCMessengerSDKSample' do
     if defined? DX_UI
       pod 'GenesysCloudMessengerTransport', '2.0.0'
-       pod 'GenesysCloudCore', :path => DX_CORE
+       pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
        pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
        pod 'GenesysCloudBot', :path => DX_BOT
        pod 'GenesysCloudBold', :path => DX_LIVE
-       pod 'GenesysCloudMessenger', :path => DX_MESSENGER
-       pod 'GenesysCloud', :path => DX_UI
+       pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
+       pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
     else
        pod 'GenesysCloud'
     end
