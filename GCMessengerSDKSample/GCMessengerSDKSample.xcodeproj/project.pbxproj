@@ -122,7 +122,7 @@
 				AF9463AD285B4940000CCF10 /* Sources */,
 				AF9463AE285B4940000CCF10 /* Frameworks */,
 				AF9463AF285B4940000CCF10 /* Resources */,
-				80B6C704E58C9A9DDB2F3EDD /* [CP] Copy Pods Resources */,
+				27E1B96328CAA9F5E87B77BD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,21 +202,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		80B6C704E58C9A9DDB2F3EDD /* [CP] Copy Pods Resources */ = {
+		27E1B96328CAA9F5E87B77BD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
