@@ -17,14 +17,16 @@ DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podsp
 DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
 DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
 DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-#DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
 source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
+    pod 'FirebaseCrashlytics'
+
     if defined? DX_UI
-      pod 'GenesysCloudMessengerTransport', '2.0.0'
+      pod 'GenesysCloudMessengerTransport', '2.3.1'
        pod 'GenesysCloudCore', :path => DX_CORE
        pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
        pod 'GenesysCloudBot', :path => DX_BOT
@@ -65,13 +67,13 @@ end
 def find_words_at_embedded_target(target_name, installer)
   #    target = installer.pods_project.targets.find { |target| target.name == target_name }
   installer.pods_project.targets.each do |target|
-    
-    
+
+
     target.build_configurations.each do |config|
       xcconfig_path = config.base_configuration_reference.real_path
       xcconfig = File.read(xcconfig_path)
       old_line = find_line_with_start(xcconfig, "OTHER_LDFLAGS")
-      
+
       if old_line == nil
         next
       end
@@ -91,12 +93,12 @@ def handle_app_targets(names, installer)
       xcconfig_path = config.base_configuration_reference.real_path
       xcconfig = File.read(xcconfig_path)
       old_line = find_line_with_start(xcconfig, "OTHER_LDFLAGS")
-      
+
       if old_line == nil
         next
       end
       new_line = remove_words(old_line, '-framework %Q[MessengerTransport]')
-      
+
       new_xcconfig = xcconfig.sub(old_line, new_line)
       File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
     end
