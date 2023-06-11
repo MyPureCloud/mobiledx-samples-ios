@@ -28,10 +28,7 @@ class AccountDetailsViewController: UIViewController {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
         }
         
-        crashlyticsHiddenButton.setTitle("", for: .normal)
-        let longGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(crashlyticsHiddenButtonTapped(_:)))
-        longGesture.minimumPressDuration = 5
-        crashlyticsHiddenButton.addGestureRecognizer(longGesture)
+        setupCrashlyticsHiddenButton()
     }
 
     @objc func dismissKeyboard() {
@@ -62,6 +59,13 @@ class AccountDetailsViewController: UIViewController {
             openMainController(with: account)
 
         }
+    }
+    
+    private func setupCrashlyticsHiddenButton() {
+        crashlyticsHiddenButton.setTitle("", for: .normal)
+        let longGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(crashlyticsHiddenButtonTapped(_:)))
+        longGesture.minimumPressDuration = 5
+        crashlyticsHiddenButton.addGestureRecognizer(longGesture)
     }
     
     //TODO: Remove after crashlytics is triggered for first time
