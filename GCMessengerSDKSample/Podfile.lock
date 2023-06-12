@@ -1,46 +1,64 @@
 PODS:
-  - GenesysCloud (4.4.0):
-    - GenesysCloud/Core (= 4.4.0)
-  - GenesysCloud/Core (4.4.0):
-    - GenesysCloudAccessibility (= 2.1.1)
-    - GenesysCloudBold (= 3.1.1)
-    - GenesysCloudBot (= 2.1.1)
-    - GenesysCloudCore (= 4.2.0)
-    - GenesysCloudMessenger (= 1.4.0)
-  - GenesysCloudAccessibility (2.1.1)
-  - GenesysCloudBold (3.1.1):
-    - GenesysCloudCore (= 4.2.0)
-  - GenesysCloudBot (2.1.1):
-    - GenesysCloudCore (= 4.2.0)
-  - GenesysCloudCore (4.2.0)
-  - GenesysCloudMessenger (1.4.0):
-    - GenesysCloudCore (= 4.2.0)
-    - GenesysCloudMessengerTransport (= 2.3.1)
+  - GenesysCloud (4.x.y-dev):
+    - GenesysCloud/Global (= 4.x.y-dev)
+  - GenesysCloud/Bot (4.x.y-dev):
+    - GenesysCloud/Core
+    - GenesysCloud/Search
+  - GenesysCloud/Core (4.x.y-dev):
+    - GenesysCloudAccessibility
+  - GenesysCloud/Global (4.x.y-dev):
+    - GenesysCloud/Bot
+    - GenesysCloud/Core
+    - GenesysCloud/Live
+    - GenesysCloud/Meesenger
+    - GenesysCloud/Search
+  - GenesysCloud/Live (4.x.y-dev):
+    - GenesysCloud/Core
+  - GenesysCloud/Meesenger (4.x.y-dev):
+    - GenesysCloudMessenger
+  - GenesysCloud/Search (4.x.y-dev):
+    - GenesysCloud/Core
+  - GenesysCloudAccessibility (1.x.y-dev)
+  - GenesysCloudCore (1.x.y-dev)
+  - GenesysCloudCore/UnitTests (1.x.y-dev)
+  - GenesysCloudMessenger (1.x.y-dev):
+    - GenesysCloudCore
+    - GenesysCloudMessengerTransport
+  - GenesysCloudMessenger/UnitTests (1.x.y-dev):
+    - GenesysCloudCore
+    - GenesysCloudMessengerTransport
   - GenesysCloudMessengerTransport (2.3.1)
 
 DEPENDENCIES:
-  - GenesysCloud
+  - GenesysCloud (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
+  - GenesysCloudAccessibility (from `../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec`)
+  - GenesysCloudCore (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
+  - GenesysCloudCore/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
+  - GenesysCloudMessenger (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
+  - GenesysCloudMessenger/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
+  - GenesysCloudMessengerTransport (= 2.3.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
     - GenesysCloudMessengerTransport
-  https://github.com/genesys/dx-sdk-specs-dev:
-    - GenesysCloud
-    - GenesysCloudAccessibility
-    - GenesysCloudBold
-    - GenesysCloudBot
-    - GenesysCloudCore
-    - GenesysCloudMessenger
+
+EXTERNAL SOURCES:
+  GenesysCloud:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+  GenesysCloudAccessibility:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
+  GenesysCloudCore:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
+  GenesysCloudMessenger:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 
 SPEC CHECKSUMS:
-  GenesysCloud: fa1ce862bdb3f80350a93ede2a531660dfa72c45
-  GenesysCloudAccessibility: 2458186d42bbc8dbf2ee9b81280ff75097443d54
-  GenesysCloudBold: f0c31da3e8f34f213da97d2af1da095ef3bf2550
-  GenesysCloudBot: f8349efb1fa184d2fefaef78dde4c8f63fb2c78e
-  GenesysCloudCore: 3346c95586bf3d67e576cb8f37d4010752b36788
-  GenesysCloudMessenger: b2e12c04f4673486970197e002a5c159f5c34c32
+  GenesysCloud: 18679e3293f8506862620ea0d99d8cd0cf958c7a
+  GenesysCloudAccessibility: 5703a659cb0f0de4581d827db02c49f453e10326
+  GenesysCloudCore: f462ebe001cfa9e8492a3c83edfd4a353bb3dcfc
+  GenesysCloudMessenger: 154e644c362dac99c502e0132bd9f09ec11ee5d7
   GenesysCloudMessengerTransport: fbc1ff7de81ee15346c3f9dd21078d400b6be435
 
-PODFILE CHECKSUM: 86a8654989fd5176594c9443ae6ae8532f1ac47d
+PODFILE CHECKSUM: ec461b5b6fa070ce401e41428a97cb871c33c5ab
 
 COCOAPODS: 1.12.1
