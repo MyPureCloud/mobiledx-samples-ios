@@ -13,12 +13,15 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var domainIdTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var ecoModeSwitch: UISwitch!
+    @IBOutlet weak var ecoModeLabel: UILabel!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFields()
-
+        setScreenColors()
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
@@ -26,6 +29,16 @@ class AccountDetailsViewController: UIViewController {
            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
         }
+    }
+    
+    @IBAction func onEcoModeValueChanged(_ sender: Any) {
+        setScreenColors()
+    }
+    
+    private func setScreenColors() {
+        ecoModeLabel.textColor = ecoModeSwitch.isOn ? UIColor.green : UIColor.black
+        startChatButton.backgroundColor = ecoModeSwitch.isOn ? .green : UIColor("d1e7ff")
+        startChatButton.titleLabel?.tintColor = ecoModeSwitch.isOn ? UIColor("126622") : UIColor("2e92ff")
     }
 
     @objc func dismissKeyboard() {
@@ -37,6 +50,7 @@ class AccountDetailsViewController: UIViewController {
         domainIdTextField.text = UserDefaults.domainId
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
+        ecoModeSwitch.setOn(UserDefaults.ecoMode, animated: true)
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
@@ -89,6 +103,7 @@ class AccountDetailsViewController: UIViewController {
         UserDefaults.deploymentId = deploymentIdTextField.text ?? ""
         UserDefaults.domainId = domainIdTextField.text ?? ""
         UserDefaults.logging = loggingSwitch.isOn
+        UserDefaults.ecoMode = ecoModeSwitch.isOn
     }
     
     private func openMainController(with account: MessengerAccount) {
