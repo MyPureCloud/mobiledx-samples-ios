@@ -19,8 +19,11 @@ class AccountDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupFields()
-        setScreenColors()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(powerStateChanged), name: Notification.Name.NSProcessInfoPowerStateDidChange, object: nil)
+
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -29,6 +32,21 @@ class AccountDetailsViewController: UIViewController {
            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
         }
+    }
+    
+    @objc func powerStateChanged(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.ecoModeSwitch.isOn = ProcessInfo.processInfo.isLowPowerModeEnabled
+            
+            self.setScreenColors()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ecoModeSwitch.isOn = ProcessInfo.processInfo.isLowPowerModeEnabled
+        
+        setScreenColors()
     }
     
     @IBAction func onEcoModeValueChanged(_ sender: Any) {
