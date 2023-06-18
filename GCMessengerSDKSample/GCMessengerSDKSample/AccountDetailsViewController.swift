@@ -13,6 +13,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var domainIdTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var crashlyticsHiddenButton: UIButton!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     
     override func viewDidLoad() {
@@ -26,6 +27,8 @@ class AccountDetailsViewController: UIViewController {
            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
         }
+        
+        setupCrashlyticsHiddenButton()
     }
 
     @objc func dismissKeyboard() {
@@ -56,6 +59,19 @@ class AccountDetailsViewController: UIViewController {
             openMainController(with: account)
 
         }
+    }
+    
+    private func setupCrashlyticsHiddenButton() {
+        crashlyticsHiddenButton.setTitle("", for: .normal)
+        let longGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(crashlyticsHiddenButtonTapped(_:)))
+        longGesture.minimumPressDuration = 5
+        crashlyticsHiddenButton.addGestureRecognizer(longGesture)
+    }
+    
+    //TODO: Remove after crashlytics is triggered for first time
+    @IBAction func crashlyticsHiddenButtonTapped(_ sender: Any) {
+        let numbers = [0]
+        let _ = numbers[1]
     }
     
     private func markInvalidTextFields(requiredTextFields: [UITextField]) {
