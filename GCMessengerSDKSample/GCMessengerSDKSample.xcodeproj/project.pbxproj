@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A190B632A41A72000A069B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A190B622A41A72000A069B7 /* GoogleService-Info.plist */; };
+		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
 		74D33A642EA1ACE728115635 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB5922590AABF61B499394E /* Pods_GCMessengerSDKSample.framework */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		0A190B622A41A72000A069B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Helper/Toast.swift; sourceTree = "<group>"; };
 		170195E944AC45093FAC6C25 /* Pods-GCMessengerSDKSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.release.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.release.xcconfig"; sourceTree = "<group>"; };
 		4EB5922590AABF61B499394E /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,7 @@
 		AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */ = {
 			isa = PBXGroup;
 			children = (
+				0A190B692A44222D00A069B7 /* Toast.swift */,
 				0A190B622A41A72000A069B7 /* GoogleService-Info.plist */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
@@ -233,6 +236,7 @@
 				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
 				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
 				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,
+				0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

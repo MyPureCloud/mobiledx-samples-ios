@@ -27,12 +27,12 @@ target 'GCMessengerSDKSample' do
 
     if defined? DX_UI
       pod 'GenesysCloudMessengerTransport', '2.3.2'
-       pod 'GenesysCloudCore', :path => DX_CORE
-       pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
-       pod 'GenesysCloudBot', :path => DX_BOT
-       pod 'GenesysCloudBold', :path => DX_LIVE
-       pod 'GenesysCloudMessenger', :path => DX_MESSENGER
-       pod 'GenesysCloud', :path => DX_UI
+      pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
+      pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
+      pod 'GenesysCloudBot', :path => DX_BOT
+      pod 'GenesysCloudBold', :path => DX_LIVE
+      pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
+      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
     else
        pod 'GenesysCloud'
     end

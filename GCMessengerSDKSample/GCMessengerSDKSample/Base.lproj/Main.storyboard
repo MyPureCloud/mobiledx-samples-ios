@@ -58,11 +58,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="R2t-vU-Bc0">
                                                 <rect key="frame" x="20" y="694.66666666666663" width="388" height="34.333333333333371"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdI-Eg-8at">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdI-Eg-8at">
                                                         <rect key="frame" x="0.0" y="0.0" width="179" height="34.333333333333336"/>
                                                         <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.94117647410000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Chat availability"/>
+                                                        <connections>
+                                                            <action selector="chatAvailabilityButtonTapped:" destination="kEO-zj-gdG" eventType="touchUpInside" id="nVC-uL-UOw"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgw-jG-Gp0">
                                                         <rect key="frame" x="209" y="0.0" width="179" height="34.333333333333336"/>
