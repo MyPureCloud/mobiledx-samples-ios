@@ -23,92 +23,27 @@ source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
+    pod 'FirebaseCrashlytics'
+
     if defined? DX_UI
-      pod 'GenesysCloudMessengerTransport', '2.3.1'
-       pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
-       pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
-       pod 'GenesysCloudBot', :path => DX_BOT
-       pod 'GenesysCloudBold', :path => DX_LIVE
-       pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
-       pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
+      pod 'GenesysCloudMessengerTransport', '2.3.2'
+      pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
+      pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
+      pod 'GenesysCloudBot', :path => DX_BOT
+      pod 'GenesysCloudBold', :path => DX_LIVE
+      pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
+      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
     else
        pod 'GenesysCloud'
     end
 end
 
-post_install do |installer|
-  auto_process_target(['GCMessengerSDKSample'], 'GCMessengerSDKSample', installer)
-end
-
-def auto_process_target(app_target_names, embedded_target_name, installer)
-  words = find_words_at_embedded_target('Pods-' + embedded_target_name, installer)
-  handle_app_targets(app_target_names.map{ |str| 'Pods-' + str }, installer)
-end
-
-def find_line_with_start(str, start)
-  str.each_line do |line|
-    if line.start_with?(start)
-      return line
-    end
-  end
-  return nil
-end
-
-def remove_words(str, words)
-  new_str = str
-  new_str = new_str.sub("-framework \"MessengerTransport\"", "")
-  puts("***********##########***********")
-  puts(new_str)
-  return new_str
-end
-
-def find_words_at_embedded_target(target_name, installer)
-  #    target = installer.pods_project.targets.find { |target| target.name == target_name }
-  installer.pods_project.targets.each do |target|
-    
-    
-    target.build_configurations.each do |config|
-      xcconfig_path = config.base_configuration_reference.real_path
-      xcconfig = File.read(xcconfig_path)
-      old_line = find_line_with_start(xcconfig, "OTHER_LDFLAGS")
-      
-      if old_line == nil
-        next
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+      t.build_configurations.each do |config|
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        config.build_settings["DEVELOPMENT_TEAM"] = "9U57N843V9"
       end
-      words = old_line.split(' ').select{ |str| str.start_with?("-l") }.map{ |str| ' ' + str }
-      return words
     end
-  end
 end
-
-def handle_app_targets(names, installer)
-  installer.pods_project.targets.each do |target|
-    if names.index(target.name) == nil
-      next
-    end
-    puts "Updating #{target.name} OTHER_LDFLAGS"
-    target.build_configurations.each do |config|
-      xcconfig_path = config.base_configuration_reference.real_path
-      xcconfig = File.read(xcconfig_path)
-      old_line = find_line_with_start(xcconfig, "OTHER_LDFLAGS")
-      
-      if old_line == nil
-        next
-      end
-      new_line = remove_words(old_line, '-framework %Q[MessengerTransport]')
-      
-      new_xcconfig = xcconfig.sub(old_line, new_line)
-      File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
-    end
-  end
-end
-
-#post_install do |pi|
-#    pi.pods_project.targets.each do |t|
-#      t.build_configurations.each do |config|
-#        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
-#        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
-#        config.build_settings["DEVELOPMENT_TEAM"] = "9U57N843V9"
-#      end
-#    end
-#end
