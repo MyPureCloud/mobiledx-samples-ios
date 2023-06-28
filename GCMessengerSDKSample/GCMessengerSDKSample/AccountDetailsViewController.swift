@@ -26,8 +26,23 @@ class AccountDetailsViewController: UIViewController {
            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
         }
+        
+        deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            if deploymentId.isEmpty && domainId.isEmpty {
+                startChatButton.isEnabled = false
+            }
+        }
     }
 
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+        }
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
