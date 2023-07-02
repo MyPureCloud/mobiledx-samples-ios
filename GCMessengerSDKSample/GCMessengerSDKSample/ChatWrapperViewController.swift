@@ -68,7 +68,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             }
 
             switch error.errorType {
-            case .failedToLoad, .failedMessengerChatErrorDisableState:
+            case .failedToLoad:
+                self.dismissChat(nil)
+                if let errorDescription = error.errorDescription {
+                    Toast.show(message: "Error: \(errorDescription)")
+                }
+            case .failedMessengerChatErrorDisableState:
                 let alert = UIAlertController(title: "Error occurred", message: "Please Check Details & try again", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
                     self?.dismissChat(nil)
