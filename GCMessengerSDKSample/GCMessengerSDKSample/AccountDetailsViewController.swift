@@ -7,6 +7,7 @@
 import Foundation
 import UIKit
 import GenesysCloud
+import GenesysCloudMessenger
 
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
