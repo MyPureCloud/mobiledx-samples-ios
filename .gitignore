@@ -68,3 +68,8 @@ fastlane/test_output
 iOSInjectionProject/
 Android/SDKSamples/.idea
 Android/SDKSamples/.gradle
+GCMessengerSDKSample/.DS_Store
+.DS_Store
+*/.DS_Store
+*/GoogleService-Info.plist
+GoogleService-Info.plist

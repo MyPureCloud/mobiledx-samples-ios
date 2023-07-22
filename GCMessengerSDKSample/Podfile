@@ -7,7 +7,7 @@
 platform :ios, "14.0"
 install! 'cocoapods', :disable_input_output_paths => true
 #inhibit_all_warnings!
-use_frameworks!
+use_frameworks! :linkage => :static
 
 install! 'cocoapods',
          :deterministic_uuids => false
@@ -23,8 +23,10 @@ source 'https://github.com/genesys/dx-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
+    pod 'FirebaseCrashlytics'
+
     if defined? DX_UI
-      pod 'GenesysCloudMessengerTransport'
+      pod 'GenesysCloudMessengerTransport', '2.3.2'
        pod 'GenesysCloudCore', :path => DX_CORE
        pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
        pod 'GenesysCloudBot', :path => DX_BOT
@@ -32,7 +34,7 @@ target 'GCMessengerSDKSample' do
        pod 'GenesysCloudMessenger', :path => DX_MESSENGER
        pod 'GenesysCloud', :path => DX_UI
     else
-        pod 'GenesysCloud', '4.2.0'
+       pod 'GenesysCloud'
     end
 end
 

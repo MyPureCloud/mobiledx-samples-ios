@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J99-DW-qE2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J99-DW-qE2">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -75,16 +75,36 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aH7-lX-MR5">
+                                                <rect key="frame" x="196.33333333333334" y="659.66666666666663" width="35.333333333333343" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4e-wy-2wF">
+                                                <rect key="frame" x="196.33333333333334" y="659.66666666666663" width="35.333333333333343" height="17"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="crashlyticsHiddenButtonTapped:" destination="kEO-zj-gdG" eventType="touchUpInside" id="baL-ei-dft"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstItem="z4e-wy-2wF" firstAttribute="bottom" secondItem="aH7-lX-MR5" secondAttribute="bottom" id="2vl-bj-32N"/>
                                             <constraint firstAttribute="bottom" secondItem="R2t-vU-Bc0" secondAttribute="bottom" constant="20" id="3lw-tg-cbc"/>
                                             <constraint firstAttribute="trailing" secondItem="N31-xo-RRF" secondAttribute="trailing" constant="20" id="5BP-Mr-Ddd"/>
                                             <constraint firstAttribute="trailing" secondItem="R2t-vU-Bc0" secondAttribute="trailing" constant="20" id="86C-iH-De2"/>
+                                            <constraint firstItem="aH7-lX-MR5" firstAttribute="centerX" secondItem="2Ga-h0-N6e" secondAttribute="centerX" id="B3G-uJ-Hu4"/>
                                             <constraint firstItem="N31-xo-RRF" firstAttribute="leading" secondItem="2Ga-h0-N6e" secondAttribute="leading" constant="20" id="BrH-I8-ZKs"/>
-                                            <constraint firstItem="R2t-vU-Bc0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N31-xo-RRF" secondAttribute="bottom" constant="20" id="DpR-ul-yBv"/>
+                                            <constraint firstItem="R2t-vU-Bc0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N31-xo-RRF" secondAttribute="bottom" constant="100" id="DpR-ul-yBv"/>
+                                            <constraint firstItem="z4e-wy-2wF" firstAttribute="top" secondItem="aH7-lX-MR5" secondAttribute="top" id="Edg-B9-g4g"/>
+                                            <constraint firstItem="z4e-wy-2wF" firstAttribute="leading" secondItem="aH7-lX-MR5" secondAttribute="leading" id="LVf-9l-7lL"/>
                                             <constraint firstItem="R2t-vU-Bc0" firstAttribute="leading" secondItem="2Ga-h0-N6e" secondAttribute="leading" constant="20" id="P7b-fO-sfQ"/>
+                                            <constraint firstItem="z4e-wy-2wF" firstAttribute="trailing" secondItem="aH7-lX-MR5" secondAttribute="trailing" id="eUq-6v-K7m"/>
                                             <constraint firstItem="N31-xo-RRF" firstAttribute="top" secondItem="2Ga-h0-N6e" secondAttribute="top" constant="20" id="fOU-fl-uGe"/>
+                                            <constraint firstItem="R2t-vU-Bc0" firstAttribute="top" secondItem="aH7-lX-MR5" secondAttribute="bottom" constant="18" id="gqh-2p-42R"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -109,10 +129,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Account Details" id="2Rr-Io-2Cs"/>
                     <connections>
+                        <outlet property="crashlyticsHiddenButton" destination="z4e-wy-2wF" id="OXW-Bf-dr7"/>
                         <outlet property="deploymentIdTextField" destination="BTs-n4-gUo" id="PyM-Uc-DWm"/>
                         <outlet property="domainIdTextField" destination="3p7-vj-yX0" id="qf9-UE-vhw"/>
                         <outlet property="loggingSwitch" destination="o37-uK-blm" id="DSP-2M-YeF"/>
                         <outlet property="startChatButton" destination="Cgw-jG-Gp0" id="36i-XS-Dbc"/>
+                        <outlet property="versionAndBuildLabel" destination="aH7-lX-MR5" id="ygi-g9-UwV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kOm-nx-gaL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
