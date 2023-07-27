@@ -89,6 +89,14 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     Toast.show(message: errorDescription)
                 }
+                
+            case .failedToLoadData:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    Toast.show(message: errorDescription)
+                }
+                stopSpinner(activityView: chatViewControllerActivityView)
+                
             default:
                 break
             }
