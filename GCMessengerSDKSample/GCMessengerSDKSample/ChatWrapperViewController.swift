@@ -32,11 +32,15 @@ class ChatWrapperViewController: UIViewController {
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
-        activityView.startAnimating()
+        DispatchQueue.main.async {
+            activityView.startAnimating()
+        }
     }
     
     func stopSpinner(activityView: UIActivityIndicatorView) {
-        activityView.stopAnimating()
+        DispatchQueue.main.async {
+            activityView.stopAnimating()
+        }
     }
     
     func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
