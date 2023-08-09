@@ -33,11 +33,15 @@ class ChatWrapperViewController: UIViewController {
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
-        activityView.startAnimating()
+        DispatchQueue.main.async {
+            activityView.startAnimating()
+        }
     }
     
     func stopSpinner(activityView: UIActivityIndicatorView) {
-        activityView.stopAnimating()
+        DispatchQueue.main.async {
+            activityView.stopAnimating()
+        }
     }
     
     func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
@@ -90,6 +94,14 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     Toast.show(message: errorDescription)
                 }
+                
+            case .failedToLoadData:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    Toast.show(message: errorDescription)
+                }
+                stopSpinner(activityView: chatViewControllerActivityView)
+                
             default:
                 break
             }
