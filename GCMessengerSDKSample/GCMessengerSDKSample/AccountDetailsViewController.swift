@@ -78,13 +78,27 @@ class AccountDetailsViewController: UIViewController {
             showErrorAlert()
             return nil
         } else {
-            let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
+            var account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
                                            domain: domainIdTextField.text ?? "",
                                            logging: loggingSwitch.isOn)
+            
+            
+            account = addCustomAttributes(account: account)
             
             updateUserDefaults()
             return account
         }
+    }
+    
+    private func addCustomAttributes(account: MessengerAccount) -> MessengerAccount {
+        account.sessionInfo = SessionInfo()
+        
+        var customAttributes = [String: String]()
+        customAttributes["username"] = "guest"
+        
+        account.sessionInfo?.extraData = [BCFormFieldCustomAttributes: customAttributes]
+        
+        return account
     }
     
     private func showErrorAlert() {
