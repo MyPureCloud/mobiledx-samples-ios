@@ -82,9 +82,21 @@ class AccountDetailsViewController: UIViewController {
                                            domain: domainIdTextField.text ?? "",
                                            logging: loggingSwitch.isOn)
             
+            
+            addCustomAttributes(account: account)
+            
             updateUserDefaults()
             return account
         }
+    }
+    
+    private func addCustomAttributes(account: MessengerAccount) {
+        account.sessionInfo = SessionInfo()
+        
+        var customAttributes = [String: String]()
+        customAttributes["username"] = "guest"
+        
+        account.sessionInfo?.extraData = [BCFormFieldCustomAttributes: customAttributes]
     }
     
     private func showErrorAlert() {
