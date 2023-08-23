@@ -96,7 +96,7 @@ class AccountDetailsViewController: UIViewController {
         var customAttributes = [String: String]()
         customAttributes["username"] = "guest"
         
-        account.sessionInfo?.extraData = [BCFormFieldCustomAttributes: customAttributes]
+        account.customAttributes = customAttributes
     }
     
     private func showErrorAlert() {
