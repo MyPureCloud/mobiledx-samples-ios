@@ -91,8 +91,6 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func addCustomAttributes(account: MessengerAccount) {
-        account.sessionInfo = SessionInfo()
-        
         var customAttributes = [String: String]()
         customAttributes["username"] = "guest"
         
