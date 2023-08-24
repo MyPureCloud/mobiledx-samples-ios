@@ -91,12 +91,10 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func addCustomAttributes(account: MessengerAccount) {
-        account.sessionInfo = SessionInfo()
-        
         var customAttributes = [String: String]()
         customAttributes["username"] = "guest"
         
-        account.sessionInfo?.extraData = [BCFormFieldCustomAttributes: customAttributes]
+        account.customAttributes = customAttributes
     }
     
     private func showErrorAlert() {
