@@ -13,7 +13,6 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var domainIdTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
-    @IBOutlet weak var crashlyticsHiddenButton: UIButton!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     
     override func viewDidLoad() {
@@ -28,9 +27,22 @@ class AccountDetailsViewController: UIViewController {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
         }
         
-        setupCrashlyticsHiddenButton()
+        deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            if deploymentId.isEmpty && domainId.isEmpty {
+                startChatButton.isEnabled = false
+            }
+        }
     }
 
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+        }
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -41,37 +53,43 @@ class AccountDetailsViewController: UIViewController {
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
     }
-
+    
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
+        if let account = createAccountForValidInputFields() {
+            openMainController(with: account)
+        }
+    }
+    
+    @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
+        if let account = createAccountForValidInputFields() {
+            ChatAvailabilityChecker.checkAvailability(account, completion: { result in
+                if let result {
+                    Toast.show(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                }
+            })
+        }
+    }
+    
+    private func createAccountForValidInputFields() -> MessengerAccount? {
         if deploymentIdTextField.text?.isEmpty == true || domainIdTextField.text?.isEmpty == true {
             markInvalidTextFields(requiredTextFields: [deploymentIdTextField, domainIdTextField])
             
-            let alert = UIAlertController(title: nil, message: "One or more required fields needed, please check & try again", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-
+            showErrorAlert()
+            return nil
         } else {
             let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
                                            domain: domainIdTextField.text ?? "",
                                            logging: loggingSwitch.isOn)
             
             updateUserDefaults()
-            openMainController(with: account)
-
+            return account
         }
     }
     
-    private func setupCrashlyticsHiddenButton() {
-        crashlyticsHiddenButton.setTitle("", for: .normal)
-        let longGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(crashlyticsHiddenButtonTapped(_:)))
-        longGesture.minimumPressDuration = 5
-        crashlyticsHiddenButton.addGestureRecognizer(longGesture)
-    }
-    
-    //TODO: Remove after crashlytics is triggered for first time
-    @IBAction func crashlyticsHiddenButtonTapped(_ sender: Any) {
-        let numbers = [0]
-        let _ = numbers[1]
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: nil, message: "One or more required fields needed, please check & try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     private func markInvalidTextFields(requiredTextFields: [UITextField]) {
