@@ -92,6 +92,7 @@
 			children = (
 				0A190B692A44222D00A069B7 /* Toast.swift */,
 				0A190B622A41A72000A069B7 /* GoogleService-Info.plist */,
+
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
 				FC341F09286C7709007599BD /* Extensions */,
@@ -176,7 +177,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF9463C1285B4943000CCF10 /* LaunchScreen.storyboard in Resources */,
-				0A190B632A41A72000A069B7 /* GoogleService-Info.plist in Resources */,
 				AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */,
 				AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */,
 			);
