@@ -101,6 +101,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 }
                 stopSpinner(activityView: chatViewControllerActivityView)
                 
+            case .failedToAutostartConversation:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    Toast.show(message: errorDescription)
+                }
+                
             default:
                 break
             }
