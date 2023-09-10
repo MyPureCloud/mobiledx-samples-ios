@@ -12,6 +12,7 @@ import GenesysCloudMessenger
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
     @IBOutlet weak var domainIdTextField: UITextField!
+    @IBOutlet weak var customAttributesJsonTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
@@ -72,10 +73,19 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func createAccountForValidInputFields() -> MessengerAccount? {
+        if let customAttributesString = customAttributesJsonTextField.text, !customAttributesString.isEmpty {
+            let customDict = convertStringToDictionary(text: customAttributesString)
+            if customDict == nil {
+                showErrorAlert(message: "Custom Attributes JSON isn’t in the correct format")
+                return nil
+            }
+        }
+        
+
         if deploymentIdTextField.text?.isEmpty == true || domainIdTextField.text?.isEmpty == true {
             markInvalidTextFields(requiredTextFields: [deploymentIdTextField, domainIdTextField])
             
-            showErrorAlert()
+            showErrorAlert(message: "One or more required fields needed, please check & try again")
             return nil
         } else {
             let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
@@ -91,14 +101,27 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func addCustomAttributes(account: MessengerAccount) {
-        var customAttributes = [String: String]()
-        customAttributes["username"] = "guest"
-        
-        account.customAttributes = customAttributes
+        if let jsonString = customAttributesJsonTextField.text, let customAttributes = convertStringToDictionary(text: jsonString) {
+            account.customAttributes = customAttributes
+        }
     }
     
-    private func showErrorAlert() {
-        let alert = UIAlertController(title: nil, message: "One or more required fields needed, please check & try again", preferredStyle: .alert)
+    func convertStringToDictionary(text: String) -> [String:String]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:String]
+                return json
+            } catch {
+                
+                print("Something went wrong \(error.localizedDescription)")
+            }
+        }
+        return nil
+    }
+
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
