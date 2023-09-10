@@ -125,7 +125,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Account Details" id="2Rr-Io-2Cs"/>
                     <connections>
-                        <outlet property="customAttributesJsonTextField" destination="mZS-wc-c3y" id="CyF-kx-d8r"/>
+                        <outlet property="customAttributesTextField" destination="mZS-wc-c3y" id="CyF-kx-d8r"/>
                         <outlet property="deploymentIdTextField" destination="BTs-n4-gUo" id="PyM-Uc-DWm"/>
                         <outlet property="domainIdTextField" destination="3p7-vj-yX0" id="qf9-UE-vhw"/>
                         <outlet property="loggingSwitch" destination="o37-uK-blm" id="DSP-2M-YeF"/>

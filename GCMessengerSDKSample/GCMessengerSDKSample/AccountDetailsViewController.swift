@@ -12,7 +12,7 @@ import GenesysCloudMessenger
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
     @IBOutlet weak var domainIdTextField: UITextField!
-    @IBOutlet weak var customAttributesJsonTextField: UITextField!
+    @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
@@ -52,6 +52,7 @@ class AccountDetailsViewController: UIViewController {
     private func setupFields() {
         deploymentIdTextField.text = UserDefaults.deploymentId
         domainIdTextField.text = UserDefaults.domainId
+        customAttributesTextField.text = UserDefaults.customAttributes
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
     }
@@ -72,53 +73,43 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
+    private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
+        if inputField.text?.isEmpty == true {
+            markInvalidTextField(inputField)
+            return false
+        }
+        return true
+    }
+    
     private func createAccountForValidInputFields() -> MessengerAccount? {
-        if let customAttributesString = customAttributesJsonTextField.text, !customAttributesString.isEmpty {
-            let customDict = convertStringToDictionary(text: customAttributesString)
-            if customDict == nil {
+
+        
+        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
+            showErrorAlert(message: "One or more required fields needed, please check & try again")
+            return nil
+        }
+        
+        let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
+                                       domain: domainIdTextField.text ?? "",
+                                       logging: loggingSwitch.isOn)
+        
+        let customAttributes = (customAttributesTextField.text ?? "").convertStringToDictionary()
+        
+        switch customAttributes {
+        case .success(let result):
+            account.customAttributes = result
+        case .failure(let error):
+            if error != .emptyData {
                 showErrorAlert(message: "Custom Attributes JSON isn’t in the correct format")
                 return nil
             }
         }
         
+        updateUserDefaults()
 
-        if deploymentIdTextField.text?.isEmpty == true || domainIdTextField.text?.isEmpty == true {
-            markInvalidTextFields(requiredTextFields: [deploymentIdTextField, domainIdTextField])
-            
-            showErrorAlert(message: "One or more required fields needed, please check & try again")
-            return nil
-        } else {
-            let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
-                                           domain: domainIdTextField.text ?? "",
-                                           logging: loggingSwitch.isOn)
-            
-            
-            addCustomAttributes(account: account)
-            
-            updateUserDefaults()
-            return account
-        }
-    }
-    
-    private func addCustomAttributes(account: MessengerAccount) {
-        if let jsonString = customAttributesJsonTextField.text, let customAttributes = convertStringToDictionary(text: jsonString) {
-            account.customAttributes = customAttributes
-        }
-    }
-    
-    func convertStringToDictionary(text: String) -> [String:String]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:String]
-                return json
-            } catch {
-                
-                print("Something went wrong \(error.localizedDescription)")
-            }
-        }
-        return nil
-    }
+        return account
 
+    }
     
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -126,18 +117,15 @@ class AccountDetailsViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    private func markInvalidTextFields(requiredTextFields: [UITextField]) {
-        for field in requiredTextFields {
-            if field.text?.isEmpty == true {
-                field.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 3, revert: true)
-            }
-        }
+    private func markInvalidTextField(_ requiredTextField: UITextField) {
+        requiredTextField.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 3, revert: true)
     }
         
     private func updateUserDefaults() {
         UserDefaults.deploymentId = deploymentIdTextField.text ?? ""
         UserDefaults.domainId = domainIdTextField.text ?? ""
         UserDefaults.logging = loggingSwitch.isOn
+        UserDefaults.customAttributes = customAttributesTextField.text ?? ""
     }
     
     private func openMainController(with account: MessengerAccount) {
