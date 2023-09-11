@@ -6,6 +6,7 @@
 
 import UIKit
 import GenesysCloud
+import GenesysCloudMessenger
 
 class ChatWrapperViewController: UIViewController {
     let wrapperActivityView = UIActivityIndicatorView(style: .large)

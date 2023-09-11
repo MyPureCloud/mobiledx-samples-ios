@@ -19,6 +19,7 @@
 		FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */; };
 		FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC341F0A286C771E007599BD /* UITextField+Extensions.swift */; };
 		FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */; };
+		FCA44FCA2AADB6730024B4E9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA44FC92AADB6730024B4E9 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		FC341F0A286C771E007599BD /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		FCA44FC92AADB6730024B4E9 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */,
+				FCA44FC92AADB6730024B4E9 /* String+Extensions.swift */,
 				FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */,
 				FC341F0A286C771E007599BD /* UITextField+Extensions.swift */,
 			);
@@ -252,6 +255,7 @@
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
 				FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */,
 				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
+				FCA44FCA2AADB6730024B4E9 /* String+Extensions.swift in Sources */,
 				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
 				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,
 				0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */,
