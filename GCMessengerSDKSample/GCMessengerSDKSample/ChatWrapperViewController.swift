@@ -127,25 +127,40 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             print("started")
             stopSpinner(activityView: chatViewControllerActivityView)
         case .disconnected:
-            
-//            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.\nWould you like to continue with the chat or dismiss it?", preferredStyle: .alert)
+            showDisconnectAlert()
 
-            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
-                self.chatController.reconnectChat()
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
-                self.dismissChat(nil)
-            }))
-            
-            if let topViewController = UIApplication.getTopViewController() {
-                topViewController.present(alert, animated: true)
-            }
-
+        case .unavailable:
+            showUnavailableAlert()
         default:
             print(event.state)
+        }
+    }
+    
+    func showDisconnectAlert() {
+        let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
+            self.chatController.reconnectChat()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
+            self.dismissChat(nil)
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+        }
+    }
+    
+    func showUnavailableAlert() {
+        let alert = UIAlertController(title: "Error occurred", message: "Messenger was restricted and can't be processed.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            self.dismissChat(nil)
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
         }
     }
     
