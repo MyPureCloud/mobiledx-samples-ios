@@ -28,41 +28,23 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (4.x.y-dev):
-    - GenesysCloud/Global (= 4.x.y-dev)
-  - GenesysCloud/Bot (4.x.y-dev):
-    - GenesysCloud/Core
-    - GenesysCloud/Search
-    - GenesysCloudBot
-  - GenesysCloud/Core (4.x.y-dev):
-    - GenesysCloudAccessibility
-  - GenesysCloud/Global (4.x.y-dev):
-    - GenesysCloud/Bot
-    - GenesysCloud/Core
-    - GenesysCloud/Live
-    - GenesysCloud/Meesenger
-    - GenesysCloud/Search
-  - GenesysCloud/Live (4.x.y-dev):
-    - GenesysCloud/Core
-    - GenesysCloudBold
-  - GenesysCloud/Meesenger (4.x.y-dev):
-    - GenesysCloudMessenger
-  - GenesysCloud/Search (4.x.y-dev):
-    - GenesysCloud/Core
-  - GenesysCloud/UnitTests (4.x.y-dev)
-  - GenesysCloudAccessibility (1.x.y-dev)
-  - GenesysCloudBold (1.x.y-dev):
-    - GenesysCloudCore
-  - GenesysCloudBot (1.x.y-dev):
-    - GenesysCloudCore
-  - GenesysCloudCore (1.x.y-dev)
-  - GenesysCloudCore/UnitTests (1.x.y-dev)
-  - GenesysCloudMessenger (1.x.y-dev):
-    - GenesysCloudCore
-    - GenesysCloudMessengerTransport
-  - GenesysCloudMessenger/UnitTests (1.x.y-dev):
-    - GenesysCloudCore
-    - GenesysCloudMessengerTransport
+  - GenesysCloud (1.5.0):
+    - GenesysCloud/Core (= 1.5.0)
+  - GenesysCloud/Core (1.5.0):
+    - GenesysCloudAccessibility (= 1.5.0)
+    - GenesysCloudBold (= 1.5.0)
+    - GenesysCloudBot (= 1.5.0)
+    - GenesysCloudCore (= 1.5.0)
+    - GenesysCloudMessenger (= 1.5.0)
+  - GenesysCloudAccessibility (1.5.0)
+  - GenesysCloudBold (1.5.0):
+    - GenesysCloudCore (= 1.5.0)
+  - GenesysCloudBot (1.5.0):
+    - GenesysCloudCore (= 1.5.0)
+  - GenesysCloudCore (1.5.0)
+  - GenesysCloudMessenger (1.5.0):
+    - GenesysCloudCore (= 1.5.0)
+    - GenesysCloudMessengerTransport (= 2.4.1)
   - GenesysCloudMessengerTransport (2.4.1)
   - GoogleDataTransport (9.2.3):
     - GoogleUtilities/Environment (~> 7.7)
@@ -86,16 +68,7 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseCrashlytics
-  - GenesysCloud (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
-  - GenesysCloud/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
-  - GenesysCloudAccessibility (from `../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec`)
-  - GenesysCloudBold (from `../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec`)
-  - GenesysCloudBot (from `../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec`)
-  - GenesysCloudCore (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
-  - GenesysCloudCore/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
-  - GenesysCloudMessenger (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
-  - GenesysCloudMessenger/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
-  - GenesysCloudMessengerTransport (= 2.4.1)
+  - GenesysCloud
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
@@ -111,20 +84,13 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - PromisesSwift
-
-EXTERNAL SOURCES:
-  GenesysCloud:
-    :path: "../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
-  GenesysCloudAccessibility:
-    :path: "../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
-  GenesysCloudBold:
-    :path: "../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
-  GenesysCloudBot:
-    :path: "../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec"
-  GenesysCloudCore:
-    :path: "../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
-  GenesysCloudMessenger:
-    :path: "../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
+  https://github.com/genesys/gc-sdk-specs-dev:
+    - GenesysCloud
+    - GenesysCloudAccessibility
+    - GenesysCloudBold
+    - GenesysCloudBot
+    - GenesysCloudCore
+    - GenesysCloudMessenger
 
 SPEC CHECKSUMS:
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
@@ -133,12 +99,12 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: c4d111b7430c49744c74bcc6346ea00868661ac8
   FirebaseInstallations: 7b99ef103f013624444c614397038219c45f8e63
   FirebaseSessions: a4ee211eeb31a2224cd8d9d4e30a0fccde9aa00c
-  GenesysCloud: e612cd4dd81e326b0080f3899b1681b612d72806
-  GenesysCloudAccessibility: 5703a659cb0f0de4581d827db02c49f453e10326
-  GenesysCloudBold: 43191bbacd10c67c837bc1393afe2e2e87fe66d1
-  GenesysCloudBot: 1e69d73609dd5ba794c7a38203a79096415e94f5
-  GenesysCloudCore: f462ebe001cfa9e8492a3c83edfd4a353bb3dcfc
-  GenesysCloudMessenger: 154e644c362dac99c502e0132bd9f09ec11ee5d7
+  GenesysCloud: c1cae35416f55f60ea8feafaa214ed409e684362
+  GenesysCloudAccessibility: 579d7f48d5696f5acf324b8b247445cf8dbf4289
+  GenesysCloudBold: dab594720125159ca71bfc7f916ec993e0dd14c2
+  GenesysCloudBot: 3c5123e7f1c22d9654471f7d26a116b43a6ec229
+  GenesysCloudCore: 971b1b6689aff11ba74a01910fa4ac13e8f2cf5f
+  GenesysCloudMessenger: 6c5264ad4c6e6b5af72e7e34c45bc0e945bf6232
   GenesysCloudMessengerTransport: bc4582514d3cc7664c68958b0a4ed5120c5b8607
   GoogleDataTransport: f0308f5905a745f94fb91fea9c6cbaf3831cb1bd
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
@@ -146,6 +112,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
 
-PODFILE CHECKSUM: 9b20780f17ec806a6ff4f86df216f623002d1729
+PODFILE CHECKSUM: 845aacd74aeb73eaf3530bd05c9e13484f86a46e
 
 COCOAPODS: 1.12.1
