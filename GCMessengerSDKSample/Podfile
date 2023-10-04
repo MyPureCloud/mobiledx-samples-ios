@@ -26,7 +26,7 @@ target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
 
     if defined? DX_UI
-      pod 'GenesysCloudMessengerTransport', '2.4.1'
+      pod 'GenesysCloudMessengerTransport', '2.5.1'
       pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
       pod 'GenesysCloudAccessibility', :path => DX_ACCESSIBILITY
       pod 'GenesysCloudBot', :path => DX_BOT
