@@ -131,7 +131,7 @@ class AccountDetailsViewController: UIViewController {
     private func openMainController(with account: MessengerAccount) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.messengerAccount = account
-        
+        controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
     }
 }
