@@ -140,6 +140,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
         case .unavailable:
             showUnavailableAlert()
+        case .ended:
+            stopSpinner(activityView: chatViewControllerActivityView)
         default:
             print(event.state)
         }
