@@ -12,6 +12,7 @@ extension UserDefaults {
         static let domainId = "domainId"
         static let token = "token"
         static let logging = "logging"
+        static let customAttributes = "customAttributes"
     }
 
     class var deploymentId: String {
@@ -47,6 +48,15 @@ extension UserDefaults {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.logging)
+        }
+    }
+    
+    class var customAttributes: String {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.customAttributes) ?? ""
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.customAttributes)
         }
     }
 

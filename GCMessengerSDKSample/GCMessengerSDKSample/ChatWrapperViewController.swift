@@ -6,6 +6,7 @@
 
 import UIKit
 import GenesysCloud
+import GenesysCloudMessenger
 
 class ChatWrapperViewController: UIViewController {
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
@@ -107,6 +108,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     Toast.show(message: errorDescription)
                 }
                 
+            case .failedToSendCustomAttributes:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    Toast.show(message: errorDescription)
+                }
             default:
                 break
             }
