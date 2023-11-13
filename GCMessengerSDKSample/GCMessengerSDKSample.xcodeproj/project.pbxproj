@@ -128,6 +128,7 @@
 				AF9463AE285B4940000CCF10 /* Frameworks */,
 				AF9463AF285B4940000CCF10 /* Resources */,
 				805E85E6C047B246CB40540D /* [CP] Embed Pods Frameworks */,
+				2F1CF3D61EBA4887952677A6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -202,7 +203,26 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+
 		F62D601EEB31E796E0866BA0 /* [CP] Check Pods Manifest.lock */ = {
+		2F1CF3D61EBA4887952677A6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF90A7225231E22BAF234616 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
