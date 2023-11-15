@@ -34,7 +34,7 @@ target 'GCMessengerSDKSample' do
       pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
       pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
     else
-       pod 'GenesysCloud'
+      pod 'GenesysCloud'
     end
 end
 
