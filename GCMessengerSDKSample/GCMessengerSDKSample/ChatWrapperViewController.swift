@@ -53,6 +53,10 @@ class ChatWrapperViewController: UIViewController {
         
         view?.addSubview(activityView)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
 }
 
 extension ChatWrapperViewController: ChatControllerDelegate {

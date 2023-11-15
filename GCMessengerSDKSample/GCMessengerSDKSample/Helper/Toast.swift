@@ -37,7 +37,7 @@ public class Toast {
             let widthConstraint = NSLayoutConstraint(item: toastView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 275)
             
             let height: Int = Int(toastView.layer.cornerRadius * 2)
-            let verticalConstraint = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(>=200)-[toastView(==\(height))]-68-|", options: [.alignAllCenterX, .alignAllCenterY], metrics: nil, views: ["toastView": toastView])
+            let verticalConstraint = NSLayoutConstraint.constraints(withVisualFormat: "V:|-68-[toastView(==\(height))]-(>=200)-|", options: [.alignAllCenterX, .alignAllCenterY], metrics: nil, views: ["toastView": toastView])
             
             NSLayoutConstraint.activate([horizontalCenterConstraint, widthConstraint])
             NSLayoutConstraint.activate(verticalConstraint)
