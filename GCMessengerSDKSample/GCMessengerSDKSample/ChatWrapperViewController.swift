@@ -14,7 +14,7 @@ class ChatWrapperViewController: UIViewController {
 
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
-    var chatEventType: ChatEventType?
+    var chatState: ChatState?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class ChatWrapperViewController: UIViewController {
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
-        if self.chatEventType == .chatPrepared {
+        if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
@@ -128,10 +128,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didUpdateState(_ event: ChatStateEvent!) {
-        print("Chat event_type: \(event.eventType)")
-        self.chatEventType = event.eventType
+        print("Chat event_type: \(event.state)")
+        self.chatState = event.state
         
-        switch event.eventType {
+        switch event.state {
         case .chatPreparing:
             print("preparing")
             startSpinner(activityView: wrapperActivityView)
@@ -144,7 +144,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
         case .unavailable:
             showUnavailableAlert()
-        case .ended:
+        case .chatEnded:
             stopSpinner(activityView: chatViewControllerActivityView)
         default:
             print(event.state)
