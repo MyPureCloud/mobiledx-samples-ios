@@ -67,7 +67,7 @@ class AccountDetailsViewController: UIViewController {
         if let account = createAccountForValidInputFields() {
             ChatAvailabilityChecker.checkAvailability(account, completion: { result in
                 if let result {
-                    Toast.show(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                    ToastManager.shared.showToast(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
                 }
             })
         }
