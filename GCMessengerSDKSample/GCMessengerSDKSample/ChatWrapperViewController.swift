@@ -114,7 +114,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .conversationCreationError:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    Toast.show(message: errorDescription)
+                    ToastManager.shared.showToast(message: errorDescription)
                 }
             case .failedToSendCustomAttributes:
                 print("** Error: \(error.errorType.rawValue)")
