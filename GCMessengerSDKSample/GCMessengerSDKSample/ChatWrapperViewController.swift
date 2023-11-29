@@ -80,7 +80,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .failedToLoad:
                 self.dismissChat(nil)
                 if let errorDescription = error.errorDescription {
-                    Toast.show(message: "Error: \(errorDescription)")
+                    ToastManager.shared.showToast(message: "\(errorDescription)")
                 }
             case .failedMessengerChatErrorDisableState:
                 if let errorDescription = error.errorDescription {
@@ -96,20 +96,20 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .failedToSendMessage:
                 print("** CAN'T SEND MESSAGE: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    Toast.show(message: errorDescription)
+                    ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .failedToLoadData:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    Toast.show(message: errorDescription)
+                    ToastManager.shared.showToast(message: errorDescription)
                 }
                 stopSpinner(activityView: chatViewControllerActivityView)
                 
             case .failedToAutostartConversation:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    Toast.show(message: errorDescription)
+                    ToastManager.shared.showToast(message: errorDescription)
                 }
             case .conversationCreationError:
                 print("** Error: \(error.errorType.rawValue)")
@@ -119,7 +119,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .failedToSendCustomAttributes:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    Toast.show(message: errorDescription)
+                    ToastManager.shared.showToast(message: errorDescription)
                 }
             default:
                 break
