@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J99-DW-qE2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J99-DW-qE2">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -89,6 +89,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLf-Xy-amV">
+                                                <rect key="frame" x="168.66666666666666" y="617.33333333333337" width="90.999999999999972" height="34.333333333333371"/>
+                                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.94117647410000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Send log"/>
+                                                <connections>
+                                                    <action selector="onSendLogButtonClicked:" destination="kEO-zj-gdG" eventType="touchUpInside" id="Sap-eg-blQ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -96,10 +105,12 @@
                                             <constraint firstAttribute="trailing" secondItem="N31-xo-RRF" secondAttribute="trailing" constant="20" id="5BP-Mr-Ddd"/>
                                             <constraint firstAttribute="trailing" secondItem="R2t-vU-Bc0" secondAttribute="trailing" constant="20" id="86C-iH-De2"/>
                                             <constraint firstItem="aH7-lX-MR5" firstAttribute="centerX" secondItem="2Ga-h0-N6e" secondAttribute="centerX" id="B3G-uJ-Hu4"/>
+                                            <constraint firstItem="BLf-Xy-amV" firstAttribute="centerX" secondItem="2Ga-h0-N6e" secondAttribute="centerX" id="BK3-Mc-6Pi"/>
                                             <constraint firstItem="N31-xo-RRF" firstAttribute="leading" secondItem="2Ga-h0-N6e" secondAttribute="leading" constant="20" id="BrH-I8-ZKs"/>
                                             <constraint firstItem="R2t-vU-Bc0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N31-xo-RRF" secondAttribute="bottom" constant="100" id="DpR-ul-yBv"/>
                                             <constraint firstItem="R2t-vU-Bc0" firstAttribute="leading" secondItem="2Ga-h0-N6e" secondAttribute="leading" constant="20" id="P7b-fO-sfQ"/>
                                             <constraint firstItem="N31-xo-RRF" firstAttribute="top" secondItem="2Ga-h0-N6e" secondAttribute="top" constant="20" id="fOU-fl-uGe"/>
+                                            <constraint firstItem="aH7-lX-MR5" firstAttribute="top" secondItem="BLf-Xy-amV" secondAttribute="bottom" constant="8" id="g7R-1q-wPO"/>
                                             <constraint firstItem="R2t-vU-Bc0" firstAttribute="top" secondItem="aH7-lX-MR5" secondAttribute="bottom" constant="18" id="gqh-2p-42R"/>
                                         </constraints>
                                     </view>
@@ -129,6 +140,7 @@
                         <outlet property="deploymentIdTextField" destination="BTs-n4-gUo" id="PyM-Uc-DWm"/>
                         <outlet property="domainIdTextField" destination="3p7-vj-yX0" id="qf9-UE-vhw"/>
                         <outlet property="loggingSwitch" destination="o37-uK-blm" id="DSP-2M-YeF"/>
+                        <outlet property="sendLogButton" destination="BLf-Xy-amV" id="DbS-EW-mUe"/>
                         <outlet property="startChatButton" destination="Cgw-jG-Gp0" id="36i-XS-Dbc"/>
                         <outlet property="versionAndBuildLabel" destination="aH7-lX-MR5" id="ygi-g9-UwV"/>
                     </connections>
