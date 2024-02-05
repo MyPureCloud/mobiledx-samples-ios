@@ -5,7 +5,7 @@ PODS:
     - GoogleUtilities/Logger (~> 7.12)
   - FirebaseCoreExtension (10.19.0):
     - FirebaseCore (~> 10.0)
-  - FirebaseCoreInternal (10.20.0):
+  - FirebaseCoreInternal (10.19.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - FirebaseCrashlytics (10.19.0):
     - FirebaseCore (~> 10.5)
@@ -31,12 +31,10 @@ PODS:
   - GenesysCloud (1.8.0):
     - GenesysCloud/Core (= 1.8.0)
   - GenesysCloud/Core (1.8.0):
-    - GenesysCloudAccessibility (= 1.8.0)
     - GenesysCloudBold (= 1.8.0)
     - GenesysCloudBot (= 1.8.0)
     - GenesysCloudCore (= 1.8.0)
     - GenesysCloudMessenger (= 1.8.0)
-  - GenesysCloudAccessibility (1.8.0)
   - GenesysCloudBold (1.8.0):
     - GenesysCloudCore (= 1.8.0)
   - GenesysCloudBot (1.8.0):
@@ -86,7 +84,6 @@ SPEC REPOS:
     - PromisesSwift
   https://github.com/MyPureCloud/gc-sdk-specs-dev:
     - GenesysCloud
-    - GenesysCloudAccessibility
     - GenesysCloudBold
     - GenesysCloudBot
     - GenesysCloudCore
@@ -100,7 +97,6 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 558b1da7d65afeb996fd5c814332f013234ece4e
   FirebaseSessions: 2f348975f6d1c139231c180e12194161da2e0cd6
   GenesysCloud: 121343ff72d90b3d8a1a82708335aa235d726bd6
-  GenesysCloudAccessibility: 89141ce07277db74834feb5adbc63dcf765acf9f
   GenesysCloudBold: 4b2f5ea4a6a0dc06976a2d0ef3c222252a358a18
   GenesysCloudBot: de1ddd6ef13b786dce182acad385856bde0493f8
   GenesysCloudCore: 830f0c06f3d74356cb7ccc8c478f76b3805196a1
