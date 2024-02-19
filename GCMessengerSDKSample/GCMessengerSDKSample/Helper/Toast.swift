@@ -40,12 +40,12 @@ public class ToastManager {
                 NSLayoutConstraint.activate([horizontalCenterConstraint, widthConstraint])
                 NSLayoutConstraint.activate(verticalConstraint)
     
-                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveEaseIn, animations: {
                     toastView.alpha = 1
                 }, completion: nil)
 
                 // Automatically hide the toast after a delay
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
                     UIView.animate(withDuration: 0.5, animations: {
                         toastView.alpha = 0
                     }, completion: { _ in
