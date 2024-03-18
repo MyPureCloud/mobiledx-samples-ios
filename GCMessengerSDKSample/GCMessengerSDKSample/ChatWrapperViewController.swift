@@ -62,7 +62,7 @@ class ChatWrapperViewController: UIViewController {
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
-        if self.chatState == .prepared {
+        if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
@@ -111,7 +111,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
-                
+            case .conversationCreationError:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    ToastManager.shared.showToast(message: errorDescription)
+                }
             case .failedToSendCustomAttributes:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
@@ -124,37 +128,60 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didUpdateState(_ event: ChatStateEvent!) {
-        print("Chat state: \(event.state)")
+        print("Chat event_type: \(event.state)")
         self.chatState = event.state
         
         switch event.state {
-        case .preparing:
+        case .chatPreparing:
             print("preparing")
             startSpinner(activityView: wrapperActivityView)
             startSpinner(activityView: chatViewControllerActivityView)
-        case .started:
+        case .chatStarted:
             print("started")
             stopSpinner(activityView: chatViewControllerActivityView)
-        case .disconnected:
-            
-//            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.\nWould you like to continue with the chat or dismiss it?", preferredStyle: .alert)
-
-            let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
-                self.chatController.reconnectChat()
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
-                self.dismissChat(nil)
-            }))
-            
-            if let topViewController = UIApplication.getTopViewController() {
-                topViewController.present(alert, animated: true)
+        case .chatDisconnected:
+            var delayForPopupDisplay = 0.0
+#if DEBUG
+            delayForPopupDisplay = 10.0
+#endif
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayForPopupDisplay) {
+                self.showDisconnectAlert()
             }
-
+            
+        case .unavailable:
+            showUnavailableAlert()
+        case .chatEnded:
+            stopSpinner(activityView: chatViewControllerActivityView)
         default:
             print(event.state)
+        }
+    }
+    
+    func showDisconnectAlert() {
+        let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
+            self.chatController.reconnectChat()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
+            self.dismissChat(nil)
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+        }
+    }
+    
+    func showUnavailableAlert() {
+        let alert = UIAlertController(title: "Error occurred", message: "Messenger was restricted and can't be processed.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            self.dismissChat(nil)
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
         }
     }
     
