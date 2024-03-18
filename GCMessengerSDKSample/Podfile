@@ -12,14 +12,7 @@ use_frameworks! :linkage => :static
 install! 'cocoapods',
          :deterministic_uuids => false
 
-DX_CORE="../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
-DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec"
-DX_ACCESSIBILITY="../../../BitBucket/mobiledx-ios-sdk-accessibility/GenesysCloudAccessibility-Dev.podspec"
-DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
-DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-#DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
-
-source 'https://github.com/MyPureCloud/gc-sdk-specs-dev'
+source 'https://github.com/MyPureCloud/gc-sdk-specs'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
