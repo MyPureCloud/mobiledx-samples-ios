@@ -121,6 +121,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+                
+            case .attachmentDownloadError:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    ToastManager.shared.showToast(message: errorDescription)
+                }
             default:
                 break
             }
