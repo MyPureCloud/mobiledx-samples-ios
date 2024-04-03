@@ -30,7 +30,7 @@ target 'GCMessengerSDKSample' do
       pod 'GenesysCloudBot', :path => DX_BOT
       pod 'GenesysCloudBold', :path => DX_LIVE
       pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
-      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
+      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
     else
       pod 'GenesysCloud'
     end
