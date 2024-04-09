@@ -146,8 +146,14 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             print("started")
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
-            showDisconnectAlert()
-
+            var delayForPopupDisplay = 0.0
+#if DEBUG
+            delayForPopupDisplay = 10.0
+#endif
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayForPopupDisplay) {
+                self.showDisconnectAlert()
+            }
+            
         case .unavailable:
             showUnavailableAlert()
         case .chatEnded:
