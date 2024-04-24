@@ -12,12 +12,12 @@ use_frameworks! :linkage => :static
 install! 'cocoapods',
          :deterministic_uuids => false
 
-source 'https://github.com/MyPureCloud/gc-sdk-specs'
+source 'https://github.com/MyPureCloud/gc-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
-    pod 'GenesysCloud'
+    pod 'GenesysCloud', '1.8.1'
 end
 
 post_install do |pi|
