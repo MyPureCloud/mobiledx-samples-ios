@@ -17,7 +17,7 @@ source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
-    pod 'GenesysCloud
+    pod 'GenesysCloud'
 end
 
 post_install do |pi|
