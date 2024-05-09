@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
-		55A3D31A5FCF23B06725808C /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */; };
 		4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */; };
+		55A3D31A5FCF23B06725808C /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
 		AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BA285B4940000CCF10 /* Main.storyboard */; };
@@ -26,8 +26,8 @@
 		0A190B622A41A72000A069B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Helper/Toast.swift; sourceTree = "<group>"; };
 		240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B4285B4940000CCF10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWrapperViewController.swift; sourceTree = "<group>"; };
