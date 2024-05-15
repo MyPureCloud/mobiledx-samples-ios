@@ -28,24 +28,19 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (1.7.0):
-    - GenesysCloud/Core (= 1.7.0)
-  - GenesysCloud/Core (1.7.0):
-    - GenesysCloudAccessibility (= 1.7.0)
-    - GenesysCloudBold (= 1.7.0)
-    - GenesysCloudBot (= 1.7.0)
-    - GenesysCloudCore (= 1.7.0)
-    - GenesysCloudMessenger (= 1.7.0)
-  - GenesysCloudAccessibility (1.7.0)
-  - GenesysCloudBold (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-  - GenesysCloudBot (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-  - GenesysCloudCore (1.7.0)
-  - GenesysCloudMessenger (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-    - GenesysCloudMessengerTransport (= 2.5.3)
-  - GenesysCloudMessengerTransport (2.5.3)
+  - GenesysCloud (1.9.0):
+    - GenesysCloud/Core (= 1.9.0)
+  - GenesysCloud/Core (1.9.0):
+    - GenesysCloudBot (= 1.9.0)
+    - GenesysCloudCore (= 1.9.0)
+    - GenesysCloudMessenger (= 1.9.0)
+  - GenesysCloudBot (1.9.0):
+    - GenesysCloudCore (= 1.9.0)
+  - GenesysCloudCore (1.9.0)
+  - GenesysCloudMessenger (1.9.0):
+    - GenesysCloudCore (= 1.9.0)
+    - GenesysCloudMessengerTransport (= 2.7.0)
+  - GenesysCloudMessengerTransport (2.7.0)
   - GoogleDataTransport (9.3.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -86,8 +81,6 @@ SPEC REPOS:
     - PromisesSwift
   https://github.com/MyPureCloud/gc-sdk-specs-dev:
     - GenesysCloud
-    - GenesysCloudAccessibility
-    - GenesysCloudBold
     - GenesysCloudBot
     - GenesysCloudCore
     - GenesysCloudMessenger
@@ -99,19 +92,17 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: a4d2ad12f5c07ec8ee0ebc89133a45498a293ba6
   FirebaseInstallations: 033d199474164db20c8350736842a94fe717b960
   FirebaseSessions: e5f4caa188dc8bc6142abc974355be75b042215e
-  GenesysCloud: e3d48ef6db1b58086c79ff011071437981d7888a
-  GenesysCloudAccessibility: 731691d76932120fc00a227c367950b6dc079f26
-  GenesysCloudBold: 9aac4fc7470af19d7dc9246ee1d9dc63403678ef
-  GenesysCloudBot: a3cd6ef7b93b09d53ee575a5591ca546dcf82183
-  GenesysCloudCore: 9a0fcd36a6be0e20e201791b7a051631cd13cf28
-  GenesysCloudMessenger: 7b7969f21828e32548e81e9758dd815eca549643
-  GenesysCloudMessengerTransport: e176f1116b79de88f6b05dc3515f25b1143ca0fd
+  GenesysCloud: 81cc0e56e8410d861f30c65df3b5c9dfa0c7961d
+  GenesysCloudBot: c19555d9f4daa1fd234382439940b8cee8f3e1b2
+  GenesysCloudCore: 8578329055c20233494853413886e44462f04bba
+  GenesysCloudMessenger: ea10131dfaa84e972151724c7ac63928f6dae750
+  GenesysCloudMessengerTransport: 3af01738e599a1fb337d673f82dd0dd29cfbb5ed
   GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
 
-PODFILE CHECKSUM: 01fffde47de90cf4d6f904ce2b1ea790748ad420
+PODFILE CHECKSUM: 7bd65ab789f3af25b0f2494d2e283348bc39358e
 
 COCOAPODS: 1.14.3
