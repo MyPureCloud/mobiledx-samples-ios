@@ -121,6 +121,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+                
+            case .attachmentDownloadError:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    ToastManager.shared.showToast(message: errorDescription)
+                }
             default:
                 break
             }
@@ -140,14 +146,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             print("started")
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
-            var delayForPopupDisplay = 0.0
-#if DEBUG
-            delayForPopupDisplay = 10.0
-#endif
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayForPopupDisplay) {
-                self.showDisconnectAlert()
-            }
-            
+            showDisconnectAlert()
+
         case .unavailable:
             showUnavailableAlert()
         case .chatEnded:
