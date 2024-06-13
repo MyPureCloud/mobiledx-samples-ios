@@ -28,8 +28,10 @@ class ChatWrapperViewController: UIViewController {
     }
 
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
-        chatController.terminate()
-        presentingViewController?.dismiss(animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.chatController.terminate()
+            self?.presentingViewController?.dismiss(animated: true)
+        }
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
