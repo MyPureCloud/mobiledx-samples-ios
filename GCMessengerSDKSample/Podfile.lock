@@ -28,24 +28,24 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (1.7.0):
-    - GenesysCloud/Core (= 1.7.0)
-  - GenesysCloud/Core (1.7.0):
-    - GenesysCloudAccessibility (= 1.7.0)
-    - GenesysCloudBold (= 1.7.0)
-    - GenesysCloudBot (= 1.7.0)
-    - GenesysCloudCore (= 1.7.0)
-    - GenesysCloudMessenger (= 1.7.0)
-  - GenesysCloudAccessibility (1.7.0)
-  - GenesysCloudBold (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-  - GenesysCloudBot (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-  - GenesysCloudCore (1.7.0)
-  - GenesysCloudMessenger (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-    - GenesysCloudMessengerTransport (= 2.5.3)
-  - GenesysCloudMessengerTransport (2.5.3)
+  - GenesysCloud (1.10.0):
+    - GenesysCloud/Core (= 1.10.0)
+  - GenesysCloud/Core (1.10.0):
+    - GenesysCloudAccessibility (= 1.10.0)
+    - GenesysCloudBold (= 1.10.0)
+    - GenesysCloudBot (= 1.10.0)
+    - GenesysCloudCore (= 1.10.0)
+    - GenesysCloudMessenger (= 1.10.0)
+  - GenesysCloudAccessibility (1.10.0)
+  - GenesysCloudBold (1.10.0):
+    - GenesysCloudCore (= 1.10.0)
+  - GenesysCloudBot (1.10.0):
+    - GenesysCloudCore (= 1.10.0)
+  - GenesysCloudCore (1.10.0)
+  - GenesysCloudMessenger (1.10.0):
+    - GenesysCloudCore (= 1.10.0)
+    - GenesysCloudMessengerTransport (= 2.7.2)
+  - GenesysCloudMessengerTransport (2.7.2)
   - GoogleDataTransport (9.3.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
