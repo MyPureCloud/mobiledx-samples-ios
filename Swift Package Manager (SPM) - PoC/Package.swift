@@ -12,8 +12,6 @@ let package = Package(
                  targets: ["MessengerTransportTarget"]),
         .library(name: "GenesysCloudCore",
                  targets: ["GenesysCloudCoreTarget"]),
-        .library(name: "GenesysCloudBot",
-                 targets: ["GenesysCloudBotTarget"]),
         .library(name: "GenesysCloudMessenger",
                  targets: ["GenesysCloudMessengerTarget"]),
         .library(name: "GenesysCloud",
@@ -27,10 +25,6 @@ let package = Package(
         .binaryTarget(name: "GenesysCloudCoreTarget",
                       url: "https://genesysdx.jfrog.io/artifactory/genesys-cloud-ios.prod/GenesysCloudCore/GenesysCloudCore_version_t1.5.0_commit_04c4ead1e64e480a6cbce313aeb2b415fb534914.zip",
                       checksum: "9cf504a8e8b55aba03dd1109b1d12526f5624578c3a2a4438973840010af4338"),
-                
-        .binaryTarget(name: "GenesysCloudBotTarget",
-                      url: "https://genesysdx.jfrog.io/artifactory/genesys-cloud-ios.prod/GenesysCloudBot/GenesysCloudBot_version_t1.5.0_commit_ddc5b1e32523dc63e132ebf4778063124162385a.zip",
-                      checksum: "593f8f488313a545b88dbf899ea6dcd155a39b566658395730c3e3afaeb154bf"),
                 
         .binaryTarget(name: "GenesysCloudMessengerTarget",
                       url: "https://genesysdx.jfrog.io/artifactory/genesys-cloud-ios.prod/GenesysCloudMessenger/GenesysCloudMessenger_version_t1.5.0_commit_c79b9819aece4531cecf42d56349518e31d3127c.zip",
