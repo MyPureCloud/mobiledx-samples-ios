@@ -13,8 +13,6 @@ install! 'cocoapods',
          :deterministic_uuids => false
 
 DX_CORE="../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
-DX_BOT="../../../BitBucket/mobiledx-ios-sdk-bot-engine/GenesysCloudBot-Dev.podspec"
-DX_LIVE="../../../BitBucket/mobiledx-ios-sdk-live-engine/GenesysCloudBold-Dev.podspec"
 DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 #DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
@@ -25,12 +23,10 @@ target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
 
     if defined? DX_UI
-      pod 'GenesysCloudMessengerTransport', '2.7.0'
+      pod 'GenesysCloudMessengerTransport', '2.7.2'
       pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
-      pod 'GenesysCloudBot', :path => DX_BOT
-      pod 'GenesysCloudBold', :path => DX_LIVE
       pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
-      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests']
+      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
     else
       pod 'GenesysCloud'
     end
