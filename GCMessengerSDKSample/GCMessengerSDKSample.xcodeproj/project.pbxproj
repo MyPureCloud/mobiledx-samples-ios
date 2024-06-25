@@ -386,12 +386,13 @@
 		};
 		AF9463C6285B4943000CCF10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3316648DF70636F0A492192 /* Pods-GCMessengerSDKSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -421,12 +422,13 @@
 		};
 		AF9463C7285B4943000CCF10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03E63ED65F668F564FEDEB5D /* Pods-GCMessengerSDKSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
