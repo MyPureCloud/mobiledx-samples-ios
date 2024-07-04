@@ -22,6 +22,7 @@ class ChatWrapperViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         reconnectBarButtonItem = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
+        reconnectBarButtonItem?.tintColor = .red
         chatController = ChatController(account: messengerAccount)
         chatController.delegate = self
     }
