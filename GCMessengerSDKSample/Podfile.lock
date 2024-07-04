@@ -28,24 +28,16 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (1.7.0):
-    - GenesysCloud/Core (= 1.7.0)
-  - GenesysCloud/Core (1.7.0):
-    - GenesysCloudAccessibility (= 1.7.0)
-    - GenesysCloudBold (= 1.7.0)
-    - GenesysCloudBot (= 1.7.0)
-    - GenesysCloudCore (= 1.7.0)
-    - GenesysCloudMessenger (= 1.7.0)
-  - GenesysCloudAccessibility (1.7.0)
-  - GenesysCloudBold (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-  - GenesysCloudBot (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-  - GenesysCloudCore (1.7.0)
-  - GenesysCloudMessenger (1.7.0):
-    - GenesysCloudCore (= 1.7.0)
-    - GenesysCloudMessengerTransport (= 2.5.3)
-  - GenesysCloudMessengerTransport (2.5.3)
+  - GenesysCloud (1.10.0):
+    - GenesysCloud/Core (= 1.10.0)
+  - GenesysCloud/Core (1.10.0):
+    - GenesysCloudCore (= 1.10.0)
+    - GenesysCloudMessenger (= 1.10.0)
+  - GenesysCloudCore (1.10.0)
+  - GenesysCloudMessenger (1.10.0):
+    - GenesysCloudCore (= 1.10.0)
+    - GenesysCloudMessengerTransport (= 2.7.2)
+  - GenesysCloudMessengerTransport (2.7.2)
   - GoogleDataTransport (9.3.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -86,9 +78,6 @@ SPEC REPOS:
     - PromisesSwift
   https://github.com/MyPureCloud/gc-sdk-specs-dev:
     - GenesysCloud
-    - GenesysCloudAccessibility
-    - GenesysCloudBold
-    - GenesysCloudBot
     - GenesysCloudCore
     - GenesysCloudMessenger
 
@@ -100,9 +89,6 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 033d199474164db20c8350736842a94fe717b960
   FirebaseSessions: e5f4caa188dc8bc6142abc974355be75b042215e
   GenesysCloud: e3d48ef6db1b58086c79ff011071437981d7888a
-  GenesysCloudAccessibility: 731691d76932120fc00a227c367950b6dc079f26
-  GenesysCloudBold: 9aac4fc7470af19d7dc9246ee1d9dc63403678ef
-  GenesysCloudBot: a3cd6ef7b93b09d53ee575a5591ca546dcf82183
   GenesysCloudCore: 9a0fcd36a6be0e20e201791b7a051631cd13cf28
   GenesysCloudMessenger: 7b7969f21828e32548e81e9758dd815eca549643
   GenesysCloudMessengerTransport: e176f1116b79de88f6b05dc3515f25b1143ca0fd
