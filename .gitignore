@@ -40,6 +40,8 @@ MyAccountParams.plist
 Pods/
 *.xcworkspace
 Podfile-Custom
+Podfile
+Podfile.lock
 
 # Carthage
 #
