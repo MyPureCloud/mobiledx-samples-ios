@@ -1,0 +1,31 @@
+#===================================================================================================
+# Copyright © 2018 nanorep.
+# NanorepUI SDK.
+# All rights reserved.
+#===================================================================================================
+
+platform :ios, "14.0"
+install! 'cocoapods', :disable_input_output_paths => true
+#inhibit_all_warnings!
+use_frameworks! :linkage => :static
+
+install! 'cocoapods',
+         :deterministic_uuids => false
+
+source 'https://github.com/MyPureCloud/gc-sdk-specs'
+source 'https://github.com/CocoaPods/Specs'
+
+target 'GCMessengerSDKSample' do
+    pod 'FirebaseCrashlytics'
+    pod 'GenesysCloud'
+end
+
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+      t.build_configurations.each do |config|
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        config.build_settings["DEVELOPMENT_TEAM"] = "9U57N843V9"
+      end
+    end
+end
