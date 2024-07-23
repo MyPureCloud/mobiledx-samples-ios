@@ -16,6 +16,8 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
+    @IBOutlet weak var sentimentAnalysisSwitch: UISwitch!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,7 @@ class AccountDetailsViewController: UIViewController {
         customAttributesTextField.text = UserDefaults.customAttributes
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
+        sentimentAnalysisSwitch.setOn(true, animated: true)
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {

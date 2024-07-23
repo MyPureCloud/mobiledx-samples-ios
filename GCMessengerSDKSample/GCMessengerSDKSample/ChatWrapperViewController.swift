@@ -188,4 +188,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
     }
+    
+    func preformingSentimentAnalysis() {
+        ToastManager.shared.showToast(message: "Preforming Sentiment Analysis", backgroundColor: .systemGreen)
+    }
 }
