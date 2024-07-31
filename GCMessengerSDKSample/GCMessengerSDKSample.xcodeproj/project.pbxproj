@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
-		55A3D31A5FCF23B06725808C /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */; };
+		0AD8E4442C58D15900C56FC7 /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD8E4432C58D15900C56FC7 /* Okta.plist */; };
+		0AD8E4462C5A22E800C56FC7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8E4452C5A22E800C56FC7 /* AuthenticationViewController.swift */; };
 		4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */; };
+		55A3D31A5FCF23B06725808C /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
 		AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BA285B4940000CCF10 /* Main.storyboard */; };
@@ -25,9 +27,11 @@
 /* Begin PBXFileReference section */
 		0A190B622A41A72000A069B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Helper/Toast.swift; sourceTree = "<group>"; };
+		0AD8E4432C58D15900C56FC7 /* Okta.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
+		0AD8E4452C5A22E800C56FC7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B4285B4940000CCF10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWrapperViewController.swift; sourceTree = "<group>"; };
@@ -93,12 +97,14 @@
 		AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */ = {
 			isa = PBXGroup;
 			children = (
+				0AD8E4432C58D15900C56FC7 /* Okta.plist */,
 				0A190B692A44222D00A069B7 /* Toast.swift */,
 				0A190B622A41A72000A069B7 /* GoogleService-Info.plist */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
-				FC341F09286C7709007599BD /* Extensions */,
 				FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */,
+				0AD8E4452C5A22E800C56FC7 /* AuthenticationViewController.swift */,
+				FC341F09286C7709007599BD /* Extensions */,
 				AF9463BA285B4940000CCF10 /* Main.storyboard */,
 				AF9463BD285B4943000CCF10 /* Assets.xcassets */,
 				AF9463BF285B4943000CCF10 /* LaunchScreen.storyboard */,
@@ -131,6 +137,7 @@
 				AF9463AE285B4940000CCF10 /* Frameworks */,
 				AF9463AF285B4940000CCF10 /* Resources */,
 				2795B189C3162380A8A9F0E3 /* [CP] Embed Pods Frameworks */,
+				ED0653FD7409FA48E5FB89A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -179,6 +186,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD8E4442C58D15900C56FC7 /* Okta.plist in Resources */,
 				AF9463C1285B4943000CCF10 /* LaunchScreen.storyboard in Resources */,
 				AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */,
 				4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */,
@@ -228,6 +236,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		ED0653FD7409FA48E5FB89A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -239,6 +264,7 @@
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
 				FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */,
 				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
+				0AD8E4462C5A22E800C56FC7 /* AuthenticationViewController.swift in Sources */,
 				FCA44FCA2AADB6730024B4E9 /* String+Extensions.swift in Sources */,
 				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
 				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,
@@ -386,7 +412,7 @@
 		};
 		AF9463C6285B4943000CCF10 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3316648DF70636F0A492192 /* Pods-GCMessengerSDKSample.debug.xcconfig */;
+			baseConfigurationReference = 979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -422,7 +448,7 @@
 		};
 		AF9463C7285B4943000CCF10 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03E63ED65F668F564FEDEB5D /* Pods-GCMessengerSDKSample.release.xcconfig */;
+			baseConfigurationReference = D6117226644D926767D09E05 /* Pods-GCMessengerSDKSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
