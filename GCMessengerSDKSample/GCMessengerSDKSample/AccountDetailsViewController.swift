@@ -9,13 +9,18 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
-class AccountDetailsViewController: UIViewController {
+class AccountDetailsViewController: UIViewController, ChatWrapperViewControllerDelegate {
     @IBOutlet weak var deploymentIdTextField: UITextField!
     @IBOutlet weak var domainIdTextField: UITextField!
     @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
+
+    private var authCode: String?
+    private var codeVerifier: String?
+    private var signInRedirectURI: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +42,23 @@ class AccountDetailsViewController: UIViewController {
                 startChatButton.isEnabled = false
             }
         }
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let isLoggedIn = UserDefaults.standard.object(forKey:"isLoggedIn") as? Bool ?? false
+        loginButton.setTitle(isLoggedIn ? "LOGOUT" : "LOGIN", for: .normal)
+    }
+    
+    @IBAction func OnLoginLogoutClicked(_ sender: Any) {
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
+        controller.delegate = self
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        present(controller, animated: true)
+    }
+    
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
@@ -105,6 +126,10 @@ class AccountDetailsViewController: UIViewController {
             }
         }
         
+        if let authCode, let signInRedirectURI {
+            account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+        }
+        
         updateUserDefaults()
 
         return account
@@ -130,8 +155,27 @@ class AccountDetailsViewController: UIViewController {
     
     private func openMainController(with account: MessengerAccount) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
+        controller.delegate = self
         controller.messengerAccount = account
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
+    }
+    
+    func onClientResponseError() {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AccountDetailsViewController: AuthenticationViewControllerDelegate {
+    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+        self.authCode = authCode
+        self.signInRedirectURI = redirectUri
+        self.codeVerifier = codeVerifier
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func authenticationFailed() {
+        
     }
 }

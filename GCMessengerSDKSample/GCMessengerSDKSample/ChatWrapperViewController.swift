@@ -8,7 +8,12 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
+protocol ChatWrapperViewControllerDelegate: AnyObject {
+    func onClientResponseError()
+}
+
 class ChatWrapperViewController: UIViewController {
+    weak var delegate: ChatWrapperViewControllerDelegate?
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
@@ -127,6 +132,13 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+            case .clientResponseError:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    showAuthenticatedSessionExpirationAlert(message: errorDescription)
+                }
+                
+                
             default:
                 break
             }
@@ -178,6 +190,20 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
             self.dismissChat(nil)
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+        }
+    }
+    
+    func showAuthenticatedSessionExpirationAlert(message: String) {
+        let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
+
+            self.delegate?.onClientResponseError()
         }))
         
         if let topViewController = UIApplication.getTopViewController() {
