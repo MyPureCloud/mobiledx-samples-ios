@@ -43,10 +43,10 @@ class AccountDetailsViewController: UIViewController, ChatWrapperViewControllerD
             }
         }
         
+        setLoginButtonText()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func setLoginButtonText() {
         
         let isLoggedIn = UserDefaults.standard.object(forKey:"isLoggedIn") as? Bool ?? false
         loginButton.setTitle(isLoggedIn ? "LOGOUT" : "LOGIN", for: .normal)
@@ -58,7 +58,6 @@ class AccountDetailsViewController: UIViewController, ChatWrapperViewControllerD
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
     }
-    
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
@@ -172,7 +171,9 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate {
         self.signInRedirectURI = redirectUri
         self.codeVerifier = codeVerifier
         
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: {
+            self.setLoginButtonText()
+        })
     }
     
     func authenticationFailed() {
