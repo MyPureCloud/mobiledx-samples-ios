@@ -9,7 +9,8 @@ import GenesysCloud
 import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
-    func onClientResponseError()
+    func onClientResponseError(message: String)
+    func onChatDismissed()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -35,6 +36,7 @@ class ChatWrapperViewController: UIViewController {
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         chatController.terminate()
         presentingViewController?.dismiss(animated: true)
+        delegate?.onChatDismissed()
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -198,17 +200,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showAuthenticatedSessionExpirationAlert(message: String) {
-        let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
-
-            self.delegate?.onClientResponseError()
-        }))
-        
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-        }
+        self.delegate?.onClientResponseError(message: message)
     }
     
     func didClickLink(_ url: String) {

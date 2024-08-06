@@ -42,14 +42,13 @@ class AccountDetailsViewController: UIViewController, ChatWrapperViewControllerD
                 startChatButton.isEnabled = false
             }
         }
-        
-        setLoginButtonText()
     }
     
-    private func setLoginButtonText() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let isLoggedIn = UserDefaults.standard.object(forKey:"isLoggedIn") as? Bool ?? false
-        loginButton.setTitle(isLoggedIn ? "LOGOUT" : "LOGIN", for: .normal)
+        loginButton.setTitle("LOGIN", for: .normal)
+        self.loginButton.isEnabled = true
     }
     
     @IBAction func OnLoginLogoutClicked(_ sender: Any) {
@@ -160,8 +159,22 @@ class AccountDetailsViewController: UIViewController, ChatWrapperViewControllerD
         present(controller, animated: true)
     }
     
-    func onClientResponseError() {
-        dismiss(animated: true, completion: nil)
+    func onClientResponseError(message: String) {
+        dismiss(animated: true, completion: {
+            let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                self.loginButton.isEnabled = true
+            }))
+            
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+            }
+        })
+    }
+    
+    func onChatDismissed() {
+        self.loginButton.isEnabled = true
     }
 }
 
@@ -172,7 +185,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate {
         self.codeVerifier = codeVerifier
         
         dismiss(animated: true, completion: {
-            self.setLoginButtonText()
+            self.loginButton.isEnabled = false
         })
     }
     

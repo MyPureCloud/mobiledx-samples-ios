@@ -16,7 +16,6 @@ protocol AuthenticationViewControllerDelegate: AnyObject {
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
     
-    private var isLoggedIn = UserDefaults.standard.object(forKey:"isLoggedIn") as? Bool ?? false
     private var pkceEnabled = false
     private var authCode: String?
     private var codeVerifier: String?
@@ -94,8 +93,6 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
                     for item in queryItems {
                         if item.name == "code", let code = item.value {
                             if let signInRedirectURI{
-                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-
                                 delegate?.authenticationSucceeded(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
                             }
                         }
