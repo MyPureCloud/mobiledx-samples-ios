@@ -39,6 +39,10 @@ class ChatWrapperViewController: UIViewController {
         delegate?.onChatDismissed()
     }
     
+    @objc func logout(_ sender: UIBarButtonItem?) {
+        self.chatController.logoutChat()
+    }
+    
     func startSpinner(activityView: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityView.startAnimating()
@@ -72,6 +76,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
+
+                if self.messengerAccount.hasAuthenticationInfo() {
+                        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+                }
+                
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
@@ -205,5 +214,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
+    }
+    
+    func didLogoutChat() {
+        self.dismissChat(nil)
     }
 }
