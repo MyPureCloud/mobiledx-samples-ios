@@ -40,7 +40,9 @@ class ChatWrapperViewController: UIViewController {
     }
     
     @objc func logout(_ sender: UIBarButtonItem?) {
-        self.chatController.logoutChat()
+        DispatchQueue.main.async {
+            self.chatController.logoutFromAuthenticatedSession()
+        }
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -77,7 +79,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             self.present(viewController, animated: true) {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
 
-                if self.messengerAccount.hasAuthenticationInfo() {
+                if let _ = self.messengerAccount.authenticationInfo {
                         viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
                 }
                 
@@ -143,7 +145,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
-            case .clientResponseError:
+            case .clientResponseError, .failedToLogout:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionExpirationAlert(message: errorDescription)
