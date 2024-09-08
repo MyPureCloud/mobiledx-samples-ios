@@ -15,9 +15,14 @@ class ChatWrapperViewController: UIViewController {
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
+    
+    private var reconnectBarButtonItem: UIBarButtonItem?
+    private var chatControllerNavigationItem: UINavigationItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        reconnectBarButtonItem = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
+        reconnectBarButtonItem?.tintColor = .red
         chatController = ChatController(account: messengerAccount)
         chatController.delegate = self
     }
@@ -63,8 +68,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if self.chatState == .chatPrepared {
-            self.present(viewController, animated: true) {
+            self.present(viewController, animated: true) { [weak self] in
+                guard let self else { return }
+                
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
+                self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
+                self.chatControllerNavigationItem?.rightBarButtonItem = nil
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
@@ -144,9 +153,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             startSpinner(activityView: chatViewControllerActivityView)
         case .chatStarted:
             print("started")
+            DispatchQueue.main.async {
+                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+            }
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
-            showDisconnectAlert()
+            showReconnectBarButton()
 
         case .unavailable:
             showUnavailableAlert()
@@ -157,20 +169,21 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
-    func showDisconnectAlert() {
+    func showReconnectBarButton() {
+        self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
+        
         let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Reconnect Chat", style: .default, handler: { _ in
-            self.chatController.reconnectChat()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Dismiss Chat", style: .cancel, handler: { _ in
-            self.dismissChat(nil)
+                
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
         }))
         
         if let topViewController = UIApplication.getTopViewController() {
             topViewController.present(alert, animated: true)
         }
+    }
+    
+    func reconnectChat() {
+        self.chatController.reconnectChat()
     }
     
     func showUnavailableAlert() {
