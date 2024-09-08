@@ -386,7 +386,7 @@
 		};
 		AF9463C6285B4943000CCF10 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3316648DF70636F0A492192 /* Pods-GCMessengerSDKSample.debug.xcconfig */;
+			baseConfigurationReference = 979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -422,7 +422,7 @@
 		};
 		AF9463C7285B4943000CCF10 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03E63ED65F668F564FEDEB5D /* Pods-GCMessengerSDKSample.release.xcconfig */;
+			baseConfigurationReference = D6117226644D926767D09E05 /* Pods-GCMessengerSDKSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
