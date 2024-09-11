@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
 		55A3D31A5FCF23B06725808C /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */; };
+		0A9FF78D2C90928000824BA6 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */; };
 		4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
@@ -26,6 +27,7 @@
 		0A190B622A41A72000A069B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Helper/Toast.swift; sourceTree = "<group>"; };
 		0A9FF7882C90254000824BA6 /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
+		0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		240BBCFE12D059E7D7CEEADE /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		979FBC115B3141050E6649D3 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -95,16 +97,17 @@
 			isa = PBXGroup;
 			children = (
 				0A190B692A44222D00A069B7 /* Toast.swift */,
-				0A190B622A41A72000A069B7 /* GoogleService-Info.plist */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
-				FC341F09286C7709007599BD /* Extensions */,
 				FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */,
+				0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */,
+				FC341F09286C7709007599BD /* Extensions */,
 				AF9463BA285B4940000CCF10 /* Main.storyboard */,
-				AF9463BD285B4943000CCF10 /* Assets.xcassets */,
 				AF9463BF285B4943000CCF10 /* LaunchScreen.storyboard */,
-				AF9463C2285B4943000CCF10 /* Info.plist */,
+				AF9463BD285B4943000CCF10 /* Assets.xcassets */,
 				4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */,
+				AF9463C2285B4943000CCF10 /* Info.plist */,
+				0A190B622A41A72000A069B7 /* GoogleService-Info.plist */,
 				0A9FF7882C90254000824BA6 /* Okta.plist */,
 			);
 			path = GCMessengerSDKSample;
@@ -241,6 +244,7 @@
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
 				FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */,
 				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
+				0A9FF78D2C90928000824BA6 /* AuthenticationViewController.swift in Sources */,
 				FCA44FCA2AADB6730024B4E9 /* String+Extensions.swift in Sources */,
 				FC341F08286ADD80007599BD /* UserDefaults+Extensions.swift in Sources */,
 				FC341F07286ADD73007599BD /* AccountDetailsViewController.swift in Sources */,

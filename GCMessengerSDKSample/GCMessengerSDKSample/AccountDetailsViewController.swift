@@ -16,6 +16,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,8 @@ class AccountDetailsViewController: UIViewController {
                 startChatButton.isEnabled = false
             }
         }
+        
+        loginButton.setTitle("LOGIN", for: .normal)
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -71,6 +74,12 @@ class AccountDetailsViewController: UIViewController {
                 }
             })
         }
+    }
+    
+    @IBAction func OnLoginTapped(_ sender: Any) {
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        present(controller, animated: true)
     }
     
     private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
