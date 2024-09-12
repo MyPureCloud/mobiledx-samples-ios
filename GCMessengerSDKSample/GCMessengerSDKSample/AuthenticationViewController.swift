@@ -66,9 +66,6 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
             return nil
         }
         
-        self.signInRedirectURI = signInRedirectURI
-        self.codeVerifier = codeVerifier
-        
         var urlComponents = URLComponents(string: "https://\(oktaDomain)/oauth2/default/v1/authorize")
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: clientId),
@@ -84,25 +81,21 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
             return nil
         }
         
+        self.signInRedirectURI = signInRedirectURI
+        self.codeVerifier = codeVerifier
+        
         return URL(string: url.absoluteString)
     }
     
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))) {
-        if let url = navigationAction.request.url {
-            if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-                if let queryItems = urlComponents.queryItems {
-                    for item in queryItems {
-                        if item.name == "code", let code = item.value {
-                            if let signInRedirectURI {
-                                delegate?.authenticationSucceeded(authCode: code, redirectUri: signInRedirectURI, codeVerifier: self.codeVerifier)
-                            }
-                        }
-                        break
-                    }
-                }
-                
-                decisionHandler(.allow)
-            }
+        guard let url = navigationAction.request.url,
+              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+
+        if let signInRedirectURI,
+           let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
+            delegate?.authenticationSucceeded(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
         }
+
+        decisionHandler(.allow)
     }
 }
