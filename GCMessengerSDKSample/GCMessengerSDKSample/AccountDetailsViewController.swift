@@ -18,6 +18,10 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     
+    private var authCode: String?
+    private var codeVerifier: String?
+    private var signInRedirectURI: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFields()
@@ -79,6 +83,7 @@ class AccountDetailsViewController: UIViewController {
     @IBAction func OnLoginTapped(_ sender: Any) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
         controller.modalPresentationCapturesStatusBarAppearance = true
+        controller.delegate = self
         present(controller, animated: true)
     }
     
@@ -142,5 +147,21 @@ class AccountDetailsViewController: UIViewController {
         controller.messengerAccount = account
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
+    }
+}
+
+extension AccountDetailsViewController: AuthenticationViewControllerDelegate {
+    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+        self.authCode = authCode
+        self.signInRedirectURI = redirectUri
+        self.codeVerifier = codeVerifier
+                
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func error(message: String) { 
+        dismiss(animated: true, completion: {
+            self.showErrorAlert(message: message)
+        })
     }
 }
