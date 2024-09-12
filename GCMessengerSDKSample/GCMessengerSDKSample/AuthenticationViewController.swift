@@ -69,8 +69,8 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         self.signInRedirectURI = signInRedirectURI
         self.codeVerifier = codeVerifier
         
-        var urlComponents = URLComponents(string: "https://\(oktaDomain)/oauth2/default/v1/authorize")!
-        urlComponents.queryItems = [
+        var urlComponents = URLComponents(string: "https://\(oktaDomain)/oauth2/default/v1/authorize")
+        urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: clientId),
             URLQueryItem(name: "response_type", value: "code"),
             URLQueryItem(name: "scope", value: scope),
@@ -80,7 +80,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
             URLQueryItem(name: "code_challenge", value: codeChallenge)
         ]
         
-        guard let url = urlComponents.url else {
+        guard let url = urlComponents?.url else {
             return nil
         }
         
