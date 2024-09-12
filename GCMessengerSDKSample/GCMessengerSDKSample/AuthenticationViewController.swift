@@ -36,7 +36,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         super.viewWillAppear(animated)
         
         guard let oktaAuthorizeUrl = buildOktaAuthorizeUrl() else {
-            delegate?.authenticationSucceeded(authCode: "code", redirectUri: "signInRedirectURI", codeVerifier: "self.codeVerifier")
+            delegate?.error(message: "Please make sure you added Okta.plist file with proper values")
 
             return
         }
