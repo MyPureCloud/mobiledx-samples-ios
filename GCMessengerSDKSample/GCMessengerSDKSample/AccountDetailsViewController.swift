@@ -119,6 +119,10 @@ class AccountDetailsViewController: UIViewController {
             }
         }
         
+        if let authCode, let signInRedirectURI {
+            account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+        }
+        
         updateUserDefaults()
 
         return account
