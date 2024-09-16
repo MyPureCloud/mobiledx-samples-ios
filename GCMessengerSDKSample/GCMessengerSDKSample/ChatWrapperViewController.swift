@@ -8,10 +8,15 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
+protocol ChatWrapperViewControllerDelegate: AnyObject {
+    func onClientResponseError(message: String)
+}
+
 class ChatWrapperViewController: UIViewController {
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
+    weak var delegate: ChatWrapperViewControllerDelegate?
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
@@ -136,6 +141,13 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+                
+            case .clientResponseError:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    showAuthenticatedSessionExpirationAlert(message: errorDescription)
+                }
+             
             default:
                 break
             }
@@ -180,6 +192,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         if let topViewController = UIApplication.getTopViewController() {
             topViewController.present(alert, animated: true)
         }
+    }
+    
+    func showAuthenticatedSessionExpirationAlert(message: String) {
+        self.delegate?.onClientResponseError(message: message)
     }
     
     func reconnectChat() {
