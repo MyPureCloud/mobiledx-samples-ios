@@ -148,13 +148,14 @@ class AccountDetailsViewController: UIViewController {
     
     private func openMainController(with account: MessengerAccount) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
+        controller.delegate = self
         controller.messengerAccount = account
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
     }
 }
 
-extension AccountDetailsViewController: AuthenticationViewControllerDelegate {
+extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
@@ -166,6 +167,20 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate {
     func error(message: String) { 
         dismiss(animated: true, completion: {
             self.showErrorAlert(message: message)
+        })
+    }
+    
+    func didClientResponseError(message: String) {
+        dismiss(animated: true, completion: {
+            let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                self.loginButton.isEnabled = true
+            }))
+            
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+            }
         })
     }
 }
