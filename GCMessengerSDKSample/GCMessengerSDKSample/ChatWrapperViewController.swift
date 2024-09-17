@@ -9,7 +9,7 @@ import GenesysCloud
 import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
-    func onClientResponseError(message: String)
+    func didClientResponseError(message: String)
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -195,7 +195,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showAuthenticatedSessionExpirationAlert(message: String) {
-        self.delegate?.onClientResponseError(message: message)
+        delegate?.didClientResponseError(message: message)
     }
     
     func reconnectChat() {
