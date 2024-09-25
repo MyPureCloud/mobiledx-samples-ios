@@ -54,14 +54,14 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         guard let plistPath = Bundle.main.path(forResource: "Okta", ofType: "plist"),
               let plistData = FileManager.default.contents(atPath: plistPath),
               let plistDictionary = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: Any],
-              let oktaDomain = plistDictionary["oktaDomain"] as? String,
-              let clientId = plistDictionary["clientId"] as? String,
-              let signInRedirectURI = plistDictionary["signInRedirectURI"] as? String,
-              let scope = plistDictionary["scopes"] as? String,
-              let oktaState = plistDictionary["oktaState"] as? String,
-              let codeChallengeMethod = plistDictionary["codeChallengeMethod"] as? String,
-              let codeChallenge = plistDictionary["codeChallenge"] as? String,
-              let codeVerifier = plistDictionary["codeVerifier"] as? String
+              let oktaDomain = plistDictionary["oktaDomain"] as? String, !oktaDomain.isEmpty,
+              let clientId = plistDictionary["clientId"] as? String, !clientId.isEmpty,
+              let signInRedirectURI = plistDictionary["signInRedirectURI"] as? String, !signInRedirectURI.isEmpty,
+              let scope = plistDictionary["scopes"] as? String, !scope.isEmpty,
+              let oktaState = plistDictionary["oktaState"] as? String, !oktaState.isEmpty,
+              let codeChallengeMethod = plistDictionary["codeChallengeMethod"] as? String, !codeChallengeMethod.isEmpty,
+              let codeChallenge = plistDictionary["codeChallenge"] as? String, !codeChallenge.isEmpty,
+              let codeVerifier = plistDictionary["codeVerifier"] as? String, !codeVerifier.isEmpty
         else {
             return nil
         }
