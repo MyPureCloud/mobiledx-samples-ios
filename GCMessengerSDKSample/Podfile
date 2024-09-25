@@ -12,12 +12,24 @@ use_frameworks! :linkage => :static
 install! 'cocoapods',
          :deterministic_uuids => false
 
-source 'https://github.com/MyPureCloud/gc-sdk-specs'
+DX_CORE="../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
+DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
+#DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+
+source 'https://github.com/MyPureCloud/gc-sdk-specs-dev'
 source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
-    pod 'GenesysCloud'
+
+    if defined? DX_UI
+      pod 'GenesysCloudMessengerTransport', '2.7.2'
+      pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
+      pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
+      pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
+    else
+      pod 'GenesysCloud'
+    end
 end
 
 post_install do |pi|
