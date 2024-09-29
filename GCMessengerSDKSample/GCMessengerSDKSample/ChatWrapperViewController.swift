@@ -42,6 +42,10 @@ class ChatWrapperViewController: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
+    @objc func logout(_ sender: UIBarButtonItem?) {
+
+    }
+    
     func startSpinner(activityView: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityView.startAnimating()
@@ -75,10 +79,16 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
-                
+
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
-                self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+
+                if let _ = self.messengerAccount.authenticationInfo {
+                        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+                } else {
+                    self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
+                    self.chatControllerNavigationItem?.rightBarButtonItem = nil
+                }
+                
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
