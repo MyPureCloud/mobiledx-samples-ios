@@ -87,7 +87,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 } else {
                     self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
                     self.chatControllerNavigationItem?.rightBarButtonItem = nil
-
                 }
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
