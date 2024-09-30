@@ -148,7 +148,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
-            case .clientNotAuthenticatedError:
+            case .clientNotAuthenticatedError, .authLogoutFailed:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionExpirationAlert(message: errorDescription)
