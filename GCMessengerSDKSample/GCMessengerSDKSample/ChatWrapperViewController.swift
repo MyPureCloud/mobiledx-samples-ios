@@ -148,7 +148,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
-            case .clientNotAuthenticatedError, .authLogoutFailed:
+            case .clientNotAuthenticatedError:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionExpirationAlert(message: errorDescription)
@@ -208,9 +208,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     @objc func logout(_ sender: UIBarButtonItem?) {
-        DispatchQueue.main.async {
-            self.chatController.logoutFromAuthenticatedSession()
-        }
     }
     
     func showUnavailableAlert() {
@@ -227,11 +224,5 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
-    }
-    
-    func didLogoutChat() {
-        DispatchQueue.main.async {
-            self.dismissChat(nil)
-        }
     }
 }
