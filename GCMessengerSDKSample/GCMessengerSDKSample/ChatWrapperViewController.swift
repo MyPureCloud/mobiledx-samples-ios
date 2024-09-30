@@ -42,10 +42,6 @@ class ChatWrapperViewController: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
-    @objc func logout(_ sender: UIBarButtonItem?) {
-
-    }
-    
     func startSpinner(activityView: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityView.startAnimating()
@@ -210,6 +206,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func reconnectChat() {
         self.chatController.reconnectChat()
+    }
+    
+    @objc func logout(_ sender: UIBarButtonItem?) {
+        DispatchQueue.main.async {
+            self.chatController.logoutFromAuthenticatedSession()
+        }
     }
     
     func showUnavailableAlert() {
