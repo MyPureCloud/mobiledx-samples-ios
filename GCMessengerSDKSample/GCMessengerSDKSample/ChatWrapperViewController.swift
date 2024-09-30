@@ -228,4 +228,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
     }
+    
+    func didLogoutChat() {
+        DispatchQueue.main.async {
+            self.dismissChat(nil)
+        }
+    }
 }
