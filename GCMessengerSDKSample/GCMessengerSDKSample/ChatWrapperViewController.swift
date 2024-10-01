@@ -9,7 +9,7 @@ import GenesysCloud
 import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
-    func didClientResponseError(message: String)
+    func authenticatedSessionError(message: String)
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -148,10 +148,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
-            case .clientNotAuthenticatedError:
+            case .clientNotAuthenticatedError, .authLogoutFailed:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    showAuthenticatedSessionExpirationAlert(message: errorDescription)
+                    showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
             default:
                 break
@@ -199,8 +199,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
-    func showAuthenticatedSessionExpirationAlert(message: String) {
-        delegate?.didClientResponseError(message: message)
+    func showAuthenticatedSessionErrorAlert(message: String) {
+        delegate?.authenticatedSessionError(message: message)
     }
     
     func reconnectChat() {
@@ -208,6 +208,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     @objc func logout(_ sender: UIBarButtonItem?) {
+        chatController.logoutFromAuthenticatedSession()
     }
     
     func showUnavailableAlert() {
@@ -224,5 +225,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
+    }
+    
+    func didLogoutChat() {
+        dismissChat(nil)
     }
 }

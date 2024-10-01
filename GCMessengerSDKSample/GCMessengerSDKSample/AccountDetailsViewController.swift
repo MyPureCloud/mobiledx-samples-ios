@@ -170,7 +170,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         })
     }
     
-    func didClientResponseError(message: String) {
+    func authenticatedSessionError(message: String) {
         dismiss(animated: true, completion: {
             let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
             
