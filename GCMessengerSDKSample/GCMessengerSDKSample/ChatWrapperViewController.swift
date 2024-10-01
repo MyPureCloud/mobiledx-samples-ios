@@ -208,11 +208,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     @objc func logout(_ sender: UIBarButtonItem?) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            self.chatController.logoutFromAuthenticatedSession()
-        }
+        chatController.logoutFromAuthenticatedSession()
     }
     
     func showUnavailableAlert() {
@@ -232,10 +228,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didLogoutChat() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            self.dismissChat(nil)
-        }
+        dismissChat(nil)
     }
 }
