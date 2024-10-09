@@ -31,14 +31,14 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (1.10.1):
-    - GenesysCloud/Core (= 1.10.1)
-  - GenesysCloud/Core (1.10.1):
-    - GenesysCloudCore (= 1.10.1)
-    - GenesysCloudMessenger (= 1.10.1)
-  - GenesysCloudCore (1.10.1)
-  - GenesysCloudMessenger (1.10.1):
-    - GenesysCloudCore (= 1.10.1)
+  - GenesysCloud (1.10.3):
+    - GenesysCloud/Core (= 1.10.3)
+  - GenesysCloud/Core (1.10.3):
+    - GenesysCloudCore (= 1.10.3)
+    - GenesysCloudMessenger (= 1.10.3)
+  - GenesysCloudCore (1.10.3)
+  - GenesysCloudMessenger (1.10.3):
+    - GenesysCloudCore (= 1.10.3)
     - GenesysCloudMessengerTransport (= 2.7.2)
   - GenesysCloudMessengerTransport (2.7.2)
   - GoogleDataTransport (10.1.0):
@@ -66,7 +66,7 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseCrashlytics
-  - GenesysCloud
+  - GenesysCloud (= 1.10.3)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
@@ -96,9 +96,9 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 771177d89d6c451dc6e50085ec82e2fc77ed0a4a
   FirebaseRemoteConfigInterop: 477b26fdeb8fb5fbaf22fa9db5343b42289dc7db
   FirebaseSessions: adcec8b72d0066a385e3affcd1bcb1ebb3908ce6
-  GenesysCloud: 5b3d7511020885bf401d7e3fc53fcc67e42c0424
-  GenesysCloudCore: 8cb6d0255c8c0ddec19801e19362cf7a59780e9f
-  GenesysCloudMessenger: 6e3e86fae6fbbdc322178a706e7dfe7d10ff8a03
+  GenesysCloud: 6aeedb15f804cf6e5f320197ebf6ccef50428571
+  GenesysCloudCore: 82893abee70e85f828c8eafbeefdb949ea626731
+  GenesysCloudMessenger: 2fb9d748a4fc5c69daa96e514e8e61f1dda33c79
   GenesysCloudMessengerTransport: d0ef0e3a858b1928354327185169f66f4fa38422
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
@@ -106,6 +106,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
 
-PODFILE CHECKSUM: e14824ed95d415d742c049ab0d943f3fef2f2cf2
+PODFILE CHECKSUM: c06094548f46b8784316fd5d1bf9de036ee8701a
 
 COCOAPODS: 1.15.2
