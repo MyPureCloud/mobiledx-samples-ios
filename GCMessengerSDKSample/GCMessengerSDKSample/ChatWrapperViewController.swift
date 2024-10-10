@@ -186,6 +186,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
+    func didConnectionClose(_ reason: UnsafeMutablePointer<EndedReason>!) {
+        if reason.pointee == EndedReason.sessionLimitReached {
+            ToastManager.shared.showToast(message: "Session limit reached.")
+        }
+    }
+
     func showReconnectBarButton() {
         self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
         
