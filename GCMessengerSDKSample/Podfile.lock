@@ -31,14 +31,14 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (1.10.2):
-    - GenesysCloud/Core (= 1.10.2)
-  - GenesysCloud/Core (1.10.2):
-    - GenesysCloudCore (= 1.10.2)
-    - GenesysCloudMessenger (= 1.10.2)
-  - GenesysCloudCore (1.10.2)
-  - GenesysCloudMessenger (1.10.2):
-    - GenesysCloudCore (= 1.10.2)
+  - GenesysCloud (1.10.1):
+    - GenesysCloud/Core (= 1.10.1)
+  - GenesysCloud/Core (1.10.1):
+    - GenesysCloudCore (= 1.10.1)
+    - GenesysCloudMessenger (= 1.10.1)
+  - GenesysCloudCore (1.10.1)
+  - GenesysCloudMessenger (1.10.1):
+    - GenesysCloudCore (= 1.10.1)
     - GenesysCloudMessengerTransport (= 2.7.2)
   - GenesysCloudMessengerTransport (2.7.2)
   - GoogleDataTransport (10.1.0):
@@ -66,7 +66,7 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseCrashlytics
-  - GenesysCloud (= 1.10.2)
+  - GenesysCloud (= 1.10.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
@@ -83,7 +83,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - PromisesSwift
-  https://github.com/MyPureCloud/gc-sdk-specs-dev:
+  https://github.com/MyPureCloud/gc-sdk-specs:
     - GenesysCloud
     - GenesysCloudCore
     - GenesysCloudMessenger
@@ -96,9 +96,9 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 58cf94dabf1e2bb2fa87725a9be5c2249171cda0
   FirebaseRemoteConfigInterop: c3a5c31b3c22079f41ba1dc645df889d9ce38cb9
   FirebaseSessions: 655ff17f3cc1a635cbdc2d69b953878001f9e25b
-  GenesysCloud: c9f690ef26b23401ca2a549a588413f8e6c02ad4
-  GenesysCloudCore: aa849f1d2a2975dc565f305d8dc8a398ddaa1898
-  GenesysCloudMessenger: 2ec0d98abb31f21698f2f98f2b65f4992de02860
+  GenesysCloud: 508458fa5094baebf1e1b9c032c0a03da2345e0b
+  GenesysCloudCore: 8c5f79ee42c4ce6572ad15d665e4b11c06c30e38
+  GenesysCloudMessenger: 60b8660753d1c6f053f1f12dfda78ab478cd7fb8
   GenesysCloudMessengerTransport: d0ef0e3a858b1928354327185169f66f4fa38422
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
@@ -106,6 +106,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
 
-PODFILE CHECKSUM: 6eabfb6ed6493e6b2670f950c2fdbe8d97d65407
+PODFILE CHECKSUM: feed35e9b354a3234c6ba2bf7b74e4a99b274b23
 
 COCOAPODS: 1.15.2
