@@ -188,7 +188,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didConnectionClose(_ reason: UnsafeMutablePointer<EndedReason>!) {
         if reason.pointee == EndedReason.sessionLimitReached {
-            ToastManager.shared.showToast(message: "Session limit reached.")
+            ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
         }
     }
 
