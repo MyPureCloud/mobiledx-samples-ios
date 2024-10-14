@@ -186,6 +186,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
+    func didConnectionClose(_ reason: UnsafeMutablePointer<EndedReason>!) {
+        if reason.pointee == EndedReason.sessionLimitReached {
+            ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+        }
+    }
+
     func showReconnectBarButton() {
         self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
         
@@ -228,6 +234,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didLogoutChat() {
-        dismissChat(nil)
+        presentingViewController?.dismiss(animated: true)
     }
 }
