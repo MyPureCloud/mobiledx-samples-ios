@@ -234,6 +234,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didLogoutChat() {
-        dismissChat(nil)
+        presentingViewController?.dismiss(animated: true)
     }
 }
