@@ -148,7 +148,7 @@
 			);
 			mainGroup = AF9463A8285B4940000CCF10;
 			packageReferences = (
-				FCBF47782CC6704600F778E6 /* XCRemoteSwiftPackageReference "UISPM" */,
+				FCBF47782CC6704600F778E6 /* XCRemoteSwiftPackageReference "UISPM.git" */,
 			);
 			productRefGroup = AF9463B2285B4940000CCF10 /* Products */;
 			projectDirPath = "";
@@ -420,7 +420,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FCBF47782CC6704600F778E6 /* XCRemoteSwiftPackageReference "UISPM" */ = {
+		FCBF47782CC6704600F778E6 /* XCRemoteSwiftPackageReference "UISPM.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/GolanSG/UISPM.git";
 			requirement = {
@@ -433,7 +433,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		FCBF47792CC6704600F778E6 /* GenesysCloud */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FCBF47782CC6704600F778E6 /* XCRemoteSwiftPackageReference "UISPM" */;
+			package = FCBF47782CC6704600F778E6 /* XCRemoteSwiftPackageReference "UISPM.git" */;
 			productName = GenesysCloud;
 		};
 /* End XCSwiftPackageProductDependency section */
