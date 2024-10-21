@@ -5,7 +5,7 @@
 // ===================================================================================================
 
 import UIKit
-import FirebaseCore
+//import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if (Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil) {
             print("Google Services & Crashlytics enabled")
-            FirebaseApp.configure()
+//            FirebaseApp.configure()
         }
         // Override point for customization after application launch.
         return true
