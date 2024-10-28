@@ -181,14 +181,20 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             showUnavailableAlert()
         case .chatEnded:
             stopSpinner(activityView: chatViewControllerActivityView)
+        case .chatClosed:
+            let endedReasonRawValue = event.dataMsg as? Int ?? 0
+            if let endedReason = EndedReason(rawValue: endedReasonRawValue) {
+                switch endedReason {
+                case EndedReason.sessionLimitReached:
+                    ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+                case EndedReason.logout:
+                    presentingViewController?.dismiss(animated: true)
+                default:
+                    break
+                }
+            }
         default:
             print(event.state)
-        }
-    }
-    
-    func didConnectionClose(_ reason: UnsafeMutablePointer<EndedReason>!) {
-        if reason.pointee == EndedReason.sessionLimitReached {
-            ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
         }
     }
 
@@ -231,9 +237,5 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
-    }
-    
-    func didLogoutChat() {
-        presentingViewController?.dismiss(animated: true)
     }
 }
