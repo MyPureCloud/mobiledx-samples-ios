@@ -8,10 +8,15 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
+protocol ChatWrapperViewControllerDelegate: AnyObject {
+    func authenticatedSessionError(message: String)
+}
+
 class ChatWrapperViewController: UIViewController {
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
+    weak var delegate: ChatWrapperViewControllerDelegate?
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
@@ -70,10 +75,16 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
-                
+
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
-                self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+
+                if let _ = self.messengerAccount.authenticationInfo {
+                        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+                } else {
+                    self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
+                    self.chatControllerNavigationItem?.rightBarButtonItem = nil
+                }
+                
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
@@ -136,6 +147,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+                
+            case .clientNotAuthenticatedError, .authLogoutFailed:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    showAuthenticatedSessionErrorAlert(message: errorDescription)
+                }
             default:
                 break
             }
@@ -164,11 +181,23 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             showUnavailableAlert()
         case .chatEnded:
             stopSpinner(activityView: chatViewControllerActivityView)
+        case .chatClosed:
+            let endedReasonRawValue = event.dataMsg as? Int ?? 0
+            if let endedReason = EndedReason(rawValue: endedReasonRawValue) {
+                switch endedReason {
+                case EndedReason.sessionLimitReached:
+                    ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+                case EndedReason.logout:
+                    presentingViewController?.dismiss(animated: true)
+                default:
+                    break
+                }
+            }
         default:
             print(event.state)
         }
     }
-    
+
     func showReconnectBarButton() {
         self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
         
@@ -182,8 +211,16 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
+    func showAuthenticatedSessionErrorAlert(message: String) {
+        delegate?.authenticatedSessionError(message: message)
+    }
+    
     func reconnectChat() {
         self.chatController.reconnectChat()
+    }
+    
+    @objc func logout(_ sender: UIBarButtonItem?) {
+        chatController.logoutFromAuthenticatedSession()
     }
     
     func showUnavailableAlert() {
