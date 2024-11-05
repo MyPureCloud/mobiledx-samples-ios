@@ -148,15 +148,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
-            case .authLogoutFailed:
+            case .clientNotAuthenticatedError, .authLogoutFailed:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
-                }
-            case .clientNotAuthenticatedError:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
                 }
             default:
                 break
