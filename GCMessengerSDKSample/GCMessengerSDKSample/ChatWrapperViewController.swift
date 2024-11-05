@@ -155,10 +155,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 }
             case .clientNotAuthenticatedError:
                 print("** Error: \(error.errorType.rawValue)")
+                dismissChat(nil)
+
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
-
             default:
                 break
             }
