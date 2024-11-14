@@ -21,13 +21,22 @@ class ChatWrapperViewController: UIViewController {
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     
-    private var reconnectBarButtonItem: UIBarButtonItem?
     private var chatControllerNavigationItem: UINavigationItem?
+    
+    private lazy var reconnectBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
+        item.tintColor = .red
+        return item
+    }()
+    private lazy var logoutBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+        item.tintColor = .black
+        return item
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reconnectBarButtonItem = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
-        reconnectBarButtonItem?.tintColor = .red
+        
         chatController = ChatController(account: messengerAccount)
         chatController.delegate = self
     }
@@ -77,11 +86,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 guard let self else { return }
 
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
+                
+                self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
 
                 if let _ = self.messengerAccount.authenticationInfo {
-                        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+                    self.chatControllerNavigationItem?.rightBarButtonItem = logoutBarButtonItem
                 } else {
-                    self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
                     self.chatControllerNavigationItem?.rightBarButtonItem = nil
                 }
                 
@@ -186,8 +196,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             startSpinner(activityView: chatViewControllerActivityView)
         case .chatStarted:
             print("started")
-            DispatchQueue.main.async {
-                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+            DispatchQueue.main.async { [weak self] in
+                if self?.messengerAccount.authenticationInfo == nil {
+                    self?.chatControllerNavigationItem?.rightBarButtonItem = nil
+                } else {
+                    self?.chatControllerNavigationItem?.rightBarButtonItem = self?.logoutBarButtonItem
+                }
             }
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
