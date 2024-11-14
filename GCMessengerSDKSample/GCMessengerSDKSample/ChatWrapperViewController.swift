@@ -21,13 +21,12 @@ class ChatWrapperViewController: UIViewController {
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     
-    private var reconnectBarButtonItem: UIBarButtonItem?
+    private var rightBarButtonItem: UIBarButtonItem?
     private var chatControllerNavigationItem: UINavigationItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reconnectBarButtonItem = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
-        reconnectBarButtonItem?.tintColor = .red
+        
         chatController = ChatController(account: messengerAccount)
         chatController.delegate = self
     }
@@ -77,17 +76,24 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 guard let self else { return }
 
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
+                
+                self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
 
                 if let _ = self.messengerAccount.authenticationInfo {
-                        viewController.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+                    self.setLogoutButton()
                 } else {
-                    self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
                     self.chatControllerNavigationItem?.rightBarButtonItem = nil
                 }
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
+    }
+    
+    private func setLogoutButton() {
+        rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+        rightBarButtonItem?.tintColor = .black
+        self.chatControllerNavigationItem?.rightBarButtonItem = rightBarButtonItem
     }
 
     func didFailWithError(_ error: GCError?) {
@@ -186,8 +192,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             startSpinner(activityView: chatViewControllerActivityView)
         case .chatStarted:
             print("started")
-            DispatchQueue.main.async {
-                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+            DispatchQueue.main.async { [weak self] in
+                if self?.messengerAccount.authenticationInfo == nil {
+                    self?.chatControllerNavigationItem?.rightBarButtonItem = nil
+                } else {
+                    self?.setLogoutButton()
+                }
             }
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
@@ -215,7 +225,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
 
     func showReconnectBarButton() {
-        self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
+        rightBarButtonItem = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
+        rightBarButtonItem?.tintColor = .red
+        self.chatControllerNavigationItem?.rightBarButtonItem = rightBarButtonItem
         
         let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
                 
