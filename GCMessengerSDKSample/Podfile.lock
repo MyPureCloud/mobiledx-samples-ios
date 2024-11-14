@@ -31,16 +31,28 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
     - PromisesSwift (~> 2.1)
-  - GenesysCloud (1.11.0):
-    - GenesysCloud/Core (= 1.11.0)
-  - GenesysCloud/Core (1.11.0):
-    - GenesysCloudCore (= 1.11.0)
-    - GenesysCloudMessenger (= 1.11.0)
-  - GenesysCloudCore (1.11.0)
-  - GenesysCloudMessenger (1.11.0):
-    - GenesysCloudCore (= 1.11.0)
-    - GenesysCloudMessengerTransport (= 2.7.2)
-  - GenesysCloudMessengerTransport (2.7.2)
+  - GenesysCloud (1.x.y-dev):
+    - GenesysCloud/Global (= 1.x.y-dev)
+  - GenesysCloud/Common (1.x.y-dev)
+  - GenesysCloud/Global (1.x.y-dev):
+    - GenesysCloud/Common
+    - GenesysCloud/Messenger
+    - GenesysCloud/UIKit
+  - GenesysCloud/Messenger (1.x.y-dev):
+    - GenesysCloudMessenger
+  - GenesysCloud/ObjcUnitTests (1.x.y-dev)
+  - GenesysCloud/UIKit (1.x.y-dev):
+    - GenesysCloud/Common
+  - GenesysCloud/UnitTests (1.x.y-dev)
+  - GenesysCloudCore (1.x.y-dev)
+  - GenesysCloudCore/UnitTests (1.x.y-dev)
+  - GenesysCloudMessenger (1.x.y-dev):
+    - GenesysCloudCore
+    - GenesysCloudMessengerTransport
+  - GenesysCloudMessenger/UnitTests (1.x.y-dev):
+    - GenesysCloudCore
+    - GenesysCloudMessengerTransport
+  - GenesysCloudMessengerTransport (2.8.1)
   - GoogleDataTransport (10.1.0):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
@@ -66,7 +78,14 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseCrashlytics
-  - GenesysCloud (= 1.11.0)
+  - GenesysCloud (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
+  - GenesysCloud/ObjcUnitTests (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
+  - GenesysCloud/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
+  - GenesysCloudCore (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
+  - GenesysCloudCore/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec`)
+  - GenesysCloudMessenger (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
+  - GenesysCloudMessenger/UnitTests (from `../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec`)
+  - GenesysCloudMessengerTransport (= 2.8.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
@@ -77,16 +96,21 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseRemoteConfigInterop
     - FirebaseSessions
-    - GenesysCloudMessengerTransport
     - GoogleDataTransport
     - GoogleUtilities
     - nanopb
     - PromisesObjC
     - PromisesSwift
   https://github.com/MyPureCloud/gc-sdk-specs-dev:
-    - GenesysCloud
-    - GenesysCloudCore
-    - GenesysCloudMessenger
+    - GenesysCloudMessengerTransport
+
+EXTERNAL SOURCES:
+  GenesysCloud:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+  GenesysCloudCore:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
+  GenesysCloudMessenger:
+    :path: "../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 
 SPEC CHECKSUMS:
   FirebaseCore: 8542de610f35f86196ba26cdb2544565a5157c8e
@@ -96,16 +120,16 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 58cf94dabf1e2bb2fa87725a9be5c2249171cda0
   FirebaseRemoteConfigInterop: c3a5c31b3c22079f41ba1dc645df889d9ce38cb9
   FirebaseSessions: 655ff17f3cc1a635cbdc2d69b953878001f9e25b
-  GenesysCloud: ccdff23133e9673e1a5d584b994ac40497d2a10d
-  GenesysCloudCore: 71ecc7e242bc5ebcd74b4f98051438d91a2e1ad2
-  GenesysCloudMessenger: 79571af5e1c522bb820858aab70fae50313d3c65
-  GenesysCloudMessengerTransport: d0ef0e3a858b1928354327185169f66f4fa38422
+  GenesysCloud: 42a49e432a674769aaa507a0693e5639a887bccb
+  GenesysCloudCore: b9f374a7a951ecc163850d3aff930f5c8babeec8
+  GenesysCloudMessenger: 248b2251c92c6c3962ec62a6260400c91fa65cb3
+  GenesysCloudMessengerTransport: 412de7f828f97f493110d4a57cfc626c58ddc01e
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
 
-PODFILE CHECKSUM: ca289c7c9a646049d0b6eedd047c344c8253016b
+PODFILE CHECKSUM: 269d48278777f6592766826825250764c0aff9df
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3
