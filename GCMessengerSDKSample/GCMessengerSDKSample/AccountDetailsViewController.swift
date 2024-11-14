@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
+import MessengerTransport
 
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
@@ -30,8 +31,9 @@ class AccountDetailsViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-           let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
+           let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String,
+           let transportVersion = Bundle(for: MessengerTransportSDK.self).infoDictionary?["CFBundleVersion"] as? String {
+            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber), Transport: \(transportVersion)"
         }
         
         deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
