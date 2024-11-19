@@ -83,7 +83,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - PromisesSwift
-  https://github.com/MyPureCloud/gc-sdk-specs-dev:
+  https://github.com/MyPureCloud/gc-sdk-specs:
     - GenesysCloud
     - GenesysCloudCore
     - GenesysCloudMessenger
