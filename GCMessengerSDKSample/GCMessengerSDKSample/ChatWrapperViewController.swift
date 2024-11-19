@@ -8,21 +8,35 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
+protocol ChatWrapperViewControllerDelegate: AnyObject {
+    func authenticatedSessionError(message: String)
+}
+
 class ChatWrapperViewController: UIViewController {
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
+    weak var delegate: ChatWrapperViewControllerDelegate?
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     
-    private var reconnectBarButtonItem: UIBarButtonItem?
     private var chatControllerNavigationItem: UINavigationItem?
+    
+    private lazy var reconnectBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
+        item.tintColor = .red
+        return item
+    }()
+    private lazy var logoutBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+        item.tintColor = .black
+        return item
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reconnectBarButtonItem = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
-        reconnectBarButtonItem?.tintColor = .red
+        
         chatController = ChatController(account: messengerAccount)
         chatController.delegate = self
     }
@@ -70,10 +84,17 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
-                
+
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
+                
                 self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+
+                if let _ = self.messengerAccount.authenticationInfo {
+                    self.chatControllerNavigationItem?.rightBarButtonItem = logoutBarButtonItem
+                } else {
+                    self.chatControllerNavigationItem?.rightBarButtonItem = nil
+                }
+                
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
@@ -136,6 +157,28 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+                
+            case .authLogoutFailed:
+                print("** Error: \(error.errorType.rawValue)")
+                if let errorDescription = error.errorDescription {
+                    showAuthenticatedSessionErrorAlert(message: errorDescription)
+                }
+            case .clientNotAuthenticatedError:
+                print("** Error: \(error.errorType.rawValue)")
+                dismissChat(nil)
+                
+                if let errorDescription = error.errorDescription {
+                    ToastManager.shared.showToast(message: errorDescription)
+                }
+                
+            case .chatGeneralError:
+                print("** Error: \(error.errorType.rawValue)")
+                dismissChat(nil)
+                
+                if let errorDescription = error.errorDescription {
+                    ToastManager.shared.showToast(message: errorDescription)
+                }
+
             default:
                 break
             }
@@ -153,8 +196,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             startSpinner(activityView: chatViewControllerActivityView)
         case .chatStarted:
             print("started")
-            DispatchQueue.main.async {
-                self.chatControllerNavigationItem?.rightBarButtonItem = nil
+            DispatchQueue.main.async { [weak self] in
+                if self?.messengerAccount.authenticationInfo == nil {
+                    self?.chatControllerNavigationItem?.rightBarButtonItem = nil
+                } else {
+                    self?.chatControllerNavigationItem?.rightBarButtonItem = self?.logoutBarButtonItem
+                }
             }
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
@@ -164,11 +211,23 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             showUnavailableAlert()
         case .chatEnded:
             stopSpinner(activityView: chatViewControllerActivityView)
+        case .chatClosed:
+            let endedReasonRawValue = event.dataMsg as? Int ?? 0
+            if let endedReason = EndedReason(rawValue: endedReasonRawValue) {
+                switch endedReason {
+                case EndedReason.sessionLimitReached:
+                    ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+                case EndedReason.logout:
+                    presentingViewController?.dismiss(animated: true)
+                default:
+                    break
+                }
+            }
         default:
             print(event.state)
         }
     }
-    
+
     func showReconnectBarButton() {
         self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
         
@@ -182,8 +241,16 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
+    func showAuthenticatedSessionErrorAlert(message: String) {
+        delegate?.authenticatedSessionError(message: message)
+    }
+    
     func reconnectChat() {
         self.chatController.reconnectChat()
+    }
+    
+    @objc func logout(_ sender: UIBarButtonItem?) {
+        chatController.logoutFromAuthenticatedSession()
     }
     
     func showUnavailableAlert() {
@@ -200,5 +267,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
+        if let url = URL(string: url) {
+            UIApplication.shared.open(url)
+        }
     }
 }

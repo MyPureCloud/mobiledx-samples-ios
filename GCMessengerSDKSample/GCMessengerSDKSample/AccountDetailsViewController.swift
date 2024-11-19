@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
+import MessengerTransport
 
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
@@ -16,6 +17,11 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
+    
+    private var authCode: String?
+    private var codeVerifier: String?
+    private var signInRedirectURI: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +31,9 @@ class AccountDetailsViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-           let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
+           let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String,
+           let transportVersion = Bundle(for: MessengerTransportSDK.self).infoDictionary?["CFBundleVersion"] as? String {
+            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber), Transport: \(transportVersion)"
         }
         
         deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -37,6 +44,8 @@ class AccountDetailsViewController: UIViewController {
                 startChatButton.isEnabled = false
             }
         }
+        
+        loginButton.setTitle("LOGIN", for: .normal)
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -73,6 +82,13 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func OnLoginTapped(_ sender: Any) {
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
     private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
         if inputField.text?.isEmpty == true {
             markInvalidTextField(inputField)
@@ -105,6 +121,10 @@ class AccountDetailsViewController: UIViewController {
             }
         }
         
+        if let authCode, let signInRedirectURI {
+            account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+        }
+        
         updateUserDefaults()
 
         return account
@@ -130,8 +150,39 @@ class AccountDetailsViewController: UIViewController {
     
     private func openMainController(with account: MessengerAccount) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
+        controller.delegate = self
         controller.messengerAccount = account
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
+    }
+}
+
+extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
+    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+        self.authCode = authCode
+        self.signInRedirectURI = redirectUri
+        self.codeVerifier = codeVerifier
+                
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func error(message: String) { 
+        dismiss(animated: true, completion: {
+            self.showErrorAlert(message: message)
+        })
+    }
+    
+    func authenticatedSessionError(message: String) {
+        dismiss(animated: true, completion: {
+            let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                self.loginButton.isEnabled = true
+            }))
+            
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+            }
+        })
     }
 }

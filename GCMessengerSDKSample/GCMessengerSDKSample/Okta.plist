@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+    <dict>
+        <key>oktaDomain</key>
+            <string></string>
+            <key>clientId</key>
+            <string></string>
+            <key>scopes</key>
+            <string></string>
+            <key>signInRedirectURI</key>
+            <string></string>
+            <key>logoutRedirectUri</key>
+            <string></string>
+            <key>oktaState</key>
+            <string></string>
+            <key>codeChallenge</key>
+            <string></string>
+            <key>codeVerifier</key>
+            <string></string>
+            <key>codeChallengeMethod</key>
+            <string></string>
+    </dict>
+</plist>
