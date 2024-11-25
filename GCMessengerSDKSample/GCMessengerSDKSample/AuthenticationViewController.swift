@@ -26,7 +26,6 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         
         webView = WKWebView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height))
-        webView.allowsBackForwardNavigationGestures = true
 
         webView.navigationDelegate = self
         view.addSubview(webView)
