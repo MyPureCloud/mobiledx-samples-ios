@@ -217,12 +217,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 switch endedReason {
                 case EndedReason.sessionLimitReached:
                     ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
-                case EndedReason.logout:
-                    presentingViewController?.dismiss(animated: true)
                 default:
                     break
                 }
             }
+            
+            presentingViewController?.dismiss(animated: true)
         default:
             print(event.state)
         }
