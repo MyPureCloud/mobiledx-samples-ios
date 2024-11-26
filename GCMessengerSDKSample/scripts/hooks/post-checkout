@@ -1,0 +1,12 @@
+#!/bin/bash
+checkout_type=$3
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$checkout_type" -eq 1 ]; then
+    if [ "$branch" == "main" ]; then
+        ./GCMessengerSDKSample/scripts/changePodfile.sh 1
+    elif [ "$branch" == "develop" ]; then
+        ./GCMessengerSDKSample.scripts/changePodfile.sh 2
+    else
+        ./GCMessengerSDKSample/scripts/changePodfile.sh 3
+    fi
+fi
