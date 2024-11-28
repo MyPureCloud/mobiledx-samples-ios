@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export LANG=en_US.UTF-8
 # Get the directory of the script
 SCRIPT_DIR=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd "$SCRIPT_DIR/../"

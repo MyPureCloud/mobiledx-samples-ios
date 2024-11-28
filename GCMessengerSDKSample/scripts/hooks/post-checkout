@@ -5,7 +5,7 @@ if [ "$checkout_type" -eq 1 ]; then
     if [ "$branch" == "main" ]; then
         ./GCMessengerSDKSample/scripts/changePodfile.sh 1
     elif [ "$branch" == "develop" ]; then
-        ./GCMessengerSDKSample.scripts/changePodfile.sh 2
+        ./GCMessengerSDKSample/scripts/changePodfile.sh 2
     else
         ./GCMessengerSDKSample/scripts/changePodfile.sh 3
     fi
