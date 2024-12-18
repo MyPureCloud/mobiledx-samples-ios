@@ -23,16 +23,34 @@ class ChatWrapperViewController: UIViewController {
     
     private var chatControllerNavigationItem: UINavigationItem?
     
-    private lazy var reconnectBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Reconnect", style: .plain, target: self, action: #selector(ChatWrapperViewController.reconnectChat))
-        item.tintColor = .red
-        return item
-    }()
-    private lazy var logoutBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ChatWrapperViewController.logout(_:)))
+    private lazy var menuBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"), style: .plain, target: self, action: nil)
         item.tintColor = .black
+
         return item
-    }()
+    }() 
+    
+    private var menuItems: [UIMenuElement] = []
+    private lazy var logoutAction = UIAction(title: "Logout", image: UIImage(systemName: "lock"), attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
+        guard let self else { return }
+
+        self.startSpinner(activityView: self.wrapperActivityView)
+        self.chatController.logoutFromAuthenticatedSession()
+    }
+    
+    private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: UIImage(systemName: "trash")) { [weak self] _ in
+        guard let self else { return }
+        
+        self.startSpinner(activityView: self.wrapperActivityView)
+        self.chatController.clearConversation()
+    }
+    
+    private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: UIImage(systemName: "point.3.connected.trianglepath.dotted")) { [weak self] _ in
+        guard let self else { return }
+
+        self.startSpinner(activityView: self.wrapperActivityView)
+        self.chatController.reconnectChat()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,16 +106,24 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
                 
                 self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-
-                if let _ = self.messengerAccount.authenticationInfo {
-                    self.chatControllerNavigationItem?.rightBarButtonItem = logoutBarButtonItem
-                } else {
-                    self.chatControllerNavigationItem?.rightBarButtonItem = nil
-                }
+                
+                self.initMenuItems()
+                self.chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
+    }
+    
+    private func initMenuItems() {
+        menuItems.removeAll()
+        
+        menuItems.append(clearConversationAction)
+        if let _ = self.messengerAccount.authenticationInfo {
+            menuItems.append(logoutAction)
+        }
+        
+        menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
 
     func didFailWithError(_ error: GCError?) {
@@ -196,13 +222,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             startSpinner(activityView: chatViewControllerActivityView)
         case .chatStarted:
             print("started")
-            DispatchQueue.main.async { [weak self] in
-                if self?.messengerAccount.authenticationInfo == nil {
-                    self?.chatControllerNavigationItem?.rightBarButtonItem = nil
-                } else {
-                    self?.chatControllerNavigationItem?.rightBarButtonItem = self?.logoutBarButtonItem
-                }
-            }
+            
+            initMenuItems()
+
             stopSpinner(activityView: chatViewControllerActivityView)
         case .chatDisconnected:
             showReconnectBarButton()
@@ -229,7 +251,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
 
     func showReconnectBarButton() {
-        self.chatControllerNavigationItem?.rightBarButtonItem = reconnectBarButtonItem
+        menuItems.removeAll()
+        menuItems.append(reconnectAction)
+        menuBarButtonItem.menu = UIMenu(children: menuItems)
         
         let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
                 
@@ -243,14 +267,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     
     func showAuthenticatedSessionErrorAlert(message: String) {
         delegate?.authenticatedSessionError(message: message)
-    }
-    
-    func reconnectChat() {
-        self.chatController.reconnectChat()
-    }
-    
-    @objc func logout(_ sender: UIBarButtonItem?) {
-        chatController.logoutFromAuthenticatedSession()
     }
     
     func showUnavailableAlert() {
