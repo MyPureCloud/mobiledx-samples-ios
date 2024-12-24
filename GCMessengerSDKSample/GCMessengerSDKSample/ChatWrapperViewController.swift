@@ -39,10 +39,20 @@ class ChatWrapperViewController: UIViewController {
     }
     
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: UIImage(systemName: "trash")) { [weak self] _ in
-        guard let self else { return }
         
-        self.startSpinner(activityView: self.wrapperActivityView)
-        self.chatController.clearConversation()
+        let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .cancel, handler: { [weak self] _ in
+            guard let self else { return }
+
+            self.startSpinner(activityView: self.wrapperActivityView)
+            self.chatController.clearConversation()
+        }))
+        
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+        }
     }
     
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: UIImage(systemName: "point.3.connected.trianglepath.dotted")) { [weak self] _ in
@@ -239,6 +249,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 switch endedReason {
                 case EndedReason.sessionLimitReached:
                     ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+                case EndedReason.conversationCleared:
+                    ToastManager.shared.showToast(message: "Conversation was cleared.")
+
                 default:
                     break
                 }
