@@ -182,7 +182,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .attachmentValidationError:
                 print("** Error: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
-                    showAuthenticatedSessionErrorAlert(message: errorDescription)
+                    ToastManager.shared.showToast(message: errorDescription)
                 }
 
             default:
