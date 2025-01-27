@@ -44,10 +44,8 @@ class ChatWrapperViewController: UIViewController {
         chatController.reconnectChat()
     }
     
-    private func initMenuItems() {
+    private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
-
-        menuItems.removeAll()
         
         if let _ = self.messengerAccount.authenticationInfo {
             menuItems.append(logoutAction)
@@ -111,7 +109,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
                 
-                initMenuItems()
+                setDefaultMenuItems()
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
                 
                 setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
@@ -219,7 +217,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .chatStarted:
                 print("started")
                 
-                initMenuItems()
+                setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatDisconnected:
                 showReconnectBarButton()
