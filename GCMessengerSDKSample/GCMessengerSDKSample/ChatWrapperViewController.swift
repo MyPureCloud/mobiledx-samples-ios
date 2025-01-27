@@ -30,7 +30,6 @@ class ChatWrapperViewController: UIViewController {
         return item
     }()
     
-    private var menuItems: [UIMenuElement] = []
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
 
@@ -41,17 +40,19 @@ class ChatWrapperViewController: UIViewController {
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
         guard let self else { return }
 
-        self.startSpinner(activityView: self.wrapperActivityView)
-        self.chatController.reconnectChat()
+        startSpinner(activityView: self.wrapperActivityView)
+        chatController.reconnectChat()
     }
     
     private func initMenuItems() {
+        var menuItems: [UIMenuElement] = []
+
         menuItems.removeAll()
         
         if let _ = self.messengerAccount.authenticationInfo {
             menuItems.append(logoutAction)
         }
-        
+                
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
 
@@ -242,9 +243,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
 
     func showReconnectBarButton() {
-        menuItems.removeAll()
-        menuItems.append(reconnectAction)
-        menuBarButtonItem.menu = UIMenu(children: menuItems)
+        menuBarButtonItem.menu = UIMenu(children: [reconnectAction])
         
         let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
                 
