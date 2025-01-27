@@ -30,6 +30,12 @@ class ChatWrapperViewController: UIViewController {
         return item
     }()
     
+    private lazy var endChatAction = UIAction(title: "End Chat", image: nil) { [weak self] _ in
+        guard let self else { return }
+
+        dismissChat()
+    }
+    
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
 
@@ -46,11 +52,12 @@ class ChatWrapperViewController: UIViewController {
     
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
-        
+
         if let _ = self.messengerAccount.authenticationInfo {
             menuItems.append(logoutAction)
         }
                 
+        menuItems.append(endChatAction)
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
 
@@ -66,7 +73,7 @@ class ChatWrapperViewController: UIViewController {
         setSpinner(activityView: wrapperActivityView, view: view)
     }
 
-    @objc func dismissChat(_ sender: UIBarButtonItem?) {
+    func dismissChat() {
         chatController.terminate()
         presentingViewController?.dismiss(animated: true)
     }
@@ -105,8 +112,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
 
-                viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
-                
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
                 
                 setDefaultMenuItems()
@@ -125,7 +130,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
             switch error.errorType {
             case .failedToLoad:
-                self.dismissChat(nil)
+                dismissChat()
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: "\(errorDescription)")
                 }
@@ -133,7 +138,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     let alert = UIAlertController(title: "Error occurred", message: errorDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-                        self?.dismissChat(nil)
+                        self?.dismissChat()
                     }))
                     
                     if let topViewController = UIApplication.getTopViewController() {
@@ -182,7 +187,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 }
             case .clientNotAuthenticatedError:
                 print("** Error: \(error.errorType.rawValue)")
-                dismissChat(nil)
+                dismissChat()
                 
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
@@ -190,7 +195,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 
             case .chatGeneralError:
                 print("** Error: \(error.errorType.rawValue)")
-                dismissChat(nil)
+                dismissChat()
                 
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
@@ -245,7 +250,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
 
     func showReconnectBarButton() {
-        menuBarButtonItem.menu = UIMenu(children: [reconnectAction])
+        menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
         
         let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
                 
@@ -265,7 +270,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         let alert = UIAlertController(title: "Error occurred", message: "Messenger was restricted and can't be processed.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            self.dismissChat(nil)
+            self.dismissChat()
         }))
         
         if let topViewController = UIApplication.getTopViewController() {
