@@ -208,37 +208,41 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         print("Chat event_type: \(event.state)")
         self.chatState = event.state
         
-        switch event.state {
-        case .chatPreparing:
-            print("preparing")
-            startSpinner(activityView: wrapperActivityView)
-            startSpinner(activityView: chatViewControllerActivityView)
-        case .chatStarted:
-            print("started")
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             
-            initMenuItems()
-            stopSpinner(activityView: chatViewControllerActivityView)
-        case .chatDisconnected:
-            showReconnectBarButton()
-
-        case .unavailable:
-            showUnavailableAlert()
-        case .chatEnded:
-            stopSpinner(activityView: chatViewControllerActivityView)
-        case .chatClosed:
-            let endedReasonRawValue = event.dataMsg as? Int ?? 0
-            if let endedReason = EndedReason(rawValue: endedReasonRawValue) {
-                switch endedReason {
-                case EndedReason.sessionLimitReached:
-                    ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
-                default:
-                    break
+            switch event.state {
+            case .chatPreparing:
+                print("preparing")
+                startSpinner(activityView: wrapperActivityView)
+                startSpinner(activityView: chatViewControllerActivityView)
+            case .chatStarted:
+                print("started")
+                
+                initMenuItems()
+                stopSpinner(activityView: chatViewControllerActivityView)
+            case .chatDisconnected:
+                showReconnectBarButton()
+                
+            case .unavailable:
+                showUnavailableAlert()
+            case .chatEnded:
+                stopSpinner(activityView: chatViewControllerActivityView)
+            case .chatClosed:
+                let endedReasonRawValue = event.dataMsg as? Int ?? 0
+                if let endedReason = EndedReason(rawValue: endedReasonRawValue) {
+                    switch endedReason {
+                    case EndedReason.sessionLimitReached:
+                        ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+                    default:
+                        break
+                    }
                 }
+                
+                presentingViewController?.dismiss(animated: true)
+            default:
+                print(event.state)
             }
-            
-            presentingViewController?.dismiss(animated: true)
-        default:
-            print(event.state)
         }
     }
 
