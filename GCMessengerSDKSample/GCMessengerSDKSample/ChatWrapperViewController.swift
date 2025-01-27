@@ -108,10 +108,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
 
                 viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ChatWrapperViewController.dismissChat(_:)))
                 
-                self.chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-                self.chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
+                chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
                 
-                self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
+                initMenuItems()
+                chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
+                
+                setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
             }
         }
     }
