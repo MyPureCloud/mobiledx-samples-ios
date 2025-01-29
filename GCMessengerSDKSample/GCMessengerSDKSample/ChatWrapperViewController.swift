@@ -39,16 +39,32 @@ class ChatWrapperViewController: UIViewController {
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
 
-        self.startSpinner(activityView: self.wrapperActivityView)
+        self.startSpinner(activityView: self.chatViewControllerActivityView)
         self.chatController.logoutFromAuthenticatedSession()
     }
     
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
         guard let self else { return }
 
-        startSpinner(activityView: self.wrapperActivityView)
+        startSpinner(activityView: self.chatViewControllerActivityView)
         chatController.reconnectChat()
     }
+    
+    private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
+            let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
+                guard let self else { return }
+
+                startSpinner(activityView: self.chatViewControllerActivityView)
+                //TODO call clearConversation() API on chatController
+            }))
+            
+            
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+            }
+        }
     
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
@@ -56,7 +72,8 @@ class ChatWrapperViewController: UIViewController {
         if let _ = self.messengerAccount.authenticationInfo {
             menuItems.append(logoutAction)
         }
-                
+        
+        menuItems.append(clearConversationAction)
         menuItems.append(endChatAction)
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
