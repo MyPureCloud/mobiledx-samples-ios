@@ -39,14 +39,14 @@ class ChatWrapperViewController: UIViewController {
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
 
-        self.startSpinner(activityView: self.wrapperActivityView)
+        self.startSpinner(activityView: self.chatViewControllerActivityView)
         self.chatController.logoutFromAuthenticatedSession()
     }
     
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
         guard let self else { return }
 
-        startSpinner(activityView: self.wrapperActivityView)
+        startSpinner(activityView: self.chatViewControllerActivityView)
         chatController.reconnectChat()
     }
     
