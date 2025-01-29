@@ -52,11 +52,11 @@ class ChatWrapperViewController: UIViewController {
     
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
             let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
-            alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .cancel, handler: { [weak self] _ in
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
                 guard let self else { return }
 
-                self.startSpinner(activityView: self.chatViewControllerActivityView)
+                startSpinner(activityView: self.chatViewControllerActivityView)
                 //TODO call clearConversation() API on chatController
             }))
             
