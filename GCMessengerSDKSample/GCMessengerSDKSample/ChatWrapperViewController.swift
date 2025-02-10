@@ -57,7 +57,7 @@ class ChatWrapperViewController: UIViewController {
                 guard let self else { return }
 
                 startSpinner(activityView: self.chatViewControllerActivityView)
-                //TODO call clearConversation() API on chatController
+                chatController.clearConversation()
             }))
             
             
@@ -210,6 +210,13 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
+            case .clearConversationDisabled:
+                print("** Error: \(error.errorType.rawValue)")
+                
+                if let errorDescription = error.errorDescription {
+                    ToastManager.shared.showToast(message: errorDescription)
+                }
+                stopSpinner(activityView: chatViewControllerActivityView)
             case .chatGeneralError:
                 print("** Error: \(error.errorType.rawValue)")
                 dismissChat()
