@@ -281,8 +281,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         
         let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
                 
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-        }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
         
         if let topViewController = UIApplication.getTopViewController() {
             topViewController.present(alert, animated: true)
