@@ -18,6 +18,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var pushButton: UIButton!
     
     private var authCode: String?
     private var codeVerifier: String?
@@ -40,9 +41,9 @@ class AccountDetailsViewController: UIViewController {
         domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            if deploymentId.isEmpty && domainId.isEmpty {
-                startChatButton.isEnabled = false
-            }
+            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
+            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
+            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
         }
         
         loginButton.setTitle("LOGIN", for: .normal)
@@ -50,7 +51,9 @@ class AccountDetailsViewController: UIViewController {
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
+            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
+            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
         }
     }
     
@@ -82,6 +85,14 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func pushButtonTapped(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        if let account = createAccountForValidInputFields(),
+           let deviceToken = appDelegate?.pushDeviceToken {
+            //TODO:: GMMS - 8064. Call ChatPushIntegration.setPushToken()
+        }
+    }
     @IBAction func OnLoginTapped(_ sender: Any) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
         controller.modalPresentationCapturesStatusBarAppearance = true
