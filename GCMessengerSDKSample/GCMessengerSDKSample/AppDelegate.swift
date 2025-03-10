@@ -18,17 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Google Services & Crashlytics enabled")
             FirebaseApp.configure()
         }
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            } else {
-                print("Permission for push notifications denied.")
-            }
-        }
-        
+
+        UIApplication.shared.registerForRemoteNotifications()
         
         // Override point for customization after application launch.
         return true
