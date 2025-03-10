@@ -27,7 +27,7 @@ class AccountDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFields()
-
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
@@ -40,16 +40,16 @@ class AccountDetailsViewController: UIViewController {
         deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
-            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
-            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
-        }
+        setButtonsAvailability()
         
         loginButton.setTitle("LOGIN", for: .normal)
     }
-
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
+        setButtonsAvailability()
+    }
+    
+    func setButtonsAvailability() {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
             let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
             startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
