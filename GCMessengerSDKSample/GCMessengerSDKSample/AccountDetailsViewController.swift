@@ -18,6 +18,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var loggingSwitch: UISwitch!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var pushButton: UIButton!
     
     private var authCode: String?
     private var codeVerifier: String?
@@ -49,9 +50,20 @@ class AccountDetailsViewController: UIViewController {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
+        setButtonsAvailability()
+    }
+
+    func setButtonsAvailability() {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
+            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
+            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
         }
+    }
+
+    @IBAction func pushButtonTapped(_ sender: Any) {
+    //TODO:: GMMS-8064 - Retrieve the device token from the APNs dependency.
+       
     }
     
     @objc func dismissKeyboard() {
