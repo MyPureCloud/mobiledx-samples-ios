@@ -58,8 +58,7 @@ class AccountDetailsViewController: UIViewController {
     }
 
     @IBAction func pushButtonTapped(_ sender: Any) {
-    //TODO:: GMMS-8064 - Retrieve the device token from the APNs dependency.
-       
+        registerForPushNotifications()
     }
     
     @objc func dismissKeyboard() {
@@ -165,6 +164,7 @@ class AccountDetailsViewController: UIViewController {
     }
 }
 
+// MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
@@ -192,5 +192,62 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
                 topViewController.present(alert, animated: true)
             }
         })
+    }
+}
+
+// MARK: Handle push notifications
+extension AccountDetailsViewController {
+    private func registerForPushNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceToken(_:)), name: Notification.Name.deviceTokenReceived, object: nil)
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            DispatchQueue.main.async {
+                if granted {
+                    printLog("Register for Apple remote notifications")
+                    UIApplication.shared.registerForRemoteNotifications()
+                } else {
+                    printLog("Notifications Disabled")
+                    self.showNotificationSettingsAlert()
+                }
+            }
+        }
+    }
+    
+    private func showNotificationSettingsAlert() {
+        let alertController = UIAlertController(
+            title: "Notifications Disabled",
+            message: "To receive updates, please enable notifications in settings.",
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
+            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                if UIApplication.shared.canOpenURL(settingsURL) {
+                    UIApplication.shared.open(settingsURL)
+                }
+            }
+        })
+        
+        self.present(alertController, animated: true)
+    }
+    
+    @objc func handleDeviceToken(_ notification: Notification) {
+        guard let deviceToken = notification.object as? String else {
+            printLog("Error: no device token", logType: .failure)
+            return
+        }
+        
+        printLog("Device token: \(deviceToken)")
+        
+        guard let account = self.createAccountForValidInputFields() else {
+            printLog("Error: can't create account", logType: .failure)
+            return
+        }
+        
+        //TODO:: [GMMS-8034] Call setPushToken
+//        ChatPushIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: {
+//                
+//        })
     }
 }
