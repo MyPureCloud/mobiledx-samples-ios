@@ -40,11 +40,7 @@ class AccountDetailsViewController: UIViewController {
         deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            if deploymentId.isEmpty && domainId.isEmpty {
-                startChatButton.isEnabled = false
-            }
-        }
+        setButtonsAvailability()
         
         loginButton.setTitle("LOGIN", for: .normal)
     }
