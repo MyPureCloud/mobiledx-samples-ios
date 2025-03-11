@@ -10,7 +10,7 @@ import FirebaseCore
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-        
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if (Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil) {
             print("Google Services & Crashlytics enabled")
@@ -18,6 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         // Override point for customization after application launch.
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let pushDeviceToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        print("Device Token: \(pushDeviceToken)")
+        
+        NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: pushDeviceToken)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
+        ToastManager.shared.showToast(message: "Failed to register: \(error.localizedDescription)")
     }
 }
 
