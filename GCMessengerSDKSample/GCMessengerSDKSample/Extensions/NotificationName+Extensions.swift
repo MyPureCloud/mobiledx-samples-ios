@@ -8,4 +8,5 @@ import Foundation
 
 extension Notification.Name {
     static let deviceTokenReceived = Notification.Name("DeviceTokenReceived")
+    static let notificationReceived = Notification.Name("NotificationReceived")
 }

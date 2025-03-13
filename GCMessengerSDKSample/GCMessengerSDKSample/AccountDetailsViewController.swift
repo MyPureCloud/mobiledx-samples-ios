@@ -43,6 +43,8 @@ class AccountDetailsViewController: UIViewController {
         setButtonsAvailability()
         
         loginButton.setTitle("LOGIN", for: .normal)
+        
+        registerForNotifications()
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -195,7 +197,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
     }
 }
 
-// MARK: Handle push notifications
+// MARK: Handle push notifications registration
 extension AccountDetailsViewController {
     private func registerForPushNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceToken(_:)), name: Notification.Name.deviceTokenReceived, object: nil)
@@ -249,5 +251,54 @@ extension AccountDetailsViewController {
 //        ChatPushIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: {
 //                
 //        })
+    }
+}
+
+// MARK: Handle receiving notifications
+extension AccountDetailsViewController {
+    private func registerForNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationReceived(_:)), name: Notification.Name.notificationReceived, object: nil)
+    }
+    
+    @objc func handleNotificationReceived(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else {
+            printLog("Error: empty userInfo", logType: .failure)
+            return
+        }
+        
+        guard UIApplication.shared.applicationState == .active else {
+            printLog("App is not in foreground", logType: .failure)
+            return
+        }
+        
+        guard let senderID = userInfo["deeplink"] as? String else {
+            printLog("Sender ID not found", logType: .failure)
+            return
+        }
+
+        if senderID == "genesys-messaging" {
+            showNotificationReceivedAlert(userInfo: userInfo)
+        }
+    }
+    
+    private func showNotificationReceivedAlert(userInfo: [AnyHashable: Any]) {
+        if let aps = userInfo["aps"] as? [String: Any],
+           let alert = aps["alert"] as? [String: Any],
+           let title = alert["title"] as? String,
+           let body = alert["body"] as? String {
+            let alertController = UIAlertController(
+                title: title,
+                message: body,
+                preferredStyle: .alert
+            )
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alertController, animated: true)
+            }
+        } else {
+            printLog("Error retrieving UserInfo", logType: .failure)
+        }
     }
 }
