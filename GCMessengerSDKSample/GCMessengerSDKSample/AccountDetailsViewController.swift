@@ -20,6 +20,8 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var pushButton: UIButton!
     
+    let wrapperActivityView = UIActivityIndicatorView(style: .large)
+    
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
@@ -44,7 +46,23 @@ class AccountDetailsViewController: UIViewController {
         
         loginButton.setTitle("LOGIN", for: .normal)
         
+        setPushButtonTitle()
         registerForNotifications()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setSpinner(activityView: wrapperActivityView, view: view)
+    }
+    
+    func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
+        activityView.frame = view?.frame ?? .zero
+        activityView.layer.backgroundColor = UIColor(white: 0.0, alpha: 0.3).cgColor
+        activityView.center = view?.center ?? .zero
+        
+        activityView.hidesWhenStopped = true
+        
+        view?.addSubview(activityView)
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -58,9 +76,18 @@ class AccountDetailsViewController: UIViewController {
             pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
         }
     }
+    
+    func setPushButtonTitle() {
+        let pushButtonTitle = UserDefaults.isRegisteredToPushNotifications ? "DISABLE PUSH" : "ENABLE PUSH"
+        pushButton.setTitle(pushButtonTitle, for: .normal)
+    }
 
     @IBAction func pushButtonTapped(_ sender: Any) {
-        registerForPushNotifications()
+        if UserDefaults.isRegisteredToPushNotifications {
+            removeFromPushNotifications()
+        } else {
+            registerForPushNotifications()
+        }
     }
     
     @objc func dismissKeyboard() {
@@ -195,6 +222,18 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
             }
         })
     }
+    
+    func startSpinner(activityView: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityView.startAnimating()
+        }
+    }
+    
+    func stopSpinner(activityView: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityView.stopAnimating()
+        }
+    }
 }
 
 // MARK: Handle push notifications registration
@@ -213,6 +252,28 @@ extension AccountDetailsViewController {
                 }
             }
         }
+    }
+    
+    private func removeFromPushNotifications() {
+        guard let account = self.createAccountForValidInputFields() else {
+            printLog("Error: can't create account", logType: .failure)
+            return
+        }
+        
+        startSpinner(activityView: wrapperActivityView)
+        ChatPushNotificationIntegration.removePushToken(account: account, completion: { result in
+            DispatchQueue.main.async {
+                self.stopSpinner(activityView: self.wrapperActivityView)
+                switch result {
+                case .success:
+                    UserDefaults.isRegisteredToPushNotifications = false
+                    self.setPushButtonTitle()
+                case .failure(let error):
+                    let errorText = error.errorDescription ?? String(describing: error.errorType)
+                    self.showErrorAlert(message: errorText)
+                }
+            }
+        })
     }
     
     private func showNotificationSettingsAlert() {
@@ -247,10 +308,23 @@ extension AccountDetailsViewController {
             return
         }
         
+        startSpinner(activityView: wrapperActivityView)
+
         //TODO:: [GMMS-8034] Call setPushToken
-//        ChatPushIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: {
-//                
-//        })
+        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: { result in
+            DispatchQueue.main.async {
+                self.stopSpinner(activityView: self.wrapperActivityView)
+
+                switch result {
+                case .success:
+                    UserDefaults.isRegisteredToPushNotifications = true
+                    self.setPushButtonTitle()
+                case .failure(let error):
+                    let errorText = error.errorDescription ?? String(describing: error.errorType)
+                    self.showErrorAlert(message: errorText)
+                }
+            }
+        })
     }
 }
 
