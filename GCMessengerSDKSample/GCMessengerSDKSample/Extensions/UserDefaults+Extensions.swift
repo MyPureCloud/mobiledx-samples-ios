@@ -13,6 +13,7 @@ extension UserDefaults {
         static let token = "token"
         static let logging = "logging"
         static let customAttributes = "customAttributes"
+        static let isRegisteredToPushNotifications = "isRegisterToPushNotifications"
     }
 
     class var deploymentId: String {
@@ -59,5 +60,15 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.customAttributes)
         }
     }
-
+    
+    class func isRegisteredToPushNotifications(deploymentId: String) -> Bool {
+        let dict = UserDefaults.standard.dictionary(forKey: Keys.isRegisteredToPushNotifications) as? [String: Bool]
+        return dict?[deploymentId] ?? false
+    }
+    
+    class func setIsRegisteredToPushNotifications(deploymentId: String, isRegistered: Bool) {
+        var dict = UserDefaults.standard.dictionary(forKey: Keys.isRegisteredToPushNotifications) as? [String: Bool] ?? [:]
+        dict[deploymentId] = isRegistered
+        UserDefaults.standard.set(dict, forKey: Keys.isRegisteredToPushNotifications)
+    }
 }
