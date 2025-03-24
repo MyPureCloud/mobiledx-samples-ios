@@ -67,6 +67,7 @@ class AccountDetailsViewController: UIViewController {
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         setButtonsAvailability()
+        setPushButtonTitle()
     }
 
     func setButtonsAvailability() {
@@ -78,12 +79,22 @@ class AccountDetailsViewController: UIViewController {
     }
     
     func setPushButtonTitle() {
-        let pushButtonTitle = UserDefaults.isRegisteredToPushNotifications ? "DISABLE PUSH" : "ENABLE PUSH"
+        guard let deploymentId = deploymentIdTextField.text else {
+            printLog("Can't get deployment ID")
+            return
+        }
+        
+        let pushButtonTitle = UserDefaults.isRegisteredToPushNotifications(deploymentId: deploymentId) ? "DISABLE PUSH" : "ENABLE PUSH"
         pushButton.setTitle(pushButtonTitle, for: .normal)
     }
 
     @IBAction func pushButtonTapped(_ sender: Any) {
-        if UserDefaults.isRegisteredToPushNotifications {
+        guard let deploymentId = deploymentIdTextField.text else {
+            printLog("Can't get deployment ID")
+            return
+        }
+        
+        if UserDefaults.isRegisteredToPushNotifications(deploymentId: deploymentId) {
             removeFromPushNotifications()
         } else {
             registerForPushNotifications()
@@ -134,8 +145,6 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func createAccountForValidInputFields() -> MessengerAccount? {
-
-        
         guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
             showErrorAlert(message: "One or more required fields needed, please check & try again")
             return nil
@@ -262,11 +271,18 @@ extension AccountDetailsViewController {
         
         startSpinner(activityView: wrapperActivityView)
         ChatPushNotificationIntegration.removePushToken(account: account, completion: { result in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 switch result {
                 case .success:
-                    UserDefaults.isRegisteredToPushNotifications = false
+                    guard let deploymentId = self.deploymentIdTextField.text else {
+                        printLog("Can't get deployment ID")
+                        return
+                    }
+                    
+                    UserDefaults.setIsRegisteredToPushNotifications(deploymentId: deploymentId, isRegistered: false)
                     self.setPushButtonTitle()
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
@@ -312,12 +328,18 @@ extension AccountDetailsViewController {
 
         //TODO:: [GMMS-8034] Call setPushToken
         ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: { result in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+
                 self.stopSpinner(activityView: self.wrapperActivityView)
 
                 switch result {
                 case .success:
-                    UserDefaults.isRegisteredToPushNotifications = true
+                    guard let deploymentId = self.deploymentIdTextField.text else {
+                        printLog("Can't get deployment ID")
+                        return
+                    }
+                    UserDefaults.setIsRegisteredToPushNotifications(deploymentId: deploymentId, isRegistered: true)
                     self.setPushButtonTitle()
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
