@@ -210,7 +210,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
-            case .clearConversationDisabled:
+            case .clearConversationDisabled, .clearConversationFailure:
                 print("** Error: \(error.errorType.rawValue)")
                 
                 if let errorDescription = error.errorDescription {
