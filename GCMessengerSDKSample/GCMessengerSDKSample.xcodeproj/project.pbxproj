@@ -113,7 +113,6 @@
 			children = (
 				0AE3BA472D9E711D002D4B76 /* Views */,
 				0A1A99382D804E280050775C /* GCMessengerSDKSample.entitlements */,
-				0A190B692A44222D00A069B7 /* Toast.swift */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
 				FC9AA5D1286858C900E6A2E2 /* AccountDetailsViewController.swift */,
