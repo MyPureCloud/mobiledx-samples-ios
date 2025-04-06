@@ -101,32 +101,41 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 }
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-                self.showPushSnackbarIfNeeded()
+                self.requestNotificationAuth()
             }
         }
     }
     
-    func showPushSnackbarIfNeeded() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] (granted, _) in
+    func requestNotificationAuth() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {[weak self] (granted, _) in
             guard let self else { return }
             
-            DispatchQueue.main.async {
-                if !granted {
-                    SnackbarView.shared.show(
-                        topAnchorView: self.view,
-                        message: "Notifications are disabled",
-                        title: "Settings",
-                        onButtonTap: {
-                            // Open App Settings
-                            if let url = URL(string: UIApplication.openSettingsURLString) {
-                                UIApplication.shared.open(url)
-                            }
-                        },
-                        onCloseTap: {
-                            SnackbarView.shared.remove()
-                        })
-                }
+            if !granted {
+                self.showPushSnackbar()
             }
+        }
+    }
+    
+    func showPushSnackbar() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {  (granted, _) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+
+                SnackbarView.shared.show(
+                    topAnchorView: self.view,
+                    message: "Notifications are disabled",
+                    title: "Settings",
+                    onButtonTap: self.openAppSettings,
+                    onCloseTap: self.removeSnackbar)
+            }
+        }
+    }
+    
+    @objc func removeSnackbar() { SnackbarView.shared.remove() }
+    
+    @objc func openAppSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 
