@@ -55,6 +55,11 @@ class SnackbarView: UIView {
                 self.activeSnackbarView = snackbarView
             }
         }
+        
+        // Remove Snackbar 10 seconds after it was displayed
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {[weak self] in            
+            self?.remove()
+        }
     }
 
     public func remove() {
