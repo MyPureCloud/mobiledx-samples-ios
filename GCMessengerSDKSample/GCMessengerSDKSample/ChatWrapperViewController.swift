@@ -131,9 +131,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
-    @objc func removeSnackbar() { SnackbarView.shared.remove() }
+    func removeSnackbar() { SnackbarView.shared.remove() }
     
-    @objc func openAppSettings() {
+    func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
         }
