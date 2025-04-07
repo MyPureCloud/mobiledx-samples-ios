@@ -45,7 +45,12 @@ class ChatWrapperViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setSpinner(activityView: wrapperActivityView, view: view)
     }
-
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeSnackbar()
+    }
+    
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
         chatController.terminate()
         presentingViewController?.dismiss(animated: true)
@@ -96,7 +101,39 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 }
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
+                self.requestNotificationAuth()
             }
+        }
+    }
+    
+    func requestNotificationAuth() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {[weak self] (granted, _) in
+            guard let self else { return }
+            
+            if !granted {
+                self.showPushSnackbar()
+            }
+        }
+    }
+    
+    func showPushSnackbar() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            SnackbarView.shared.show(
+                topAnchorView: self.view,
+                message: "Notifications are disabled",
+                title: "Settings",
+                onButtonTap: self.openAppSettings,
+                onCloseTap: self.removeSnackbar)
+        }
+    }
+    
+    func removeSnackbar() { SnackbarView.shared.remove() }
+    
+    func openAppSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 

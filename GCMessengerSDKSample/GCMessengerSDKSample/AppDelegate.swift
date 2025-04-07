@@ -44,4 +44,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         NotificationCenter.default.post(name: Notification.Name.notificationReceived, object: nil, userInfo: userInfo)
         completionHandler(.noData)
     }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
+            
+            DispatchQueue.main.async {
+                if granted {
+                    SnackbarView.shared.remove()
+                }
+            }
+        }
+    }
 }
