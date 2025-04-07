@@ -117,17 +117,15 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showPushSnackbar() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {  (granted, _) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-
-                SnackbarView.shared.show(
-                    topAnchorView: self.view,
-                    message: "Notifications are disabled",
-                    title: "Settings",
-                    onButtonTap: self.openAppSettings,
-                    onCloseTap: self.removeSnackbar)
-            }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            SnackbarView.shared.show(
+                topAnchorView: self.view,
+                message: "Notifications are disabled",
+                title: "Settings",
+                onButtonTap: self.openAppSettings,
+                onCloseTap: self.removeSnackbar)
         }
     }
     
