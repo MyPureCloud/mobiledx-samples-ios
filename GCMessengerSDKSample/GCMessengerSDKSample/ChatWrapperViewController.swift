@@ -48,7 +48,7 @@ class ChatWrapperViewController: UIViewController {
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        SnackbarView.shared.remove()
+        removeSnackbar()
     }
     
     @objc func dismissChat(_ sender: UIBarButtonItem?) {
