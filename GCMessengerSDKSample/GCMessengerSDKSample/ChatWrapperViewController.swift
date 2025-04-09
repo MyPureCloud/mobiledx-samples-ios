@@ -140,19 +140,19 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-                self.requestNotificationAuth()
+                self.checkNotificationAuthStatus()
             }
         }
     }
     
-    func requestNotificationAuth() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {[weak self] (granted, _) in
+    func checkNotificationAuthStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] permission in
             guard let self else { return }
             
-            if !granted {
+            if permission.authorizationStatus != .authorized {
                 self.showPushSnackbar()
             }
-        }
+        })
     }
     
     func showPushSnackbar() {

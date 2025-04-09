@@ -46,13 +46,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { permission in
             
             DispatchQueue.main.async {
-                if granted {
+                if permission.authorizationStatus == .authorized {
                     SnackbarView.shared.remove()
                 }
             }
-        }
+        })
     }
 }
