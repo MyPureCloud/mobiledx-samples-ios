@@ -140,12 +140,12 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-                self.requestNotificationAuth()
+                self.checkNotificationAuthStatus()
             }
         }
     }
     
-    func requestNotificationAuth() {
+    func checkNotificationAuthStatus() {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] permission in
             guard let self else { return }
             
