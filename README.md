@@ -12,7 +12,7 @@ git clone git@github.com:MyPureCloud/mobiledx-samples-ios.git
 ```
 
 ## Prerequisites
-- iOS 11 and above
+- iOS 15 and above
 - Automatic Reference Counting (ARC) is required in your project.
 - CocoaPods.
 
@@ -31,7 +31,7 @@ git clone git@github.com:MyPureCloud/mobiledx-samples-ios.git
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-# Analythics
+# Analytics
 The app is implementing Firebase Crashlytics. In order to run the app you must remove the reference to GoogleService-Info.plist or replace it with your own plist file
 
 ## Authenticated messaging
