@@ -25,7 +25,7 @@ git clone git@github.com:MyPureCloud/mobiledx-samples-ios.git
 
 ## Documentation
 [Mobile Messenger SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-mobile-sdk/)
-[Transport Mobile SDK ](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-transport-mobile-sdk/)
+[Transport Mobile SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-transport-mobile-sdk/)
 [Genesys Cloud Developer Forum](https://developer.genesys.cloud/forum/c/web-messaging/39)
 
 # License
