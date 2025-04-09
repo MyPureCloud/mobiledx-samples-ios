@@ -25,15 +25,14 @@ git clone git@github.com:MyPureCloud/mobiledx-samples-ios.git
 
 ## Documentation
 [Mobile Messenger SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-mobile-sdk/)
-
 [Transport Mobile SDK ](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-transport-mobile-sdk/)
-
 [Genesys Cloud Developer Forum](https://developer.genesys.cloud/forum/c/web-messaging/39)
 
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-# Setup application
+# Analythics
+The app is implementing Firebase Crashlytics. In order to run the app you must remove the reference to GoogleService-Info.plist or replace it with your own plist file
 
 ## Authenticated messaging
 The app integrates Okta authentication. To use this authentication service, you must configure okta.properties file with the necessary data to the path GCMessengerSDKSample/app. See an example in GCMessengerSDKSample/app/okta.properties.example
