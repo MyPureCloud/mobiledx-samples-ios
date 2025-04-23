@@ -47,7 +47,7 @@ class AccountDetailsViewController: UIViewController {
         loginButton.setTitle("LOGIN", for: .normal)
         
         setPushButtonTitle()
-        registerForNotifications()
+        registerForNotificationsObservers()
     }
     
     override func viewDidLayoutSubviews() {
@@ -350,7 +350,7 @@ extension AccountDetailsViewController {
 
 // MARK: Handle receiving notifications
 extension AccountDetailsViewController {
-    private func registerForNotifications() {
+    private func registerForNotificationsObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceToken(_:)), name: Notification.Name.deviceTokenReceived, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationReceived(_:)), name: Notification.Name.notificationReceived, object: nil)
     }
