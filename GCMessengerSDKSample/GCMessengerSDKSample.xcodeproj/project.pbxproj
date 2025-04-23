@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
 		0A1A993A2D80593D0050775C /* NotificationName+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A99392D8059240050775C /* NotificationName+Extensions.swift */; };
+		0A1A99AE2D95A7F30050775C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A1A99AD2D95A7F30050775C /* GoogleService-Info.plist */; };
 		0A36DA042CA407C300E73F84 /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9FF7882C90254000824BA6 /* Okta.plist */; };
 		0A9FF78D2C90928000824BA6 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */; };
 		0AE3BA492D9E712D002D4B76 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE3BA482D9E7127002D4B76 /* SnackbarView.swift */; };
@@ -27,10 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A190B622A41A72000A069B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = ../Helper/Toast.swift; sourceTree = "<group>"; };
 		0A1A99382D804E280050775C /* GCMessengerSDKSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GCMessengerSDKSample.entitlements; sourceTree = "<group>"; };
 		0A1A99392D8059240050775C /* NotificationName+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extensions.swift"; sourceTree = "<group>"; };
+		0A1A99AD2D95A7F30050775C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A9FF7882C90254000824BA6 /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		0AE3BA482D9E7127002D4B76 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				0AE3BA472D9E711D002D4B76 /* Views */,
+				0A1A99AD2D95A7F30050775C /* GoogleService-Info.plist */,
 				0A1A99382D804E280050775C /* GCMessengerSDKSample.entitlements */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
@@ -123,7 +125,6 @@
 				AF9463BD285B4943000CCF10 /* Assets.xcassets */,
 				4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */,
 				AF9463C2285B4943000CCF10 /* Info.plist */,
-				0A190B622A41A72000A069B7 /* GoogleService-Info.plist */,
 				0A9FF7882C90254000824BA6 /* Okta.plist */,
 			);
 			path = GCMessengerSDKSample;
@@ -207,6 +208,7 @@
 				AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */,
 				4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */,
 				AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */,
+				0A1A99AE2D95A7F30050775C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
