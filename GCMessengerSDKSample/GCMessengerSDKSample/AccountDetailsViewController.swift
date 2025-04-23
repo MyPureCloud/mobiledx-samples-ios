@@ -9,6 +9,7 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 import MessengerTransport
+import FirebaseMessaging
 
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
@@ -16,6 +17,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var pushProviderToggle: UISegmentedControl!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var pushButton: UIButton!
@@ -25,6 +27,8 @@ class AccountDetailsViewController: UIViewController {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
+    
+    private var pushProvider: PushProvider = .apns
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +88,11 @@ class AccountDetailsViewController: UIViewController {
             return
         }
         
-        let pushButtonTitle = UserDefaults.isRegisteredToPushNotifications(deploymentId: deploymentId) ? "DISABLE PUSH" : "ENABLE PUSH"
+        let isRegisteredToPushNotifications = UserDefaults.isRegisteredToPushNotifications(deploymentId: deploymentId)
+        let pushButtonTitle = isRegisteredToPushNotifications ? "DISABLE PUSH" : "ENABLE PUSH"
         pushButton.setTitle(pushButtonTitle, for: .normal)
+        
+        pushProviderToggle.isEnabled = !isRegisteredToPushNotifications
     }
 
     @IBAction func pushButtonTapped(_ sender: Any) {
@@ -99,6 +106,10 @@ class AccountDetailsViewController: UIViewController {
         } else {
             registerForPushNotifications()
         }
+    }
+    
+    @IBAction func pushProviderToggleChanged(_ sender: UISegmentedControl) {
+        pushProvider = sender.selectedSegmentIndex == 0 ? .apns : .fcm
     }
     
     @objc func dismissKeyboard() {
@@ -251,8 +262,10 @@ extension AccountDetailsViewController {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             DispatchQueue.main.async {
                 if granted {
-                    printLog("Register for Apple remote notifications")
-                    UIApplication.shared.registerForRemoteNotifications()
+                    printLog("Register for remote notifications")
+                    self.pushProvider == .apns ? UIApplication.shared
+                        .registerForRemoteNotifications() : (UIApplication.shared.delegate as? AppDelegate)?
+                        .registerForFCMRemoteNotifications()                    
                 } else {
                     printLog("Notifications Disabled")
                     self.showNotificationSettingsAlert()
@@ -310,22 +323,24 @@ extension AccountDetailsViewController {
     }
     
     @objc func handleDeviceToken(_ notification: Notification) {
-        guard let deviceToken = notification.object as? String else {
-            printLog("Error: no device token", logType: .failure)
+        guard let userInfo = notification.userInfo else {
+            printLog("Error: empty userInfo", logType: .failure)
             return
         }
-        
-        printLog("Device token: \(deviceToken)")
-        
+
         guard let account = self.createAccountForValidInputFields() else {
             printLog("Error: can't create account", logType: .failure)
             return
         }
         
         startSpinner(activityView: wrapperActivityView)
-
-        //TODO:: [GMMS-8034] Call setPushToken
-        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: { result in
+        
+        guard let deviceToken = pushProvider == .apns ? userInfo["apnsToken"] as? String : userInfo["fcmToken"] as? String else {
+            printLog("Error: no device token or push provider", logType: .failure)
+            return
+        }
+        
+        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account, completion: { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
 
