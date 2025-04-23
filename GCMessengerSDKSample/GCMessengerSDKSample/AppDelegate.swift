@@ -8,17 +8,26 @@ import UIKit
 import FirebaseCore
 import UserNotifications
 import GenesysCloudCore
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    private var fcmToken: String?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if (Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil) {
+        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
+           let plist = NSDictionary(contentsOfFile: path) as? [String: Any],
+           let appID = plist["GOOGLE_APP_ID"] as? String,
+           !appID.isEmpty {
             print("Google Services & Crashlytics enabled")
             FirebaseApp.configure()
         }
-        // Override point for customization after application launch.
+        
+        
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        
         return true
     }
 }
