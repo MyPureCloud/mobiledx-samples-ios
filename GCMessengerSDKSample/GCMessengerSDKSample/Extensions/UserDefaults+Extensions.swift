@@ -13,7 +13,7 @@ extension UserDefaults {
         static let token = "token"
         static let logging = "logging"
         static let customAttributes = "customAttributes"
-        static let isRegisteredToPushNotifications = "isRegisterToPushNotifications"
+        static let pushNotificationsRegisteredDeployments = "pushNotificationsRegisteredDeployments"
     }
 
     class var deploymentId: String {
@@ -61,14 +61,14 @@ extension UserDefaults {
         }
     }
     
-    class func isRegisteredToPushNotifications(deploymentId: String) -> Bool {
-        let dict = UserDefaults.standard.dictionary(forKey: Keys.isRegisteredToPushNotifications) as? [String: Bool]
-        return dict?[deploymentId] ?? false
+    class func getPushProviderFor(deploymentId: String) -> String? {
+        let dict = UserDefaults.standard.dictionary(forKey: Keys.pushNotificationsRegisteredDeployments) as? [String: String]
+        return dict?[deploymentId]
     }
     
-    class func setIsRegisteredToPushNotifications(deploymentId: String, isRegistered: Bool) {
-        var dict = UserDefaults.standard.dictionary(forKey: Keys.isRegisteredToPushNotifications) as? [String: Bool] ?? [:]
-        dict[deploymentId] = isRegistered
-        UserDefaults.standard.set(dict, forKey: Keys.isRegisteredToPushNotifications)
+    class func setPushProviderFor(deploymentId: String, pushProvider: String?) {
+        var dict = UserDefaults.standard.dictionary(forKey: Keys.pushNotificationsRegisteredDeployments) as? [String: String] ?? [:]
+        dict[deploymentId] = pushProvider
+        UserDefaults.standard.set(dict, forKey: Keys.pushNotificationsRegisteredDeployments)
     }
 }
