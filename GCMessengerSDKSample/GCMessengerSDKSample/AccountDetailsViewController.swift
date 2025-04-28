@@ -296,6 +296,8 @@ extension AccountDetailsViewController {
                     
                     UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
                     self.setPushNotificationsViews()
+                    ToastManager.shared.showToast(message: "Pusn Notifications are DISABLED")
+
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     self.showErrorAlert(message: errorText)
@@ -364,6 +366,7 @@ extension AccountDetailsViewController {
                     let pushProviderString = pushProvider == .apns ? "apns" : "fcm"
                     UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: pushProviderString)
                     self.setPushNotificationsViews()
+                    ToastManager.shared.showToast(message: "Pusn Notifications are ENABLED")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     self.showErrorAlert(message: errorText)
