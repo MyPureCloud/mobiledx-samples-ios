@@ -16,19 +16,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var fcmToken: String?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
-           let plist = NSDictionary(contentsOfFile: path) as? [String: Any],
-           let appID = plist["GOOGLE_APP_ID"] as? String,
-           !appID.isEmpty {
-            print("Google Services & Crashlytics enabled")
-            FirebaseApp.configure()
-        }
-        
+        setupFirebase()
         
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
         
         return true
+    }
+    
+    private func setupFirebase() {
+        guard let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            printLog("Can't find GoogleService-Info file", logType: .failure)
+            return
+        }
+        
+        guard let plist = NSDictionary(contentsOfFile: path) as? [String: Any],
+            let appID = plist["GOOGLE_APP_ID"] as? String,
+            !appID.isEmpty
+        else {
+            printLog("Can't find appID in GoogleService-Info", logType: .failure)
+            return
+        }
+
+        printLog("✅ Google Services & Crashlytics enabled", logType: .success)
+        FirebaseApp.configure()
     }
 }
 
