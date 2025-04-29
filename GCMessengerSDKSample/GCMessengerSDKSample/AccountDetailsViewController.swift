@@ -94,6 +94,7 @@ class AccountDetailsViewController: UIViewController {
         
         pushProviderToggle.selectedSegmentIndex = (pushProvider == nil || pushProvider == "apns") ? 0 : 1
         pushProviderToggle.isEnabled = pushProvider == nil
+        self.pushProvider = pushProviderToggle.selectedSegmentIndex == 0 ? .apns : .fcm
     }
 
     @IBAction func pushButtonTapped(_ sender: Any) {
@@ -263,10 +264,12 @@ extension AccountDetailsViewController {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             DispatchQueue.main.async {
                 if granted {
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                        return
+                    }
+                    
                     printLog("Register for remote notifications")
-                    self.pushProvider == .apns ? UIApplication.shared
-                        .registerForRemoteNotifications() : (UIApplication.shared.delegate as? AppDelegate)?
-                        .registerForFCMRemoteNotifications()                    
+                    self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                 } else {
                     printLog("Notifications Disabled")
                     self.showNotificationSettingsAlert()
@@ -335,17 +338,28 @@ extension AccountDetailsViewController {
             showErrorAlert(message: "Error: can't create account")
             return
         }
-                
-        let apnsToken = userInfo["apnsToken"] as? String
-        let fcmToken = userInfo["fcmToken"] as? String
         
-        if apnsToken == nil && fcmToken == nil {
-            showErrorAlert(message: "Error: no device token for the selected provider")
-            return
+        var deviceToken: String?
+        
+        if pushProvider == .apns {
+            guard let apnsToken = userInfo["apnsToken"] as? String else {
+                printLog("Error: no device token for .apns push provider")
+                return
+            }
+            deviceToken = apnsToken
         }
         
-        guard let deviceToken = pushProvider == .apns ? userInfo["apnsToken"] as? String : userInfo["fcmToken"] as? String else {
-            showErrorAlert(message: "Error: no device token or push provider")
+        if pushProvider == .fcm {
+            guard let fcmToken = userInfo["fcmToken"] as? String else {
+                printLog("Error: no device token for .fcm push provider")
+                return
+            }
+            
+            deviceToken = fcmToken
+        }
+        
+        guard let deviceToken else {
+            printLog("Error: push provider selection error")
             return
         }
         
@@ -356,23 +370,32 @@ extension AccountDetailsViewController {
                 guard let self else { return }
 
                 self.stopSpinner(activityView: self.wrapperActivityView)
+                
+                guard let deploymentId = self.deploymentIdTextField.text else {
+                    printLog("Can't get deployment ID")
+                    return
+                }
 
                 switch result {
                 case .success:
-                    guard let deploymentId = self.deploymentIdTextField.text else {
-                        printLog("Can't get deployment ID")
-                        return
-                    }
-                    let pushProviderString = pushProvider == .apns ? "apns" : "fcm"
-                    UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: pushProviderString)
-                    self.setPushNotificationsViews()
-                    ToastManager.shared.showToast(message: "Pusn Notifications are ENABLED")
+                    self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
+                    printLog("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
+                    if errorText == "Device already registered." {
+                        self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    }
                     self.showErrorAlert(message: errorText)
                 }
             }
         })
+    }
+    
+    func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
+        let pushProviderString = pushProvider == .apns ? "apns" : "fcm"
+        UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: pushProviderString)
+        self.setPushNotificationsViews()
     }
 }
 
