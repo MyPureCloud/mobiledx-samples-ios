@@ -17,7 +17,6 @@ source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
-    pod 'Firebase'
     pod 'FirebaseMessaging'
     pod 'GenesysCloud', '__sdk_version__'
 end
