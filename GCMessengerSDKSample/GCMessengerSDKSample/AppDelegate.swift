@@ -78,7 +78,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         self.fcmToken = fcmToken
-        NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["fcmToken": fcmToken as Any])
+        
+        // Check that Notifications are authorized otherwise there is no need to post any token updates
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { permission in
+            DispatchQueue.main.async {
+                if permission.authorizationStatus == .authorized {
+                    NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["fcmToken": fcmToken as Any])
+                }
+            }
+        })
     }
     
     func registerForAPNsRemoteNotifications() {
