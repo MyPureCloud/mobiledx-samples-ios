@@ -81,8 +81,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
         
         // Check that Notifications are authorized otherwise there is no need to post any token updates
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { permission in
-            DispatchQueue.main.async {
-                if permission.authorizationStatus == .authorized {
+            if permission.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["fcmToken": fcmToken as Any])
                 }
             }
