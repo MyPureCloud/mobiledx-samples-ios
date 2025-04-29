@@ -332,6 +332,38 @@ extension AccountDetailsViewController {
     }
     
     @objc func handleDeviceToken(_ notification: Notification) {
+        let deviceToken = getDeviceToken(notification)
+        
+        startSpinner(activityView: wrapperActivityView)
+        
+        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account, completion: { result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+
+                self.stopSpinner(activityView: self.wrapperActivityView)
+                
+                guard let deploymentId = self.deploymentIdTextField.text else {
+                    printLog("Can't get deployment ID")
+                    return
+                }
+
+                switch result {
+                case .success:
+                    self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
+                    printLog("\(pushProvider) was registered with device token \(deviceToken)")
+                case .failure(let error):
+                    let errorText = error.errorDescription ?? String(describing: error.errorType)
+                    if errorText == "Device already registered." {
+                        self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    }
+                    self.showErrorAlert(message: errorText)
+                }
+            }
+        })
+    }
+    
+    private func getDeviceToken(_ notification: Notification) -> String {
         guard let userInfo = notification.userInfo else {
             showErrorAlert(message: "Error: empty userInfo")
             return
