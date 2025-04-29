@@ -9,6 +9,7 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 import MessengerTransport
+import FirebaseMessaging
 
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
@@ -16,6 +17,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var pushProviderToggle: UISegmentedControl!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var pushButton: UIButton!
@@ -25,6 +27,8 @@ class AccountDetailsViewController: UIViewController {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
+    
+    private var pushProvider: PushProvider = .apns
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +50,7 @@ class AccountDetailsViewController: UIViewController {
         
         loginButton.setTitle("LOGIN", for: .normal)
         
-        setPushButtonTitle()
+        setPushNotificationsViews()
         registerForNotificationsObservers()
     }
     
@@ -67,7 +71,7 @@ class AccountDetailsViewController: UIViewController {
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         setButtonsAvailability()
-        setPushButtonTitle()
+        setPushNotificationsViews()
     }
 
     func setButtonsAvailability() {
@@ -78,14 +82,22 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
-    func setPushButtonTitle() {
+    func setPushNotificationsViews() {
         guard let deploymentId = deploymentIdTextField.text else {
             printLog("Can't get deployment ID")
             return
         }
         
-        let pushButtonTitle = UserDefaults.isRegisteredToPushNotifications(deploymentId: deploymentId) ? "DISABLE PUSH" : "ENABLE PUSH"
+        let pushProvider = UserDefaults.getPushProviderFor(deploymentId: deploymentId)
+        let pushButtonTitle = pushProvider == nil ? "ENABLE PUSH" : "DISABLE PUSH"
         pushButton.setTitle(pushButtonTitle, for: .normal)
+        
+        if pushProvider != nil {
+            pushProviderToggle.selectedSegmentIndex = pushProvider == "apns" ? 0 : 1
+        }
+        
+        pushProviderToggle.isEnabled = pushProvider == nil
+        self.pushProvider = pushProviderToggle.selectedSegmentIndex == 0 ? .apns : .fcm
     }
 
     @IBAction func pushButtonTapped(_ sender: Any) {
@@ -94,11 +106,15 @@ class AccountDetailsViewController: UIViewController {
             return
         }
         
-        if UserDefaults.isRegisteredToPushNotifications(deploymentId: deploymentId) {
+        if UserDefaults.getPushProviderFor(deploymentId: deploymentId) != nil {
             removeFromPushNotifications()
         } else {
             registerForPushNotifications()
         }
+    }
+    
+    @IBAction func pushProviderToggleChanged(_ sender: UISegmentedControl) {
+        pushProvider = sender.selectedSegmentIndex == 0 ? .apns : .fcm
     }
     
     @objc func dismissKeyboard() {
@@ -251,8 +267,12 @@ extension AccountDetailsViewController {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             DispatchQueue.main.async {
                 if granted {
-                    printLog("Register for Apple remote notifications")
-                    UIApplication.shared.registerForRemoteNotifications()
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                        return
+                    }
+                    
+                    printLog("Register for remote notifications")
+                    self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                 } else {
                     printLog("Notifications Disabled")
                     self.showNotificationSettingsAlert()
@@ -280,8 +300,10 @@ extension AccountDetailsViewController {
                         return
                     }
                     
-                    UserDefaults.setIsRegisteredToPushNotifications(deploymentId: deploymentId, isRegistered: false)
-                    self.setPushButtonTitle()
+                    UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
+                    self.setPushNotificationsViews()
+                    ToastManager.shared.showToast(message: "Pusn Notifications are DISABLED")
+
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     self.showErrorAlert(message: errorText)
@@ -310,41 +332,76 @@ extension AccountDetailsViewController {
     }
     
     @objc func handleDeviceToken(_ notification: Notification) {
-        guard let deviceToken = notification.object as? String else {
-            printLog("Error: no device token", logType: .failure)
-            return
-        }
-        
-        printLog("Device token: \(deviceToken)")
-        
-        guard let account = self.createAccountForValidInputFields() else {
-            printLog("Error: can't create account", logType: .failure)
+        let (account, deviceToken) = getAccountAndDeviceToken(notification)
+        guard let account, let deviceToken else {
+            printLog("Error: push provider selection error")
             return
         }
         
         startSpinner(activityView: wrapperActivityView)
-
-        //TODO:: [GMMS-8034] Call setPushToken
-        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: .apns, account: account, completion: { result in
+        
+        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account, completion: { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
 
                 self.stopSpinner(activityView: self.wrapperActivityView)
+                
+                guard let deploymentId = self.deploymentIdTextField.text else {
+                    printLog("Can't get deployment ID")
+                    return
+                }
 
                 switch result {
                 case .success:
-                    guard let deploymentId = self.deploymentIdTextField.text else {
-                        printLog("Can't get deployment ID")
-                        return
-                    }
-                    UserDefaults.setIsRegisteredToPushNotifications(deploymentId: deploymentId, isRegistered: true)
-                    self.setPushButtonTitle()
+                    self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
+                    printLog("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
+                    if errorText == "Device already registered." {
+                        self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    }
                     self.showErrorAlert(message: errorText)
                 }
             }
         })
+    }
+    
+    private func getAccountAndDeviceToken(_ notification: Notification) -> (Account?, String?) {
+        guard let userInfo = notification.userInfo else {
+            showErrorAlert(message: "Error: empty userInfo")
+            return (nil, nil)
+        }
+
+        guard let account = self.createAccountForValidInputFields() else {
+            showErrorAlert(message: "Error: can't create account")
+            return (nil, nil)
+        }
+        
+        var deviceToken: String?
+        
+        if pushProvider == .apns {
+            guard let apnsToken = userInfo["apnsToken"] as? String else {
+                printLog("Error: no device token for .apns push provider")
+                return (nil, nil)
+            }
+            deviceToken = apnsToken
+        } else if pushProvider == .fcm {
+            guard let fcmToken = userInfo["fcmToken"] as? String else {
+                printLog("Error: no device token for .fcm push provider")
+                return (nil, nil)
+            }
+            
+            deviceToken = fcmToken
+        }
+        
+        return (account, deviceToken)
+    }
+    
+    func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
+        let pushProviderString = pushProvider == .apns ? "apns" : "fcm"
+        UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: pushProviderString)
+        self.setPushNotificationsViews()
     }
 }
 
