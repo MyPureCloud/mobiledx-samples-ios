@@ -92,7 +92,10 @@ class AccountDetailsViewController: UIViewController {
         let pushButtonTitle = pushProvider == nil ? "ENABLE PUSH" : "DISABLE PUSH"
         pushButton.setTitle(pushButtonTitle, for: .normal)
         
-        pushProviderToggle.selectedSegmentIndex = (pushProvider == nil || pushProvider == "apns") ? 0 : 1
+        if pushProvider != nil {
+            pushProviderToggle.selectedSegmentIndex = pushProvider == "apns" ? 0 : 1
+        }
+        
         pushProviderToggle.isEnabled = pushProvider == nil
         self.pushProvider = pushProviderToggle.selectedSegmentIndex == 0 ? .apns : .fcm
     }
