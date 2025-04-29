@@ -1,29 +1,4 @@
 PODS:
-  - Firebase (11.6.0):
-    - Firebase/Core (= 11.6.0)
-  - Firebase/Core (11.6.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 11.6.0)
-  - Firebase/CoreOnly (11.6.0):
-    - FirebaseCore (~> 11.6.0)
-  - FirebaseAnalytics (11.6.0):
-    - FirebaseAnalytics/AdIdSupport (= 11.6.0)
-    - FirebaseCore (~> 11.6.0)
-    - FirebaseInstallations (~> 11.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/MethodSwizzler (~> 8.0)
-    - GoogleUtilities/Network (~> 8.0)
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-    - nanopb (~> 3.30910.0)
-  - FirebaseAnalytics/AdIdSupport (11.6.0):
-    - FirebaseCore (~> 11.6.0)
-    - FirebaseInstallations (~> 11.0)
-    - GoogleAppMeasurement (= 11.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/MethodSwizzler (~> 8.0)
-    - GoogleUtilities/Network (~> 8.0)
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-    - nanopb (~> 3.30910.0)
   - FirebaseCore (11.6.0):
     - FirebaseCoreInternal (~> 11.6.0)
     - GoogleUtilities/Environment (~> 8.0)
@@ -87,26 +62,6 @@ PODS:
     - GenesysCloudCore
     - GenesysCloudMessengerTransport
   - GenesysCloudMessengerTransport (2.9.0.3)
-  - GoogleAppMeasurement (11.6.0):
-    - GoogleAppMeasurement/AdIdSupport (= 11.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/MethodSwizzler (~> 8.0)
-    - GoogleUtilities/Network (~> 8.0)
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-    - nanopb (~> 3.30910.0)
-  - GoogleAppMeasurement/AdIdSupport (11.6.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 11.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/MethodSwizzler (~> 8.0)
-    - GoogleUtilities/Network (~> 8.0)
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-    - nanopb (~> 3.30910.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (11.6.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/MethodSwizzler (~> 8.0)
-    - GoogleUtilities/Network (~> 8.0)
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-    - nanopb (~> 3.30910.0)
   - GoogleDataTransport (10.1.0):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
@@ -119,9 +74,6 @@ PODS:
     - GoogleUtilities/Privacy
   - GoogleUtilities/Logger (8.0.2):
     - GoogleUtilities/Environment
-    - GoogleUtilities/Privacy
-  - GoogleUtilities/MethodSwizzler (8.0.2):
-    - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - GoogleUtilities/Network (8.0.2):
     - GoogleUtilities/Logger
@@ -147,7 +99,6 @@ PODS:
     - PromisesObjC (= 2.4.0)
 
 DEPENDENCIES:
-  - Firebase
   - FirebaseCrashlytics
   - FirebaseMessaging
   - GenesysCloud (from `../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec`)
@@ -161,8 +112,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
-    - Firebase
-    - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
@@ -172,7 +121,6 @@ SPEC REPOS:
     - FirebaseRemoteConfigInterop
     - FirebaseSessions
     - GenesysCloudMessengerTransport
-    - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
     - nanopb
@@ -188,8 +136,6 @@ EXTERNAL SOURCES:
     :path: "../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 
 SPEC CHECKSUMS:
-  Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
-  FirebaseAnalytics: 7114c698cac995602e3b1b96663473e50d54d6e7
   FirebaseCore: 48b0dd707581cf9c1a1220da68223fb0a562afaa
   FirebaseCoreExtension: 2d77d6430c16cf43ca2b04608302ed02b3598361
   FirebaseCoreInternal: d98ab91e2d80a56d7b246856a8885443b302c0c2
@@ -202,13 +148,12 @@ SPEC CHECKSUMS:
   GenesysCloudCore: b9f374a7a951ecc163850d3aff930f5c8babeec8
   GenesysCloudMessenger: 248b2251c92c6c3962ec62a6260400c91fa65cb3
   GenesysCloudMessengerTransport: 16eda8b93ddb62ed5970adbefdff4f421116bcd2
-  GoogleAppMeasurement: 6a9e6317b6a6d810ad03d4a66564ca6c4c5818a3
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
 
-PODFILE CHECKSUM: b6c00905bbac3889be1048ee2afa925579a8aeab
+PODFILE CHECKSUM: 9cc5cb5c57e8f9cad60d6b912fecb868e290e799
 
 COCOAPODS: 1.14.3

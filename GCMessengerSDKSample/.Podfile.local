@@ -20,7 +20,6 @@ source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
-    pod 'Firebase'
     pod 'FirebaseMessaging'
 
     pod 'GenesysCloudMessengerTransport', '2.9.0.3'
