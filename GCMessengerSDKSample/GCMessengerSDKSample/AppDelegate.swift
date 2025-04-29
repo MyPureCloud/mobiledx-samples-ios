@@ -19,8 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupFirebase()
         
         Messaging.messaging().delegate = self
-        UNUserNotificationCenter.current().delegate = self
-        
+
         return true
     }
     
@@ -48,7 +47,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let apnsToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         printLog("Device Token: \(apnsToken)")
-        
+        Messaging.messaging().apnsToken = deviceToken
+
         NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["apnsToken": apnsToken])
     }
     
@@ -78,9 +78,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         self.fcmToken = fcmToken
+        NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["fcmToken": fcmToken as Any])
+    }
+    
+    func registerForAPNsRemoteNotifications() {
+        UNUserNotificationCenter.current().delegate = self
+        UIApplication.shared.registerForRemoteNotifications()
     }
     
     func registerForFCMRemoteNotifications() {
+        UNUserNotificationCenter.current().delegate = nil
+        UIApplication.shared.registerForRemoteNotifications()
         NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["fcmToken": fcmToken as Any])
     }
 }
