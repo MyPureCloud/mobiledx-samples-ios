@@ -382,9 +382,7 @@ extension AccountDetailsViewController {
                 return
             }
             deviceToken = apnsToken
-        }
-        
-        if pushProvider == .fcm {
+        } else if pushProvider == .fcm {
             guard let fcmToken = userInfo["fcmToken"] as? String else {
                 printLog("Error: no device token for .fcm push provider")
                 return
@@ -397,34 +395,6 @@ extension AccountDetailsViewController {
             printLog("Error: push provider selection error")
             return
         }
-        
-        startSpinner(activityView: wrapperActivityView)
-        
-        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account, completion: { result in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-
-                self.stopSpinner(activityView: self.wrapperActivityView)
-                
-                guard let deploymentId = self.deploymentIdTextField.text else {
-                    printLog("Can't get deployment ID")
-                    return
-                }
-
-                switch result {
-                case .success:
-                    self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
-                    ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
-                    printLog("\(pushProvider) was registered with device token \(deviceToken)")
-                case .failure(let error):
-                    let errorText = error.errorDescription ?? String(describing: error.errorType)
-                    if errorText == "Device already registered." {
-                        self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
-                    }
-                    self.showErrorAlert(message: errorText)
-                }
-            }
-        })
     }
     
     func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
