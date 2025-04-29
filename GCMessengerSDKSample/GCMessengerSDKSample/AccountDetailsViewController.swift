@@ -332,7 +332,11 @@ extension AccountDetailsViewController {
     }
     
     @objc func handleDeviceToken(_ notification: Notification) {
-        let deviceToken = getDeviceToken(notification)
+        let (account, deviceToken) = getAccountAndDeviceToken(notification)
+        guard let account, let deviceToken else {
+            printLog("Error: push provider selection error")
+            return
+        }
         
         startSpinner(activityView: wrapperActivityView)
         
@@ -363,15 +367,15 @@ extension AccountDetailsViewController {
         })
     }
     
-    private func getDeviceToken(_ notification: Notification) -> String {
+    private func getAccountAndDeviceToken(_ notification: Notification) -> (Account?, String?) {
         guard let userInfo = notification.userInfo else {
             showErrorAlert(message: "Error: empty userInfo")
-            return
+            return (nil, nil)
         }
 
         guard let account = self.createAccountForValidInputFields() else {
             showErrorAlert(message: "Error: can't create account")
-            return
+            return (nil, nil)
         }
         
         var deviceToken: String?
@@ -379,22 +383,19 @@ extension AccountDetailsViewController {
         if pushProvider == .apns {
             guard let apnsToken = userInfo["apnsToken"] as? String else {
                 printLog("Error: no device token for .apns push provider")
-                return
+                return (nil, nil)
             }
             deviceToken = apnsToken
         } else if pushProvider == .fcm {
             guard let fcmToken = userInfo["fcmToken"] as? String else {
                 printLog("Error: no device token for .fcm push provider")
-                return
+                return (nil, nil)
             }
             
             deviceToken = fcmToken
         }
         
-        guard let deviceToken else {
-            printLog("Error: push provider selection error")
-            return
-        }
+        return (account, deviceToken)
     }
     
     func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
