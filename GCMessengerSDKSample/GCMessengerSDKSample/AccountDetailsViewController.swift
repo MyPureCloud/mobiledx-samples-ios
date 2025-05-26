@@ -311,6 +311,8 @@ extension AccountDetailsViewController {
                     completion()
                 }
             })
+        } else {
+            completion()
         }
     }
     
