@@ -264,20 +264,53 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
 // MARK: Handle push notifications registration
 extension AccountDetailsViewController {
     private func registerForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            DispatchQueue.main.async {
-                if granted {
-                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        removeSavedPushDeploymentId {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+                DispatchQueue.main.async {
+                    if granted {
+                        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                            return
+                        }
+                        
+                        printLog("Register for remote notifications")
+                        self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
+                    } else {
+                        printLog("Notifications Disabled")
+                        self.showNotificationSettingsAlert()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func removeSavedPushDeploymentId(completion: (@escaping () -> Void)) {
+        if let savedPushDeploymentId = UserDefaults.savedPushDeploymentId {
+            let account = MessengerAccount(deploymentId: savedPushDeploymentId,
+                                           domain: "",
+                                           logging: loggingSwitch.isOn)
+            
+            ChatPushNotificationIntegration.removePushToken(account: account, completion: {result in
+                switch result {
+                case .success:
+                    guard let deploymentId = self.deploymentIdTextField.text else {
+                        printLog("Can't get deployment ID")
                         return
                     }
                     
-                    printLog("Register for remote notifications")
-                    self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
-                } else {
-                    printLog("Notifications Disabled")
-                    self.showNotificationSettingsAlert()
+                    UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
+                    UserDefaults.savedPushDeploymentId = nil
+                    self.setPushNotificationsViews()
+                    printLog("Saved deployment ID: \(deploymentId) removed")
+                    completion()
+                    
+                case .failure(let error):
+                    let errorText = error.errorDescription ?? String(describing: error.errorType)
+                    printLog("Remove saved push deployment error: \(errorText)")
+                    
+                    self.showErrorAlert(message: "Remove saved push deployment error: \(errorText)")
+                    completion()
                 }
-            }
+            })
         }
     }
     
