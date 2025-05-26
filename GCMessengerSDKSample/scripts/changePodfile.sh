@@ -1,5 +1,12 @@
 #!/bin/bash
 export LANG=en_US.UTF-8
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+PURPLE='\033[0;35m'
+NC='\033[0m' # No Color (reset)
+
 # Get the directory of the script
 SCRIPT_DIR=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd "$SCRIPT_DIR/../"
@@ -15,24 +22,44 @@ update_symlink() {
     case $1 in
         1)
             ln -sf "$PROD_FILE" "$LINK_NAME"
-            echo "The symbolic link $LINK_NAME now points to $PROD_FILE."
-            pod update
+            echo -e "${PURPLE}The symbolic link $LINK_NAME now points to $PROD_FILE.${NC}"
+            pod_update
             ;;
         2)
             ln -sf "$DEV_FILE" "$LINK_NAME"
-            echo "The symbolic link $LINK_NAME now points to $DEV_FILE."
-            pod update
+            echo -e "${PURPLE}The symbolic link $LINK_NAME now points to $DEV_FILE.${NC}"
+            pod_update
             ;;
         3)
             ln -sf "$LOCAL_FILE" "$LINK_NAME"
-            echo "The symbolic link $LINK_NAME now points to $LOCAL_FILE."
-            pod install
+            echo -e "${PURPLE}The symbolic link $LINK_NAME now points to $LOCAL_FILE.${NC}"
+            pod_install_update
             ;;
         *)
-            echo "Invalid choice. Please provide 1, 2, or 3, or run the script without arguments for a menu."
+            echo -e "${RED}Invalid choice. Please provide 1, 2, or 3, or run the script without arguments for a menu."
             exit 1
             ;;
     esac
+}
+
+pod_update() {
+    echo "Running pod update..."
+    if pod update; then
+        echo -e "\n${GREEN}pod update succeeded.${NC}   "
+    else
+        echo -e "\n${RED}pod update failed. Please manually diagnose issue.${NC}"
+        exit 1
+    fi
+}
+
+pod_install_update() {
+    echo "Running pod install..."
+    if pod install; then
+        echo -e "\n${GREEN}pod install succeeded.${NC}"
+    else
+        echo -e "\n${RED}pod install failed, attempting pod update...${NC}"
+        pod_update
+    fi
 }
 
 # Check if an argument is provided
