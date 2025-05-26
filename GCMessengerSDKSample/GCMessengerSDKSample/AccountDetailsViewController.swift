@@ -389,6 +389,7 @@ extension AccountDetailsViewController {
                 switch result {
                 case .success:
                     self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
+                    UserDefaults.savedPushDeploymentId = deploymentId
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
                     printLog("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
