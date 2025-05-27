@@ -375,6 +375,7 @@ extension AccountDetailsViewController {
     }
     
     @objc func handleDeviceToken(_ notification: Notification) {
+        ToastManager.shared.showToast(message: "handleDeviceToken")
         let (account, deviceToken) = getAccountAndDeviceToken(notification)
         guard let account, let deviceToken else {
             ToastManager.shared.showToast(message: "Error: push provider selection error")
@@ -383,6 +384,7 @@ extension AccountDetailsViewController {
         
         startSpinner(activityView: wrapperActivityView)
         
+        ToastManager.shared.showToast(message: "setPushToken")
         ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account, completion: { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
@@ -404,6 +406,7 @@ extension AccountDetailsViewController {
                     printLog("\(pushProvider) was registered with device token \(deviceToken)")
                     print("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
+                    ToastManager.shared.showToast(message: error.description)
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     if errorText == "Device already registered." {
                         self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
