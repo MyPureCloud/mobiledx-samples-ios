@@ -15,6 +15,7 @@ extension UserDefaults {
         static let customAttributes = "customAttributes"
         static let pushNotificationsRegisteredDeployments = "pushNotificationsRegisteredDeployments"
         static let savedPushDeploymentId = "savedPushDeploymentId"
+        static let savedPushDomain = "savedPushDomain"
     }
 
     class var deploymentId: String {
@@ -79,6 +80,15 @@ extension UserDefaults {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.savedPushDeploymentId)
+        }
+    }
+    
+    class var savedPushDomain: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.savedPushDomain)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.savedPushDomain)
         }
     }
 }
