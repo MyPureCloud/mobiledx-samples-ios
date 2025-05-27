@@ -326,7 +326,7 @@ extension AccountDetailsViewController {
     
     private func removeFromPushNotifications() {
         guard let account = self.createAccountForValidInputFields() else {
-            ToastManager.shared.showToast(message: "Error: can't create account", logType: .failure)
+            ToastManager.shared.showToast(message: "Error: can't create account")
             return
         }
         
@@ -461,17 +461,17 @@ extension AccountDetailsViewController {
     
     @objc func handleNotificationReceived(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
-            ToastManager.shared.showToast(message: "Error: empty userInfo", logType: .failure)
+            ToastManager.shared.showToast(message: "Error: empty userInfo")
             return
         }
         
         guard UIApplication.shared.applicationState == .active else {
-            ToastManager.shared.showToast(message: "App is not in foreground", logType: .failure)
+            ToastManager.shared.showToast(message: "App is not in foreground")
             return
         }
         
         guard let senderID = userInfo["deeplink"] as? String else {
-            ToastManager.shared.showToast(message: "Sender ID not found", logType: .failure)
+            ToastManager.shared.showToast(message: "Sender ID not found")
             return
         }
 
@@ -497,7 +497,7 @@ extension AccountDetailsViewController {
                 topViewController.present(alertController, animated: true)
             }
         } else {
-            ToastManager.shared.showToast(message: "Error retrieving UserInfo", logType: .failure)
+            ToastManager.shared.showToast(message: "Error retrieving UserInfo")
         }
     }
 }
