@@ -45,6 +45,9 @@ class AccountDetailsViewController: UIViewController {
         
         deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        deploymentIdTextField.text = "f81d4360-59d0-4298-9d8e-a4e999cad97a"
+        domainIdTextField.text = "inindca.com"
+        
         
         setButtonsAvailability()
         
@@ -84,7 +87,7 @@ class AccountDetailsViewController: UIViewController {
     
     func setPushNotificationsViews() {
         guard let deploymentId = deploymentIdTextField.text else {
-            printLog("Can't get deployment ID")
+            ToastManager.shared.showToast(message: "Can't get deployment ID")
             return
         }
         
@@ -102,7 +105,7 @@ class AccountDetailsViewController: UIViewController {
 
     @IBAction func pushButtonTapped(_ sender: Any) {
         guard let deploymentId = deploymentIdTextField.text else {
-            printLog("Can't get deployment ID")
+            ToastManager.shared.showToast(message: "Can't get deployment ID")
             return
         }
         
@@ -272,10 +275,10 @@ extension AccountDetailsViewController {
                             return
                         }
                         
-                        printLog("Register for remote notifications")
+                        ToastManager.shared.showToast(message: "Register for remote notifications")
                         self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                     } else {
-                        printLog("Notifications Disabled")
+                        ToastManager.shared.showToast(message: "Notifications Disabled")
                         self.showNotificationSettingsAlert()
                     }
                 }
@@ -284,41 +287,46 @@ extension AccountDetailsViewController {
     }
     
     private func removeSavedPushDeploymentId(completion: (@escaping () -> Void)) {
-        if let savedPushDeploymentId = UserDefaults.savedPushDeploymentId {
-            let account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                           domain: "",
-                                           logging: loggingSwitch.isOn)
-            
-            ChatPushNotificationIntegration.removePushToken(account: account, completion: {result in
+        guard let savedPushDeploymentId = UserDefaults.savedPushDeploymentId, let savedPushDomain = UserDefaults.savedPushDomain else {
+            completion()
+            return
+        }
+        
+        let account = MessengerAccount(deploymentId: savedPushDeploymentId,
+                                       domain: savedPushDomain,
+                                       logging: loggingSwitch.isOn)
+        
+        ChatPushNotificationIntegration.removePushToken(account: account, completion: { result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                
                 switch result {
                 case .success:
                     guard let deploymentId = self.deploymentIdTextField.text else {
-                        printLog("Can't get deployment ID")
+                        ToastManager.shared.showToast(message: "Can't get deployment ID")
                         return
                     }
                     
                     UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
                     UserDefaults.savedPushDeploymentId = nil
                     self.setPushNotificationsViews()
-                    printLog("Saved deployment ID: \(deploymentId) removed")
+                    ToastManager.shared.showToast(message: "Saved deployment ID: \(deploymentId) removed")
                     completion()
                     
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
-                    printLog("Remove saved push deployment error: \(errorText)")
+                    ToastManager.shared.showToast(message: "Remove saved push deployment error: \(errorText)")
                     
                     self.showErrorAlert(message: "Remove saved push deployment error: \(errorText)")
                     completion()
                 }
-            })
-        } else {
-            completion()
-        }
+            }
+        })
     }
     
     private func removeFromPushNotifications() {
         guard let account = self.createAccountForValidInputFields() else {
-            printLog("Error: can't create account", logType: .failure)
+            ToastManager.shared.showToast(message: "Error: can't create account", logType: .failure)
             return
         }
         
@@ -331,7 +339,7 @@ extension AccountDetailsViewController {
                 switch result {
                 case .success:
                     guard let deploymentId = self.deploymentIdTextField.text else {
-                        printLog("Can't get deployment ID")
+                        ToastManager.shared.showToast(message: "Can't get deployment ID")
                         return
                     }
                     
@@ -369,7 +377,7 @@ extension AccountDetailsViewController {
     @objc func handleDeviceToken(_ notification: Notification) {
         let (account, deviceToken) = getAccountAndDeviceToken(notification)
         guard let account, let deviceToken else {
-            printLog("Error: push provider selection error")
+            ToastManager.shared.showToast(message: "Error: push provider selection error")
             return
         }
         
@@ -382,7 +390,7 @@ extension AccountDetailsViewController {
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 
                 guard let deploymentId = self.deploymentIdTextField.text else {
-                    printLog("Can't get deployment ID")
+                    ToastManager.shared.showToast(message: "Can't get deployment ID")
                     return
                 }
 
@@ -390,8 +398,11 @@ extension AccountDetailsViewController {
                 case .success:
                     self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
                     UserDefaults.savedPushDeploymentId = deploymentId
+                    UserDefaults.savedPushDomain = (account as? MessengerAccount)?.domain
+                    
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
                     printLog("\(pushProvider) was registered with device token \(deviceToken)")
+                    print("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     if errorText == "Device already registered." {
@@ -418,13 +429,13 @@ extension AccountDetailsViewController {
         
         if pushProvider == .apns {
             guard let apnsToken = userInfo["apnsToken"] as? String else {
-                printLog("Error: no device token for .apns push provider")
+                ToastManager.shared.showToast(message: "Error: no device token for .apns push provider")
                 return (nil, nil)
             }
             deviceToken = apnsToken
         } else if pushProvider == .fcm {
             guard let fcmToken = userInfo["fcmToken"] as? String else {
-                printLog("Error: no device token for .fcm push provider")
+                ToastManager.shared.showToast(message: "Error: no device token for .fcm push provider")
                 return (nil, nil)
             }
             
@@ -450,17 +461,17 @@ extension AccountDetailsViewController {
     
     @objc func handleNotificationReceived(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
-            printLog("Error: empty userInfo", logType: .failure)
+            ToastManager.shared.showToast(message: "Error: empty userInfo", logType: .failure)
             return
         }
         
         guard UIApplication.shared.applicationState == .active else {
-            printLog("App is not in foreground", logType: .failure)
+            ToastManager.shared.showToast(message: "App is not in foreground", logType: .failure)
             return
         }
         
         guard let senderID = userInfo["deeplink"] as? String else {
-            printLog("Sender ID not found", logType: .failure)
+            ToastManager.shared.showToast(message: "Sender ID not found", logType: .failure)
             return
         }
 
@@ -486,7 +497,7 @@ extension AccountDetailsViewController {
                 topViewController.present(alertController, animated: true)
             }
         } else {
-            printLog("Error retrieving UserInfo", logType: .failure)
+            ToastManager.shared.showToast(message: "Error retrieving UserInfo", logType: .failure)
         }
     }
 }
