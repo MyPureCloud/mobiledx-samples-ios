@@ -306,7 +306,7 @@ extension AccountDetailsViewController {
 
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
-                    self.showErrorAlert(message: errorText)
+                    self.showErrorAlert(message: "\(errorText), Deployment ID: \(deploymentId)")
                 }
             }
         })
@@ -361,7 +361,7 @@ extension AccountDetailsViewController {
                     if errorText == "Device already registered." {
                         self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
                     }
-                    self.showErrorAlert(message: errorText)
+                    self.showErrorAlert(message: "\(errorText), Device Token: \(deviceToken)")
                 }
             }
         })
