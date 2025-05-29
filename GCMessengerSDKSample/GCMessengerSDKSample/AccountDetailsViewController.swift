@@ -84,7 +84,7 @@ class AccountDetailsViewController: UIViewController {
     
     func setPushNotificationsViews() {
         guard let deploymentId = deploymentIdTextField.text else {
-            printLog("Can't get deployment ID")
+            print("Can't get deployment ID")
             return
         }
         
@@ -102,7 +102,7 @@ class AccountDetailsViewController: UIViewController {
 
     @IBAction func pushButtonTapped(_ sender: Any) {
         guard let deploymentId = deploymentIdTextField.text else {
-            printLog("Can't get deployment ID")
+            print("Can't get deployment ID")
             return
         }
         
@@ -271,10 +271,10 @@ extension AccountDetailsViewController {
                         return
                     }
                     
-                    printLog("Register for remote notifications")
+                    print("Register for remote notifications")
                     self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                 } else {
-                    printLog("Notifications Disabled")
+                    print("Notifications Disabled")
                     self.showNotificationSettingsAlert()
                 }
             }
@@ -283,7 +283,7 @@ extension AccountDetailsViewController {
     
     private func removeFromPushNotifications() {
         guard let account = self.createAccountForValidInputFields() else {
-            printLog("Error: can't create account", logType: .failure)
+            print("Error: can't create account")
             return
         }
         
@@ -292,14 +292,14 @@ extension AccountDetailsViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 
+                guard let deploymentId = self.deploymentIdTextField.text else {
+                    print("Can't get deployment ID")
+                    return
+                }
+                
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 switch result {
                 case .success:
-                    guard let deploymentId = self.deploymentIdTextField.text else {
-                        printLog("Can't get deployment ID")
-                        return
-                    }
-                    
                     UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
                     self.setPushNotificationsViews()
                     ToastManager.shared.showToast(message: "Pusn Notifications are DISABLED")
@@ -334,7 +334,7 @@ extension AccountDetailsViewController {
     @objc func handleDeviceToken(_ notification: Notification) {
         let (account, deviceToken) = getAccountAndDeviceToken(notification)
         guard let account, let deviceToken else {
-            printLog("Error: push provider selection error")
+            print("Error: push provider selection error")
             return
         }
         
@@ -347,7 +347,7 @@ extension AccountDetailsViewController {
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 
                 guard let deploymentId = self.deploymentIdTextField.text else {
-                    printLog("Can't get deployment ID")
+                    print("Can't get deployment ID")
                     return
                 }
 
@@ -355,7 +355,7 @@ extension AccountDetailsViewController {
                 case .success:
                     self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
-                    printLog("\(pushProvider) was registered with device token \(deviceToken)")
+                    print("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     if errorText == "Device already registered." {
@@ -382,13 +382,13 @@ extension AccountDetailsViewController {
         
         if pushProvider == .apns {
             guard let apnsToken = userInfo["apnsToken"] as? String else {
-                printLog("Error: no device token for .apns push provider")
+                print("Error: no device token for .apns push provider")
                 return (nil, nil)
             }
             deviceToken = apnsToken
         } else if pushProvider == .fcm {
             guard let fcmToken = userInfo["fcmToken"] as? String else {
-                printLog("Error: no device token for .fcm push provider")
+                print("Error: no device token for .fcm push provider")
                 return (nil, nil)
             }
             
@@ -414,17 +414,17 @@ extension AccountDetailsViewController {
     
     @objc func handleNotificationReceived(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
-            printLog("Error: empty userInfo", logType: .failure)
+            print("Error: empty userInfo")
             return
         }
         
         guard UIApplication.shared.applicationState == .active else {
-            printLog("App is not in foreground", logType: .failure)
+            print("App is not in foreground")
             return
         }
         
         guard let senderID = userInfo["deeplink"] as? String else {
-            printLog("Sender ID not found", logType: .failure)
+            print("Sender ID not found")
             return
         }
 
@@ -450,7 +450,7 @@ extension AccountDetailsViewController {
                 topViewController.present(alertController, animated: true)
             }
         } else {
-            printLog("Error retrieving UserInfo", logType: .failure)
+            print("Error retrieving UserInfo")
         }
     }
 }
