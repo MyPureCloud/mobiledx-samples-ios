@@ -84,7 +84,7 @@ class AccountDetailsViewController: UIViewController {
     
     func setPushNotificationsViews() {
         guard let deploymentId = deploymentIdTextField.text else {
-            print("Can't get deployment ID")
+            NSLog("Can't get deployment ID")
             return
         }
         
@@ -102,7 +102,7 @@ class AccountDetailsViewController: UIViewController {
 
     @IBAction func pushButtonTapped(_ sender: Any) {
         guard let deploymentId = deploymentIdTextField.text else {
-            print("Can't get deployment ID")
+            NSLog("Can't get deployment ID")
             return
         }
         
@@ -271,10 +271,10 @@ extension AccountDetailsViewController {
                         return
                     }
                     
-                    print("Register for remote notifications")
+                    NSLog("Register for remote notifications")
                     self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                 } else {
-                    print("Notifications Disabled")
+                    NSLog("Notifications Disabled")
                     self.showNotificationSettingsAlert()
                 }
             }
@@ -283,7 +283,7 @@ extension AccountDetailsViewController {
     
     private func removeFromPushNotifications() {
         guard let account = self.createAccountForValidInputFields() else {
-            print("Error: can't create account")
+            NSLog("Error: can't create account")
             return
         }
         
@@ -293,7 +293,7 @@ extension AccountDetailsViewController {
                 guard let self else { return }
                 
                 guard let deploymentId = self.deploymentIdTextField.text else {
-                    print("Can't get deployment ID")
+                    NSLog("Can't get deployment ID")
                     return
                 }
                 
@@ -334,7 +334,7 @@ extension AccountDetailsViewController {
     @objc func handleDeviceToken(_ notification: Notification) {
         let (account, deviceToken) = getAccountAndDeviceToken(notification)
         guard let account, let deviceToken else {
-            print("Error: push provider selection error")
+            NSLog("Error: push provider selection error")
             return
         }
         
@@ -347,7 +347,7 @@ extension AccountDetailsViewController {
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 
                 guard let deploymentId = self.deploymentIdTextField.text else {
-                    print("Can't get deployment ID")
+                    NSLog("Can't get deployment ID")
                     return
                 }
 
@@ -355,7 +355,7 @@ extension AccountDetailsViewController {
                 case .success:
                     self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
-                    print("\(pushProvider) was registered with device token \(deviceToken)")
+                    NSLog("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     if errorText == "Device already registered." {
@@ -382,13 +382,13 @@ extension AccountDetailsViewController {
         
         if pushProvider == .apns {
             guard let apnsToken = userInfo["apnsToken"] as? String else {
-                print("Error: no device token for .apns push provider")
+                NSLog("Error: no device token for .apns push provider")
                 return (nil, nil)
             }
             deviceToken = apnsToken
         } else if pushProvider == .fcm {
             guard let fcmToken = userInfo["fcmToken"] as? String else {
-                print("Error: no device token for .fcm push provider")
+                NSLog("Error: no device token for .fcm push provider")
                 return (nil, nil)
             }
             
@@ -414,17 +414,17 @@ extension AccountDetailsViewController {
     
     @objc func handleNotificationReceived(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
-            print("Error: empty userInfo")
+            NSLog("Error: empty userInfo")
             return
         }
         
         guard UIApplication.shared.applicationState == .active else {
-            print("App is not in foreground")
+            NSLog("App is not in foreground")
             return
         }
         
         guard let senderID = userInfo["deeplink"] as? String else {
-            print("Sender ID not found")
+            NSLog("Sender ID not found")
             return
         }
 
@@ -450,7 +450,7 @@ extension AccountDetailsViewController {
                 topViewController.present(alertController, animated: true)
             }
         } else {
-            print("Error retrieving UserInfo")
+            NSLog("Error retrieving UserInfo")
         }
     }
 }

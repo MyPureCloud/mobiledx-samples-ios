@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupFirebase() {
         guard let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
-            print("Can't find GoogleService-Info file")
+            NSLog("Can't find GoogleService-Info file")
             return
         }
         
@@ -33,11 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let appID = plist["GOOGLE_APP_ID"] as? String,
             !appID.isEmpty
         else {
-            print("Can't find appID in GoogleService-Info")
+            NSLog("Can't find appID in GoogleService-Info")
             return
         }
 
-        print("✅ Google Services & Crashlytics enabled")
+        NSLog("✅ Google Services & Crashlytics enabled")
         FirebaseApp.configure()
     }
 }
@@ -46,20 +46,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let apnsToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("Device Token: \(apnsToken)")
+        NSLog("Device Token: \(apnsToken)")
         Messaging.messaging().apnsToken = deviceToken
 
         NotificationCenter.default.post(name: Notification.Name.deviceTokenReceived, object: nil, userInfo: ["apnsToken": apnsToken])
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
-        print("Failed to register: \(error.localizedDescription)")
+        NSLog("Failed to register: \(error.localizedDescription)")
         
         ToastManager.shared.showToast(message: "Failed to register: \(error.localizedDescription)")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("Push notification received")
+        NSLog("Push notification received")
 
         NotificationCenter.default.post(name: Notification.Name.notificationReceived, object: nil, userInfo: userInfo)
         completionHandler(.noData)
