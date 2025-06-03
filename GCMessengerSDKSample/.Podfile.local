@@ -22,7 +22,6 @@ target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
     pod 'FirebaseMessaging'
 
-    pod 'GenesysCloudMessengerTransport', '2.9.0.3'
     pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
     pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
     pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
