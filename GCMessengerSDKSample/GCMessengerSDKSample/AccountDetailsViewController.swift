@@ -284,7 +284,7 @@ extension AccountDetailsViewController {
     }
     
     private func removeSavedPushDeploymentId(completion: (@escaping () -> Void)) {
-        if let savedPushDeploymentId = UserDefaults.savedPushDeploymentId {
+        if let savedPushDeploymentId = UserDefaults.pushDeploymentId {
             let account = MessengerAccount(deploymentId: savedPushDeploymentId,
                                            domain: "",
                                            logging: loggingSwitch.isOn)
@@ -298,7 +298,7 @@ extension AccountDetailsViewController {
                     }
                     
                     UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
-                    UserDefaults.savedPushDeploymentId = nil
+                    UserDefaults.pushDeploymentId = nil
                     self.setPushNotificationsViews()
                     NSLog("Saved deployment ID: \(deploymentId) removed")
                     completion()
@@ -389,7 +389,7 @@ extension AccountDetailsViewController {
                 switch result {
                 case .success:
                     self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
-                    UserDefaults.savedPushDeploymentId = deploymentId
+                    UserDefaults.pushDeploymentId = deploymentId
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
                     NSLog("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):

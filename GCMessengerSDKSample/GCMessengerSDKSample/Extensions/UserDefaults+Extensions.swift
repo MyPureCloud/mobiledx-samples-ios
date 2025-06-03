@@ -14,8 +14,8 @@ extension UserDefaults {
         static let logging = "logging"
         static let customAttributes = "customAttributes"
         static let pushNotificationsRegisteredDeployments = "pushNotificationsRegisteredDeployments"
-        static let savedPushDeploymentId = "savedPushDeploymentId"
-        static let savedPushDomain = "savedPushDomain"
+        static let pushDeploymentId = "pushDeploymentId"
+        static let pushDomain = "pushDomain"
     }
 
     class var deploymentId: String {
@@ -74,21 +74,21 @@ extension UserDefaults {
         UserDefaults.standard.set(dict, forKey: Keys.pushNotificationsRegisteredDeployments)
     }
     
-    class var savedPushDeploymentId: String? {
+    class var pushDeploymentId: String? {
         get {
-            return UserDefaults.standard.string(forKey: Keys.savedPushDeploymentId)
+            return UserDefaults.standard.string(forKey: Keys.pushDeploymentId)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Keys.savedPushDeploymentId)
+            UserDefaults.standard.set(newValue, forKey: Keys.pushDeploymentId)
         }
     }
     
-    class var savedPushDomain: String? {
+    class var pushDomain: String? {
         get {
-            return UserDefaults.standard.string(forKey: Keys.savedPushDomain)
+            return UserDefaults.standard.string(forKey: Keys.pushDomain)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Keys.savedPushDomain)
+            UserDefaults.standard.set(newValue, forKey: Keys.pushDomain)
         }
     }
 }
