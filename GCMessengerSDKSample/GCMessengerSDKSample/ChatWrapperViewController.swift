@@ -276,6 +276,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     case EndedReason.conversationCleared:
                         ToastManager.shared.showToast(message: "Conversation was cleared.")
                         return
+                    case EndedReason.invalidRefreshAuthToken:
+                        ToastManager.shared.showToast(message: "Invalid refresh auth token.")
                     default:
                         break
                     }
