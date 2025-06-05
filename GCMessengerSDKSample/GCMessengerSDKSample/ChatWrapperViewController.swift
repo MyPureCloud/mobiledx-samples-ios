@@ -202,12 +202,17 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
-            case .clientNotAuthenticatedError:
+            case .clientNotAuthenticatedError, .authLoginFailed:
                 print("** Error: \(error.errorType.rawValue)")
-                dismissChat()
-                
                 if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
+                    let alert = UIAlertController(title: "Error occurred", message: errorDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+                        self?.dismissChat()
+                    }))
+                    
+                    if let topViewController = UIApplication.getTopViewController() {
+                        topViewController.present(alert, animated: true)
+                    }
                 }
                 
             case .clearConversationDisabled, .clearConversationFailure:
