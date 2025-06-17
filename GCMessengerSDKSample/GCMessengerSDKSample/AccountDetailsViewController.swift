@@ -422,7 +422,7 @@ extension AccountDetailsViewController {
             deviceToken = fcmToken
         }
         
-        return (account, deviceToken?.lowercased())
+        return (account, deviceToken)
     }
     
     func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
