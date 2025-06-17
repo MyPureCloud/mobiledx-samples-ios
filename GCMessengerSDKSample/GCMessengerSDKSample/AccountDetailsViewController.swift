@@ -286,46 +286,31 @@ extension AccountDetailsViewController {
     }
     
     private func removeSavedPushDeploymentId(completion: (@escaping () -> Void)) {
-        if let savedPushDeploymentId = UserDefaults.pushDeploymentId {
+        if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
             let account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                           domain: "",
+                                           domain: savedPushDomain,
                                            logging: loggingSwitch.isOn)
             
-            ChatPushNotificationIntegration.removePushToken(account: account, completion: {result in
-                switch result {
-                case .success:
-                    guard let deploymentId = self.deploymentIdTextField.text else {
-                        printLog("Can't get deployment ID")
-                        return
-                    }
-                    
-                    UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
-                    UserDefaults.pushDeploymentId = nil
-                    self.setPushNotificationsViews()
-                    NSLog("Saved deployment ID: \(deploymentId) removed")
-                    completion()
-                    
-                case .failure(let error):
-                    let errorText = error.errorDescription ?? String(describing: error.errorType)
-                    NSLog("Remove saved push deployment error: \(errorText)")
-                    
-                    self.showErrorAlert(message: "Remove saved push deployment error: \(errorText)")
-                    completion()
-                }
-            })
+            removeFromPushNotifications(account: account, completion: completion)
         } else {
             completion()
         }
     }
     
-    private func removeFromPushNotifications() {
-        guard let account = self.createAccountForValidInputFields() else {
-            NSLog("Error: can't create account")
+    private func removeFromPushNotifications(account: MessengerAccount? = nil, completion: (() -> Void)? = nil) {
+        let accountToUse: MessengerAccount
+            
+        if let providedAccount = account {
+            accountToUse = providedAccount
+        } else if let createdAccount = createAccountForValidInputFields() {
+            accountToUse = createdAccount
+        } else {
+            NSLog("Error: can't create account from input fields")
             return
         }
-        
+
         startSpinner(activityView: wrapperActivityView)
-        ChatPushNotificationIntegration.removePushToken(account: account, completion: { result in
+        ChatPushNotificationIntegration.removePushToken(account: accountToUse, completion: { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 
@@ -338,13 +323,16 @@ extension AccountDetailsViewController {
                 switch result {
                 case .success:
                     UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
+                    UserDefaults.pushDeploymentId = nil
+                    UserDefaults.pushDomain = nil
+                    
                     self.setPushNotificationsViews()
                     ToastManager.shared.showToast(message: "Pusn Notifications are DISABLED")
-
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     self.showErrorAlert(message: "\(errorText), Deployment ID: \(deploymentId)")
                 }
+                completion?()
             }
         })
     }
@@ -383,8 +371,8 @@ extension AccountDetailsViewController {
 
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 
-                guard let deploymentId = self.deploymentIdTextField.text else {
-                    NSLog("Can't get deployment ID")
+                guard let deploymentId = self.deploymentIdTextField.text, let domain = self.domainIdTextField.text else {
+                    NSLog("Can't get deployment ID or domain")
                     return
                 }
 
@@ -392,6 +380,7 @@ extension AccountDetailsViewController {
                 case .success:
                     self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
                     UserDefaults.pushDeploymentId = deploymentId
+                    UserDefaults.pushDomain = domain
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
                     NSLog("\(pushProvider) was registered with device token \(deviceToken)")
                 case .failure(let error):
@@ -433,7 +422,7 @@ extension AccountDetailsViewController {
             deviceToken = fcmToken
         }
         
-        return (account, deviceToken)
+        return (account, deviceToken?.lowercased())
     }
     
     func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
