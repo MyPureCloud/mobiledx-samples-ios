@@ -7,7 +7,6 @@
 import Foundation
 import UIKit
 import GenesysCloud
-import GenesysCloudMessenger
 import MessengerTransport
 
 class AccountDetailsViewController: UIViewController {
