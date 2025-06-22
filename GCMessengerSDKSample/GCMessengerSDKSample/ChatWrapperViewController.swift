@@ -10,6 +10,7 @@ import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     func authenticatedSessionError(message: String)
+    func didLogout()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -20,6 +21,7 @@ class ChatWrapperViewController: UIViewController {
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
+    var isAuthorized = false
     
     private var chatControllerNavigationItem: UINavigationItem?
     
@@ -69,7 +71,7 @@ class ChatWrapperViewController: UIViewController {
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
 
-        if let _ = self.messengerAccount.authenticationInfo {
+        if isAuthorized {
             menuItems.append(logoutAction)
         }
         
@@ -204,10 +206,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 }
             case .clientNotAuthenticatedError:
                 print("** Error: \(error.errorType.rawValue)")
-                dismissChat()
                 
                 if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
+                    showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
                 
             case .clearConversationDisabled, .clearConversationFailure:
@@ -219,10 +220,9 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatGeneralError:
                 print("** Error: \(error.errorType.rawValue)")
-                dismissChat()
                 
                 if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
+                    showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
                 
             case .attachmentValidationError:
@@ -270,6 +270,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                     case EndedReason.conversationCleared:
                         ToastManager.shared.showToast(message: "Conversation was cleared.")
                         return
+                    case EndedReason.logout:
+                        delegate?.didLogout()
                     default:
                         break
                     }
