@@ -35,8 +35,6 @@ class AccountDetailsViewController: UIViewController {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber), Transport: \(transportVersion)"
         }
         
-        deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
             if deploymentId.isEmpty && domainId.isEmpty {
@@ -55,8 +53,14 @@ class AccountDetailsViewController: UIViewController {
         
         setLoginButtonVisibility()
     }
-
-    @objc func textFieldDidChange(_ textField: UITextField) {
+    
+    @objc func textFieldEditingDidChange(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+        }
+    }
+    
+    @objc func textFieldEditingDidEnd(_ textField: UITextField) {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
             startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
 
@@ -79,6 +83,13 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func setupFields() {
+        deploymentIdTextField.delegate = self
+        deploymentIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
+        deploymentIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        domainIdTextField.delegate = self
+        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
+        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        
         deploymentIdTextField.text = UserDefaults.deploymentId
         domainIdTextField.text = UserDefaults.domainId
         customAttributesTextField.text = UserDefaults.customAttributes
@@ -174,6 +185,13 @@ class AccountDetailsViewController: UIViewController {
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
+    }
+}
+
+extension AccountDetailsViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
