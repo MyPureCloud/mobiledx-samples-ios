@@ -28,7 +28,7 @@ class AccountDetailsViewController: UIViewController {
     private var codeVerifier: String?
     private var signInRedirectURI: String?
     
-    private var pushProvider: PushProvider = .apns
+    private var pushProvider: GenesysCloud.PushProvider = .apns
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -425,7 +425,7 @@ extension AccountDetailsViewController {
         return (account, deviceToken)
     }
     
-    func setRegistrationFor(deploymentId: String, pushProvider: PushProvider) {
+    func setRegistrationFor(deploymentId: String, pushProvider: GenesysCloud.PushProvider) {
         let pushProviderString = pushProvider == .apns ? "apns" : "fcm"
         UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: pushProviderString)
         self.setPushNotificationsViews()
