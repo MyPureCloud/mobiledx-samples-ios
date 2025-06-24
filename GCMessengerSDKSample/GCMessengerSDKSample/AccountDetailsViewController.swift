@@ -7,7 +7,6 @@
 import Foundation
 import UIKit
 import GenesysCloud
-import GenesysCloudMessenger
 import MessengerTransport
 
 class AccountDetailsViewController: UIViewController {
@@ -36,8 +35,6 @@ class AccountDetailsViewController: UIViewController {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber), Transport: \(transportVersion)"
         }
         
-        deploymentIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        domainIdTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
             if deploymentId.isEmpty && domainId.isEmpty {
@@ -47,10 +44,37 @@ class AccountDetailsViewController: UIViewController {
         
         loginButton.setTitle("LOGIN", for: .normal)
     }
-
-    @objc func textFieldDidChange(_ textField: UITextField) {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
+            return
+        }
+        
+        setLoginButtonVisibility()
+    }
+    
+    @objc func textFieldEditingDidChange(_ textField: UITextField) {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
             startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+        }
+    }
+    
+    @objc func textFieldEditingDidEnd(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+
+            setLoginButtonVisibility()
+        }
+    }
+    
+    private func setLoginButtonVisibility() {
+        if let account = createAccountForValidInputFields() {
+            AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
+                guard let self else { return }
+                
+                self.loginButton.isHidden = !shouldAuthorize
+            })
         }
     }
     
@@ -59,6 +83,13 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func setupFields() {
+        deploymentIdTextField.delegate = self
+        deploymentIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
+        deploymentIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        domainIdTextField.delegate = self
+        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
+        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        
         deploymentIdTextField.text = UserDefaults.deploymentId
         domainIdTextField.text = UserDefaults.domainId
         customAttributesTextField.text = UserDefaults.customAttributes
@@ -98,8 +129,6 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func createAccountForValidInputFields() -> MessengerAccount? {
-
-        
         guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
             showErrorAlert(message: "One or more required fields needed, please check & try again")
             return nil
@@ -152,8 +181,17 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account
+        controller.isAuthorized = loginButton.isHidden || authCode != nil
+        controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
         present(controller, animated: true)
+    }
+}
+
+extension AccountDetailsViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
@@ -184,5 +222,12 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
                 topViewController.present(alert, animated: true)
             }
         })
+    }
+    
+    func didLogout() {
+        self.authCode = nil
+        self.signInRedirectURI = nil
+        self.codeVerifier = nil
+        
     }
 }
