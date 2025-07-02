@@ -213,6 +213,8 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
     func authenticatedSessionError(message: String) {
         dismiss(animated: true, completion: {
             let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
+            alert.view.accessibilityIdentifier = "alert_view"
+
             
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                 self.loginButton.isEnabled = true
