@@ -299,11 +299,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showAuthenticatedSessionErrorAlert(message: String) {
-        if let delegate {
-            delegate.authenticatedSessionError(message: message)
-        } else {
-            print("**************")
-        }
+            delegate?.authenticatedSessionError(message: message)
     }
     
     func showUnavailableAlert() {
