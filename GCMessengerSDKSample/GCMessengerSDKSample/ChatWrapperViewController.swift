@@ -9,7 +9,9 @@ import GenesysCloud
 import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
+    @MainActor
     func authenticatedSessionError(message: String)
+    
     func didLogout()
 }
 
@@ -297,7 +299,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showAuthenticatedSessionErrorAlert(message: String) {
-        delegate?.authenticatedSessionError(message: message)
+        if let delegate {
+            delegate.authenticatedSessionError(message: message)
+        } else {
+            print("**************")
+        }
     }
     
     func showUnavailableAlert() {
