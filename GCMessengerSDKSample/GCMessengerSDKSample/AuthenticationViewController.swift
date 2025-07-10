@@ -6,13 +6,15 @@
 
 import Foundation
 import UIKit
-import WebKit
+@preconcurrency import WebKit
 
+@MainActor
 protocol AuthenticationViewControllerDelegate: AnyObject {
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?)
     func error(message: String)
 }
 
+@MainActor
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
     

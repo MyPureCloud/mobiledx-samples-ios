@@ -9,7 +9,9 @@ import GenesysCloud
 import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
+    @MainActor
     func authenticatedSessionError(message: String)
+    
     func didLogout()
 }
 
