@@ -239,7 +239,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
-    func didUpdateState(_ event: ChatStateEvent!) {
+    func didUpdateState(_ event: ChatStateEvent) {
         print("Chat event_type: \(event.state)")
         self.chatState = event.state
         
