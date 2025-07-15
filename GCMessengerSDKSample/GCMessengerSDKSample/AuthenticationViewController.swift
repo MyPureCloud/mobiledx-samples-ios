@@ -104,10 +104,8 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         let javascript = """
             try {
                     var inputFields = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
-                    if (inputFields.length > 0) {
-                        for (var i = 0; i < inputFields.length; i++) {
-                            inputFields[i].value = '';
-                        }
+                    for (var i = 0; i < inputFields.length; i++) {
+                        inputFields[i].value = '';
                     }
                 } catch (e) {
                     // If an error occurs, return the error's message.
