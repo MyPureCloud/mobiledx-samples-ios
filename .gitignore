@@ -75,3 +75,6 @@ GCMessengerSDKSample/.DS_Store
 GoogleService-Info.plist
 */Okta.plist
 Okta.plist
+GCMessengerSDKSample/Podfile.lock
+GCMessengerSDKSample/.build/
+GCMessengerSDKSample/GCMessengerSDKSample.xcarchive/
