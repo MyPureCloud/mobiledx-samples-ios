@@ -225,7 +225,9 @@ class AccountDetailsViewController: UIViewController {
     
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            guard let self else { return }
+            
             if message.contains("Deployment Id in the request does not match the expected deployment Id for the given TokenId") {
                 var account: MessengerAccount?
                 if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
