@@ -225,7 +225,20 @@ class AccountDetailsViewController: UIViewController {
     
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in 
+            if message.contains("Deployment Id in the request does not match the expected deployment Id for the given TokenId") {
+                var account: MessengerAccount?
+                if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
+                    account = MessengerAccount(deploymentId: savedPushDeploymentId,
+                                                   domain: savedPushDomain,
+                                               logging: self.loggingSwitch.isOn)
+                } else {
+                    account = self.createAccountForValidInputFields()
+                }
+                
+                self.removeFromPushNotifications(account: account, completion: nil)
+            }
+        }))
         present(alert, animated: true)
     }
     
@@ -306,7 +319,6 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
 // MARK: Handle push notifications registration
 extension AccountDetailsViewController {
     private func registerForPushNotifications() {
-        removeSavedPushDeploymentId {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
                 DispatchQueue.main.async {
                     if granted {
@@ -322,19 +334,6 @@ extension AccountDetailsViewController {
                     }
                 }
             }
-        }
-    }
-    
-    private func removeSavedPushDeploymentId(completion: (@escaping () -> Void)) {
-        if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
-            let account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                           domain: savedPushDomain,
-                                           logging: loggingSwitch.isOn)
-            
-            removeFromPushNotifications(account: account, completion: completion)
-        } else {
-            completion()
-        }
     }
     
     private func removeFromPushNotifications(account: MessengerAccount? = nil, completion: (() -> Void)? = nil) {
