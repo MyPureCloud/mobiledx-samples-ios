@@ -226,13 +226,15 @@ class AccountDetailsViewController: UIViewController {
         let alertMessage = message ?? error?.errorDescription ?? ""
         
         let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+        let okAlertAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
             guard let self else { return }
             
             if let error {
                 self.handleErrorPushDeploymentIdMismatch(error: error)
             }
-        }))
+        })
+        okAlertAction.accessibilityIdentifier = "errorAlertOkButton"
+        alert.addAction(okAlertAction)
         present(alert, animated: true)
     }
     
