@@ -220,7 +220,6 @@ class AccountDetailsViewController: UIViewController {
         updateUserDefaults()
         
         return account
-        
     }
     
     private func showErrorAlert(message: String? = nil, error: GCError? = nil) {
@@ -229,7 +228,7 @@ class AccountDetailsViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
             guard let self else { return }
-
+            
             if let error {
                 self.handleErrorPushDeploymentIdMismatch(error: error)
             }
