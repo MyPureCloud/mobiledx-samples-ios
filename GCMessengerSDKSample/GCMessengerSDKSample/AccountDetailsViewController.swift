@@ -223,25 +223,33 @@ class AccountDetailsViewController: UIViewController {
         
     }
     
-    private func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    private func showErrorAlert(message: String? = nil, error: GCError? = nil) {
+        let alertMessage = message ?? error?.errorDescription ?? ""
+        
+        let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
             guard let self else { return }
-            
-            if message.contains("Deployment Id in the request does not match the expected deployment Id for the given TokenId") {
-                var account: MessengerAccount?
-                if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
-                    account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                               domain: savedPushDomain,
-                                               logging: self.loggingSwitch.isOn)
-                } else {
-                    account = self.createAccountForValidInputFields()
-                }
-                
-                self.removeFromPushNotifications(account: account, completion: nil)
+
+            if let error {
+                self.handleErrorPushDeploymentIdMismatch(error: error)
             }
         }))
         present(alert, animated: true)
+    }
+    
+    private func handleErrorPushDeploymentIdMismatch(error: GCError) {
+        if error.errorType == .pushDeploymentIdMismatch {
+            var account: MessengerAccount?
+            if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
+                account = MessengerAccount(deploymentId: savedPushDeploymentId,
+                                           domain: savedPushDomain,
+                                           logging: self.loggingSwitch.isOn)
+            } else {
+                account = self.createAccountForValidInputFields()
+            }
+            
+            self.removeFromPushNotifications(account: account, completion: nil)
+        }
     }
     
     private func markInvalidTextField(_ requiredTextField: UITextField) {
@@ -429,7 +437,7 @@ extension AccountDetailsViewController {
                     if errorText == "Device already registered." {
                         self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
                     }
-                    self.showErrorAlert(message: "\(errorText), Device Token: \(deviceToken)")
+                    self.showErrorAlert(error: error)
                 }
             }
         })
