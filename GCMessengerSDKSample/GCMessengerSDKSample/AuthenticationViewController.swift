@@ -6,13 +6,15 @@
 
 import Foundation
 import UIKit
-import WebKit
+@preconcurrency import WebKit
 
+@MainActor
 protocol AuthenticationViewControllerDelegate: AnyObject {
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?)
     func error(message: String)
 }
 
+@MainActor
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
     
@@ -96,5 +98,28 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         }
 
         decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let javascript = """
+            try {
+                    var inputFields = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+                    for (var i = 0; i < inputFields.length; i++) {
+                        inputFields[i].value = '';
+                    }
+                } catch (e) {
+                    // If an error occurs, return the error's message.
+                    e.message;
+                }
+        """
+        
+        // Execute the JavaScript
+        webView.evaluateJavaScript(javascript) { (result, error) in
+            if let error = error {
+                print("JavaScript evaluation failed: \(error.localizedDescription)")
+            } else {
+                print("Successfully disabled autocomplete on text fields.")
+            }
+        }
     }
 }
