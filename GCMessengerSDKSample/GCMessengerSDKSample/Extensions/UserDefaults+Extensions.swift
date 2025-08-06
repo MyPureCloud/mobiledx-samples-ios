@@ -13,6 +13,9 @@ extension UserDefaults {
         static let token = "token"
         static let logging = "logging"
         static let customAttributes = "customAttributes"
+        static let pushNotificationsRegisteredDeployments = "pushNotificationsRegisteredDeployments"
+        static let pushDeploymentId = "pushDeploymentId"
+        static let pushDomain = "pushDomain"
     }
 
     class var deploymentId: String {
@@ -59,5 +62,33 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.customAttributes)
         }
     }
-
+    
+    class func getPushProviderFor(deploymentId: String) -> String? {
+        let dict = UserDefaults.standard.dictionary(forKey: Keys.pushNotificationsRegisteredDeployments) as? [String: String]
+        return dict?[deploymentId]
+    }
+    
+    class func setPushProviderFor(deploymentId: String, pushProvider: String?) {
+        var dict = UserDefaults.standard.dictionary(forKey: Keys.pushNotificationsRegisteredDeployments) as? [String: String] ?? [:]
+        dict[deploymentId] = pushProvider
+        UserDefaults.standard.set(dict, forKey: Keys.pushNotificationsRegisteredDeployments)
+    }
+    
+    class var pushDeploymentId: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.pushDeploymentId)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.pushDeploymentId)
+        }
+    }
+    
+    class var pushDomain: String? {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.pushDomain)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.pushDomain)
+        }
+    }
 }

@@ -20,6 +20,8 @@ source 'https://github.com/CocoaPods/Specs'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
+    pod 'FirebaseMessaging'
+
     pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
     pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
     pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
