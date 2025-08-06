@@ -141,6 +141,24 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
+    @objc func textFieldEditingDidEnd(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+
+            setLoginButtonVisibility()
+        }
+    }
+    
+    private func setLoginButtonVisibility() {
+        if let account = createAccountForValidInputFields() {
+            AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
+                guard let self else { return }
+                
+                self.loginButton.isHidden = !shouldAuthorize
+            })
+        }
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -302,7 +320,6 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         dismiss(animated: true, completion: {
             let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
             alert.view.accessibilityIdentifier = "alert_view"
-            
             
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                 self.loginButton.isEnabled = true
