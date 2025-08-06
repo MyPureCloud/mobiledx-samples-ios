@@ -141,32 +141,11 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
-    @objc func textFieldEditingDidEnd(_ textField: UITextField) {
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
-
-            setLoginButtonVisibility()
-        }
-    }
-    
-    private func setLoginButtonVisibility() {
-        if let account = createAccountForValidInputFields() {
-            AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
-                guard let self else { return }
-                
-                self.loginButton.isHidden = !shouldAuthorize
-            })
-        }
-    }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
     private func setupFields() {
-        deploymentIdTextField.delegate = self
-        deploymentIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
-        deploymentIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
         domainIdTextField.delegate = self
         domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
         domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
