@@ -10,6 +10,8 @@
 		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
 		0A36DA042CA407C300E73F84 /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9FF7882C90254000824BA6 /* Okta.plist */; };
 		0A9FF78D2C90928000824BA6 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */; };
+		0AE8CC2C2E43585200699684 /* NotificationName+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8CC2B2E43585200699684 /* NotificationName+Extensions.swift */; };
+		0AE8CC322E435A0700699684 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8CC302E435A0700699684 /* SnackbarView.swift */; };
 		456FAC19C23155F2BEE26609 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D6B22DC54E2F48E7BA65F8 /* Pods_GCMessengerSDKSample.framework */; };
 		4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
@@ -29,6 +31,9 @@
 		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Helper/Toast.swift; sourceTree = "<group>"; };
 		0A9FF7882C90254000824BA6 /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		0AE8CC2B2E43585200699684 /* NotificationName+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extensions.swift"; sourceTree = "<group>"; };
+		0AE8CC302E435A0700699684 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
+		0AE8CC332E435C4E00699684 /* GCMessengerSDKSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GCMessengerSDKSample.entitlements; sourceTree = "<group>"; };
 		44D68477B88F6FD4505A4D79 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
 		4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		75D6B22DC54E2F48E7BA65F8 /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AE8CC312E435A0700699684 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0AE8CC302E435A0700699684 /* SnackbarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2B6B72A971B2260DBC7CC30C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +110,8 @@
 		AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */ = {
 			isa = PBXGroup;
 			children = (
+				0AE8CC332E435C4E00699684 /* GCMessengerSDKSample.entitlements */,
+				0AE8CC312E435A0700699684 /* Views */,
 				0A190B692A44222D00A069B7 /* Toast.swift */,
 				AF9463B4285B4940000CCF10 /* AppDelegate.swift */,
 				AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */,
@@ -117,6 +132,7 @@
 		FC341F09286C7709007599BD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0AE8CC2B2E43585200699684 /* NotificationName+Extensions.swift */,
 				FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */,
 				FCA44FC92AADB6730024B4E9 /* String+Extensions.swift */,
 				FCA1D06229C887E200F33710 /* UIApplication+Extensions.swift */,
@@ -261,8 +277,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */,
+				0AE8CC322E435A0700699684 /* SnackbarView.swift in Sources */,
 				AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */,
 				FCA1D06329C887E200F33710 /* UIApplication+Extensions.swift in Sources */,
+				0AE8CC2C2E43585200699684 /* NotificationName+Extensions.swift in Sources */,
 				FC341F0B286C771E007599BD /* UITextField+Extensions.swift in Sources */,
 				0A9FF78D2C90928000824BA6 /* AuthenticationViewController.swift in Sources */,
 				FCA44FCA2AADB6730024B4E9 /* String+Extensions.swift in Sources */,
@@ -416,9 +434,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -438,7 +457,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15.0;
+				MARKETING_VERSION = 1.16.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -455,9 +474,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
@@ -476,7 +496,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15.0;
+				MARKETING_VERSION = 1.16.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
