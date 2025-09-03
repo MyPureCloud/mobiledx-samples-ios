@@ -101,7 +101,7 @@ class ChatWrapperViewController: UIViewController {
 
     func dismissChat() {
         chatController.terminate()
-        self.dismiss(animated: true)
+        self.presentingViewController?.dismiss(animated: true)
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
