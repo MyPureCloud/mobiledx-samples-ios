@@ -227,7 +227,9 @@ class AccountDetailsViewController: UIViewController {
             guard let self else { return }
             
             if let error {
-                self.handleErrorPushDeploymentIdMismatch(error: error)
+                if error.errorType == .pushDeploymentIdMismatch || error.errorType == .deviceAlreadyRegistered {
+                    self.handlePushNotificationsError(error)
+                }
             }
         })
         okAlertAction.accessibilityIdentifier = "errorAlertOkButton"
@@ -235,19 +237,17 @@ class AccountDetailsViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    private func handleErrorPushDeploymentIdMismatch(error: GCError) {
-        if error.errorType == .pushDeploymentIdMismatch {
-            var account: MessengerAccount?
-            if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
-                account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                           domain: savedPushDomain,
-                                           logging: self.loggingSwitch.isOn)
-            } else {
-                account = self.createAccountForValidInputFields()
-            }
-            
-            self.removeFromPushNotifications(account: account, completion: nil)
+    private func handlePushNotificationsError(_ error: GCError) {
+        var account: MessengerAccount?
+        if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
+            account = MessengerAccount(deploymentId: savedPushDeploymentId,
+                                       domain: savedPushDomain,
+                                       logging: self.loggingSwitch.isOn)
+        } else {
+            account = self.createAccountForValidInputFields()
         }
+        
+        self.removeFromPushNotifications(account: account, completion: nil)
     }
     
     private func markInvalidTextField(_ requiredTextField: UITextField) {
