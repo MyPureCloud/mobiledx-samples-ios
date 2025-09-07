@@ -145,6 +145,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 
                 self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
                 self.checkNotificationAuthStatus()
+                
+                startSpinner(activityView: chatViewControllerActivityView)
             }
         }
     }
@@ -287,7 +289,6 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             case .chatPreparing:
                 print("preparing")
                 startSpinner(activityView: wrapperActivityView)
-                startSpinner(activityView: chatViewControllerActivityView)
             case .chatStarted:
                 print("started")
                 
