@@ -14,6 +14,7 @@
 		0AE8CC322E435A0700699684 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8CC302E435A0700699684 /* SnackbarView.swift */; };
 		456FAC19C23155F2BEE26609 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D6B22DC54E2F48E7BA65F8 /* Pods_GCMessengerSDKSample.framework */; };
 		4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4E14CF382BD29EE600EC33EB /* PrivacyInfo.xcprivacy */; };
+		612F5CC52E719F87007CF1D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A190B622A41A72000A069B7 /* GoogleService-Info.plist */; };
 		AF9463B5285B4940000CCF10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B4285B4940000CCF10 /* AppDelegate.swift */; };
 		AF9463B9285B4940000CCF10 /* ChatWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9463B8285B4940000CCF10 /* ChatWrapperViewController.swift */; };
 		AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9463BA285B4940000CCF10 /* Main.storyboard */; };
@@ -202,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				612F5CC52E719F87007CF1D9 /* GoogleService-Info.plist in Resources */,
 				0A36DA042CA407C300E73F84 /* Okta.plist in Resources */,
 				AF9463C1285B4943000CCF10 /* LaunchScreen.storyboard in Resources */,
 				AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */,
@@ -445,7 +447,7 @@
 				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -485,7 +487,7 @@
 				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
