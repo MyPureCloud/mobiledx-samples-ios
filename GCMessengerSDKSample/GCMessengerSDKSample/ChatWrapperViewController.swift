@@ -101,7 +101,7 @@ class ChatWrapperViewController: UIViewController {
 
     func dismissChat() {
         chatController.terminate()
-        presentingViewController?.dismiss(animated: true)
+        self.presentingViewController?.dismiss(animated: true)
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -336,6 +336,8 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showAuthenticatedSessionErrorAlert(message: String) {
+        stopSpinner(activityView: wrapperActivityView)
+        stopSpinner(activityView: chatViewControllerActivityView)
         delegate?.authenticatedSessionError(message: message)
     }
     

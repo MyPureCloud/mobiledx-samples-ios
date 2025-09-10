@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0B92992E6EDD9600B632B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A190B622A41A72000A069B7 /* GoogleService-Info.plist */; };
 		0A190B6A2A44222D00A069B7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A190B692A44222D00A069B7 /* Toast.swift */; };
 		0A36DA042CA407C300E73F84 /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9FF7882C90254000824BA6 /* Okta.plist */; };
 		0A9FF78D2C90928000824BA6 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */; };
@@ -207,6 +208,7 @@
 				AF9463BE285B4943000CCF10 /* Assets.xcassets in Resources */,
 				4E14CF392BD29EE600EC33EB /* PrivacyInfo.xcprivacy in Resources */,
 				AF9463BC285B4940000CCF10 /* Main.storyboard in Resources */,
+				0A0B92992E6EDD9600B632B0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +439,7 @@
 				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -457,7 +459,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.16.0;
+				MARKETING_VERSION = 1.16.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -477,7 +479,7 @@
 				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
@@ -496,7 +498,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.16.0;
+				MARKETING_VERSION = 1.16.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
