@@ -12,11 +12,11 @@ use_frameworks! :linkage => :static
 install! 'cocoapods',
          :deterministic_uuids => false
 
-DX_CORE="../../../BitBucket/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
-DX_MESSENGER="../../../BitBucket/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
-DX_UI="../../../BitBucket/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
+DX_CORE="../../../BitBucket/mobile-messenger-ios-sdk/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
+DX_MESSENGER="../../../BitBucket/mobile-messenger-ios-sdk/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
+DX_UI="../../../BitBucket/mobile-messenger-ios-sdk/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
-source 'https://github.com/CocoaPods/Specs'
+source 'https://cdn.cocoapods.org/'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'

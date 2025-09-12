@@ -13,7 +13,7 @@ install! 'cocoapods',
          :deterministic_uuids => false
 
 source 'https://github.com/MyPureCloud/gc-sdk-specs'
-source 'https://github.com/CocoaPods/Specs'
+source 'https://cdn.cocoapods.org/'
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'

@@ -22,4 +22,27 @@ extension UIApplication {
         }
         return base
     }
+
+    class func safelyDismissTopViewController(animated: Bool = true, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            guard let topVC = UIApplication.getTopViewController() else {
+                completion?()
+                return
+            }
+
+            let hasPresented = topVC.presentedViewController != nil || topVC.presentingViewController != nil
+
+            if let presented = topVC.presentedViewController {
+                presented.dismiss(animated: animated, completion: {
+                    completion?()
+                })
+            } else if let presenting = topVC.presentingViewController {
+                topVC.dismiss(animated: animated, completion: {
+                    completion?()
+                })
+            } else {
+                completion?()
+            }
+        }
+    }
 }
