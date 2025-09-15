@@ -70,7 +70,6 @@ class AccountDetailsViewController: UIViewController {
         setPushNotificationsViews()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
@@ -147,6 +146,12 @@ class AccountDetailsViewController: UIViewController {
     
     private func setupFields() {
         domainIdTextField.delegate = self
+        deploymentIdTextField.delegate = self
+        customAttributesTextField.delegate = self
+
+        domainIdTextField.returnKeyType = .done
+        deploymentIdTextField.returnKeyType = .done
+        customAttributesTextField.returnKeyType = .done
         domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
         domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
         
@@ -249,7 +254,8 @@ class AccountDetailsViewController: UIViewController {
             self.removeFromPushNotifications(account: account, completion: nil)
         }
     }
-    
+
+
     private func markInvalidTextField(_ requiredTextField: UITextField) {
         requiredTextField.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 3, revert: true)
     }
@@ -296,14 +302,16 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
     }
     
     func authenticatedSessionError(message: String) {
-        dismiss(animated: true, completion: {
+        UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
+            guard let self else { return }
+
             let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
             alert.view.accessibilityIdentifier = "alert_view"
-            
+
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                 self.loginButton.isEnabled = true
             }))
-            
+
             if let topViewController = UIApplication.getTopViewController() {
                 topViewController.present(alert, animated: true)
             }
