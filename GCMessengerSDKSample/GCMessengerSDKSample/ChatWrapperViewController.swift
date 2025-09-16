@@ -143,10 +143,13 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 setDefaultMenuItems()
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
                 
-                self.setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-                self.checkNotificationAuthStatus()
+                setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
+                checkNotificationAuthStatus()
                 
-                startSpinner(activityView: chatViewControllerActivityView)
+                if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
+                    startSpinner(activityView: chatViewControllerActivityView)
+                    NSLog("ChatWrapperViewController shouldPresentChatViewController startSpinner")
+                }
             }
         }
     }
