@@ -55,20 +55,43 @@ class ChatWrapperViewController: UIViewController {
     }
     
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
-            let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
-                guard let self else { return }
-
-                startSpinner(activityView: self.chatViewControllerActivityView)
-                chatController.clearConversation()
-            }))
+        let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
+            guard let self else { return }
             
-            
-            if let topViewController = UIApplication.getTopViewController() {
-                topViewController.present(alert, animated: true)
-            }
+            startSpinner(activityView: self.chatViewControllerActivityView)
+            chatController.clearConversation()
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
         }
+    }
+    
+    private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { _ in
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccountDetailsViewController")
+        
+        let navigationController = UINavigationController(rootViewController: controller)
+        
+        controller.title = "Account Details"
+        navigationController.navigationBar.prefersLargeTitles = true
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.largeTitleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 34, weight: .bold),
+            .foregroundColor: UIColor.label
+        ]
+        
+        navigationController.navigationBar.standardAppearance = appearance        
+        navigationController.modalPresentationStyle = .fullScreen
+        
+        if let topVC = UIApplication.getTopViewController() {
+            topVC.present(navigationController, animated: true)
+        } else {
+            self.present(navigationController, animated: true)
+        }
+    }
     
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
@@ -78,6 +101,7 @@ class ChatWrapperViewController: UIViewController {
         }
         
         menuItems.append(clearConversationAction)
+        menuItems.append(minimizeChatAction)
         menuItems.append(endChatAction)
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }

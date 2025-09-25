@@ -163,9 +163,22 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
+        if hasChatWrapperInPresentingStack() {
+            dismiss(animated: true)
+            return
+        }
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
         }
+    }
+    
+    private func hasChatWrapperInPresentingStack() -> Bool {
+        var presenter = self.presentingViewController
+        while presenter != nil {
+            if presenter is ChatWrapperViewController { return true }
+            presenter = presenter?.presentingViewController
+        }
+        return false
     }
     
     @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
