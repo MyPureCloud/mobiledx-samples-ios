@@ -11,10 +11,9 @@ import GenesysCloudMessenger
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
     func authenticatedSessionError(message: String)
-    
     func didLogout()
-
     func minimize()
+    func dismiss()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -27,7 +26,7 @@ class ChatWrapperViewController: UIViewController {
     var chatState: ChatState?
     var isAuthorized = false
 
-    var chatVC: UIViewController?
+    var chatViewController: UIViewController?
 
     private var chatControllerNavigationItem: UINavigationItem?
     
@@ -40,13 +39,12 @@ class ChatWrapperViewController: UIViewController {
     
     private lazy var endChatAction = UIAction(title: "End Chat", image: nil) { [weak self] _ in
         guard let self else { return }
-
         dismissChat()
     }
     
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
-
+        
         self.startSpinner(activityView: self.chatViewControllerActivityView)
         self.chatController.logoutFromAuthenticatedSession()
     }
@@ -109,7 +107,8 @@ class ChatWrapperViewController: UIViewController {
 
     func dismissChat() {
         chatController.terminate()
-        self.presentingViewController?.dismiss(animated: true)
+        chatViewController = nil
+        delegate?.dismiss()
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -142,7 +141,7 @@ class ChatWrapperViewController: UIViewController {
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
-        chatVC = viewController
+        chatViewController = viewController
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
