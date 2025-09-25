@@ -178,15 +178,6 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
-    private func hasChatWrapperInPresentingStack() -> Bool {
-        var presenter = self.presentingViewController
-        while presenter != nil {
-            if presenter is ChatWrapperViewController { return true }
-            presenter = presenter?.presentingViewController
-        }
-        return false
-    }
-    
     @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
         if let account = createAccountForValidInputFields() {
             ChatAvailabilityChecker.checkAvailability(account, completion: { result in
