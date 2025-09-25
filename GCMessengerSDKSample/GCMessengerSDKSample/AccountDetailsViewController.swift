@@ -23,7 +23,9 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var pushButton: UIButton!
     
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
-    
+
+    private var wrapperVC: ChatWrapperViewController?
+
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
@@ -163,8 +165,12 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        if hasChatWrapperInPresentingStack() {
-            dismiss(animated: true)
+        if let wrapperVC{
+            present(wrapperVC, animated: false) {
+                if let chatVC = wrapperVC.chatVC {
+                    wrapperVC.present(chatVC, animated: true)
+                }
+            }
             return
         }
         if let account = createAccountForValidInputFields() {
@@ -287,6 +293,7 @@ class AccountDetailsViewController: UIViewController {
         controller.isAuthorized = loginButton.isHidden || authCode != nil
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
+        wrapperVC = controller
         present(controller, animated: true)
     }
 }
@@ -300,6 +307,10 @@ extension AccountDetailsViewController: UITextFieldDelegate {
 
 // MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
+    func minimize() {
+        dismiss(animated: true)
+    }
+    
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri

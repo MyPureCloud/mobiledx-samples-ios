@@ -13,6 +13,8 @@ protocol ChatWrapperViewControllerDelegate: AnyObject {
     func authenticatedSessionError(message: String)
     
     func didLogout()
+
+    func minimize()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -24,7 +26,9 @@ class ChatWrapperViewController: UIViewController {
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     var isAuthorized = false
-    
+
+    var chatVC: UIViewController?
+
     private var chatControllerNavigationItem: UINavigationItem?
     
     private lazy var menuBarButtonItem: UIBarButtonItem = {
@@ -69,28 +73,8 @@ class ChatWrapperViewController: UIViewController {
         }
     }
     
-    private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { _ in
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccountDetailsViewController")
-        
-        let navigationController = UINavigationController(rootViewController: controller)
-        
-        controller.title = "Account Details"
-        navigationController.navigationBar.prefersLargeTitles = true
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.largeTitleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 34, weight: .bold),
-            .foregroundColor: UIColor.label
-        ]
-        
-        navigationController.navigationBar.standardAppearance = appearance        
-        navigationController.modalPresentationStyle = .fullScreen
-        
-        if let topVC = UIApplication.getTopViewController() {
-            topVC.present(navigationController, animated: true)
-        } else {
-            self.present(navigationController, animated: true)
-        }
+    private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
+        self?.delegate?.minimize()
     }
     
     private func setDefaultMenuItems() {
@@ -158,6 +142,7 @@ class ChatWrapperViewController: UIViewController {
 extension ChatWrapperViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
+        chatVC = viewController
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
