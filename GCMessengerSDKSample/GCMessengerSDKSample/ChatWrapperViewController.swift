@@ -24,6 +24,7 @@ class ChatWrapperViewController: UIViewController {
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     var isAuthorized = false
+    var isRegisteredToPushNotifications = false
     
     private var chatControllerNavigationItem: UINavigationItem?
     
@@ -165,6 +166,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showPushSnackbar() {
+        if !isRegisteredToPushNotifications {
+            return
+        }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
