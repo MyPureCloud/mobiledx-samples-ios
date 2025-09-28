@@ -23,7 +23,9 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var pushButton: UIButton!
     
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
-    
+
+    private var chatWrapperViewController: ChatWrapperViewController?
+
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
@@ -163,6 +165,14 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
+        if let chatWrapperViewController {
+            present(chatWrapperViewController, animated: false) {
+                if let chatViewController = chatWrapperViewController.chatViewController {
+                    chatWrapperViewController.present(chatViewController, animated: true)
+                }
+            }
+            return
+        }
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
         }
@@ -274,6 +284,7 @@ class AccountDetailsViewController: UIViewController {
         controller.isAuthorized = loginButton.isHidden || authCode != nil
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
+        chatWrapperViewController = controller
         present(controller, animated: true)
     }
 }
@@ -287,6 +298,15 @@ extension AccountDetailsViewController: UITextFieldDelegate {
 
 // MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
+    func minimize() {
+        dismiss(animated: true)
+    }
+    
+    func dismiss() {
+        chatWrapperViewController = nil
+        dismiss(animated: true)
+    }
+    
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
@@ -539,6 +559,6 @@ extension AccountDetailsViewController {
         self.authCode = nil
         self.signInRedirectURI = nil
         self.codeVerifier = nil
-        
+        self.chatWrapperViewController = nil
     }
 }
