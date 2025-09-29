@@ -298,6 +298,17 @@ extension AccountDetailsViewController: UITextFieldDelegate {
 
 // MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
+    func didReceive(chatElement: GenesysCloudCore.ChatElement) {
+        let alertController = UIAlertController(
+            title: "New Message Arrived",
+            message: chatElement.getText(),
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true)
+    }
+
     func minimize() {
         dismiss(animated: true)
     }
