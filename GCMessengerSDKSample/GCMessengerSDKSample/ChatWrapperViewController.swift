@@ -376,11 +376,9 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     
     func didReceive(chatElement: ChatElement) {
         NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
-                delegate?.didReceive(chatElement: chatElement)
-            }
+        
+        if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
+            delegate?.didReceive(chatElement: chatElement)
         }
     }
 }

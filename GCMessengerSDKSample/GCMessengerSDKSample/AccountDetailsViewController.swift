@@ -306,7 +306,10 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         )
         
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertController, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            present(alertController, animated: true)
+        }
     }
 
     func minimize() {
