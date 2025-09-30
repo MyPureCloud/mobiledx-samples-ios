@@ -10,6 +10,7 @@ import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
+    func didReceive(chatElement: ChatElement)
     func authenticatedSessionError(message: String)
     func didLogout()
     func minimize()
@@ -92,6 +93,7 @@ class ChatWrapperViewController: UIViewController {
         super.viewDidLoad()
         
         chatController = ChatController(account: messengerAccount)
+        chatController.chatElementDelegate = self //Order matters
         chatController.delegate = self
     }
     
@@ -138,7 +140,7 @@ class ChatWrapperViewController: UIViewController {
     }
 }
 
-extension ChatWrapperViewController: ChatControllerDelegate {
+extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         chatViewController = viewController
@@ -366,9 +368,17 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didClickLink(_ url: String) {
-        print("Link \(url) was pressed in the chat")
+        NSLog("Link \(url) was pressed in the chat")
         if let url = URL(string: url) {
             UIApplication.shared.open(url)
+        }
+    }
+    
+    func didReceive(chatElement: ChatElement) {
+        NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
+        
+        if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
+            delegate?.didReceive(chatElement: chatElement)
         }
     }
 }
