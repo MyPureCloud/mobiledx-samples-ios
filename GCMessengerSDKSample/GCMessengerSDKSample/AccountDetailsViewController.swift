@@ -31,6 +31,7 @@ class AccountDetailsViewController: UIViewController {
     private var signInRedirectURI: String?
     
     private var pushProvider: GenesysCloud.PushProvider = .apns
+    private var isRegisteredToPushNotifications = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +98,7 @@ class AccountDetailsViewController: UIViewController {
         
         let pushProvider = UserDefaults.getPushProviderFor(deploymentId: deploymentId)
         let pushButtonTitle = pushProvider == nil ? "ENABLE PUSH" : "DISABLE PUSH"
+        isRegisteredToPushNotifications = pushProvider != nil
         pushButton.setTitle(pushButtonTitle, for: .normal)
         
         if pushProvider != nil {
@@ -282,6 +284,7 @@ class AccountDetailsViewController: UIViewController {
         controller.delegate = self
         controller.messengerAccount = account
         controller.isAuthorized = loginButton.isHidden || authCode != nil
+        controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
         chatWrapperViewController = controller

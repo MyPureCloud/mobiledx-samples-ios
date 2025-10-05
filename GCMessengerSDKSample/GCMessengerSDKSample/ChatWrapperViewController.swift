@@ -23,12 +23,11 @@ class ChatWrapperViewController: UIViewController {
 
     weak var delegate: ChatWrapperViewControllerDelegate?
     var chatController: ChatController!
+    var chatViewController: UIViewController?
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     var isAuthorized = false
-
-    var chatViewController: UIViewController?
-
+    var isRegisteredToPushNotifications = false
     private var chatControllerNavigationItem: UINavigationItem?
     
     private lazy var menuBarButtonItem: UIBarButtonItem = {
@@ -175,6 +174,10 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func showPushSnackbar() {
+        if !isRegisteredToPushNotifications {
+            return
+        }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
