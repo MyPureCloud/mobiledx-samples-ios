@@ -178,7 +178,9 @@ class AccountDetailsViewController: UIViewController {
     }
 
     @IBAction func onLoginTapped(_ sender: Any) {
-        guard let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { return }
+        guard let controller = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { return }
+
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.delegate = self
         present(controller, animated: true)
@@ -266,7 +268,9 @@ class AccountDetailsViewController: UIViewController {
     }
 
     private func openMainController(with account: MessengerAccount) {
-        guard let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as? ChatWrapperViewController else { return }
+        guard let controller = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "ChatWrapperViewController") as? ChatWrapperViewController else { return }
+
         controller.delegate = self
         controller.messengerAccount = account
         controller.isAuthorized = loginButton.isHidden || authCode != nil
@@ -284,7 +288,7 @@ extension AccountDetailsViewController: UITextFieldDelegate {
 }
 
 // MARK: Handle Authentication
-extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
+extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @MainActor ChatWrapperViewControllerDelegate {
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
@@ -333,14 +337,21 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
 extension AccountDetailsViewController {
     private func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 if granted {
                     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                         return
                     }
 
                     printLog("Register for remote notifications")
-                    self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
+                    switch self.pushProvider {
+                    case .apns:
+                        appDelegate.registerForAPNsRemoteNotifications()
+                    case .fcm:
+                        appDelegate.registerForFCMRemoteNotifications()
+                    default:
+                        break
+                    }
                 } else {
                     printLog("Notifications Disabled")
                     self.showNotificationSettingsAlert()
@@ -417,7 +428,7 @@ extension AccountDetailsViewController {
 
         startSpinner(activityView: wrapperActivityView)
 
-        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account, completion: { result in
+        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account) { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
 
@@ -443,7 +454,7 @@ extension AccountDetailsViewController {
                     self.showErrorAlert(error: error)
                 }
             }
-        })
+        }
     }
 
     private func getAccountAndDeviceToken(_ notification: Notification) -> (Account?, String?) {
@@ -487,8 +498,19 @@ extension AccountDetailsViewController {
 // MARK: Handle receiving notifications
 extension AccountDetailsViewController {
     private func registerForNotificationsObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceToken(_:)), name: Notification.Name.deviceTokenReceived, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationReceived(_:)), name: Notification.Name.notificationReceived, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDeviceToken(_:)),
+            name: Notification.Name.deviceTokenReceived,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleNotificationReceived(_:)),
+            name: Notification.Name.notificationReceived,
+            object: nil
+        )
     }
 
     @objc func handleNotificationReceived(_ notification: Notification) {

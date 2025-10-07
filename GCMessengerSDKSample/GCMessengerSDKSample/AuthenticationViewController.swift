@@ -54,7 +54,11 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private func buildOktaAuthorizeUrl() -> URL? {
         guard let plistPath = Bundle.main.path(forResource: "Okta", ofType: "plist"),
               let plistData = FileManager.default.contents(atPath: plistPath),
-              let plistDictionary = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: Any],
+              let plistDictionary = try? PropertyListSerialization.propertyList(
+                from: plistData,
+                options: [],
+                format: nil
+              ) as? [String: Any],
               let oktaDomain = plistDictionary["oktaDomain"] as? String, !oktaDomain.isEmpty,
               let clientId = plistDictionary["clientId"] as? String, !clientId.isEmpty,
               let signInRedirectURI = plistDictionary["signInRedirectURI"] as? String, !signInRedirectURI.isEmpty,
@@ -88,16 +92,16 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         return URL(string: url.absoluteString)
     }
 
-    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))) {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction) async -> WKNavigationActionPolicy {
         guard let url = navigationAction.request.url,
-              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return .cancel }
 
         if let signInRedirectURI,
            let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
             delegate?.authenticationSucceeded(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
         }
 
-        decisionHandler(.allow)
+        return .allow
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

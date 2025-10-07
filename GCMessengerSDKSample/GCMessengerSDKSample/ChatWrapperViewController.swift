@@ -73,7 +73,11 @@ final class ChatWrapperViewController: UIViewController {
         dismissChat()
     }
 
-    private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
+    private lazy var logoutAction = UIAction(
+        title: "Logout",
+        image: nil,
+        attributes: UIMenuElement.Attributes.destructive
+    ) { [weak self] _ in
         guard let self else { return }
 
         self.startSpinner(activityView: self.chatViewControllerActivityView)

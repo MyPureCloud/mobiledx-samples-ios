@@ -30,7 +30,12 @@ extension ViewController: ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         self.present(viewController, animated: true) { () in
-            viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "End Chat", style: .plain, target: self, action: #selector(ViewController.dismissChat(_:)))
+            viewController.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "End Chat",
+                style: .plain,
+                target: self,
+                action: #selector(ViewController.dismissChat(_:))
+            )
         }
     }
 
