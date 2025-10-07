@@ -5,6 +5,7 @@
 // ===================================================================================================
 
 import UIKit
+import Combine
 import GenesysCloud
 import GenesysCloudMessenger
 
@@ -15,20 +16,52 @@ protocol ChatWrapperViewControllerDelegate: AnyObject {
     func didLogout()
 }
 
-class ChatWrapperViewController: UIViewController {
+final class ChatWrapperViewController: UIViewController {
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
     let chatViewControllerActivityView = UIActivityIndicatorView(style: .large)
 
     weak var delegate: ChatWrapperViewControllerDelegate?
+    var pushManager: PushActionManager = PushActionManager()
     var chatController: ChatController!
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     var isAuthorized = false
-    
+
+    private var cancellables = Set<AnyCancellable>()
+    private let errorSubject = PassthroughSubject<GCError, Never>()
+
     private var chatControllerNavigationItem: UINavigationItem?
-    
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        chatController = ChatController(account: messengerAccount)
+        chatController.delegate = self
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setSpinner(activityView: wrapperActivityView, view: view)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pushManager.removeSnackbar()
+    }
+
     private lazy var menuBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"), style: .plain, target: self, action: nil)
+        let item = UIBarButtonItem(
+            image: UIImage(
+                systemName: "line.3.horizontal"
+            ),
+            style: .plain,
+            target: self,
+            action: nil
+        )
         item.tintColor = .black
 
         return item
@@ -55,20 +88,25 @@ class ChatWrapperViewController: UIViewController {
     }
     
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
-            let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
+        let alert = UIAlertController(
+            title: "Clear Conversation",
+            message: "Would you like to clear and leave your conversation? Message history will be lost.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(
+            UIAlertAction(title: "Yes I'm Sure", style: .destructive) { [weak self] _ in
                 guard let self else { return }
 
                 startSpinner(activityView: self.chatViewControllerActivityView)
                 chatController.clearConversation()
-            }))
-            
-            
-            if let topViewController = UIApplication.getTopViewController() {
-                topViewController.present(alert, animated: true)
-            }
+            })
+
+
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
         }
+    }
     
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
@@ -82,38 +120,49 @@ class ChatWrapperViewController: UIViewController {
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        chatController = ChatController(account: messengerAccount)
-        chatController.delegate = self
+    func showReconnectBarButton() {
+        menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
+
+        let alert = UIAlertController(
+            title: "Chat was disconnected",
+            message: "We were not able to restore chat connection.\nMake sure your device is connected.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+        }
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setSpinner(activityView: wrapperActivityView, view: view)
-    }
-    
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        removeSnackbar()
+
+    func showUnavailableAlert() {
+        let alert = UIAlertController(
+            title: "Error occurred",
+            message: "Messenger was restricted and can't be processed.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            self.dismissChat()
+        }))
+
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+        }
     }
 
     func dismissChat() {
         chatController.terminate()
         self.presentingViewController?.dismiss(animated: true)
     }
-    
+
     func startSpinner(activityView: UIActivityIndicatorView) {
-        DispatchQueue.main.async {
-            activityView.startAnimating()
-        }
+        activityView.startAnimating()
     }
-    
+
     func stopSpinner(activityView: UIActivityIndicatorView) {
-        DispatchQueue.main.async {
-            activityView.stopAnimating()
-        }
+        activityView.stopAnimating()
     }
     
     func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
@@ -125,13 +174,9 @@ class ChatWrapperViewController: UIViewController {
         
         view?.addSubview(activityView)
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
 }
 
-extension ChatWrapperViewController: ChatControllerDelegate {
+extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if self.chatState == .chatPrepared {
@@ -144,7 +189,7 @@ extension ChatWrapperViewController: ChatControllerDelegate {
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
                 
                 setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
-                checkNotificationAuthStatus()
+                pushManager.checkNotificationAuthStatus()
                 
                 if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
                     startSpinner(activityView: chatViewControllerActivityView)
@@ -154,138 +199,11 @@ extension ChatWrapperViewController: ChatControllerDelegate {
         }
     }
     
-    func checkNotificationAuthStatus() {
-        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] permission in
-            guard let self else { return }
-            
-            if permission.authorizationStatus != .authorized {
-                self.showPushSnackbar()
-            }
-        })
-    }
-    
-    func showPushSnackbar() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            SnackbarView.shared.show(
-                topAnchorView: self.view,
-                message: "Notifications are disabled",
-                title: "Settings",
-                onButtonTap: self.openAppSettings,
-                onCloseTap: self.removeSnackbar)
-        }
-    }
-    
-    func removeSnackbar() { SnackbarView.shared.remove() }
-    
-    func openAppSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    func didFailWithError(_ error: GCError?) {
-        if let error = error {
-            if let errorDescription = error.errorDescription {
-                print("Error: \(errorDescription)")
-            }
-
-            switch error.errorType {
-            case .failedToLoad:
-                dismissChat()
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: "\(errorDescription)")
-                }
-            case .failedMessengerChatErrorDisableState:
-                if let errorDescription = error.errorDescription {
-                    let alert = UIAlertController(title: "Error occurred", message: errorDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-                        self?.dismissChat()
-                    }))
-                    
-                    if let topViewController = UIApplication.getTopViewController() {
-                        topViewController.present(alert, animated: true)
-                    }
-                }
-            case .failedToSendMessage:
-                print("** CAN'T SEND MESSAGE: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-                
-            case .failedToLoadData:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-                stopSpinner(activityView: chatViewControllerActivityView)
-                
-            case .failedToAutostartConversation:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-            case .conversationCreationError:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-            case .failedToSendCustomAttributes:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-                
-            case .attachmentDownloadError:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-                
-            case .authLogoutFailed:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    showAuthenticatedSessionErrorAlert(message: errorDescription)
-                }
-            case .clientNotAuthenticatedError:
-                print("** Error: \(error.errorType.rawValue)")
-                
-                if let errorDescription = error.errorDescription {
-                    showAuthenticatedSessionErrorAlert(message: errorDescription)
-                }
-                
-            case .clearConversationDisabled, .clearConversationFailure:
-                print("** Error: \(error.errorType.rawValue)")
-                
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-                stopSpinner(activityView: chatViewControllerActivityView)
-            case .chatGeneralError:
-                print("** Error: \(error.errorType.rawValue)")
-                
-                if let errorDescription = error.errorDescription {
-                    showAuthenticatedSessionErrorAlert(message: errorDescription)
-                }
-                
-            case .attachmentValidationError:
-                print("** Error: \(error.errorType.rawValue)")
-                if let errorDescription = error.errorDescription {
-                    ToastManager.shared.showToast(message: errorDescription)
-                }
-
-            default:
-                break
-            }
-        }
-    }
-    
     func didUpdateState(_ event: ChatStateEvent) {
         print("Chat event_type: \(event.state)")
         self.chatState = event.state
         
-        DispatchQueue.main.async { [weak self] in
+        Task { @MainActor [weak self] in
             guard let self else { return }
             
             switch event.state {
@@ -326,41 +244,75 @@ extension ChatWrapperViewController: ChatControllerDelegate {
             }
         }
     }
-
-    func showReconnectBarButton() {
-        menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
-        
-        let alert = UIAlertController(title: "Chat was disconnected", message: "We were not able to restore chat connection.\nMake sure your device is connected.", preferredStyle: .alert)
-                
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-        }
-    }
-    
-    func showAuthenticatedSessionErrorAlert(message: String) {
-        stopSpinner(activityView: wrapperActivityView)
-        stopSpinner(activityView: chatViewControllerActivityView)
-        delegate?.authenticatedSessionError(message: message)
-    }
-    
-    func showUnavailableAlert() {
-        let alert = UIAlertController(title: "Error occurred", message: "Messenger was restricted and can't be processed.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            self.dismissChat()
-        }))
-        
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-        }
-    }
     
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
         if let url = URL(string: url) {
             UIApplication.shared.open(url)
         }
+    }
+}
+
+// MARK: Error handling
+extension ChatWrapperViewController {
+    private func setupErrorHandling() {
+        errorSubject
+            .compactMap({ $0 })
+            .sink { [weak self] error in
+                self?.handleError(error)
+            }
+            .store(in: &cancellables)
+    }
+
+    func didFailWithError(_ error: GCError?) {
+        guard let error else { return }
+        errorSubject.send(error)
+    }
+
+    private func handleError(_ error: GCError) {
+        error.errorDescription.map { print("Error: \($0)") }
+
+        switch error.errorType {
+        case .failedToLoad:
+            self.dismissChat()
+            error.errorDescription.map { ToastManager.shared.showToast(message: $0) }
+
+        case .failedMessengerChatErrorDisableState:
+            error.errorDescription.map { showErrorAlert(message: $0) }
+
+        case .failedToSendMessage:
+            print("** CANNOT SEND MESSAGE: \(error.errorType.rawValue)")
+            error.errorDescription.map { ToastManager.shared.showToast(message: $0) }
+
+        case .failedToLoadData:
+            print("** Error: \(error.errorType.rawValue)")
+            stopSpinner(activityView: self.chatViewControllerActivityView)
+
+        case .authLogoutFailed, .clientNotAuthenticatedError:
+            error.errorDescription.map { showAuthenticatedSessionErrorAlert(message: $0) }
+
+        case .clearConversationDisabled, .clearConversationFailure:
+            error.errorDescription.map { ToastManager.shared.showToast(message: $0) }
+            stopSpinner(activityView: chatViewControllerActivityView)
+
+        default:
+            error.errorDescription.map { ToastManager.shared.showToast(message: $0) }
+        }
+    }
+
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Error occured", message: message, preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
+                self?.dismissChat()
+            }
+        )
+        UIApplication.getTopViewController()?.present(alert, animated: true)
+    }
+
+    func showAuthenticatedSessionErrorAlert(message: String) {
+        stopSpinner(activityView: wrapperActivityView)
+        stopSpinner(activityView: chatViewControllerActivityView)
+        delegate?.authenticatedSessionError(message: message)
     }
 }
