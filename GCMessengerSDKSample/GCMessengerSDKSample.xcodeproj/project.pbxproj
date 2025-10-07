@@ -153,6 +153,7 @@
 			buildConfigurationList = AF9463C5285B4943000CCF10 /* Build configuration list for PBXNativeTarget "GCMessengerSDKSample" */;
 			buildPhases = (
 				01F80145AAFBCE96ACCB817F /* [CP] Check Pods Manifest.lock */,
+				BE8F4A3E2E9501C900709545 /* SwiftLint */,
 				AF9463AD285B4940000CCF10 /* Sources */,
 				AF9463AE285B4940000CCF10 /* Frameworks */,
 				AF9463AF285B4940000CCF10 /* Resources */,
@@ -281,6 +282,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BE8F4A3E2E9501C900709545 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint --fix && swiftlint\nelse\n    echo \"warning: swiftlint command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

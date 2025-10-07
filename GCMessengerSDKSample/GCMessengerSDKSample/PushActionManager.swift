@@ -9,7 +9,7 @@ import UserNotifications
 import UIKit
 
 @MainActor
-final class PushActionManager: Sendable {
+final class PushActionManager {
     func checkNotificationAuthStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] permission in
             guard let self else { return }

@@ -12,7 +12,7 @@ import GenesysCloudMessenger
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
     func authenticatedSessionError(message: String)
-    
+
     func didLogout()
 }
 
@@ -66,27 +66,27 @@ final class ChatWrapperViewController: UIViewController {
 
         return item
     }()
-    
+
     private lazy var endChatAction = UIAction(title: "End Chat", image: nil) { [weak self] _ in
         guard let self else { return }
 
         dismissChat()
     }
-    
+
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
 
         self.startSpinner(activityView: self.chatViewControllerActivityView)
         self.chatController.logoutFromAuthenticatedSession()
     }
-    
+
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
         guard let self else { return }
 
         startSpinner(activityView: self.chatViewControllerActivityView)
         chatController.reconnectChat()
     }
-    
+
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
         let alert = UIAlertController(
             title: "Clear Conversation",
@@ -102,19 +102,18 @@ final class ChatWrapperViewController: UIViewController {
                 chatController.clearConversation()
             })
 
-
         if let topViewController = UIApplication.getTopViewController() {
             topViewController.present(alert, animated: true)
         }
     }
-    
+
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
 
         if isAuthorized {
             menuItems.append(logoutAction)
         }
-        
+
         menuItems.append(clearConversationAction)
         menuItems.append(endChatAction)
         menuBarButtonItem.menu = UIMenu(children: menuItems)
@@ -164,14 +163,14 @@ final class ChatWrapperViewController: UIViewController {
     func stopSpinner(activityView: UIActivityIndicatorView) {
         activityView.stopAnimating()
     }
-    
+
     func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
         activityView.frame = view?.frame ?? .zero
         activityView.layer.backgroundColor = UIColor(white: 0.0, alpha: 0.3).cgColor
         activityView.center = view?.center ?? .zero
-        
+
         activityView.hidesWhenStopped = true
-        
+
         view?.addSubview(activityView)
     }
 }
@@ -184,40 +183,40 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
                 guard let self else { return }
 
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-                
+
                 setDefaultMenuItems()
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
-                
+
                 setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
                 pushManager.checkNotificationAuthStatus()
-                
-                if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
+
+                if chatState == .chatPrepared { // present is async, chatState might changed till we start the spinner
                     startSpinner(activityView: chatViewControllerActivityView)
                     NSLog("ChatWrapperViewController shouldPresentChatViewController startSpinner")
                 }
             }
         }
     }
-    
+
     func didUpdateState(_ event: ChatStateEvent) {
         print("Chat event_type: \(event.state)")
         self.chatState = event.state
-        
+
         Task { @MainActor [weak self] in
             guard let self else { return }
-            
+
             switch event.state {
             case .chatPreparing:
                 print("preparing")
                 startSpinner(activityView: wrapperActivityView)
             case .chatStarted:
                 print("started")
-                
+
                 setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatDisconnected:
                 showReconnectBarButton()
-                
+
             case .unavailable:
                 showUnavailableAlert()
             case .chatEnded:
@@ -238,13 +237,13 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
                     }
                     presentingViewController?.dismiss(animated: true)
                 }
-                
+
             default:
                 print(event.state)
             }
         }
     }
-    
+
     func didClickLink(_ url: String) {
         print("Link \(url) was pressed in the chat")
         if let url = URL(string: url) {

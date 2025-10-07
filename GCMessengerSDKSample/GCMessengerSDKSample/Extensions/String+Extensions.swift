@@ -14,15 +14,14 @@ enum ConvertError: Error {
 }
 
 extension String {
-    func convertStringToDictionary() -> Result<[String:String], ConvertError> {
+    func convertStringToDictionary() -> Result<[String: String], ConvertError> {
         if let data = self.data(using: .utf8) {
-            
             guard data.isEmpty == false else {
                 return .failure(.emptyData)
             }
-            
+
             do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:String] {
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: String] {
                     return .success(json)
                 } else {
                     return .failure(.invalidJson)

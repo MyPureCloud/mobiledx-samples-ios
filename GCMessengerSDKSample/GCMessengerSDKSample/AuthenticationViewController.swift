@@ -17,40 +17,40 @@ protocol AuthenticationViewControllerDelegate: AnyObject {
 @MainActor
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
-    
+
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
-    
+
     weak var delegate: AuthenticationViewControllerDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         webView = WKWebView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height))
 
         webView.navigationDelegate = self
         view.addSubview(webView)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         guard let oktaAuthorizeUrl = buildOktaAuthorizeUrl() else {
             delegate?.error(message: "Please make sure you added Okta.plist file with proper values")
 
             return
         }
-        
+
         loadAuthenticationURL(url: oktaAuthorizeUrl)
     }
-    
+
     private func loadAuthenticationURL(url: URL) {
         if UIApplication.shared.canOpenURL(url) {
             webView.load(URLRequest(url: url))
         }
     }
-    
+
     private func buildOktaAuthorizeUrl() -> URL? {
         guard let plistPath = Bundle.main.path(forResource: "Okta", ofType: "plist"),
               let plistData = FileManager.default.contents(atPath: plistPath),
@@ -66,7 +66,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         else {
             return nil
         }
-        
+
         var urlComponents = URLComponents(string: "https://\(oktaDomain)/oauth2/default/v1/authorize")
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: clientId),
@@ -77,17 +77,17 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
             URLQueryItem(name: "code_challenge_method", value: codeChallengeMethod),
             URLQueryItem(name: "code_challenge", value: codeChallenge)
         ]
-        
+
         guard let url = urlComponents?.url else {
             return nil
         }
-        
+
         self.signInRedirectURI = signInRedirectURI
         self.codeVerifier = codeVerifier
-        
+
         return URL(string: url.absoluteString)
     }
-    
+
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))) {
         guard let url = navigationAction.request.url,
               let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
@@ -99,7 +99,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
 
         decisionHandler(.allow)
     }
-    
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let javascript = """
             try {
@@ -112,9 +112,9 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
                     e.message;
                 }
         """
-        
+
         // Execute the JavaScript
-        webView.evaluateJavaScript(javascript) { (result, error) in
+        webView.evaluateJavaScript(javascript) { (_, error) in
             if let error = error {
                 print("JavaScript evaluation failed: \(error.localizedDescription)")
             } else {
