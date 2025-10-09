@@ -7,7 +7,6 @@
 import Foundation
 import UIKit
 import GenesysCloud
-import GenesysCloudMessenger
 import MessengerTransport
 import FirebaseMessaging
 
@@ -131,11 +130,11 @@ class AccountDetailsViewController: UIViewController {
 
     private func setLoginButtonVisibility() {
         if let account = createAccountForValidInputFields() {
-            AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
+            AuthenticationStatus.shouldAuthorize(account: account) { [weak self] shouldAuthorize in
                 guard let self else { return }
 
                 self.loginButton.isHidden = !shouldAuthorize
-            })
+            }
         }
     }
 

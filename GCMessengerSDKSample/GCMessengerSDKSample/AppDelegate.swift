@@ -7,7 +7,7 @@
 import UIKit
 import FirebaseCore
 import UserNotifications
-import GenesysCloudCore
+import GenesysCloud
 import FirebaseMessaging
 
 @main
@@ -73,32 +73,30 @@ extension AppDelegate: UNUserNotificationCenterDelegate, @MainActor MessagingDel
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { permission in
+        UNUserNotificationCenter.current().getNotificationSettings { permission in
             if permission.authorizationStatus == .authorized {
                 Task { @MainActor in
                     SnackbarView.shared.remove()
                 }
             }
-        })
+        }
     }
 
-    @MainActor
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         self.fcmToken = fcmToken
 
         // Check that Notifications are authorized otherwise there is no need to post any token updates
-        UNUserNotificationCenter.current().getNotificationSettings(
-            completionHandler: { permission in
-                if permission.authorizationStatus == .authorized {
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(
-                            name: Notification.Name.deviceTokenReceived,
-                            object: nil,
-                            userInfo: ["fcmToken": fcmToken as Any]
-                        )
+        UNUserNotificationCenter.current().getNotificationSettings { permission in
+            if permission.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(
+                        name: Notification.Name.deviceTokenReceived,
+                        object: nil,
+                        userInfo: ["fcmToken": fcmToken as Any]
+                    )
                 }
             }
-        })
+        }
     }
 
     func registerForAPNsRemoteNotifications() {

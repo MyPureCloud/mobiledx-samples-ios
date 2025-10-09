@@ -14,7 +14,6 @@ protocol AuthenticationViewControllerDelegate: AnyObject {
     func error(message: String)
 }
 
-@MainActor
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
 

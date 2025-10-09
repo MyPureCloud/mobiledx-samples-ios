@@ -7,8 +7,6 @@
 import UIKit
 import Combine
 import GenesysCloud
-import GenesysCloudMessenger
-
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
     func authenticatedSessionError(message: String)
@@ -177,6 +175,23 @@ final class ChatWrapperViewController: UIViewController {
 
         view?.addSubview(activityView)
     }
+
+    func chatDidClose(_ reasonRawValue: Int) {
+        if let endedReason = EndedReason(rawValue: reasonRawValue) {
+            switch endedReason {
+            case EndedReason.sessionLimitReached:
+                ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+            case EndedReason.conversationCleared:
+                ToastManager.shared.showToast(message: "Conversation was cleared.")
+                return
+            case EndedReason.logout:
+                delegate?.didLogout()
+            default:
+                break
+            }
+            presentingViewController?.dismiss(animated: true)
+        }
+    }
 }
 
 extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
@@ -227,20 +242,7 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatClosed:
                 let endedReasonRawValue = event.dataMsg as? Int ?? 0
-                if let endedReason = EndedReason(rawValue: endedReasonRawValue) {
-                    switch endedReason {
-                    case EndedReason.sessionLimitReached:
-                        ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
-                    case EndedReason.conversationCleared:
-                        ToastManager.shared.showToast(message: "Conversation was cleared.")
-                        return
-                    case EndedReason.logout:
-                        delegate?.didLogout()
-                    default:
-                        break
-                    }
-                    presentingViewController?.dismiss(animated: true)
-                }
+                chatDidClose(endedReasonRawValue)
 
             default:
                 print(event.state)
