@@ -10,9 +10,11 @@ import GenesysCloudMessenger
 
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
+    func didReceive(chatElement: ChatElement)
     func authenticatedSessionError(message: String)
-    
     func didLogout()
+    func minimize()
+    func dismiss()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -21,10 +23,11 @@ class ChatWrapperViewController: UIViewController {
 
     weak var delegate: ChatWrapperViewControllerDelegate?
     var chatController: ChatController!
+    var chatViewController: UIViewController?
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     var isAuthorized = false
-    
+    var isRegisteredToPushNotifications = false
     private var chatControllerNavigationItem: UINavigationItem?
     
     private lazy var menuBarButtonItem: UIBarButtonItem = {
@@ -36,13 +39,12 @@ class ChatWrapperViewController: UIViewController {
     
     private lazy var endChatAction = UIAction(title: "End Chat", image: nil) { [weak self] _ in
         guard let self else { return }
-
         dismissChat()
     }
     
     private lazy var logoutAction = UIAction(title: "Logout", image: nil, attributes: UIMenuElement.Attributes.destructive) { [weak self] _ in
         guard let self else { return }
-
+        
         self.startSpinner(activityView: self.chatViewControllerActivityView)
         self.chatController.logoutFromAuthenticatedSession()
     }
@@ -55,20 +57,23 @@ class ChatWrapperViewController: UIViewController {
     }
     
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
-            let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
-                guard let self else { return }
-
-                startSpinner(activityView: self.chatViewControllerActivityView)
-                chatController.clearConversation()
-            }))
+        let alert = UIAlertController(title: "Clear Conversation", message: "Would you like to clear and leave your conversation? Message history will be lost.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes I'm Sure", style: .destructive, handler: { [weak self] _ in
+            guard let self else { return }
             
-            
-            if let topViewController = UIApplication.getTopViewController() {
-                topViewController.present(alert, animated: true)
-            }
+            startSpinner(activityView: self.chatViewControllerActivityView)
+            chatController.clearConversation()
+        }))
+        
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
         }
+    }
+    
+    private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
+        self?.delegate?.minimize()
+    }
     
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
@@ -78,6 +83,7 @@ class ChatWrapperViewController: UIViewController {
         }
         
         menuItems.append(clearConversationAction)
+        menuItems.append(minimizeChatAction)
         menuItems.append(endChatAction)
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
@@ -86,6 +92,7 @@ class ChatWrapperViewController: UIViewController {
         super.viewDidLoad()
         
         chatController = ChatController(account: messengerAccount)
+        chatController.chatElementDelegate = self //Order matters
         chatController.delegate = self
     }
     
@@ -101,7 +108,8 @@ class ChatWrapperViewController: UIViewController {
 
     func dismissChat() {
         chatController.terminate()
-        self.presentingViewController?.dismiss(animated: true)
+        chatViewController = nil
+        delegate?.dismiss()
     }
     
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -131,9 +139,10 @@ class ChatWrapperViewController: UIViewController {
     }
 }
 
-extension ChatWrapperViewController: ChatControllerDelegate {
+extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
+        chatViewController = viewController
         if self.chatState == .chatPrepared {
             self.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
@@ -165,6 +174,10 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func showPushSnackbar() {
+        if !isRegisteredToPushNotifications {
+            return
+        }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
@@ -358,9 +371,17 @@ extension ChatWrapperViewController: ChatControllerDelegate {
     }
     
     func didClickLink(_ url: String) {
-        print("Link \(url) was pressed in the chat")
+        NSLog("Link \(url) was pressed in the chat")
         if let url = URL(string: url) {
             UIApplication.shared.open(url)
+        }
+    }
+    
+    func didReceive(chatElement: ChatElement) {
+        NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
+        
+        if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
+            delegate?.didReceive(chatElement: chatElement)
         }
     }
 }

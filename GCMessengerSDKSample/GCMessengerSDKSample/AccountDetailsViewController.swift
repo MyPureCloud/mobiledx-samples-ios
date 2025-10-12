@@ -23,12 +23,15 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var pushButton: UIButton!
     
     let wrapperActivityView = UIActivityIndicatorView(style: .large)
-    
+
+    private var chatWrapperViewController: ChatWrapperViewController?
+
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
     
     private var pushProvider: GenesysCloud.PushProvider = .apns
+    private var isRegisteredToPushNotifications = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +98,7 @@ class AccountDetailsViewController: UIViewController {
         
         let pushProvider = UserDefaults.getPushProviderFor(deploymentId: deploymentId)
         let pushButtonTitle = pushProvider == nil ? "ENABLE PUSH" : "DISABLE PUSH"
+        isRegisteredToPushNotifications = pushProvider != nil
         pushButton.setTitle(pushButtonTitle, for: .normal)
         
         if pushProvider != nil {
@@ -163,6 +167,14 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
+        if let chatWrapperViewController {
+            present(chatWrapperViewController, animated: false) {
+                if let chatViewController = chatWrapperViewController.chatViewController {
+                    chatWrapperViewController.present(chatViewController, animated: true)
+                }
+            }
+            return
+        }
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
         }
@@ -272,8 +284,10 @@ class AccountDetailsViewController: UIViewController {
         controller.delegate = self
         controller.messengerAccount = account
         controller.isAuthorized = loginButton.isHidden || authCode != nil
+        controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
+        chatWrapperViewController = controller
         present(controller, animated: true)
     }
 }
@@ -287,6 +301,29 @@ extension AccountDetailsViewController: UITextFieldDelegate {
 
 // MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
+    func didReceive(chatElement: GenesysCloudCore.ChatElement) {
+        let alertController = UIAlertController(
+            title: "New Message Arrived",
+            message: chatElement.getText(),
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            present(alertController, animated: true)
+        }
+    }
+
+    func minimize() {
+        dismiss(animated: true)
+    }
+    
+    func dismiss() {
+        chatWrapperViewController = nil
+        dismiss(animated: true)
+    }
+    
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
@@ -539,6 +576,6 @@ extension AccountDetailsViewController {
         self.authCode = nil
         self.signInRedirectURI = nil
         self.codeVerifier = nil
-        
+        self.chatWrapperViewController = nil
     }
 }
