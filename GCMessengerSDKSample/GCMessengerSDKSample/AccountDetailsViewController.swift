@@ -4,8 +4,8 @@
 // All rights reserved.
 // ===================================================================================================
 
-import Foundation
 import UIKit
+import Combine
 import GenesysCloud
 import MessengerTransport
 import FirebaseMessaging
@@ -28,6 +28,8 @@ class AccountDetailsViewController: UIViewController {
     private var signInRedirectURI: String?
 
     private var pushProvider: GenesysCloud.PushProvider = .apns
+    private let pushManager = PushActionManager()
+    private var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,25 +49,12 @@ class AccountDetailsViewController: UIViewController {
 
         setPushNotificationsViews()
         registerForNotificationsObservers()
+        subscribe()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setSpinner(activityView: wrapperActivityView, view: view)
-    }
-
-    func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
-        activityView.frame = view?.frame ?? .zero
-        activityView.layer.backgroundColor = UIColor(white: 0.0, alpha: 0.3).cgColor
-        activityView.center = view?.center ?? .zero
-
-        activityView.hidesWhenStopped = true
-
-        view?.addSubview(activityView)
-    }
-
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        setPushNotificationsViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -77,12 +66,39 @@ class AccountDetailsViewController: UIViewController {
         setLoginButtonVisibility()
     }
 
-    @objc func textFieldEditingDidChange(_ textField: UITextField) {
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
-            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
-            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
-        }
+    private func subscribe() {
+        pushManager.pushNotificationViewSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.setPushNotificationsViews()
+            }
+            .store(in: &cancellables)
+
+        pushManager.snackbarViewSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.pushManager.showPushSnackbar()
+            }
+            .store(in: &cancellables)
+
+        pushManager.toastSubject
+            .receive(on: DispatchQueue.main)
+            .sink { message in
+                ToastManager.shared.showToast(message: message)
+            }
+            .store(in: &cancellables)
+
+        pushManager.errorSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] failure in
+                switch failure {
+                case .pushDisabled:
+                    self?.showNotificationSettingsAlert()
+                case .error(let error):
+                    self?.showErrorAlert(error: error)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func setPushNotificationsViews() {
@@ -103,28 +119,25 @@ class AccountDetailsViewController: UIViewController {
         self.pushProvider = pushProviderToggle.selectedSegmentIndex == 0 ? .apns : .fcm
     }
 
-    @IBAction func pushButtonTapped(_ sender: Any) {
-        guard let deploymentId = deploymentIdTextField.text else {
-            NSLog("Can't get deployment ID")
-            return
-        }
+    func setSpinner(activityView: UIActivityIndicatorView, view: UIView?) {
+        activityView.frame = view?.frame ?? .zero
+        activityView.layer.backgroundColor = UIColor(white: 0.0, alpha: 0.3).cgColor
+        activityView.center = view?.center ?? .zero
 
-        if UserDefaults.getPushProviderFor(deploymentId: deploymentId) != nil {
-            removeFromPushNotifications()
-        } else {
-            registerForPushNotifications()
+        activityView.hidesWhenStopped = true
+
+        view?.addSubview(activityView)
+    }
+
+    func startSpinner(activityView: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityView.startAnimating()
         }
     }
 
-    @IBAction func pushProviderToggleChanged(_ sender: UISegmentedControl) {
-        pushProvider = sender.selectedSegmentIndex == 0 ? .apns : .fcm
-    }
-
-    @objc func textFieldEditingDidEnd(_ textField: UITextField) {
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
-
-            setLoginButtonVisibility()
+    func stopSpinner(activityView: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityView.stopAnimating()
         }
     }
 
@@ -136,127 +149,6 @@ class AccountDetailsViewController: UIViewController {
                 self.loginButton.isHidden = !shouldAuthorize
             }
         }
-    }
-
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-
-    private func setupFields() {
-        domainIdTextField.delegate = self
-        deploymentIdTextField.delegate = self
-        customAttributesTextField.delegate = self
-
-        domainIdTextField.returnKeyType = .done
-        deploymentIdTextField.returnKeyType = .done
-        customAttributesTextField.returnKeyType = .done
-        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
-        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
-
-        deploymentIdTextField.text = UserDefaults.deploymentId
-        domainIdTextField.text = UserDefaults.domainId
-        customAttributesTextField.text = UserDefaults.customAttributes
-
-        loggingSwitch.setOn(UserDefaults.logging, animated: true)
-    }
-
-    @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        if let account = createAccountForValidInputFields() {
-            openMainController(with: account)
-        }
-    }
-
-    @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
-        if let account = createAccountForValidInputFields() {
-            ChatAvailabilityChecker.checkAvailability(account, completion: { result in
-                if let result {
-                    ToastManager.shared.showToast(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
-                }
-            })
-        }
-    }
-
-    @IBAction func onLoginTapped(_ sender: Any) {
-        guard let controller = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { return }
-
-        controller.modalPresentationCapturesStatusBarAppearance = true
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-
-    private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
-        if inputField.text?.isEmpty == true {
-            markInvalidTextField(inputField)
-            return false
-        }
-        return true
-    }
-
-    private func createAccountForValidInputFields() -> MessengerAccount? {
-        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
-            showErrorAlert(message: "One or more required fields needed, please check & try again")
-            return nil
-        }
-
-        let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
-                                       domain: domainIdTextField.text ?? "",
-                                       logging: loggingSwitch.isOn)
-
-        let customAttributes = (customAttributesTextField.text ?? "").convertStringToDictionary()
-
-        switch customAttributes {
-        case .success(let result):
-            account.customAttributes = result
-        case .failure(let error):
-            if error != .emptyData {
-                showErrorAlert(message: "Custom Attributes JSON isn’t in the correct format")
-                return nil
-            }
-        }
-
-        if let authCode, let signInRedirectURI {
-            account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
-        }
-
-        updateUserDefaults()
-
-        return account
-    }
-
-    private func showErrorAlert(message: String? = nil, error: GCError? = nil) {
-        let alertMessage = message ?? error?.errorDescription ?? ""
-
-        let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
-        let okAlertAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-            guard let self else { return }
-
-            if let error {
-                self.handleErrorPushDeploymentIdMismatch(error: error)
-            }
-        })
-        okAlertAction.accessibilityIdentifier = "errorAlertOkButton"
-        alert.addAction(okAlertAction)
-        present(alert, animated: true)
-    }
-
-    private func handleErrorPushDeploymentIdMismatch(error: GCError) {
-        if error.errorType == .pushDeploymentIdMismatch {
-            var account: MessengerAccount?
-            if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
-                account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                           domain: savedPushDomain,
-                                           logging: self.loggingSwitch.isOn)
-            } else {
-                account = self.createAccountForValidInputFields()
-            }
-
-            self.removeFromPushNotifications(account: account, completion: nil)
-        }
-    }
-
-    private func markInvalidTextField(_ requiredTextField: UITextField) {
-        requiredTextField.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 3, revert: true)
     }
 
     private func updateUserDefaults() {
@@ -286,6 +178,113 @@ extension AccountDetailsViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: @IBAction functions
+extension AccountDetailsViewController {
+    @IBAction func pushButtonTapped(_ sender: Any) {
+        guard let deploymentId = deploymentIdTextField.text else {
+            NSLog("Can't get deployment ID")
+            return
+        }
+
+        if UserDefaults.getPushProviderFor(deploymentId: deploymentId) != nil {
+            guard let accountToUse = createAccountForValidInputFields() else {
+                NSLog("Error: can't create account from input fields")
+                return
+            }
+
+            startSpinner(activityView: wrapperActivityView)
+            pushManager.removeFromPushNotifications(account: accountToUse, deploymentId: deploymentId)
+            stopSpinner(activityView: wrapperActivityView)
+        } else {
+            Task {
+                await pushManager.registerForPushNotifications(pushProvider: pushProvider)
+            }
+        }
+    }
+
+    @IBAction func pushProviderToggleChanged(_ sender: UISegmentedControl) {
+        pushProvider = sender.selectedSegmentIndex == 0 ? .apns : .fcm
+    }
+
+    @IBAction func startChatButtonTapped(_ sender: UIButton) {
+        if let account = createAccountForValidInputFields() {
+            openMainController(with: account)
+        }
+    }
+
+    @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
+        if let account = createAccountForValidInputFields() {
+            ChatAvailabilityChecker.checkAvailability(account, completion: { result in
+                if let result {
+                    ToastManager.shared.showToast(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                }
+            })
+        }
+    }
+
+    @IBAction func onLoginTapped(_ sender: Any) {
+        guard let controller = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { return }
+
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+}
+
+// MARK: TextField configuration
+extension AccountDetailsViewController {
+    @objc func textFieldEditingDidChange(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
+            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
+            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
+        }
+    }
+
+    @objc func textFieldEditingDidEnd(_ textField: UITextField) {
+        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
+
+            setLoginButtonVisibility()
+        }
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    private func setupFields() {
+        domainIdTextField.delegate = self
+        deploymentIdTextField.delegate = self
+        customAttributesTextField.delegate = self
+
+        domainIdTextField.returnKeyType = .done
+        deploymentIdTextField.returnKeyType = .done
+        customAttributesTextField.returnKeyType = .done
+        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
+        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+
+        deploymentIdTextField.text = UserDefaults.deploymentId
+        domainIdTextField.text = UserDefaults.domainId
+        customAttributesTextField.text = UserDefaults.customAttributes
+
+        loggingSwitch.setOn(UserDefaults.logging, animated: true)
+    }
+
+    private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
+        if inputField.text?.isEmpty == true {
+            markInvalidTextField(inputField)
+            return false
+        }
+        return true
+    }
+
+    private func markInvalidTextField(_ requiredTextField: UITextField) {
+        requiredTextField.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 3, revert: true)
+    }
+}
+
 // MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @MainActor ChatWrapperViewControllerDelegate {
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
@@ -297,9 +296,9 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
     }
 
     func error(message: String) {
-        dismiss(animated: true, completion: {
+        dismiss(animated: true) {
             self.showErrorAlert(message: message)
-        })
+        }
     }
 
     func authenticatedSessionError(message: String) {
@@ -315,86 +314,6 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
 
             if let topViewController = UIApplication.getTopViewController() {
                 topViewController.present(alert, animated: true)
-            }
-        })
-    }
-
-    func startSpinner(activityView: UIActivityIndicatorView) {
-        DispatchQueue.main.async {
-            activityView.startAnimating()
-        }
-    }
-
-    func stopSpinner(activityView: UIActivityIndicatorView) {
-        DispatchQueue.main.async {
-            activityView.stopAnimating()
-        }
-    }
-}
-
-// MARK: Handle push notifications registration
-extension AccountDetailsViewController {
-    private func registerForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
-            Task { @MainActor in
-                if granted {
-                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                        return
-                    }
-
-                    printLog("Register for remote notifications")
-                    switch self.pushProvider {
-                    case .apns:
-                        appDelegate.registerForAPNsRemoteNotifications()
-                    case .fcm:
-                        appDelegate.registerForFCMRemoteNotifications()
-                    default:
-                        break
-                    }
-                } else {
-                    printLog("Notifications Disabled")
-                    self.showNotificationSettingsAlert()
-                }
-            }
-        }
-    }
-
-    private func removeFromPushNotifications(account: MessengerAccount? = nil, completion: (() -> Void)? = nil) {
-        let accountToUse: MessengerAccount
-
-        if let providedAccount = account {
-            accountToUse = providedAccount
-        } else if let createdAccount = createAccountForValidInputFields() {
-            accountToUse = createdAccount
-        } else {
-            NSLog("Error: can't create account from input fields")
-            return
-        }
-
-        startSpinner(activityView: wrapperActivityView)
-        ChatPushNotificationIntegration.removePushToken(account: accountToUse, completion: { result in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-
-                guard let deploymentId = self.deploymentIdTextField.text else {
-                    NSLog("Can't get deployment ID")
-                    return
-                }
-
-                self.stopSpinner(activityView: self.wrapperActivityView)
-                switch result {
-                case .success:
-                    UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
-                    UserDefaults.pushDeploymentId = nil
-                    UserDefaults.pushDomain = nil
-
-                    self.setPushNotificationsViews()
-                    ToastManager.shared.showToast(message: "Pusn Notifications are DISABLED")
-                case .failure(let error):
-                    let errorText = error.errorDescription ?? String(describing: error.errorType)
-                    self.showErrorAlert(message: "\(errorText), Deployment ID: \(deploymentId)")
-                }
-                completion?()
             }
         })
     }
@@ -418,42 +337,44 @@ extension AccountDetailsViewController {
         self.present(alertController, animated: true)
     }
 
-    @objc func handleDeviceToken(_ notification: Notification) {
-        let (account, deviceToken) = getAccountAndDeviceToken(notification)
-        guard let account, let deviceToken else {
-            NSLog("Error: push provider selection error")
-            return
+    func didLogout() {
+        self.authCode = nil
+        self.signInRedirectURI = nil
+        self.codeVerifier = nil
+    }
+}
+
+// MARK: Push notifications registration
+extension AccountDetailsViewController {
+    private func createAccountForValidInputFields() -> MessengerAccount? {
+        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
+            showErrorAlert(message: "One or more required fields needed, please check & try again")
+            return nil
         }
 
-        startSpinner(activityView: wrapperActivityView)
+        let account = MessengerAccount(
+            deploymentId: deploymentIdTextField.text ?? "",
+            domain: domainIdTextField.text ?? "",
+            logging: loggingSwitch.isOn
+        )
 
-        ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account) { result in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-
-                self.stopSpinner(activityView: self.wrapperActivityView)
-
-                guard let deploymentId = self.deploymentIdTextField.text, let domain = self.domainIdTextField.text else {
-                    NSLog("Can't get deployment ID or domain")
-                    return
-                }
-
-                switch result {
-                case .success:
-                    self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
-                    UserDefaults.pushDeploymentId = deploymentId
-                    UserDefaults.pushDomain = domain
-                    ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
-                    NSLog("\(pushProvider) was registered with device token \(deviceToken)")
-                case .failure(let error):
-                    let errorText = error.errorDescription ?? String(describing: error.errorType)
-                    if errorText == "Device already registered." {
-                        self.setRegistrationFor(deploymentId: deploymentId, pushProvider: pushProvider)
-                    }
-                    self.showErrorAlert(error: error)
-                }
+        do {
+            let customAttributes = try (customAttributesTextField.text ?? "").convertStringToDictionary()
+            account.customAttributes = customAttributes
+        } catch {
+            if error as? ConvertError != ConvertError.emptyData {
+                showErrorAlert(message: "Custom Attributes JSON isn’t in the correct format")
+                return nil
             }
         }
+
+        if let authCode, let signInRedirectURI {
+            account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+        }
+
+        updateUserDefaults()
+
+        return account
     }
 
     private func getAccountAndDeviceToken(_ notification: Notification) -> (Account?, String?) {
@@ -486,12 +407,6 @@ extension AccountDetailsViewController {
 
         return (account, deviceToken)
     }
-
-    func setRegistrationFor(deploymentId: String, pushProvider: GenesysCloud.PushProvider) {
-        let pushProviderString = pushProvider == .apns ? "apns" : "fcm"
-        UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: pushProviderString)
-        self.setPushNotificationsViews()
-    }
 }
 
 // MARK: Handle receiving notifications
@@ -510,6 +425,21 @@ extension AccountDetailsViewController {
             name: Notification.Name.notificationReceived,
             object: nil
         )
+    }
+
+    @objc private func handleDeviceToken(_ notification: Notification) {
+        startSpinner(activityView: wrapperActivityView)
+
+        let (account, deviceToken) = getAccountAndDeviceToken(notification)
+
+        pushManager.handleDeviceToken(
+            pushProvider: pushProvider,
+            account: account,
+            deviceToken: deviceToken,
+            deploymentId: deploymentIdTextField.text,
+            domain: domainIdTextField.text
+        )
+        stopSpinner(activityView: wrapperActivityView)
     }
 
     @objc func handleNotificationReceived(_ notification: Notification) {
@@ -553,10 +483,43 @@ extension AccountDetailsViewController {
             NSLog("Error retrieving UserInfo")
         }
     }
+}
 
-    func didLogout() {
-        self.authCode = nil
-        self.signInRedirectURI = nil
-        self.codeVerifier = nil
+// MARK: Error handling
+extension AccountDetailsViewController {
+    private func showErrorAlert(message: String? = nil, error: GCError? = nil) {
+        let alertMessage = message ?? error?.errorDescription ?? ""
+
+        let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
+        let okAlertAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            guard let self else { return }
+
+            if let error {
+                self.handleErrorPushDeploymentIdMismatch(error: error)
+            }
+        })
+        okAlertAction.accessibilityIdentifier = "errorAlertOkButton"
+        alert.addAction(okAlertAction)
+        present(alert, animated: true)
     }
+
+    private func handleErrorPushDeploymentIdMismatch(error: GCError) {
+        if error.errorType == .pushDeploymentIdMismatch {
+            var account: MessengerAccount?
+            if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
+                account = MessengerAccount(deploymentId: savedPushDeploymentId,
+                                           domain: savedPushDomain,
+                                           logging: self.loggingSwitch.isOn)
+            } else {
+                account = self.createAccountForValidInputFields()
+            }
+
+            pushManager.removeFromPushNotifications(account: account, deploymentId: deploymentIdTextField.text)
+        }
+    }
+}
+
+enum AccountDetailsError: Error {
+    case pushDisabled
+    case error(error: GCError)
 }

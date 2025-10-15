@@ -9,7 +9,10 @@ import UIKit
 
 extension UIApplication {
     class func getTopViewController(
-        base: UIViewController? = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+        base: UIViewController? = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene}
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?.rootViewController
     ) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return getTopViewController(base: nav.visibleViewController)
