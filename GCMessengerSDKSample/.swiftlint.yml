@@ -50,7 +50,8 @@ identifier_name:
     - vc
 
 large_tuple:
-    severity: warning
+  warning: 2
+  error: 10
 
 excluded:
   - Pods
