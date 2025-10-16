@@ -32,13 +32,9 @@ extension UIApplication {
         }
 
         if let presented = topVC.presentedViewController {
-            presented.dismiss(animated: animated, completion: {
-                completion?()
-            })
+            presented.dismiss(animated: animated, completion: completion)
         } else if let _ = topVC.presentingViewController {
-            topVC.dismiss(animated: animated, completion: {
-                completion?()
-            })
+            topVC.dismiss(animated: animated, completion: completion)
         } else {
             completion?()
         }

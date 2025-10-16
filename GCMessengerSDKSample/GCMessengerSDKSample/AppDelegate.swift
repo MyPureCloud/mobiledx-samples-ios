@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 // MARK: Push notifications handling
-extension AppDelegate: UNUserNotificationCenterDelegate, @MainActor MessagingDelegate {
+extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let apnsToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         NSLog("Device Token: \(apnsToken)")
@@ -88,7 +88,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate, @MainActor MessagingDel
         // Check that Notifications are authorized otherwise there is no need to post any token updates
         UNUserNotificationCenter.current().getNotificationSettings { permission in
             if permission.authorizationStatus == .authorized {
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     NotificationCenter.default.post(
                         name: Notification.Name.deviceTokenReceived,
                         object: nil,

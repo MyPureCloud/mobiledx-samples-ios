@@ -78,8 +78,8 @@ final class ChatWrapperViewController: UIViewController {
     ) { [weak self] _ in
         guard let self else { return }
 
-        self.startSpinner(activityView: self.chatViewControllerActivityView)
-        self.chatController.logoutFromAuthenticatedSession()
+        startSpinner(activityView: self.chatViewControllerActivityView)
+        chatController.logoutFromAuthenticatedSession()
     }
 
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
@@ -144,18 +144,18 @@ final class ChatWrapperViewController: UIViewController {
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            self.dismissChat()
-        }))
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel) { [weak self] _ in
+            guard let self else { return }
 
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-        }
+            dismissChat()
+        })
+
+        UIApplication.getTopViewController()?.present(alert, animated: true)
     }
 
     func dismissChat() {
         chatController.terminate()
-        self.presentingViewController?.dismiss(animated: true)
+        presentingViewController?.dismiss(animated: true)
     }
 
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -197,8 +197,8 @@ final class ChatWrapperViewController: UIViewController {
 extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
-        if self.chatState == .chatPrepared {
-            self.present(viewController, animated: true) { [weak self] in
+        if chatState == .chatPrepared {
+            present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
 
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
@@ -219,7 +219,7 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
 
     func didUpdateState(_ event: ChatStateEvent) {
         print("Chat event_type: \(event.state)")
-        self.chatState = event.state
+        chatState = event.state
 
         Task { @MainActor [weak self] in
             guard let self else { return }
@@ -279,7 +279,7 @@ extension ChatWrapperViewController {
 
         switch error.errorType {
         case .failedToLoad:
-            self.dismissChat()
+            dismissChat()
             error.errorDescription.map { ToastManager.shared.showToast(message: $0) }
 
         case .failedMessengerChatErrorDisableState:
@@ -291,7 +291,7 @@ extension ChatWrapperViewController {
 
         case .failedToLoadData:
             print("** Error: \(error.errorType.rawValue)")
-            stopSpinner(activityView: self.chatViewControllerActivityView)
+            stopSpinner(activityView: chatViewControllerActivityView)
 
         case .authLogoutFailed, .clientNotAuthenticatedError:
             error.errorDescription.map { showAuthenticatedSessionErrorAlert(message: $0) }

@@ -26,7 +26,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        webView = WKWebView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height))
+        webView = WKWebView(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: view.frame.height))
 
         webView.navigationDelegate = self
         view.addSubview(webView)

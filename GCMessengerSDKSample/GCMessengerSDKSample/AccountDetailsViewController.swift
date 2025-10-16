@@ -146,7 +146,7 @@ class AccountDetailsViewController: UIViewController {
             AuthenticationStatus.shouldAuthorize(account: account) { [weak self] shouldAuthorize in
                 guard let self else { return }
 
-                self.loginButton.isHidden = !shouldAuthorize
+                loginButton.isHidden = !shouldAuthorize
             }
         }
     }
@@ -308,9 +308,9 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
             let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
             alert.view.accessibilityIdentifier = "alert_view"
 
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in
                 self.loginButton.isEnabled = true
-            }))
+            })
 
             if let topViewController = UIApplication.getTopViewController() {
                 topViewController.present(alert, animated: true)
@@ -334,13 +334,13 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
             }
         })
 
-        self.present(alertController, animated: true)
+        present(alertController, animated: true)
     }
 
     func didLogout() {
-        self.authCode = nil
-        self.signInRedirectURI = nil
-        self.codeVerifier = nil
+        authCode = nil
+        signInRedirectURI = nil
+        codeVerifier = nil
     }
 }
 
@@ -491,13 +491,14 @@ extension AccountDetailsViewController {
         let alertMessage = message ?? error?.errorDescription ?? ""
 
         let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
-        let okAlertAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+        let okAlertAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
             guard let self else { return }
 
             if let error {
                 self.handleErrorPushDeploymentIdMismatch(error: error)
             }
-        })
+        }
+
         okAlertAction.accessibilityIdentifier = "errorAlertOkButton"
         alert.addAction(okAlertAction)
         present(alert, animated: true)

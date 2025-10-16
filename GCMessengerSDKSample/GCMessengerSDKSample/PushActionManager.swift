@@ -17,12 +17,10 @@ final class PushActionManager: Sendable {
 
     func checkNotificationAuthStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] permission in
-            guard let self else { return }
+            guard let self, permission.authorizationStatus != .authorized else { return }
 
-            if permission.authorizationStatus != .authorized {
-                Task { @MainActor in
-                    self.snackbarViewSubject.send()
-                }
+            Task { @MainActor in
+                self.snackbarViewSubject.send()
             }
         }
     }
@@ -37,12 +35,12 @@ final class PushActionManager: Sendable {
 
             printLog("Register for remote notifications")
             switch pushProvider {
-                case .apns:
-                    appDelegate.registerForAPNsRemoteNotifications()
-                case .fcm:
-                    appDelegate.registerForFCMRemoteNotifications()
-                default:
-                    break
+            case .apns:
+                appDelegate.registerForAPNsRemoteNotifications()
+            case .fcm:
+                appDelegate.registerForFCMRemoteNotifications()
+            default:
+                break
             }
         } catch {
             printLog("Notifications Disabled")
@@ -127,8 +125,8 @@ final class PushActionManager: Sendable {
             topAnchorView: view,
             message: "Notifications are disabled",
             title: "Settings",
-            onButtonTap: self.openAppSettings,
-            onCloseTap: self.removeSnackbar)
+            onButtonTap: openAppSettings,
+            onCloseTap: removeSnackbar)
     }
 
     @MainActor
