@@ -1,0 +1,7 @@
+strings:
+  inputs: GCMessengerSDKSample/en.lproj/Localization.strings
+  outputs:
+  - templateName: structured-swift5
+    params:
+      enumName: Localization
+    output: GCMessengerSDKSample/Strings.swift

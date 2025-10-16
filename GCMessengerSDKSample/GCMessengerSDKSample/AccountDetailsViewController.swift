@@ -45,7 +45,7 @@ class AccountDetailsViewController: UIViewController {
             versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber), Transport: \(transportVersionNumber).\(transportBuildNumber)"
         }
 
-        loginButton.setTitle("LOGIN", for: .normal)
+        loginButton.setTitle(Localization.login, for: .normal)
 
         setPushNotificationsViews()
         registerForNotificationsObservers()
@@ -108,7 +108,7 @@ class AccountDetailsViewController: UIViewController {
         }
 
         let pushProvider = UserDefaults.getPushProviderFor(deploymentId: deploymentId)
-        let pushButtonTitle = pushProvider == nil ? "ENABLE PUSH" : "DISABLE PUSH"
+        let pushButtonTitle = pushProvider == nil ? Localization.enablePush : Localization.disablePush
         pushButton.setTitle(pushButtonTitle, for: .normal)
 
         if pushProvider != nil {
@@ -305,10 +305,10 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
         UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
             guard let self else { return }
 
-            let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: Localization.errorOccured, message: message, preferredStyle: .alert)
             alert.view.accessibilityIdentifier = "alert_view"
 
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in
+            alert.addAction(UIAlertAction(title: Localization.ok, style: .cancel) { _ in
                 self.loginButton.isEnabled = true
             })
 
@@ -320,13 +320,13 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
 
     private func showNotificationSettingsAlert() {
         let alertController = UIAlertController(
-            title: "Notifications Disabled",
-            message: "To receive updates, please enable notifications in settings.",
+            title: Localization.notificationsDisabled,
+            message: Localization.enableNotifications,
             preferredStyle: .alert
         )
 
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
+        alertController.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: Localization.settings, style: .default) { _ in
             if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                 if UIApplication.shared.canOpenURL(settingsURL) {
                     UIApplication.shared.open(settingsURL)
@@ -348,7 +348,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
 extension AccountDetailsViewController {
     private func createAccountForValidInputFields() -> MessengerAccount? {
         guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
-            showErrorAlert(message: "One or more required fields needed, please check & try again")
+            showErrorAlert(message: Localization.requiredFieldError)
             return nil
         }
 
@@ -363,7 +363,7 @@ extension AccountDetailsViewController {
             account.customAttributes = customAttributes
         } catch {
             if error as? ConvertError != ConvertError.emptyData {
-                showErrorAlert(message: "Custom Attributes JSON isn’t in the correct format")
+                showErrorAlert(message: Localization.incorrectJSONFormat)
                 return nil
             }
         }
@@ -379,12 +379,12 @@ extension AccountDetailsViewController {
 
     private func getAccountAndDeviceToken(_ notification: Notification) -> (Account?, String?) {
         guard let userInfo = notification.userInfo else {
-            showErrorAlert(message: "Error: empty userInfo")
+            showErrorAlert(message: Localization.emptyUserInfoError)
             return (nil, nil)
         }
 
         guard let account = self.createAccountForValidInputFields() else {
-            showErrorAlert(message: "Error: can't create account")
+            showErrorAlert(message: Localization.cannotCreateAccountError)
             return (nil, nil)
         }
 
@@ -491,7 +491,7 @@ extension AccountDetailsViewController {
         let alertMessage = message ?? error?.errorDescription ?? ""
 
         let alert = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
-        let okAlertAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+        let okAlertAction = UIAlertAction(title: Localization.ok, style: .default) { [weak self] _ in
             guard let self else { return }
 
             if let error {

@@ -65,7 +65,7 @@ final class ChatWrapperViewController: UIViewController {
         return item
     }()
 
-    private lazy var endChatAction = UIAction(title: "End Chat", image: nil) { [weak self] _ in
+    private lazy var endChatAction = UIAction(title: Localization.endChat, image: nil) { [weak self] _ in
         guard let self else { return }
 
         dismissChat()
@@ -82,22 +82,22 @@ final class ChatWrapperViewController: UIViewController {
         chatController.logoutFromAuthenticatedSession()
     }
 
-    private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
+    private lazy var reconnectAction: UIAction = UIAction(title: Localization.reconnect, image: nil) { [weak self] _ in
         guard let self else { return }
 
         startSpinner(activityView: self.chatViewControllerActivityView)
         chatController.reconnectChat()
     }
 
-    private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
+    private lazy var clearConversationAction = UIAction(title: Localization.clearConversation, image: nil) { [weak self] _ in
         let alert = UIAlertController(
-            title: "Clear Conversation",
-            message: "Would you like to clear and leave your conversation? Message history will be lost.",
+            title: Localization.clearConversation,
+            message: Localization.clearConversationMessage,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: nil))
         alert.addAction(
-            UIAlertAction(title: "Yes I'm Sure", style: .destructive) { [weak self] _ in
+            UIAlertAction(title: Localization.sure, style: .destructive) { [weak self] _ in
                 guard let self else { return }
 
                 startSpinner(activityView: self.chatViewControllerActivityView)
@@ -125,12 +125,12 @@ final class ChatWrapperViewController: UIViewController {
         menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
 
         let alert = UIAlertController(
-            title: "Chat was disconnected",
-            message: "We were not able to restore chat connection.\nMake sure your device is connected.",
+            title: Localization.disconnected,
+            message: Localization.disconnectedMessage,
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: Localization.ok, style: .default))
 
         if let topViewController = UIApplication.getTopViewController() {
             topViewController.present(alert, animated: true)
@@ -139,12 +139,12 @@ final class ChatWrapperViewController: UIViewController {
 
     func showUnavailableAlert() {
         let alert = UIAlertController(
-            title: "Error occurred",
-            message: "Messenger was restricted and can't be processed.",
+            title: Localization.errorOccured,
+            message: Localization.restrictedError,
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: Localization.ok, style: .cancel) { [weak self] _ in
             guard let self else { return }
 
             dismissChat()
@@ -180,9 +180,9 @@ final class ChatWrapperViewController: UIViewController {
         if let endedReason = EndedReason(rawValue: reasonRawValue) {
             switch endedReason {
             case EndedReason.sessionLimitReached:
-                ToastManager.shared.showToast(message: "You have been logged out because the session limit was exceeded.")
+                ToastManager.shared.showToast(message: Localization.timedOut)
             case EndedReason.conversationCleared:
-                ToastManager.shared.showToast(message: "Conversation was cleared.")
+                ToastManager.shared.showToast(message: Localization.conversationCleared)
                 return
             case EndedReason.logout:
                 delegate?.didLogout()
@@ -306,9 +306,9 @@ extension ChatWrapperViewController {
     }
 
     private func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: "Error occured", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: Localization.errorOccured, message: message, preferredStyle: .alert)
         alert.addAction(
-            UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
+            UIAlertAction(title: Localization.ok, style: .default) { [weak self] _ in
                 self?.dismissChat()
             }
         )
