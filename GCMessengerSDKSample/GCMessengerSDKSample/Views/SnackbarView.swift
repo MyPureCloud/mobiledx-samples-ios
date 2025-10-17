@@ -45,8 +45,8 @@ class SnackbarView: UIView {
                 NSLayoutConstraint.activate([
                     snackbarView.leadingAnchor.constraint(equalTo: topVC.view.leadingAnchor, constant: 16),
                     snackbarView.trailingAnchor.constraint(equalTo: topVC.view.trailingAnchor, constant: -16),
-                    snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 70),
-                    snackbarView.heightAnchor.constraint(equalToConstant: 36)
+                    snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 100),
+                    snackbarView.heightAnchor.constraint(equalToConstant: 48)
                 ])
                 self.activeSnackbarView = snackbarView
             }

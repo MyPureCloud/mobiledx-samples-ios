@@ -9,9 +9,12 @@ import Combine
 import GenesysCloud
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
+    func didReceive(chatElement: ChatElement)
     func authenticatedSessionError(message: String)
 
     func didLogout()
+    func minimize()
+    func dismiss()
 }
 
 final class ChatWrapperViewController: UIViewController {
@@ -21,6 +24,7 @@ final class ChatWrapperViewController: UIViewController {
     weak var delegate: ChatWrapperViewControllerDelegate?
     var pushManager: PushActionManager = PushActionManager()
     var chatController: ChatController!
+    var chatViewController: UIViewController?
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
     var isAuthorized = false
@@ -28,6 +32,7 @@ final class ChatWrapperViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let errorSubject = PassthroughSubject<GCError, Never>()
 
+    var isRegisteredToPushNotifications = false
     private var chatControllerNavigationItem: UINavigationItem?
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -36,8 +41,9 @@ final class ChatWrapperViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         chatController = ChatController(account: messengerAccount)
+        chatController.chatElementDelegate = self //Order matters
         chatController.delegate = self
     }
 
@@ -67,7 +73,6 @@ final class ChatWrapperViewController: UIViewController {
 
     private lazy var endChatAction = UIAction(title: Localization.endChat, image: nil) { [weak self] _ in
         guard let self else { return }
-
         dismissChat()
     }
 
@@ -108,7 +113,11 @@ final class ChatWrapperViewController: UIViewController {
             topViewController.present(alert, animated: true)
         }
     }
-
+    
+    private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
+        self?.delegate?.minimize()
+    }
+    
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
 
@@ -117,6 +126,7 @@ final class ChatWrapperViewController: UIViewController {
         }
 
         menuItems.append(clearConversationAction)
+        menuItems.append(minimizeChatAction)
         menuItems.append(endChatAction)
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
@@ -155,7 +165,8 @@ final class ChatWrapperViewController: UIViewController {
 
     func dismissChat() {
         chatController.terminate()
-        presentingViewController?.dismiss(animated: true)
+        chatViewController = nil
+        delegate?.dismiss()
     }
 
     func startSpinner(activityView: UIActivityIndicatorView) {
@@ -190,6 +201,14 @@ final class ChatWrapperViewController: UIViewController {
                 break
             }
             presentingViewController?.dismiss(animated: true)
+        }
+    }
+  
+    func didReceive(chatElement: ChatElement) {
+        NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
+        
+        if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
+            delegate?.didReceive(chatElement: chatElement)
         }
     }
 }
@@ -228,18 +247,22 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
             case .chatPreparing:
                 print("preparing")
                 startSpinner(activityView: wrapperActivityView)
+              
             case .chatStarted:
                 print("started")
 
                 setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
+              
             case .chatDisconnected:
                 showReconnectBarButton()
 
             case .unavailable:
                 showUnavailableAlert()
+              
             case .chatEnded:
                 stopSpinner(activityView: chatViewControllerActivityView)
+              
             case .chatClosed:
                 let endedReasonRawValue = event.dataMsg as? Int ?? 0
                 chatDidClose(endedReasonRawValue)
