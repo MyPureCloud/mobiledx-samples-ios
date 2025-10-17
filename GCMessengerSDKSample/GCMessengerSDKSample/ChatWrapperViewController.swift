@@ -343,13 +343,14 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     private func present(alert: UIAlertController) {
+        guard !isAlertCurrentlyPresented else {
+            NSLog("Won't present alert as another one is already presented")
+            return
+        }
+        
         if let topViewController = UIApplication.getTopViewController() {
-            if isAlertCurrentlyPresented {
-                NSLog("Won't present alert as another one is already presented")
-            } else {
                 topViewController.present(alert, animated: true)
                 isAlertCurrentlyPresented = true
-            }
         }
     }
     
