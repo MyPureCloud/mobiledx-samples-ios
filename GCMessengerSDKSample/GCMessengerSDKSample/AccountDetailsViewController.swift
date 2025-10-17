@@ -34,7 +34,7 @@ class AccountDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
 
     private var isRegisteredToPushNotifications = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFields()
@@ -164,7 +164,8 @@ class AccountDetailsViewController: UIViewController {
     }
 
     private func openMainController(with account: MessengerAccount) {
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
+        guard let controller = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "ChatWrapperViewController") as? ChatWrapperViewController else { return }
         controller.delegate = self
         controller.messengerAccount = account
         controller.isAuthorized = loginButton.isHidden || authCode != nil
@@ -298,28 +299,19 @@ extension AccountDetailsViewController {
     }
 }
 
-/*protocol ChatWrapperViewControllerDelegate: AnyObject {
-    @MainActor
-    func didReceive(chatElement: ChatElement)
-    func authenticatedSessionError(message: String)
-
-    func didLogout()
-    func minimize()
-    func dismiss()
-}*/
-
 // MARK: Handle Authentication
-extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @MainActor ChatWrapperViewControllerDelegate {
+extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
     func didReceive(chatElement: GenesysCloudCore.ChatElement) {
-        let alertController = UIAlertController(
-            title: "New Message Arrived",
-            message: chatElement.getText(),
-            preferredStyle: .alert
-        )
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        DispatchQueue.main.async { [weak self] in
+        Task { @MainActor [weak self] in
             guard let self else { return }
+
+            let alertController = UIAlertController(
+                title: "New Message Arrived",
+                message: chatElement.getText(),
+                preferredStyle: .alert
+            )
+
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alertController, animated: true)
         }
     }
@@ -327,12 +319,12 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, @M
     func minimize() {
         dismiss(animated: true)
     }
-    
+
     func dismiss() {
         chatWrapperViewController = nil
         dismiss(animated: true)
     }
-    
+
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
@@ -545,7 +537,7 @@ extension AccountDetailsViewController {
             pushManager.removeFromPushNotifications(account: account, deploymentId: deploymentIdTextField.text)
         }
     }
-      
+
     private func showNotificationSettingsAlert() {
         let alertController = UIAlertController(
             title: Localization.notificationsDisabled,

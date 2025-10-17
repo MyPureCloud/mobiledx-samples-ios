@@ -7,8 +7,9 @@
 import UIKit
 import Combine
 import GenesysCloud
+
+@MainActor
 protocol ChatWrapperViewControllerDelegate: AnyObject {
-    @MainActor
     func didReceive(chatElement: ChatElement)
     func authenticatedSessionError(message: String)
 
@@ -41,9 +42,9 @@ final class ChatWrapperViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         chatController = ChatController(account: messengerAccount)
-        chatController.chatElementDelegate = self //Order matters
+        chatController.chatElementDelegate = self // Order matters
         chatController.delegate = self
     }
 
@@ -113,11 +114,11 @@ final class ChatWrapperViewController: UIViewController {
             topViewController.present(alert, animated: true)
         }
     }
-    
+
     private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
         self?.delegate?.minimize()
     }
-    
+
     private func setDefaultMenuItems() {
         var menuItems: [UIMenuElement] = []
 
@@ -203,17 +204,9 @@ final class ChatWrapperViewController: UIViewController {
             presentingViewController?.dismiss(animated: true)
         }
     }
-  
-    func didReceive(chatElement: ChatElement) {
-        NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
-        
-        if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
-            delegate?.didReceive(chatElement: chatElement)
-        }
-    }
 }
 
-extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
+extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainActor ChatElementDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if chatState == .chatPrepared {
@@ -247,22 +240,22 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
             case .chatPreparing:
                 print("preparing")
                 startSpinner(activityView: wrapperActivityView)
-              
+
             case .chatStarted:
                 print("started")
 
                 setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
-              
+
             case .chatDisconnected:
                 showReconnectBarButton()
 
             case .unavailable:
                 showUnavailableAlert()
-              
+
             case .chatEnded:
                 stopSpinner(activityView: chatViewControllerActivityView)
-              
+
             case .chatClosed:
                 let endedReasonRawValue = event.dataMsg as? Int ?? 0
                 chatDidClose(endedReasonRawValue)
@@ -277,6 +270,14 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate {
         print("Link \(url) was pressed in the chat")
         if let url = URL(string: url) {
             UIApplication.shared.open(url)
+        }
+    }
+
+    @objc func didReceive(chatElement: ChatElement) {
+        NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
+
+        if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
+            delegate?.didReceive(chatElement: chatElement)
         }
     }
 }
