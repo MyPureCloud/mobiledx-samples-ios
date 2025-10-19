@@ -177,6 +177,8 @@ class AccountDetailsViewController: UIViewController {
         
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
+        } else {
+            NSLog("Invalid account, one or more required fields needed, please check & try again")
         }
     }
     
