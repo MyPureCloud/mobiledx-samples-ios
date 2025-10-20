@@ -167,16 +167,18 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        if let chatWrapperViewController {
+        if let chatWrapperViewController,
+           let chatViewController = chatWrapperViewController.chatViewController {
             present(chatWrapperViewController, animated: false) {
-                if let chatViewController = chatWrapperViewController.chatViewController {
-                    chatWrapperViewController.present(chatViewController, animated: true)
-                }
+                chatWrapperViewController.present(chatViewController, animated: true)
             }
             return
         }
+        
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
+        } else {
+            NSLog("Invalid account, one or more required fields needed, please check & try again")
         }
     }
     
