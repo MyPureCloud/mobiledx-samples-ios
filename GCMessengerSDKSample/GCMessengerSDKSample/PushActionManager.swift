@@ -53,7 +53,7 @@ final class PushActionManager: Sendable {
         deploymentId: String?
     ) {
         guard let account else { return }
-        ChatPushNotificationIntegration.removePushToken(account: account) { [weak self] error in
+        ChatPushNotificationIntegration.removePushToken(account: account) { [weak self] (error: GCError?) in
             if let error {
                 self?.errorSubject.send(.error(error: error))
             }
