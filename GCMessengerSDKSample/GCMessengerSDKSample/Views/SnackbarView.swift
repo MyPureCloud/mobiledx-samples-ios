@@ -38,26 +38,22 @@ class SnackbarView: UIView {
 
             let snackbarView = self.createSnackbarView(message: message, title: title, onButtonTap: onButtonTap, onCloseTap: onCloseTap)
 
-            if let keyWindow = UIApplication.shared.connectedScenes
-                .filter({$0.activationState == .foregroundActive})
-                .compactMap({$0 as? UIWindowScene})
-                .first?.windows
-                .filter({$0.isKeyWindow}).first {
-                keyWindow.addSubview(snackbarView)
+            if let topVC = UIApplication.getTopViewController() {
+                topVC.view.addSubview(snackbarView)
 
                 snackbarView.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
-                    snackbarView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 16),
-                    snackbarView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -16),
+                    snackbarView.leadingAnchor.constraint(equalTo: topVC.view.leadingAnchor, constant: 16),
+                    snackbarView.trailingAnchor.constraint(equalTo: topVC.view.trailingAnchor, constant: -16),
                     snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 100),
                     snackbarView.heightAnchor.constraint(equalToConstant: 48)
                 ])
                 self.activeSnackbarView = snackbarView
             }
         }
-        
+
         // Remove Snackbar 10 seconds after it was displayed
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {[weak self] in            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
             self?.remove()
         }
     }
