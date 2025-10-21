@@ -34,6 +34,7 @@ final class ChatWrapperViewController: UIViewController {
     private let errorSubject = PassthroughSubject<GCError, Never>()
 
     var isRegisteredToPushNotifications = false
+    var isAlertCurrentlyPresented = false
     private var chatControllerNavigationItem: UINavigationItem?
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -108,11 +109,10 @@ final class ChatWrapperViewController: UIViewController {
 
                 startSpinner(activityView: self.chatViewControllerActivityView)
                 chatController.clearConversation()
+                dismiss(alert: alert)
             })
 
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-        }
+            present(alert, animated: true)
     }
 
     private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
@@ -143,9 +143,7 @@ final class ChatWrapperViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: Localization.ok, style: .default))
 
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-        }
+        present(alert, animated: true)
     }
 
     func showUnavailableAlert() {
@@ -264,6 +262,23 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainAct
                 print(event.state)
             }
         }
+    }
+    
+    private func present(alert: UIAlertController) {
+        guard !isAlertCurrentlyPresented else {
+            NSLog("Won't present alert as another one is already presented")
+            return
+        }
+        
+        if let topViewController = UIApplication.getTopViewController() {
+                topViewController.present(alert, animated: true)
+                isAlertCurrentlyPresented = true
+        }
+    }
+    
+    private func dismiss(alert: UIAlertController) {
+        isAlertCurrentlyPresented = false
+        alert.dismiss(animated: true)
     }
 
     func didClickLink(_ url: String) {
