@@ -163,7 +163,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                     startSpinner(activityView: chatViewControllerActivityView)
                     NSLog("ChatWrapperViewController shouldPresentChatViewController startSpinner")
                 } else {
-                    NSLog("Won't start spinner, chat state is \(chatState?.getStateName() ?? "Unknown")")
+                    NSLog("Won't start spinner, chat state is \(chatState?.name ?? "Unknown")")
                 }
             }
         }
@@ -301,8 +301,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func didUpdateState(_ event: ChatStateEvent) {
-        NSLog("Chat state updated: \(event.state.getStateName())")
-        ToastManager.shared.showToast(message: "UPDATE STATE: \(event.state.getStateName())", backgroundColor: .blue, textColor: .white)
+        NSLog("Chat state updated: \(event.state.name)")
         self.chatState = event.state
         
         DispatchQueue.main.async { [weak self] in
