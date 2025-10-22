@@ -302,6 +302,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     
     func didUpdateState(_ event: ChatStateEvent) {
         NSLog("Chat state updated: \(event.state.getStateName())")
+        ToastManager.shared.showToast(message: "UPDATE STATE: \(event.state.getStateName())", backgroundColor: .blue, textColor: .white)
         self.chatState = event.state
         
         DispatchQueue.main.async { [weak self] in
