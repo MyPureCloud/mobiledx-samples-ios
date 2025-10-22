@@ -26,7 +26,7 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.deploymentId)
         }
     }
-
+    
     class var domainId: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.domainId) ?? ""
@@ -35,7 +35,7 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.domainId)
         }
     }
-
+    
     class var token: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.token) ?? ""
@@ -44,7 +44,7 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.token)
         }
     }
-
+    
     class var logging: Bool {
         get {
             return UserDefaults.standard.bool(forKey: Keys.logging)
@@ -53,7 +53,7 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.logging)
         }
     }
-
+    
     class var customAttributes: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.customAttributes) ?? ""
@@ -62,18 +62,18 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.customAttributes)
         }
     }
-
+    
     class func getPushProviderFor(deploymentId: String) -> String? {
         let dict = UserDefaults.standard.dictionary(forKey: Keys.pushNotificationsRegisteredDeployments) as? [String: String]
         return dict?[deploymentId]
     }
-
+    
     class func setPushProviderFor(deploymentId: String, pushProvider: String?) {
         var dict = UserDefaults.standard.dictionary(forKey: Keys.pushNotificationsRegisteredDeployments) as? [String: String] ?? [:]
         dict[deploymentId] = pushProvider
         UserDefaults.standard.set(dict, forKey: Keys.pushNotificationsRegisteredDeployments)
     }
-
+    
     class var pushDeploymentId: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.pushDeploymentId)
@@ -82,7 +82,7 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.pushDeploymentId)
         }
     }
-
+    
     class var pushDomain: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.pushDomain)
