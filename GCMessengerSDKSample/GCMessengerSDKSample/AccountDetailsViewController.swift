@@ -305,18 +305,16 @@ extension AccountDetailsViewController: UITextFieldDelegate {
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
     func didReceive(chatElement: GenesysCloudCore.ChatElement) {
         DispatchQueue.main.async { [weak self] in
-            if let topViewController = UIApplication.getTopViewController() {
-                if topViewController is AccountDetailsViewController {
-                    let alertController = UIAlertController(
-                        title: "New Message Arrived",
-                        message: chatElement.getText(),
-                        preferredStyle: .alert
-                    )
+            if let topViewController = UIApplication.getTopViewController(), topViewController is AccountDetailsViewController {
+                let alertController = UIAlertController(
+                    title: "New Message Arrived",
+                    message: chatElement.getText(),
+                    preferredStyle: .alert
+                )
                     
-                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    guard let self else { return }
-                    present(alertController, animated: true)
-                }
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                guard let self else { return }
+                present(alertController, animated: true)
             }
         }
     }
