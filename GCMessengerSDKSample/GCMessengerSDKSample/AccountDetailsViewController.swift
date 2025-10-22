@@ -282,6 +282,7 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func openMainController(with account: MessengerAccount) {
+        NSLog("AccountDetailsViewController: presenting ChatWrapperViewController")
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account

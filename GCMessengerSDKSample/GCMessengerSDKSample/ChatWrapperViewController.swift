@@ -109,6 +109,7 @@ class ChatWrapperViewController: UIViewController {
     }
 
     func dismissChat() {
+        NSLog("ChatWrapperViewController: dismissChat")
         chatController.terminate()
         chatViewController = nil
         delegate?.dismiss()
@@ -143,6 +144,7 @@ class ChatWrapperViewController: UIViewController {
 
 extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
+        NSLog("ChatWrapperViewController shouldPresentChatViewController")
         viewController.modalPresentationStyle = .overFullScreen
         chatViewController = viewController
         if self.chatState == .chatPrepared {
@@ -160,6 +162,8 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
                     startSpinner(activityView: chatViewControllerActivityView)
                     NSLog("ChatWrapperViewController shouldPresentChatViewController startSpinner")
+                } else {
+                    NSLog("Won't start spinner, chat state is \(chatState?.getStateName() ?? "Unknown")")
                 }
             }
         }
@@ -297,7 +301,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func didUpdateState(_ event: ChatStateEvent) {
-        print("Chat event_type: \(event.state)")
+        NSLog("Chat state updated: \(event.state.getStateName())")
         self.chatState = event.state
         
         DispatchQueue.main.async { [weak self] in
@@ -305,10 +309,10 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
             
             switch event.state {
             case .chatPreparing:
-                print("preparing")
+                NSLog("preparing")
                 startSpinner(activityView: wrapperActivityView)
             case .chatStarted:
-                print("started")
+                NSLog("started")
                 
                 setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
