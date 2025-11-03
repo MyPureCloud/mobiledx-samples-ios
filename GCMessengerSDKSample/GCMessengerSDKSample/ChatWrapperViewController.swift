@@ -112,7 +112,7 @@ final class ChatWrapperViewController: UIViewController {
                 dismiss(alert: alert)
             })
 
-            present(alert, animated: true)
+        self?.present(alert, animated: true)
     }
 
     private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
@@ -263,19 +263,19 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainAct
             }
         }
     }
-    
+
     private func present(alert: UIAlertController) {
         guard !isAlertCurrentlyPresented else {
             NSLog("Won't present alert as another one is already presented")
             return
         }
-        
+
         if let topViewController = UIApplication.getTopViewController() {
                 topViewController.present(alert, animated: true)
                 isAlertCurrentlyPresented = true
         }
     }
-    
+
     private func dismiss(alert: UIAlertController) {
         isAlertCurrentlyPresented = false
         alert.dismiss(animated: true)

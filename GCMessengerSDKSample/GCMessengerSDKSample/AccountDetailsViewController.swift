@@ -220,7 +220,7 @@ extension AccountDetailsViewController {
             }
             return
         }
-        
+
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
         } else {
