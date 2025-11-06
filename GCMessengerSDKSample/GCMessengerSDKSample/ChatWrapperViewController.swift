@@ -112,7 +112,8 @@ final class ChatWrapperViewController: UIViewController {
                 dismiss(alert: alert)
             })
 
-        self?.present(alert, animated: true)
+        guard let topVC = UIApplication.getTopViewController() else { return }
+        topVC.present(alert, animated: true)
     }
 
     private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
@@ -159,7 +160,8 @@ final class ChatWrapperViewController: UIViewController {
             dismissChat()
         })
 
-        UIApplication.getTopViewController()?.present(alert, animated: true)
+        guard let topVC = UIApplication.getTopViewController() else { return }
+        topVC.present(alert, animated: true)
     }
 
     func dismissChat() {
@@ -204,7 +206,7 @@ final class ChatWrapperViewController: UIViewController {
     }
 }
 
-extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainActor ChatElementDelegate {
+extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if chatState == .chatPrepared {
@@ -351,7 +353,8 @@ extension ChatWrapperViewController {
                 self?.dismissChat()
             }
         )
-        UIApplication.getTopViewController()?.present(alert, animated: true)
+        guard let topVC = UIApplication.getTopViewController() else { return }
+        topVC.present(alert, animated: true)
     }
 
     func showAuthenticatedSessionErrorAlert(message: String) {
