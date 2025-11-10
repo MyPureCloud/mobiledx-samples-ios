@@ -144,7 +144,9 @@ final class ChatWrapperViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: Localization.ok, style: .default))
 
-        present(alert, animated: true)
+
+        guard let topVC = UIApplication.getTopViewController() else { return }
+        topVC.present(alert, animated: true)
     }
 
     func showUnavailableAlert() {
@@ -210,7 +212,8 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if chatState == .chatPrepared {
-            present(viewController, animated: true) { [weak self] in
+            guard let topVC = UIApplication.getTopViewController() else { return }
+            topVC.present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
 
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
