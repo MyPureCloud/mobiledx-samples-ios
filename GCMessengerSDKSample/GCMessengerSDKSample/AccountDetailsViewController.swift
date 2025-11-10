@@ -287,7 +287,7 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account
-        controller.isAuthorized = shouldAuthorize && (loginButton.isHidden || authCode != nil)
+        controller.isAuthorized = shouldAuthorize && authCode != nil
         controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
