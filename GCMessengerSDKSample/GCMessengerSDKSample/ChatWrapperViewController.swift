@@ -148,8 +148,7 @@ final class ChatWrapperViewController: UIViewController {
             self.dismissChat()
         }))
 
-        guard let topVC = UIApplication.getTopViewController() else { return }
-        topVC.present(alert, animated: true)
+        present(alert, animated: true)
     }
 
     private func showUnavailableAlert() {
