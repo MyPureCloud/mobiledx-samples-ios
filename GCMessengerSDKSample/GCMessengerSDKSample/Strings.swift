@@ -33,8 +33,8 @@ internal enum Localization {
   internal static let enableNotifications = Localization.tr("Localization", "enable_notifications", fallback: "To receive updates, please enable notifications in settings.")
   /// ENABLE PUSH
   internal static let enablePush = Localization.tr("Localization", "enable_push", fallback: "ENABLE PUSH")
-  /// End chat
-  internal static let endChat = Localization.tr("Localization", "end_chat", fallback: "End chat")
+  /// End Chat
+  internal static let endChat = Localization.tr("Localization", "end_chat", fallback: "End Chat")
   /// Error occurred
   internal static let errorOccured = Localization.tr("Localization", "error_occured", fallback: "Error occurred")
   /// Custom Attributes JSON isn’t in the correct format
@@ -55,8 +55,8 @@ internal enum Localization {
   internal static let settings = Localization.tr("Localization", "settings", fallback: "Settings")
   /// Start chat
   internal static let startChat = Localization.tr("Localization", "start_chat", fallback: "Start chat")
-  /// Yes, I'm Sure
-  internal static let sure = Localization.tr("Localization", "sure", fallback: "Yes, I'm Sure")
+  /// Yes I'm Sure
+  internal static let sure = Localization.tr("Localization", "sure", fallback: "Yes I'm Sure")
   /// You have been logged out because the session limit was exceeded.
   internal static let timedOut = Localization.tr("Localization", "timed_out", fallback: "You have been logged out because the session limit was exceeded.")
 }

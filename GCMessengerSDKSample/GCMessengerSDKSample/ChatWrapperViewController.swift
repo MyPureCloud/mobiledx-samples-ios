@@ -133,7 +133,7 @@ final class ChatWrapperViewController: UIViewController {
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
 
-    func showReconnectBarButton() {
+    private func handleChatDisconnectedState() {
         menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
 
         let alert = UIAlertController(
@@ -142,14 +142,17 @@ final class ChatWrapperViewController: UIViewController {
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: Localization.ok, style: .default))
+        alert.addAction(UIAlertAction(title: Localization.ok, style: .default, handler: { [weak self] _ in
+            guard let self else { return }
 
+            self.dismissChat()
+        }))
 
         guard let topVC = UIApplication.getTopViewController() else { return }
         topVC.present(alert, animated: true)
     }
 
-    func showUnavailableAlert() {
+    private func showUnavailableAlert() {
         let alert = UIAlertController(
             title: Localization.errorOccured,
             message: Localization.restrictedError,
@@ -159,7 +162,7 @@ final class ChatWrapperViewController: UIViewController {
         alert.addAction(UIAlertAction(title: Localization.ok, style: .cancel) { [weak self] _ in
             guard let self else { return }
 
-            dismissChat()
+            self.dismissChat()
         })
 
         guard let topVC = UIApplication.getTopViewController() else { return }
@@ -251,7 +254,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 stopSpinner(activityView: chatViewControllerActivityView)
 
             case .chatDisconnected:
-                showReconnectBarButton()
+                handleChatDisconnectedState()
 
             case .unavailable:
                 showUnavailableAlert()
