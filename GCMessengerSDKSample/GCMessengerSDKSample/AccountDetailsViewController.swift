@@ -29,6 +29,7 @@ class AccountDetailsViewController: UIViewController {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
+    private var shouldAuthorize = false
     
     private var pushProvider: GenesysCloud.PushProvider = .apns
     private var isRegisteredToPushNotifications = false
@@ -138,6 +139,7 @@ class AccountDetailsViewController: UIViewController {
         if let account = createAccountForValidInputFields() {
             AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
                 guard let self else { return }
+                self.shouldAuthorize = shouldAuthorize
                 
                 self.loginButton.isHidden = !shouldAuthorize
             })
@@ -285,7 +287,7 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account
-        controller.isAuthorized = loginButton.isHidden || authCode != nil
+        controller.isAuthorized = shouldAuthorize && authCode != nil
         controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
