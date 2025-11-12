@@ -141,11 +141,7 @@ final class ChatWrapperViewController: UIViewController {
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: Localization.ok, style: .default, handler: { [weak self] _ in
-            guard let self else { return }
-
-            self.dismissChat()
-        }))
+        alert.addAction(UIAlertAction(title: Localization.ok, style: .default))
 
         present(alert: alert)
     }
