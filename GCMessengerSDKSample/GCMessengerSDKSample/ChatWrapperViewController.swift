@@ -112,8 +112,7 @@ final class ChatWrapperViewController: UIViewController {
                 dismiss(alert: alert)
             })
 
-        guard let topVC = UIApplication.getTopViewController() else { return }
-        topVC.present(alert, animated: true)
+        self?.present(alert: alert)
     }
 
     private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
@@ -148,7 +147,7 @@ final class ChatWrapperViewController: UIViewController {
             self.dismissChat()
         }))
 
-        present(alert, animated: true)
+        present(alert: alert)
     }
 
     private func showUnavailableAlert() {
@@ -164,8 +163,7 @@ final class ChatWrapperViewController: UIViewController {
             self.dismissChat()
         })
 
-        guard let topVC = UIApplication.getTopViewController() else { return }
-        topVC.present(alert, animated: true)
+        present(alert: alert)
     }
 
     func dismissChat() {
@@ -214,8 +212,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if chatState == .chatPrepared {
-            guard let topVC = UIApplication.getTopViewController() else { return }
-            topVC.present(viewController, animated: true) { [weak self] in
+            present(viewController, animated: true) { [weak self] in
                 guard let self else { return }
 
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
