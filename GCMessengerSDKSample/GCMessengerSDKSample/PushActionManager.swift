@@ -46,6 +46,8 @@ final class PushActionManager: Sendable {
             printLog("Notifications Disabled")
             errorSubject.send(.pushDisabled)
         }
+
+        pushNotificationViewSubject.send()
     }
 
     func removeFromPushNotifications(
@@ -68,6 +70,7 @@ final class PushActionManager: Sendable {
             UserDefaults.pushDomain = nil
 
             self?.toastSubject.send("Push Notifications are DISABLED")
+            self?.pushNotificationViewSubject.send()
         }
     }
 

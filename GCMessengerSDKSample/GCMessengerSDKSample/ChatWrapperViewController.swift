@@ -102,7 +102,9 @@ final class ChatWrapperViewController: UIViewController {
             message: Localization.clearConversationMessage,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: { [weak self] _ in
+            self?.dismiss(alert: alert)
+        }))
         alert.addAction(
             UIAlertAction(title: Localization.sure, style: .destructive) { [weak self] _ in
                 guard let self else { return }
