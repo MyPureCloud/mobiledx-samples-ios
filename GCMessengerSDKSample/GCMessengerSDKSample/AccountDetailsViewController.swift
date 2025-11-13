@@ -220,7 +220,7 @@ extension AccountDetailsViewController {
             }
             return
         }
-        
+
         if let account = createAccountForValidInputFields() {
             openMainController(with: account)
         } else {
@@ -232,7 +232,9 @@ extension AccountDetailsViewController {
         if let account = createAccountForValidInputFields() {
             ChatAvailabilityChecker.checkAvailability(account) { result in
                 if let result {
-                    ToastManager.shared.showToast(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                    Task { @MainActor in
+                        ToastManager.shared.showToast(message: "Chat availability status returned \(result.isAvailable)", backgroundColor: result.isAvailable ? UIColor.green : UIColor.red)
+                    }
                 }
             }
         }

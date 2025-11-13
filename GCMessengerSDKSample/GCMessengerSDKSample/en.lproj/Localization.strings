@@ -1,5 +1,5 @@
 "start_chat" = "Start chat";
-"end_chat" = "End chat";
+"end_chat" = "End Chat";
 "login" = "LOGIN";
 "reconnect" = "Reconnect";
 "disconnected" = "Chat was disconnected";
@@ -12,7 +12,7 @@
 "notifications_disabled" = "Notifications Disabled";
 "cancel" = "Cancel";
 "ok" = "OK";
-"sure" = "Yes, I'm Sure";
+"sure" = "Yes I'm Sure";
 "settings" = "Settings";
 "enable_notifications" = "To receive updates, please enable notifications in settings.";
 "required_field_error" = "One or more required fields needed, please check & try again";

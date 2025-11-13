@@ -23,14 +23,18 @@ public class ToastManager {
         activeToastView = toastView
 
         // Display the new toast
-        if let topVC = UIApplication.getTopViewController() {
-            topVC.view.addSubview(toastView)
+        if let window = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first {
+            window.addSubview(toastView)
 
             let horizontalCenterConstraint = NSLayoutConstraint(
                 item: toastView,
                 attribute: .centerX,
                 relatedBy: .equal,
-                toItem: topVC.view,
+                toItem: window,
                 attribute: .centerX,
                 multiplier: 1,
                 constant: 0
@@ -46,18 +50,7 @@ public class ToastManager {
                 constant: 275
             )
 
-            let height: Int = Int(toastView.layer.cornerRadius * 2)
-
-            let topConstraint = NSLayoutConstraint(
-                item: toastView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: topVC.view.safeAreaLayoutGuide,
-                attribute: .top,
-                multiplier: 1,
-                constant: 68
-            )
-
+            let height: CGFloat = toastView.layer.cornerRadius * 2
             let heightConstraint = NSLayoutConstraint(
                 item: toastView,
                 attribute: .height,
@@ -65,15 +58,20 @@ public class ToastManager {
                 toItem: nil,
                 attribute: .height,
                 multiplier: 1,
-                constant: CGFloat(height)
+                constant: height
             )
 
-            NSLayoutConstraint.activate([
-                    horizontalCenterConstraint,
-                    widthConstraint,
-                    topConstraint,
-                    heightConstraint
-            ])
+            let topConstraint = NSLayoutConstraint(
+                item: toastView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: window,
+                attribute: .top,
+                multiplier: 1,
+                constant: 68
+            )
+
+            NSLayoutConstraint.activate([horizontalCenterConstraint, widthConstraint, heightConstraint, topConstraint])
 
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
                 toastView.alpha = 1

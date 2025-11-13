@@ -102,7 +102,9 @@ final class ChatWrapperViewController: UIViewController {
             message: Localization.clearConversationMessage,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: { [weak self] _ in
+            self?.dismiss(alert: alert)
+        }))
         alert.addAction(
             UIAlertAction(title: Localization.sure, style: .destructive) { [weak self] _ in
                 guard let self else { return }
@@ -112,7 +114,7 @@ final class ChatWrapperViewController: UIViewController {
                 dismiss(alert: alert)
             })
 
-            present(alert, animated: true)
+        self?.present(alert: alert)
     }
 
     private lazy var minimizeChatAction = UIAction(title: "Minimize Chat", image: nil) { [weak self] _ in
@@ -132,7 +134,7 @@ final class ChatWrapperViewController: UIViewController {
         menuBarButtonItem.menu = UIMenu(children: menuItems)
     }
 
-    func showReconnectBarButton() {
+    private func handleChatDisconnectedState() {
         menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
 
         let alert = UIAlertController(
@@ -143,10 +145,10 @@ final class ChatWrapperViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: Localization.ok, style: .default))
 
-        present(alert, animated: true)
+        present(alert: alert)
     }
 
-    func showUnavailableAlert() {
+    private func showUnavailableAlert() {
         let alert = UIAlertController(
             title: Localization.errorOccured,
             message: Localization.restrictedError,
@@ -156,10 +158,10 @@ final class ChatWrapperViewController: UIViewController {
         alert.addAction(UIAlertAction(title: Localization.ok, style: .cancel) { [weak self] _ in
             guard let self else { return }
 
-            dismissChat()
+            self.dismissChat()
         })
 
-        UIApplication.getTopViewController()?.present(alert, animated: true)
+        present(alert: alert)
     }
 
     func dismissChat() {
@@ -204,7 +206,7 @@ final class ChatWrapperViewController: UIViewController {
     }
 }
 
-extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainActor ChatElementDelegate {
+extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate {
     func shouldPresentChatViewController(_ viewController: UINavigationController!) {
         viewController.modalPresentationStyle = .overFullScreen
         if chatState == .chatPrepared {
@@ -246,7 +248,7 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainAct
                 stopSpinner(activityView: chatViewControllerActivityView)
 
             case .chatDisconnected:
-                showReconnectBarButton()
+                handleChatDisconnectedState()
 
             case .unavailable:
                 showUnavailableAlert()
@@ -263,19 +265,19 @@ extension ChatWrapperViewController: @MainActor ChatControllerDelegate, @MainAct
             }
         }
     }
-    
+
     private func present(alert: UIAlertController) {
         guard !isAlertCurrentlyPresented else {
             NSLog("Won't present alert as another one is already presented")
             return
         }
-        
+
         if let topViewController = UIApplication.getTopViewController() {
                 topViewController.present(alert, animated: true)
                 isAlertCurrentlyPresented = true
         }
     }
-    
+
     private func dismiss(alert: UIAlertController) {
         isAlertCurrentlyPresented = false
         alert.dismiss(animated: true)
@@ -351,7 +353,8 @@ extension ChatWrapperViewController {
                 self?.dismissChat()
             }
         )
-        UIApplication.getTopViewController()?.present(alert, animated: true)
+        guard let topVC = UIApplication.getTopViewController() else { return }
+        topVC.present(alert, animated: true)
     }
 
     func showAuthenticatedSessionErrorAlert(message: String) {
