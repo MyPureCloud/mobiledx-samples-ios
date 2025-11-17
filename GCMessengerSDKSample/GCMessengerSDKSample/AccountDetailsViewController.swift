@@ -166,18 +166,25 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        if let chatWrapperViewController,
-           let chatViewController = chatWrapperViewController.chatViewController {
-            present(chatWrapperViewController, animated: false) {
-                chatWrapperViewController.present(chatViewController, animated: true)
-            }
-            return
-        }
-        
         if let account = createAccountForValidInputFields() {
-            openMainController(with: account)
-        } else {
-            NSLog("Invalid account, one or more required fields needed, please check & try again")
+            AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
+                guard let self else { return }
+                self.shouldAuthorize = shouldAuthorize
+                
+                if let chatWrapperViewController,
+                   let chatViewController = chatWrapperViewController.chatViewController {
+                    present(chatWrapperViewController, animated: false) {
+                        chatWrapperViewController.present(chatViewController, animated: true)
+                    }
+                    return
+                }
+                
+                if let account = createAccountForValidInputFields() {
+                    openMainController(with: account)
+                } else {
+                    NSLog("Invalid account, one or more required fields needed, please check & try again")
+                }
+            })
         }
     }
     
