@@ -79,7 +79,7 @@ class AccountDetailsViewController: UIViewController {
         guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
             return
         }
-        
+
         setLoginButtonVisibility()
     }
     
@@ -169,18 +169,25 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
-        if let chatWrapperViewController,
-           let chatViewController = chatWrapperViewController.chatViewController {
-            present(chatWrapperViewController, animated: false) {
-                chatWrapperViewController.present(chatViewController, animated: true)
-            }
-            return
-        }
-        
         if let account = createAccountForValidInputFields() {
-            openMainController(with: account)
-        } else {
-            NSLog("Invalid account, one or more required fields needed, please check & try again")
+            AuthenticationStatus.shouldAuthorize(account: account, completion: { [weak self] shouldAuthorize in
+                guard let self else { return }
+                self.shouldAuthorize = shouldAuthorize
+                
+                if let chatWrapperViewController,
+                   let chatViewController = chatWrapperViewController.chatViewController {
+                    present(chatWrapperViewController, animated: false) {
+                        chatWrapperViewController.present(chatViewController, animated: true)
+                    }
+                    return
+                }
+                
+                if let account = createAccountForValidInputFields() {
+                    openMainController(with: account)
+                } else {
+                    NSLog("Invalid account, one or more required fields needed, please check & try again")
+                }
+            })
         }
     }
     
@@ -287,7 +294,7 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account
-        controller.isAuthorized = shouldAuthorize && authCode != nil
+        controller.isAuthorized = shouldAuthorize || UserDefaults.hasOktaCode
         controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
@@ -331,6 +338,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
     }
     
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+        UserDefaults.hasOktaCode = true
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
         self.codeVerifier = codeVerifier
@@ -579,6 +587,7 @@ extension AccountDetailsViewController {
     }
     
     func didLogout() {
+        UserDefaults.hasOktaCode = false
         self.authCode = nil
         self.signInRedirectURI = nil
         self.codeVerifier = nil
