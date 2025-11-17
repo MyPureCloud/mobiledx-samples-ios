@@ -76,6 +76,9 @@ class AccountDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
+            return
+        }
 
         setLoginButtonVisibility()
     }
