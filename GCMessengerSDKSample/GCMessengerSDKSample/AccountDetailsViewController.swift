@@ -287,7 +287,7 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account
-        controller.isAuthorized = shouldAuthorize && authCode != nil
+        controller.isAuthorized = shouldAuthorize || UserDefaults.hasOktaCode
         controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
@@ -331,6 +331,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
     }
     
     func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+        UserDefaults.hasOktaCode = true
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
         self.codeVerifier = codeVerifier
@@ -579,6 +580,7 @@ extension AccountDetailsViewController {
     }
     
     func didLogout() {
+        UserDefaults.hasOktaCode = false
         self.authCode = nil
         self.signInRedirectURI = nil
         self.codeVerifier = nil
