@@ -353,7 +353,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
     }
     
     func authenticatedSessionError(message: String) {
-        UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
+        UIApplication.safelyDismissTopViewController(animated: false, completion: { [weak self] in
             guard let self else { return }
 
             let alert = UIAlertController(title: "Error occurred", message: message, preferredStyle: .alert)

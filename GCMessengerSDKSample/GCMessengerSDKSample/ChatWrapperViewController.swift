@@ -371,8 +371,13 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     private func showAuthenticatedSessionErrorAlert(message: String) {
-        dismiss(animated: false, completion: { [weak self] in
-            self?.delegate?.authenticatedSessionError(message: message)
+        stopSpinner(activityView: wrapperActivityView)
+        
+        UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
+            guard let self else { return }
+
+            delegate?.authenticatedSessionError(message: message)
+
         })
     }
     
