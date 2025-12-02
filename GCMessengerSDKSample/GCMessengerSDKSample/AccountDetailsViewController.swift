@@ -30,7 +30,9 @@ class AccountDetailsViewController: UIViewController {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
-    
+    private var idToken: String?
+    private var nonce: String?
+
     private var pushProvider: GenesysCloud.PushProvider = .apns
     private var isRegisteredToPushNotifications = false
     
@@ -235,7 +237,10 @@ class AccountDetailsViewController: UIViewController {
         if let authCode, let signInRedirectURI {
             account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
         }
-        
+        if let idToken, let nonce {
+            // TODO: - [GMMS-10535] Set implicit authentication info
+        }
+
         updateUserDefaults()
         
         return account
@@ -335,10 +340,24 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
         self.codeVerifier = codeVerifier
-        
+
+        idToken = nil
+        nonce = nil
+
         dismiss(animated: true, completion: nil)
     }
-    
+
+    func implicitFlowAuthSucceeded(idToken: String, nonce: String) {
+        self.idToken = idToken
+        self.nonce = nonce
+
+        authCode = nil
+        signInRedirectURI = nil
+        codeVerifier = nil
+
+        dismiss(animated: true, completion: nil)
+    }
+
     func error(message: String) {
         dismiss(animated: true, completion: {
             self.showErrorAlert(message: message)
