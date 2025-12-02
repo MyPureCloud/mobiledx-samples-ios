@@ -21,7 +21,8 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
-    
+    var isImplicitFlow: Bool = false
+
     weak var delegate: AuthenticationViewControllerDelegate?
     
     override func viewDidLoad() {
