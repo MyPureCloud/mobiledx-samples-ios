@@ -289,7 +289,8 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
-
+            case .failedToReconnect:
+                handleChatDisconnectedState()
             default:
                 break
             }
