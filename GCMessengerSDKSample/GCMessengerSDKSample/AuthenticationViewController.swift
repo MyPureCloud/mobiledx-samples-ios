@@ -10,8 +10,8 @@ import UIKit
 
 @MainActor
 protocol AuthenticationViewControllerDelegate: AnyObject {
-    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?)
-    func implicitFlowAuthSucceeded(idToken: String, nonce: String)
+    func didGetAuthInfo(authCode: String, redirectUri: String, codeVerifier: String?)
+    func didGetImplicitAuthInfo(idToken: String, nonce: String)
     func error(message: String)
 }
 
@@ -117,7 +117,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
             return
         }
 
-        delegate?.implicitFlowAuthSucceeded(idToken: idToken, nonce: nonce)
+        delegate?.didGetImplicitAuthInfo(idToken: idToken, nonce: nonce)
     }
 
     private func handleAuthCodeFlowReturnURL(_ url: URL) {
@@ -125,7 +125,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
 
         if let signInRedirectURI,
            let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
-            delegate?.authenticationSucceeded(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+            delegate?.didGetAuthInfo(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
         }
     }
 

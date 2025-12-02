@@ -336,7 +336,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         dismiss(animated: true)
     }
     
-    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+    func didGetAuthInfo(authCode: String, redirectUri: String, codeVerifier: String?) {
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
         self.codeVerifier = codeVerifier
@@ -347,7 +347,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         dismiss(animated: true, completion: nil)
     }
 
-    func implicitFlowAuthSucceeded(idToken: String, nonce: String) {
+    func didGetImplicitAuthInfo(idToken: String, nonce: String) {
         self.idToken = idToken
         self.nonce = nonce
 
