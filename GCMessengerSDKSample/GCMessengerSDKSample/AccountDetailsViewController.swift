@@ -17,6 +17,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var implicitFlowSwitch: UISwitch!
     @IBOutlet weak var pushProviderToggle: UISegmentedControl!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
@@ -196,6 +197,8 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.delegate = self
+        controller.isImplicitFlow = implicitFlowSwitch.isOn
+
         present(controller, animated: true)
     }
     
