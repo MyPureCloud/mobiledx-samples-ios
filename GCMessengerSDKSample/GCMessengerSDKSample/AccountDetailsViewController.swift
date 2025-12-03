@@ -599,9 +599,11 @@ extension AccountDetailsViewController {
     }
     
     func didLogout() {
-        self.authCode = nil
-        self.signInRedirectURI = nil
-        self.codeVerifier = nil
-        self.chatWrapperViewController = nil
+        authCode = nil
+        signInRedirectURI = nil
+        codeVerifier = nil
+        nonce = nil
+        idToken = nil
+        chatWrapperViewController = nil
     }
 }
