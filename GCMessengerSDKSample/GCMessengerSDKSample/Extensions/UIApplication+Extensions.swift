@@ -30,8 +30,6 @@ extension UIApplication {
                 return
             }
 
-            let hasPresented = topVC.presentedViewController != nil || topVC.presentingViewController != nil
-
             if let presented = topVC.presentedViewController {
                 presented.dismiss(animated: animated, completion: {
                     completion?()

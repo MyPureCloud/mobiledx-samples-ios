@@ -13,6 +13,7 @@ extension UserDefaults {
         static let token = "token"
         static let logging = "logging"
         static let customAttributes = "customAttributes"
+        static let hasOktaCode = "hasOktaCode"
         static let pushNotificationsRegisteredDeployments = "pushNotificationsRegisteredDeployments"
         static let pushDeploymentId = "pushDeploymentId"
         static let pushDomain = "pushDomain"
@@ -60,6 +61,15 @@ extension UserDefaults {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.customAttributes)
+        }
+    }
+    
+    class var hasOktaCode: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: Keys.hasOktaCode)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.hasOktaCode)
         }
     }
     
