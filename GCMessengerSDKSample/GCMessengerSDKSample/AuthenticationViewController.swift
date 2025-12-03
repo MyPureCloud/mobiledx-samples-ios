@@ -102,19 +102,19 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private func handleImplicitFlowReturnURL(_ url: URL) {
         guard let nonce, let fragment = url.fragment else { return }
 
-        let fragmentItems = fragment
-            .components(separatedBy: "&")
-            .compactMap { item -> (key: String, value: String)? in
-                let parts = item.split(separator: "=")
-                guard parts.count == 2 else { return nil }
-                return (String(parts[0]), String(parts[1]))
-            }
+        var components = URLComponents()
+        components.query = fragment
+        let params = Dictionary(
+            uniqueKeysWithValues: (components.queryItems ?? []).compactMap { item -> (String, String)? in
+                guard let value = item.value else { return nil }
+                return (item.name, value)
+            })
 
-        guard let idToken = fragmentItems.first(where: { $0.key == "id_token" })?.value else {
-            if let error = fragmentItems.first(where: { $0.key == "error" })?.value {
-                print("Error during implicit flow login \(error)")
-            }
-            return
+        guard let idToken = params["id_token"] else {
+               if let error = params["error"] {
+                     print("Error during implicit flow login \(error)")
+               }
+               return
         }
 
         delegate?.didGetImplicitAuthInfo(idToken: idToken, nonce: nonce)
