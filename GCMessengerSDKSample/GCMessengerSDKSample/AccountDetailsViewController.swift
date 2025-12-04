@@ -238,7 +238,7 @@ class AccountDetailsViewController: UIViewController {
             account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
         }
         if let idToken, let nonce {
-            // TODO: - [GMMS-10535] Set implicit authentication info
+            account.setImplicitAuthenticationInfo(idToken: idToken, nonce: nonce)
         }
 
         updateUserDefaults()
