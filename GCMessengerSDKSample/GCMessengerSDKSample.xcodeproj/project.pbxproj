@@ -3,18 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		456FAC19C23155F2BEE26609 /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D6B22DC54E2F48E7BA65F8 /* Pods_GCMessengerSDKSample.framework */; };
+		B25EA9F27A5BE3B987EE1B9B /* Pods_GCMessengerSDKSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CA0BBAE7DF051807EAA5E2 /* Pods_GCMessengerSDKSample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		44D68477B88F6FD4505A4D79 /* Pods-GCMessengerSDKSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.debug.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.debug.xcconfig"; sourceTree = "<group>"; };
-		75D6B22DC54E2F48E7BA65F8 /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCMessengerSDKSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B508303DAA1D79CAB0E0943A /* Pods-GCMessengerSDKSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.release.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.release.xcconfig"; sourceTree = "<group>"; };
+		E5CA0BBAE7DF051807EAA5E2 /* Pods_GCMessengerSDKSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCMessengerSDKSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -33,10 +33,6 @@
 			exceptions = (
 				6157EF162EF2C8D1002265D6 /* Exceptions for "GCMessengerSDKSample" folder in "GCMessengerSDKSample" target */,
 			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
 			path = GCMessengerSDKSample;
 			sourceTree = "<group>";
 		};
@@ -47,21 +43,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				456FAC19C23155F2BEE26609 /* Pods_GCMessengerSDKSample.framework in Frameworks */,
+				B25EA9F27A5BE3B987EE1B9B /* Pods_GCMessengerSDKSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B6B72A971B2260DBC7CC30C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				75D6B22DC54E2F48E7BA65F8 /* Pods_GCMessengerSDKSample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		9EB7896BFB4B7CF33E61D178 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,7 +65,7 @@
 				6157EF032EF2C8D1002265D6 /* GCMessengerSDKSample */,
 				AF9463B2285B4940000CCF10 /* Products */,
 				9EB7896BFB4B7CF33E61D178 /* Pods */,
-				2B6B72A971B2260DBC7CC30C /* Frameworks */,
+				E7C5A78C7E84FE1007A50702 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +75,14 @@
 				AF9463B1285B4940000CCF10 /* GCMessengerSDKSample.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E7C5A78C7E84FE1007A50702 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E5CA0BBAE7DF051807EAA5E2 /* Pods_GCMessengerSDKSample.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,7 +127,6 @@
 				};
 			};
 			buildConfigurationList = AF9463AC285B4940000CCF10 /* Build configuration list for PBXProject "GCMessengerSDKSample" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -139,6 +134,7 @@
 				Base,
 			);
 			mainGroup = AF9463A8285B4940000CCF10;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = AF9463B2285B4940000CCF10 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
