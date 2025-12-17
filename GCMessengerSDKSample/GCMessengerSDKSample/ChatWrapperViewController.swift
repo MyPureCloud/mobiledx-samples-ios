@@ -8,34 +8,6 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
-@objc public enum ChatElementKind: Int {
-    case agent
-    case system
-    case user
-}
-
-@objc public class ChatElement: NSObject {
-    @objc public var id: String
-    @objc public var isLoadedFromHistory: Bool
-    @objc public var timestamp: Date
-    @objc public var kind: ChatElementKind
-    @objc dynamic public var userState: UserChatElementState = .none
-
-    init(chatElement: GenesysCloudCore.ChatElement) {
-        id = chatElement.id
-        isLoadedFromHistory = chatElement.isLoadedFromHistory
-        timestamp = chatElement.timestamp
-        switch chatElement.kind {
-        case .agent:
-            kind = .agent
-        case .system:
-            kind = .system
-        case .user(state: let state):
-            kind = .user
-            userState = state
-    }
-}
-
 protocol ChatWrapperViewControllerDelegate: AnyObject {
     @MainActor
     func didReceive(chatElement: ChatElement)
