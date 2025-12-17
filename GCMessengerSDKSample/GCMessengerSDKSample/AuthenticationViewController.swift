@@ -11,7 +11,7 @@ import UIKit
 @MainActor
 protocol AuthenticationViewControllerDelegate: AnyObject {
     func didGetAuthInfo(authCode: String, redirectUri: String, codeVerifier: String?)
-    func didGetImplicitAuthInfo(idToken: String, nonce: String)
+    func didGetImplicitAuthInfo(idToken: String, nonce: String, isReauthorization: Bool)
     func error(message: String)
 }
 
@@ -24,6 +24,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var signInRedirectURI: String?
     private var nonce: String?
     var isImplicitFlow: Bool = false
+    var isImplicitFlowReauthorization: Bool = false
 
     weak var delegate: AuthenticationViewControllerDelegate?
     
@@ -117,7 +118,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
                return
         }
 
-        delegate?.didGetImplicitAuthInfo(idToken: idToken, nonce: nonce)
+        delegate?.didGetImplicitAuthInfo(idToken: idToken, nonce: nonce, isReauthorization: isImplicitFlowReauthorization)
     }
 
     private func handleAuthCodeFlowReturnURL(_ url: URL) {

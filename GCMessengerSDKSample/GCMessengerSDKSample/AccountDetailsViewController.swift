@@ -196,6 +196,10 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func OnLoginTapped(_ sender: Any) {
+        startAuthentication()
+    }
+
+    private func startAuthentication(isImplicitFlowReauthorization: Bool = false) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.delegate = self
@@ -203,7 +207,7 @@ class AccountDetailsViewController: UIViewController {
 
         present(controller, animated: true)
     }
-    
+
     private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
         if inputField.text?.isEmpty == true {
             markInvalidTextField(inputField)
@@ -293,7 +297,7 @@ class AccountDetailsViewController: UIViewController {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatWrapperViewController") as! ChatWrapperViewController
         controller.delegate = self
         controller.messengerAccount = account
-        controller.isAuthorized = loginButton.isHidden || authCode != nil
+        controller.isAuthorized = loginButton.isHidden || authCode != nil || idToken != nil
         controller.isRegisteredToPushNotifications = isRegisteredToPushNotifications
         controller.modalPresentationStyle = .fullScreen
         controller.modalPresentationCapturesStatusBarAppearance = true
@@ -347,7 +351,9 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         dismiss(animated: true, completion: nil)
     }
 
-    func didGetImplicitAuthInfo(idToken: String, nonce: String) {
+    func didGetImplicitAuthInfo(idToken: String,
+                                nonce: String,
+                                isReauthorization: Bool) {
         self.idToken = idToken
         self.nonce = nonce
 
@@ -356,6 +362,10 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         codeVerifier = nil
 
         dismiss(animated: true, completion: nil)
+
+        if isReauthorization {
+            chatWrapperViewController?.chatController.reauthorizeImplicitFlow(idToken: idToken, nonce: nonce)
+        }
     }
 
     func error(message: String) {
@@ -391,6 +401,10 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         DispatchQueue.main.async {
             activityView.stopAnimating()
         }
+    }
+
+    func reauthorizationRequired() {
+        startAuthentication(isImplicitFlowReauthorization: true)
     }
 }
 
