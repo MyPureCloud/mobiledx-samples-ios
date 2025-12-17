@@ -204,8 +204,9 @@ class AccountDetailsViewController: UIViewController {
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.delegate = self
         controller.isImplicitFlow = implicitFlowSwitch.isOn
+        controller.isImplicitFlowReauthorization = isImplicitFlowReauthorization
 
-        present(controller, animated: true)
+        UIApplication.getTopViewController()?.present(controller, animated: true)
     }
 
     private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
@@ -360,8 +361,9 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         authCode = nil
         signInRedirectURI = nil
         codeVerifier = nil
+        print("implicit flow idtoken \(idToken)")
 
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
 
         if isReauthorization {
             chatWrapperViewController?.chatController.reauthorizeImplicitFlow(idToken: idToken, nonce: nonce)
