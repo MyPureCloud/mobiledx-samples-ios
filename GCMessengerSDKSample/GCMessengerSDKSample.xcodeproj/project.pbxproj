@@ -53,6 +53,19 @@
 		FCA44FC92AADB6730024B4E9 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0A350E292F06700100EAE917 /* Transport commonMain */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/src/commonMain";
+			sourceTree = "<group>";
+		};
+		0A350E412F06700100EAE917 /* Transport iosMain */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/src/iosMain";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		AF9463AE285B4940000CCF10 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -93,6 +106,8 @@
 		AF9463A8285B4940000CCF10 = {
 			isa = PBXGroup;
 			children = (
+				0A350E292F06700100EAE917 /* Transport commonMain */,
+				0A350E412F06700100EAE917 /* Transport iosMain */,
 				AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */,
 				AF9463B2285B4940000CCF10 /* Products */,
 				9EB7896BFB4B7CF33E61D178 /* Pods */,
