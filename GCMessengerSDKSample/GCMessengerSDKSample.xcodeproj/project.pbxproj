@@ -30,6 +30,8 @@
 /* Begin PBXFileReference section */
 		0A190B622A41A72000A069B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A190B692A44222D00A069B7 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Helper/Toast.swift; sourceTree = "<group>"; };
+		0A350C622F0669B700EAE917 /* Transport commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Transport commonMain"; path = "../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/src/commonMain/kotlin"; sourceTree = "<group>"; };
+		0A350C7A2F0669B700EAE917 /* Transport iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Transport iosMain"; path = "../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/src/iosMain/kotlin"; sourceTree = "<group>"; };
 		0A9FF7882C90254000824BA6 /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		0A9FF78C2C90928000824BA6 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		0AE8CC2B2E43585200699684 /* NotificationName+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extensions.swift"; sourceTree = "<group>"; };
@@ -45,8 +47,6 @@
 		AF9463BD285B4943000CCF10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF9463C0285B4943000CCF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF9463C2285B4943000CCF10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5871E70F1229448AB067673E /* Transport commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Transport commonMain"; path = "../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/src/commonMain/kotlin"; sourceTree = "<group>"; };
-		AC953B88828A48F9A0073976 /* Transport iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Transport iosMain"; path = "../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/src/iosMain/kotlin"; sourceTree = "<group>"; };
 		B508303DAA1D79CAB0E0943A /* Pods-GCMessengerSDKSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMessengerSDKSample.release.xcconfig"; path = "Target Support Files/Pods-GCMessengerSDKSample/Pods-GCMessengerSDKSample.release.xcconfig"; sourceTree = "<group>"; };
 		FC341F05286ADA87007599BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FC341F0A286C771E007599BD /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
@@ -95,12 +95,12 @@
 		AF9463A8285B4940000CCF10 = {
 			isa = PBXGroup;
 			children = (
+				0A350C622F0669B700EAE917 /* Transport commonMain */,
+				0A350C7A2F0669B700EAE917 /* Transport iosMain */,
 				AF9463B3285B4940000CCF10 /* GCMessengerSDKSample */,
 				AF9463B2285B4940000CCF10 /* Products */,
 				9EB7896BFB4B7CF33E61D178 /* Pods */,
 				2B6B72A971B2260DBC7CC30C /* Frameworks */,
-				5871E70F1229448AB067673E /* Transport commonMain */,
-				AC953B88828A48F9A0073976 /* Transport iosMain */,
 			);
 			sourceTree = "<group>";
 		};
