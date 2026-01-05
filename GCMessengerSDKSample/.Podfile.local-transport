@@ -15,7 +15,7 @@ install! 'cocoapods',
 DX_CORE="../../../BitBucket/mobile-messenger-ios-sdk/mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
 DX_MESSENGER="../../../BitBucket/mobile-messenger-ios-sdk/mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 DX_UI="../../../BitBucket/mobile-messenger-ios-sdk/mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
-DX_TRANSPORT="../../../../Transport/genesys-messenger-transport-mobile-sdk/transport/GenesysCloudMessengerTransport-Dev.podspec"
+DX_TRANSPORT="../../../BitBucket/genesys-messenger-transport-mobile-sdk/transport/GenesysCloudMessengerTransport-Dev.podspec"
 
 source 'https://cdn.cocoapods.org/'
 
