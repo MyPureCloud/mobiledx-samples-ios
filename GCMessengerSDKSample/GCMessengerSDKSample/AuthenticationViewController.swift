@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import GenesysCloudCore
 @preconcurrency import WebKit
 
 @MainActor
@@ -116,9 +117,9 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         // Execute the JavaScript
         webView.evaluateJavaScript(javascript) { (result, error) in
             if let error = error {
-                print("JavaScript evaluation failed: \(error.localizedDescription)")
+                GCLogger.error("JavaScript evaluation failed: \(public: error.localizedDescription)")
             } else {
-                print("Successfully disabled autocomplete on text fields.")
+                GCLogger.debug("Autocomplete disabled on text fields")
             }
         }
     }
