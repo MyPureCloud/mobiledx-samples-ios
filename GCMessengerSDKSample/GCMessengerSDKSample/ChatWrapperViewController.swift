@@ -289,7 +289,8 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
-
+            case .failedToReconnect:
+                handleChatDisconnectedState()
             default:
                 break
             }
@@ -372,8 +373,13 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     
     private func showAuthenticatedSessionErrorAlert(message: String) {
         stopSpinner(activityView: wrapperActivityView)
-        stopSpinner(activityView: chatViewControllerActivityView)
-        delegate?.authenticatedSessionError(message: message)
+        
+        UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
+            guard let self else { return }
+
+            delegate?.authenticatedSessionError(message: message)
+
+        })
     }
     
     private func showUnavailableAlert() {
