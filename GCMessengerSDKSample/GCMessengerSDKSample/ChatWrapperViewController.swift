@@ -280,11 +280,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatGeneralError:
                 print("** Error: \(error.errorType.rawValue)")
-                if error.errorDescription == "Try to authenticate again" {
-                    print("Auth required with wrog type")
-                    delegate?.reauthorizationRequired()
-                    return
-                }
+
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
