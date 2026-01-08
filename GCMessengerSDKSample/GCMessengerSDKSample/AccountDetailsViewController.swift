@@ -348,8 +348,6 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
 
         idToken = nil
         nonce = nil
-
-        dismiss(animated: true, completion: nil)
     }
 
     func didGetImplicitAuthInfo(idToken: String,
@@ -361,9 +359,6 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         authCode = nil
         signInRedirectURI = nil
         codeVerifier = nil
-        print("implicit flow idtoken \(idToken)")
-
-//        dismiss(animated: true, completion: nil)
 
         if isReauthorization {
             chatWrapperViewController?.chatController.reauthorizeImplicitFlow(idToken: idToken, nonce: nonce)

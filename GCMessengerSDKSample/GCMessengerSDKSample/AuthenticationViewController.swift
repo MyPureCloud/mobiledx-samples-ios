@@ -119,6 +119,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         }
 
         delegate?.didGetImplicitAuthInfo(idToken: idToken, nonce: nonce, isReauthorization: isImplicitFlowReauthorization)
+        dismiss(animated: true)
     }
 
     private func handleAuthCodeFlowReturnURL(_ url: URL) {
@@ -127,6 +128,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         if let signInRedirectURI,
            let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
             delegate?.didGetAuthInfo(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+            dismiss(animated: true)
         }
     }
 
