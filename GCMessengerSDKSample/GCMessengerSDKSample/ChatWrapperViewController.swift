@@ -15,6 +15,7 @@ protocol ChatWrapperViewControllerDelegate: AnyObject {
     func didLogout()
     func minimize()
     func dismiss()
+    func reauthorizationRequired()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -279,7 +280,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatGeneralError:
                 print("** Error: \(error.errorType.rawValue)")
-                
+
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
@@ -290,6 +291,9 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                     ToastManager.shared.showToast(message: errorDescription)
                 }
 
+            case .authorizationRequired:
+                print("** Error: \(String(describing: error.errorDescription))")
+                delegate?.reauthorizationRequired()
             default:
                 break
             }
