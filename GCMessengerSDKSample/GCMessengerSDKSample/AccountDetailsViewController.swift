@@ -17,6 +17,7 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
+    @IBOutlet weak var implicitFlowSwitch: UISwitch!
     @IBOutlet weak var pushProviderToggle: UISegmentedControl!
     @IBOutlet weak var versionAndBuildLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
@@ -29,6 +30,9 @@ class AccountDetailsViewController: UIViewController {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
+    private var idToken: String?
+    private var nonce: String?
+
     private var shouldAuthorize = false
     
     private var pushProvider: GenesysCloud.PushProvider = .apns
@@ -202,12 +206,19 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @IBAction func OnLoginTapped(_ sender: Any) {
+        startAuthentication()
+    }
+
+    private func startAuthentication(isImplicitFlowReauthorization: Bool = false) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as! AuthenticationViewController
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.delegate = self
-        present(controller, animated: true)
+        controller.isImplicitFlow = implicitFlowSwitch.isOn
+        controller.isImplicitFlowReauthorization = isImplicitFlowReauthorization
+
+        UIApplication.getTopViewController()?.present(controller, animated: true)
     }
-    
+
     private func checkInputFieldIsValid(_ inputField: UITextField) -> Bool {
         if inputField.text?.isEmpty == true {
             markInvalidTextField(inputField)
@@ -241,7 +252,10 @@ class AccountDetailsViewController: UIViewController {
         if let authCode, let signInRedirectURI {
             account.setAuthenticationInfo(authCode: authCode, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
         }
-        
+        if let idToken, let nonce {
+            account.setImplicitAuthenticationInfo(idToken: idToken, nonce: nonce)
+        }
+
         updateUserDefaults()
         
         return account
@@ -337,15 +351,32 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         dismiss(animated: true)
     }
     
-    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?) {
+    func didGetAuthInfo(authCode: String, redirectUri: String, codeVerifier: String?) {
         UserDefaults.hasOktaCode = true
         self.authCode = authCode
         self.signInRedirectURI = redirectUri
         self.codeVerifier = codeVerifier
-        
-        dismiss(animated: true, completion: nil)
+
+        idToken = nil
+        nonce = nil
     }
-    
+
+    func didGetImplicitAuthInfo(idToken: String,
+                                nonce: String,
+                                isReauthorization: Bool) {
+        UserDefaults.hasOktaCode = true
+        self.idToken = idToken
+        self.nonce = nonce
+
+        authCode = nil
+        signInRedirectURI = nil
+        codeVerifier = nil
+
+        if isReauthorization {
+            chatWrapperViewController?.chatController.reauthorizeImplicitFlow(idToken: idToken, nonce: nonce)
+        }
+    }
+
     func error(message: String) {
         dismiss(animated: true, completion: {
             self.showErrorAlert(message: message)
@@ -379,6 +410,10 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         DispatchQueue.main.async {
             activityView.stopAnimating()
         }
+    }
+
+    func reauthorizationRequired() {
+        startAuthentication(isImplicitFlowReauthorization: true)
     }
 }
 
@@ -587,10 +622,12 @@ extension AccountDetailsViewController {
     }
     
     func didLogout() {
+        authCode = nil
+        signInRedirectURI = nil
+        codeVerifier = nil
+        nonce = nil
+        idToken = nil
+        chatWrapperViewController = nil
         UserDefaults.hasOktaCode = false
-        self.authCode = nil
-        self.signInRedirectURI = nil
-        self.codeVerifier = nil
-        self.chatWrapperViewController = nil
     }
 }
