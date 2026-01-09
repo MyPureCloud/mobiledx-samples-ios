@@ -55,6 +55,7 @@
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o37-uK-blm">
                                                                 <rect key="frame" x="329" y="0.0" width="63" height="34"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="loggingSwitch"/>
                                                             </switch>
                                                         </subviews>
                                                     </stackView>
@@ -69,6 +70,7 @@
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ipc-2l-k2k" userLabel="Implicit Flow Switch">
                                                                 <rect key="frame" x="329" y="0.0" width="63" height="34"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="implicitFlowSwitch"/>
                                                             </switch>
                                                         </subviews>
                                                     </stackView>
