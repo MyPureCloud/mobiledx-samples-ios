@@ -127,12 +127,6 @@ class AccountDetailsViewController: UIViewController {
         pushProvider = sender.selectedSegmentIndex == 0 ? .apns : .fcm
     }
     
-    @objc func loggingSwitchChanged(_ sender: UISwitch) {
-        // Update both UserDefaults and GCLogger immediately
-        UserDefaults.logging = sender.isOn
-        GCLogger.isLoggingEnabled = sender.isOn
-    }
-    
     @objc func textFieldEditingDidEnd(_ textField: UITextField) {
         if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
             startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
@@ -172,10 +166,6 @@ class AccountDetailsViewController: UIViewController {
         customAttributesTextField.text = UserDefaults.customAttributes
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
-        loggingSwitch.addTarget(self, action: #selector(loggingSwitchChanged(_:)), for: .valueChanged)
-        
-        // Initialize GCLogger with the current logging state
-        GCLogger.isLoggingEnabled = UserDefaults.logging
     }
     
     @IBAction func startChatButtonTapped(_ sender: UIButton) {
