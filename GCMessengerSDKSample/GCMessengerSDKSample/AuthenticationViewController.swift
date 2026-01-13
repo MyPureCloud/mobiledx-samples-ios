@@ -6,7 +6,6 @@
 
 import Foundation
 import UIKit
-import GenesysCloudCore
 @preconcurrency import WebKit
 
 @MainActor
