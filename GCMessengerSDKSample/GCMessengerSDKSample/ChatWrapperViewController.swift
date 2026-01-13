@@ -159,7 +159,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 
                 if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
                     startSpinner(activityView: chatViewControllerActivityView)
-                    GCLogger.debug("Chat view controller spinner started")
+                    Logger.info("Chat view controller spinner started")
                 }
             }
         }
@@ -203,7 +203,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     func didFailWithError(_ error: GCError?) {
         if let error = error {
             if let errorDescription = error.errorDescription {
-                GCLogger.error("Chat error: \(public: errorDescription)")
+                Logger.error("Chat error: \(errorDescription)")
             }
 
             switch error.errorType {
@@ -224,68 +224,68 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                     }
                 }
             case .failedToSendMessage:
-                GCLogger.error("Failed to send message: \(public: error.errorType.rawValue)")
+                Logger.error("Failed to send message: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .failedToLoadData:
-                GCLogger.error("Failed to load data: \(public: error.errorType.rawValue)")
+                Logger.error("Failed to load data: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 stopSpinner(activityView: chatViewControllerActivityView)
                 
             case .failedToAutostartConversation:
-                GCLogger.error("Autostart failed: \(public: error.errorType.rawValue)")
+                Logger.error("Autostart failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
             case .conversationCreationError:
-                GCLogger.error("Conversation creation failed: \(public: error.errorType.rawValue)")
+                Logger.error("Conversation creation failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
             case .failedToSendCustomAttributes:
-                GCLogger.error("Custom attributes send failed: \(public: error.errorType.rawValue)")
+                Logger.error("Custom attributes send failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .attachmentDownloadError:
-                GCLogger.error("Attachment download failed: \(public: error.errorType.rawValue)")
+                Logger.error("Attachment download failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .authLogoutFailed:
-                GCLogger.error("Auth logout failed: \(public: error.errorType.rawValue)")
+                Logger.error("Auth logout failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
             case .clientNotAuthenticatedError:
-                GCLogger.error("Client not authenticated: \(public: error.errorType.rawValue)")
+                Logger.error("Client not authenticated: \(error.errorType.rawValue)")
                 
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
                 
             case .clearConversationDisabled, .clearConversationFailure:
-                GCLogger.error("Clear conversation failed: \(public: error.errorType.rawValue)")
+                Logger.error("Clear conversation failed: \(error.errorType.rawValue)")
                 
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatGeneralError:
-                GCLogger.error("Chat general error: \(public: error.errorType.rawValue)")
+                Logger.error("Chat general error: \(error.errorType.rawValue)")
                 
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
                 
             case .attachmentValidationError:
-                GCLogger.error("Attachment validation failed: \(public: error.errorType.rawValue)")
+                Logger.error("Attachment validation failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
@@ -298,7 +298,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func didUpdateState(_ event: ChatStateEvent) {
-        GCLogger.info("Chat state: \(public: event.state)")
+        Logger.info("Chat state: \(event.state)")
         self.chatState = event.state
         
         DispatchQueue.main.async { [weak self] in
@@ -306,10 +306,10 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
             
             switch event.state {
             case .chatPreparing:
-                GCLogger.debug("Chat preparing")
+                Logger.info("Chat preparing")
                 startSpinner(activityView: wrapperActivityView)
             case .chatStarted:
-                GCLogger.info("Chat started")
+                Logger.info("Chat started")
                 
                 setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
@@ -338,14 +338,14 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 }
                 
             default:
-                GCLogger.debug("Chat state: \(public: event.state)")
+                Logger.info("Chat state: \(event.state)")
             }
         }
     }
     
     private func present(alert: UIAlertController) {
         guard !isAlertCurrentlyPresented else {
-            GCLogger.warning("Alert already presented, skipping")
+            Logger.warning("Alert already presented, skipping")
             return
         }
         
@@ -393,14 +393,14 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func didClickLink(_ url: String) {
-        GCLogger.info("Link clicked: \(private: url)")
+        Logger.info("Link clicked: \(url)")
         if let url = URL(string: url) {
             UIApplication.shared.open(url)
         }
     }
     
     func didReceive(chatElement: ChatElement) {
-        GCLogger.debug("Message received: \(private: chatElement.getText() ?? "")")
+        Logger.info("Message received: \(chatElement.getText() ?? "")")
         
         if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
             delegate?.didReceive(chatElement: chatElement)

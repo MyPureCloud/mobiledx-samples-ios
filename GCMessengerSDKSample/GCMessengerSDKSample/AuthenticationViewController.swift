@@ -117,9 +117,9 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         // Execute the JavaScript
         webView.evaluateJavaScript(javascript) { (result, error) in
             if let error = error {
-                GCLogger.error("JavaScript evaluation failed: \(public: error.localizedDescription)")
+                Logger.error("JavaScript evaluation failed: \(error.localizedDescription)")
             } else {
-                GCLogger.debug("Autocomplete disabled on text fields")
+                Logger.info("Autocomplete disabled on text fields")
             }
         }
     }
