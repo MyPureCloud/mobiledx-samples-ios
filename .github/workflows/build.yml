@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build:
     name: Build Application
-    runs-on: macos-15-arm
+    runs-on: macos-15-arm64
     timeout-minutes: 10
 
     # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md
