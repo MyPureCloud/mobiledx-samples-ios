@@ -35,7 +35,7 @@ jobs:
       - name: Install CocoaPods
         working-directory: GCMessengerSDKSample
         run: |
-          pod install --repo-update
+          pod install
 
       - name: Build iOS App
         working-directory: GCMessengerSDKSample
@@ -43,6 +43,6 @@ jobs:
           xcodebuild clean build \
             -workspace "GCMessengerSDKSample.xcworkspace" \
             -scheme "GCMessengerSDKSample" \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,OS=18.5,name=iPhone 16' \
             -sdk iphonesimulator \
             CODE_SIGNING_ALLOWED=NO
