@@ -43,6 +43,6 @@ jobs:
           xcodebuild clean build \
             -workspace "GCMessengerSDKSample.xcworkspace" \
             -scheme "GCMessengerSDKSample" \
-            -destination 'platform=iOS Simulator,OS=18.5,name=iPhone 16' \
+            -destination 'platform=iOS Simulator,OS=18.2,name=iPhone 16' \
             -sdk iphonesimulator \
             CODE_SIGNING_ALLOWED=NO
