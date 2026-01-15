@@ -18,8 +18,16 @@ concurrency:
 jobs:
   build:
     name: Build Application
-    runs-on: macos-15 # or macos-latest
+    runs-on: macos-15-arm
     timeout-minutes: 10
+
+    # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md
+    env:
+      XCODE_VERSION: "16.4"
+      IOS_VERSION: "18.5"
+      SIMULATOR_DEVICE: "iPhone 16"
+      WORKSPACE_NAME: "GCMessengerSDKSample.xcworkspace"
+      SCHEME_NAME: "GCMessengerSDKSample"
 
     steps:
       - name: Checkout repository
@@ -29,7 +37,7 @@ jobs:
 
       - name: Set Xcode Version
         run: |
-          sudo xcode-select -s /Applications/Xcode_16.2.app
+          sudo xcode-select -s /Applications/Xcode_${{ env.XCODE_VERSION }}.app
           xcodebuild -version
 
       - name: Install CocoaPods
@@ -41,8 +49,8 @@ jobs:
         working-directory: GCMessengerSDKSample
         run: |
           xcodebuild clean build \
-            -workspace "GCMessengerSDKSample.xcworkspace" \
-            -scheme "GCMessengerSDKSample" \
-            -destination 'platform=iOS Simulator,OS=18.2,name=iPhone 16' \
+            -workspace "${{ env.WORKSPACE_NAME }}" \
+            -scheme "${{ env.SCHEME_NAME }}" \
+            -destination "platform=iOS Simulator,OS=${{ env.IOS_VERSION }},name=${{ env.SIMULATOR_DEVICE }}" \
             -sdk iphonesimulator \
             CODE_SIGNING_ALLOWED=NO
