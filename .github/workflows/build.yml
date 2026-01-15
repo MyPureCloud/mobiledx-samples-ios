@@ -18,10 +18,10 @@ concurrency:
 jobs:
   build:
     name: Build Application
-    runs-on: macos-15-arm64
+    runs-on: macos-15
     timeout-minutes: 10
 
-    # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md
+    # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
     env:
       XCODE_VERSION: "16.4"
       IOS_VERSION: "18.5"
