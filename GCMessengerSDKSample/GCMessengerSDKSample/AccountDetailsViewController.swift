@@ -14,6 +14,7 @@ import FirebaseMessaging
 class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var deploymentIdTextField: UITextField!
     @IBOutlet weak var domainIdTextField: UITextField!
+    @IBOutlet weak var sessionExpirationNoticeIntervalTextField: UITextField!
     @IBOutlet weak var customAttributesTextField: UITextField!
     @IBOutlet weak var startChatButton: UIButton!
     @IBOutlet weak var loggingSwitch: UISwitch!
@@ -76,7 +77,9 @@ class AccountDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
+        guard checkInputFieldIsValid(deploymentIdTextField) ||
+              checkInputFieldIsValid(domainIdTextField) ||
+              checkSessionExpirationNoticeIntervalValidity(sessionExpirationNoticeIntervalTextField) else {
             return
         }
 
@@ -84,10 +87,12 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @objc func textFieldEditingDidChange(_ textField: UITextField) {
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            let domainAndDeploymentIdsAreEmpty = deploymentId.isEmpty && domainId.isEmpty
-            startChatButton.isEnabled = !domainAndDeploymentIdsAreEmpty
-            pushButton.isEnabled = !domainAndDeploymentIdsAreEmpty
+        if let deploymentId = deploymentIdTextField.text,
+           let domainId = domainIdTextField.text,
+           let sessionExpirationNoticeInterval = sessionExpirationNoticeIntervalTextField.text {
+            let fieldsAreEmpty = deploymentId.isEmpty && domainId.isEmpty && sessionExpirationNoticeInterval.isEmpty
+            startChatButton.isEnabled = !fieldsAreEmpty
+            pushButton.isEnabled = !fieldsAreEmpty
         }
     }
     
@@ -128,9 +133,11 @@ class AccountDetailsViewController: UIViewController {
     }
     
     @objc func textFieldEditingDidEnd(_ textField: UITextField) {
-        if let deploymentId = deploymentIdTextField.text, let domainId = domainIdTextField.text {
-            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty
-            
+        if let deploymentId = deploymentIdTextField.text,
+           let domainId = domainIdTextField.text,
+           let sessionExpirationNoticeInterval = sessionExpirationNoticeIntervalTextField.text {
+            startChatButton.isEnabled = !deploymentId.isEmpty && !domainId.isEmpty && !sessionExpirationNoticeInterval.isEmpty
+
             setLoginButtonVisibility()
         }
     }
@@ -153,16 +160,19 @@ class AccountDetailsViewController: UIViewController {
     private func setupFields() {
         domainIdTextField.delegate = self
         deploymentIdTextField.delegate = self
+        sessionExpirationNoticeIntervalTextField.delegate = self
         customAttributesTextField.delegate = self
 
         domainIdTextField.returnKeyType = .done
         deploymentIdTextField.returnKeyType = .done
+        sessionExpirationNoticeIntervalTextField.returnKeyType = .done
         customAttributesTextField.returnKeyType = .done
-        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
-        domainIdTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
-        
+        sessionExpirationNoticeIntervalTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: .editingChanged)
+        sessionExpirationNoticeIntervalTextField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+
         deploymentIdTextField.text = UserDefaults.deploymentId
         domainIdTextField.text = UserDefaults.domainId
+        sessionExpirationNoticeIntervalTextField.text = UserDefaults.sessionExpirationNoticeInterval
         customAttributesTextField.text = UserDefaults.customAttributes
         
         loggingSwitch.setOn(UserDefaults.logging, animated: true)
@@ -215,16 +225,46 @@ class AccountDetailsViewController: UIViewController {
         }
         return true
     }
-    
+
+    private func checkSessionExpirationNoticeIntervalValidity(_ inputField: UITextField) -> Bool {
+        guard let inputValue = inputField.text,
+              let intValue = stringToInt(inputValue),
+              intValue > 0 else {
+            markInvalidTextField(inputField)
+            return false
+        }
+
+        return true
+    }
+
+    private func stringToInt(_ string: String) -> Int? {
+        do {
+            let intValue = try Int(string, format: .number)
+            return intValue
+        } catch {
+            return nil
+        }
+    }
+
     private func createAccountForValidInputFields() -> MessengerAccount? {
-        guard checkInputFieldIsValid(deploymentIdTextField) || checkInputFieldIsValid(domainIdTextField) else {
+        guard checkInputFieldIsValid(deploymentIdTextField) ||
+              checkInputFieldIsValid(domainIdTextField) ||
+              checkSessionExpirationNoticeIntervalValidity(sessionExpirationNoticeIntervalTextField) else {
             showErrorAlert(message: "One or more required fields needed, please check & try again")
             return nil
         }
-        
-        let account = MessengerAccount(deploymentId: deploymentIdTextField.text ?? "",
-                                       domain: domainIdTextField.text ?? "",
-                                       logging: loggingSwitch.isOn)
+
+        guard let sessionExpirationNoticeString = sessionExpirationNoticeIntervalTextField.text,
+              let sessionExpirationNoticeInterval = stringToInt(sessionExpirationNoticeString) else {
+            return nil
+        }
+
+        let account = MessengerAccount(
+            deploymentId: deploymentIdTextField.text ?? "",
+            domain: domainIdTextField.text ?? "",
+            logging: loggingSwitch.isOn,
+            sessionExpirationNoticeInterval: sessionExpirationNoticeInterval
+        )
         
         let customAttributes = (customAttributesTextField.text ?? "").convertStringToDictionary()
         
@@ -266,10 +306,15 @@ class AccountDetailsViewController: UIViewController {
     private func handleErrorPushDeploymentIdMismatch(error: GCError) {
         if error.errorType == .pushDeploymentIdMismatch {
             var account: MessengerAccount?
-            if let savedPushDeploymentId = UserDefaults.pushDeploymentId, let savedPushDomain = UserDefaults.pushDomain {
-                account = MessengerAccount(deploymentId: savedPushDeploymentId,
-                                           domain: savedPushDomain,
-                                           logging: self.loggingSwitch.isOn)
+            if let savedPushDeploymentId = UserDefaults.pushDeploymentId,
+               let savedPushDomain = UserDefaults.pushDomain,
+               let savedSessionExpirationNoticeInterval = stringToInt(UserDefaults.sessionExpirationNoticeInterval) {
+                account = MessengerAccount(
+                    deploymentId: savedPushDeploymentId,
+                    domain: savedPushDomain,
+                    logging: self.loggingSwitch.isOn,
+                    sessionExpirationNoticeInterval: savedSessionExpirationNoticeInterval
+                )
             } else {
                 account = self.createAccountForValidInputFields()
             }
@@ -286,6 +331,7 @@ class AccountDetailsViewController: UIViewController {
     private func updateUserDefaults() {
         UserDefaults.deploymentId = deploymentIdTextField.text ?? ""
         UserDefaults.domainId = domainIdTextField.text ?? ""
+        UserDefaults.sessionExpirationNoticeInterval = sessionExpirationNoticeIntervalTextField.text ?? ""
         UserDefaults.logging = loggingSwitch.isOn
         UserDefaults.customAttributes = customAttributesTextField.text ?? ""
     }

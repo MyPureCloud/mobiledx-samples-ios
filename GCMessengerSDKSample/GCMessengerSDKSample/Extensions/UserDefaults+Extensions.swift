@@ -10,6 +10,7 @@ extension UserDefaults {
     private enum Keys {
         static let deploymentId = "deploymentId"
         static let domainId = "domainId"
+        static let sessionExpirationNoticeInterval = "sessionExpirationNoticeInterval"
         static let token = "token"
         static let logging = "logging"
         static let customAttributes = "customAttributes"
@@ -36,7 +37,17 @@ extension UserDefaults {
             UserDefaults.standard.set(newValue, forKey: Keys.domainId)
         }
     }
-    
+
+    class var sessionExpirationNoticeInterval: String {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.sessionExpirationNoticeInterval) ?? ""
+        }
+
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.sessionExpirationNoticeInterval)
+        }
+    }
+
     class var token: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.token) ?? ""
