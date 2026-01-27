@@ -262,10 +262,11 @@ class AccountDetailsViewController: UIViewController {
         let account = MessengerAccount(
             deploymentId: deploymentIdTextField.text ?? "",
             domain: domainIdTextField.text ?? "",
-            logging: loggingSwitch.isOn,
-            sessionExpirationNoticeInterval: sessionExpirationNoticeInterval
+            logging: loggingSwitch.isOn
         )
-        
+
+        account.setSessionExpirationNoticeInterval(sessionExpirationNoticeInterval)
+
         let customAttributes = (customAttributesTextField.text ?? "").convertStringToDictionary()
         
         switch customAttributes {
@@ -312,9 +313,10 @@ class AccountDetailsViewController: UIViewController {
                 account = MessengerAccount(
                     deploymentId: savedPushDeploymentId,
                     domain: savedPushDomain,
-                    logging: self.loggingSwitch.isOn,
-                    sessionExpirationNoticeInterval: savedSessionExpirationNoticeInterval
+                    logging: self.loggingSwitch.isOn
                 )
+
+                account?.setSessionExpirationNoticeInterval(savedSessionExpirationNoticeInterval)
             } else {
                 account = self.createAccountForValidInputFields()
             }
