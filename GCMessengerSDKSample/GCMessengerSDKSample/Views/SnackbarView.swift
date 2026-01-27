@@ -30,35 +30,56 @@ class SnackbarView: UIView {
         onButtonTap: @escaping () -> Void,
         onCloseTap: @escaping () -> Void
     ) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+        // Remove existing Snackbar view if any
+        self.remove()
 
-            // Remove existing Snackbar view if any
-            self.remove()
+        let snackbarView = self.createSnackbarView(message: message, title: title, onButtonTap: onButtonTap, onCloseTap: onCloseTap)
 
-            let snackbarView = self.createSnackbarView(message: message, title: title, onButtonTap: onButtonTap, onCloseTap: onCloseTap)
+        if let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first {
+            keyWindow.addSubview(snackbarView)
 
-            if let keyWindow = UIApplication.shared.connectedScenes
-                .filter({$0.activationState == .foregroundActive})
-                .compactMap({$0 as? UIWindowScene})
-                .first?.windows
-                .filter({$0.isKeyWindow}).first {
-                keyWindow.addSubview(snackbarView)
-
-                snackbarView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    snackbarView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 16),
-                    snackbarView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -16),
-                    snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 100),
-                    snackbarView.heightAnchor.constraint(equalToConstant: 48)
-                ])
-                self.activeSnackbarView = snackbarView
-            }
+            snackbarView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                snackbarView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 16),
+                snackbarView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -16),
+                snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 100),
+                snackbarView.heightAnchor.constraint(equalToConstant: 48)
+            ])
+            self.activeSnackbarView = snackbarView
         }
-        
+
         // Remove Snackbar 10 seconds after it was displayed
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {[weak self] in            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {[weak self] in
             self?.remove()
+        }
+    }
+
+    public func show(
+        topAnchorView: UIView,
+        message: String,
+        onCloseTap: @escaping () -> Void
+    ) {
+        self.remove()
+        let snackbarView = createSnackbarView(message: message, onCloseTap: onCloseTap)
+
+        if let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first {
+            keyWindow.addSubview(snackbarView)
+
+            snackbarView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                snackbarView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 16),
+                snackbarView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -16),
+                snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 70)
+            ])
+            self.activeSnackbarView = snackbarView
         }
     }
 
@@ -68,34 +89,47 @@ class SnackbarView: UIView {
 
     func createSnackbarView(
         message: String,
-        title: String,
-        onButtonTap: @escaping () -> Void,
+        title: String? = nil,
+        onButtonTap: (() -> Void)? = nil,
         onCloseTap: @escaping () -> Void
     ) -> UIStackView {
+        var subViews: [UIView] = []
+
         messageLabel.text = message
         messageLabel.textColor = .black
         messageLabel.font = UIFont.systemFont(ofSize: 14)
-        messageLabel.numberOfLines = 1
+        messageLabel.numberOfLines = 0
+        messageLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        messageLabel.setContentHuggingPriority(.required, for: .vertical)
+        subViews.append(messageLabel)
 
-        settingsButton.setTitle(title, for: .normal)
-        settingsButton.setTitleColor(.systemBlue, for: .normal)
-        settingsButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        settingsButton.addAction(UIAction(handler: { _ in onButtonTap() }), for: .touchUpInside)
+        if let onButtonTap {
+            settingsButton.setTitle(title, for: .normal)
+            settingsButton.setTitleColor(.systemBlue, for: .normal)
+            settingsButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+            settingsButton.addAction(UIAction(handler: { _ in onButtonTap() }), for: .touchUpInside)
+            settingsButton.setContentHuggingPriority(.required, for: .horizontal)
+            settingsButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+            subViews.append(settingsButton)
+        }
 
         closeButton.setTitle("✕", for: .normal)
         closeButton.setTitleColor(.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         closeButton.addAction(UIAction(handler: { _ in onCloseTap() }), for: .touchUpInside)
+        closeButton.setContentHuggingPriority(.required, for: .horizontal)
+        closeButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        subViews.append(closeButton)
 
-        let stackView = UIStackView(arrangedSubviews: [messageLabel, settingsButton, closeButton])
+        let stackView = UIStackView(arrangedSubviews: subViews)
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.alignment = .center
+        stackView.alignment = .top
         stackView.backgroundColor = UIColor.systemGray5
         stackView.layer.cornerRadius = 10
         stackView.clipsToBounds = true
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false

@@ -67,6 +67,7 @@ class ChatWrapperViewController: UIViewController {
             
             startSpinner(activityView: self.chatViewControllerActivityView)
             chatController.clearConversation()
+            SnackbarView.shared.remove()
             dismiss(alert: alert)
         }))
         
@@ -150,13 +151,13 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 guard let self else { return }
 
                 chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-                
+
                 setDefaultMenuItems()
                 chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
-                
+
                 setSpinner(activityView: self.chatViewControllerActivityView, view: viewController.viewControllers.first?.view)
                 checkNotificationAuthStatus()
-                
+
                 if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
                     startSpinner(activityView: chatViewControllerActivityView)
                     NSLog("ChatWrapperViewController shouldPresentChatViewController startSpinner")
@@ -164,25 +165,25 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
             }
         }
     }
-    
+
     func checkNotificationAuthStatus() {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] permission in
             guard let self else { return }
-            
+
             if permission.authorizationStatus != .authorized {
                 self.showPushSnackbar()
             }
         })
     }
-    
+
     func showPushSnackbar() {
         if !isRegisteredToPushNotifications {
             return
         }
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            
+
             SnackbarView.shared.show(
                 topAnchorView: self.view,
                 message: "Notifications are disabled",
@@ -191,9 +192,14 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 onCloseTap: self.removeSnackbar)
         }
     }
-    
+
     func removeSnackbar() { SnackbarView.shared.remove() }
-    
+
+    func removeSessionExpirationNoticeSnackbar() {
+        SnackbarView.shared.remove()
+        chatController.removeSessionExpirationNotice()
+    }
+
     func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
@@ -405,5 +411,13 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
         if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
             delegate?.didReceive(chatElement: chatElement)
         }
+    }
+
+    func didReceiveSessionExpirationNotice(_ notice: String) {
+        SnackbarView.shared.show(
+            topAnchorView: self.view,
+            message: notice,
+            onCloseTap: removeSessionExpirationNoticeSnackbar
+        )
     }
 }
