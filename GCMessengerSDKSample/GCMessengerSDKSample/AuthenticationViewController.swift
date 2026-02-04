@@ -10,7 +10,8 @@ import UIKit
 
 @MainActor
 protocol AuthenticationViewControllerDelegate: AnyObject {
-    func authenticationSucceeded(authCode: String, redirectUri: String, codeVerifier: String?)
+    func didGetAuthInfo(authCode: String, redirectUri: String, codeVerifier: String?)
+    func didGetImplicitAuthInfo(idToken: String, nonce: String, isReauthorization: Bool)
     func error(message: String)
 }
 
@@ -21,7 +22,10 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
-    
+    private var nonce: String?
+    var isImplicitFlow: Bool = false
+    var isImplicitFlowReauthorization: Bool = false
+
     weak var delegate: AuthenticationViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -68,16 +72,24 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         }
         
         var urlComponents = URLComponents(string: "https://\(oktaDomain)/oauth2/default/v1/authorize")
+
+        let responseType = isImplicitFlow ? "id_token" : "code"
+
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: clientId),
-            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "response_type", value: responseType),
             URLQueryItem(name: "scope", value: scope),
             URLQueryItem(name: "redirect_uri", value: signInRedirectURI),
             URLQueryItem(name: "state", value: oktaState),
             URLQueryItem(name: "code_challenge_method", value: codeChallengeMethod),
             URLQueryItem(name: "code_challenge", value: codeChallenge)
         ]
-        
+
+        if isImplicitFlow {
+            nonce = UUID().uuidString
+            urlComponents?.queryItems?.append(URLQueryItem(name: "nonce", value: nonce))
+        }
+
         guard let url = urlComponents?.url else {
             return nil
         }
@@ -87,17 +99,48 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         
         return URL(string: url.absoluteString)
     }
-    
-    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))) {
-        guard let url = navigationAction.request.url,
-              let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+
+    private func handleImplicitFlowReturnURL(_ url: URL) {
+        guard let nonce, let fragment = url.fragment else { return }
+
+        var components = URLComponents()
+        components.query = fragment
+        let params = Dictionary(
+            uniqueKeysWithValues: (components.queryItems ?? []).compactMap { item -> (String, String)? in
+                guard let value = item.value else { return nil }
+                return (item.name, value)
+            })
+
+        guard let idToken = params["id_token"] else {
+               if let error = params["error"] {
+                     print("Error during implicit flow login \(error)")
+               }
+               return
+        }
+
+        delegate?.didGetImplicitAuthInfo(idToken: idToken, nonce: nonce, isReauthorization: isImplicitFlowReauthorization)
+        dismiss(animated: true)
+    }
+
+    private func handleAuthCodeFlowReturnURL(_ url: URL) {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
 
         if let signInRedirectURI,
            let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
-            delegate?.authenticationSucceeded(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+            delegate?.didGetAuthInfo(authCode: code, redirectUri: signInRedirectURI, codeVerifier: codeVerifier)
+            dismiss(animated: true)
         }
+    }
 
-        decisionHandler(.allow)
+    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))) {
+        defer { decisionHandler(.allow) }
+        guard let url = navigationAction.request.url else { return }
+
+        if isImplicitFlow {
+            handleImplicitFlowReturnURL(url)
+        } else {
+            handleAuthCodeFlowReturnURL(url)
+        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -116,9 +159,9 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         // Execute the JavaScript
         webView.evaluateJavaScript(javascript) { (result, error) in
             if let error = error {
-                print("JavaScript evaluation failed: \(error.localizedDescription)")
+                Logger.error("JavaScript evaluation failed: \(error.localizedDescription)")
             } else {
-                print("Successfully disabled autocomplete on text fields.")
+                Logger.info("Autocomplete disabled on text fields")
             }
         }
     }
