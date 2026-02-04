@@ -15,6 +15,7 @@ protocol ChatWrapperViewControllerDelegate: AnyObject {
     func didLogout()
     func minimize()
     func dismiss()
+    func reauthorizationRequired()
 }
 
 class ChatWrapperViewController: UIViewController {
@@ -289,6 +290,11 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
+
+            case .authorizationRequired:
+                Logger.error("** Error: \(String(describing: error.errorDescription))")
+                delegate?.reauthorizationRequired()
+
             case .failedToReconnect:
                 handleChatDisconnectedState()
             default:
