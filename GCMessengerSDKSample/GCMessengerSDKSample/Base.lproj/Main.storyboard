@@ -63,6 +63,22 @@
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o37-uK-blm">
                                                                 <rect key="frame" x="329" y="0.0" width="63" height="34"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="loggingSwitch"/>
+                                                            </switch>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="GJI-5S-8LV">
+                                                        <rect key="frame" x="0.0" y="216" width="390" height="34"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Implicit Flow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cys-DE-63h">
+                                                                <rect key="frame" x="0.0" y="0.0" width="299" height="34"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ipc-2l-k2k" userLabel="Implicit Flow Switch">
+                                                                <rect key="frame" x="329" y="0.0" width="63" height="34"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="implicitFlowSwitch"/>
                                                             </switch>
                                                         </subviews>
                                                     </stackView>
@@ -181,6 +197,7 @@
                         <outlet property="customAttributesTextField" destination="mZS-wc-c3y" id="CyF-kx-d8r"/>
                         <outlet property="deploymentIdTextField" destination="BTs-n4-gUo" id="PyM-Uc-DWm"/>
                         <outlet property="domainIdTextField" destination="3p7-vj-yX0" id="qf9-UE-vhw"/>
+                        <outlet property="implicitFlowSwitch" destination="Ipc-2l-k2k" id="rmr-uD-KH8"/>
                         <outlet property="loggingSwitch" destination="o37-uK-blm" id="DSP-2M-YeF"/>
                         <outlet property="loginButton" destination="i3O-Ry-5ha" id="RAr-X1-XZT"/>
                         <outlet property="pushButton" destination="fdr-TZ-Lrp" id="XaH-fU-1JW"/>
