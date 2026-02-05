@@ -473,17 +473,10 @@ extension AccountDetailsViewController {
                         return
                     }
                     
-<<<<<<< HEAD
-                    GCLogger.info("Register for remote notifications")
-                    self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
-                } else {
-                    GCLogger.info("Notifications Disabled")
-=======
                     Logger.info("Registering for remote notifications")
                     self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                 } else {
                     Logger.warning("Notifications disabled by user")
->>>>>>> release/2.1.0
                     self.showNotificationSettingsAlert()
                 }
             }
