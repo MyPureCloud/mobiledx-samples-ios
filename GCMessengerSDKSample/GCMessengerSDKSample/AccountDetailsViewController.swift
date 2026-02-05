@@ -100,7 +100,7 @@ class AccountDetailsViewController: UIViewController {
     
     func setPushNotificationsViews() {
         guard let deploymentId = deploymentIdTextField.text else {
-            NSLog("Can't get deployment ID")
+            Logger.error("Deployment ID not available")
             return
         }
         
@@ -119,7 +119,7 @@ class AccountDetailsViewController: UIViewController {
     
     @IBAction func pushButtonTapped(_ sender: Any) {
         guard let deploymentId = deploymentIdTextField.text else {
-            NSLog("Can't get deployment ID")
+            Logger.error("Deployment ID not available")
             return
         }
         
@@ -197,7 +197,7 @@ class AccountDetailsViewController: UIViewController {
                 if let account = createAccountForValidInputFields() {
                     openMainController(with: account)
                 } else {
-                    NSLog("Invalid account, one or more required fields needed, please check & try again")
+                    Logger.error("Invalid account: required fields missing")
                 }
             })
         }
@@ -205,9 +205,9 @@ class AccountDetailsViewController: UIViewController {
     
     @IBAction func chatAvailabilityButtonTapped(_ sender: UIButton) {
         if let account = createAccountForValidInputFields() {
-            ChatAvailabilityChecker.checkAvailability(account, completion: { result in
-                ToastManager.shared.showToast(message: "Chat availability status returned \(result)", backgroundColor: result ? UIColor.green : UIColor.red)
-            })
+            ChatAvailabilityChecker.checkAvailability(account) { isAvailable in
+                ToastManager.shared.showToast(message: isAvailable ? "Chat is ENABLED" : "Chat is DISABLED", backgroundColor: isAvailable ? UIColor.green : UIColor.red)
+            }
         }
     }
     
@@ -473,10 +473,17 @@ extension AccountDetailsViewController {
                         return
                     }
                     
+<<<<<<< HEAD
                     GCLogger.info("Register for remote notifications")
                     self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
                 } else {
                     GCLogger.info("Notifications Disabled")
+=======
+                    Logger.info("Registering for remote notifications")
+                    self.pushProvider == .apns ? appDelegate.registerForAPNsRemoteNotifications() : appDelegate.registerForFCMRemoteNotifications()
+                } else {
+                    Logger.warning("Notifications disabled by user")
+>>>>>>> release/2.1.0
                     self.showNotificationSettingsAlert()
                 }
             }
@@ -491,7 +498,7 @@ extension AccountDetailsViewController {
         } else if let createdAccount = createAccountForValidInputFields() {
             accountToUse = createdAccount
         } else {
-            NSLog("Error: can't create account from input fields")
+            Logger.error("Cannot create account from input fields")
             return
         }
         
@@ -501,7 +508,7 @@ extension AccountDetailsViewController {
                 guard let self else { return }
                 
                 guard let deploymentId = self.deploymentIdTextField.text else {
-                    NSLog("Can't get deployment ID")
+                    Logger.error("Deployment ID not available")
                     return
                 }
                 
@@ -545,7 +552,7 @@ extension AccountDetailsViewController {
     @objc func handleDeviceToken(_ notification: Notification) {
         let (account, deviceToken) = getAccountAndDeviceToken(notification)
         guard let account, let deviceToken else {
-            NSLog("Error: push provider selection error")
+            Logger.error("Push provider selection failed")
             return
         }
         
@@ -558,7 +565,7 @@ extension AccountDetailsViewController {
                 self.stopSpinner(activityView: self.wrapperActivityView)
                 
                 guard let deploymentId = self.deploymentIdTextField.text, let domain = self.domainIdTextField.text else {
-                    NSLog("Can't get deployment ID or domain")
+                    Logger.error("Deployment ID or domain not available")
                     return
                 }
                 
@@ -568,7 +575,7 @@ extension AccountDetailsViewController {
                     UserDefaults.pushDeploymentId = deploymentId
                     UserDefaults.pushDomain = domain
                     ToastManager.shared.showToast(message: "Push Notifications are ENABLED")
-                    NSLog("\(pushProvider) was registered with device token \(deviceToken)")
+                    Logger.info("Push provider registered: \(pushProvider)")
                 case .failure(let error):
                     let errorText = error.errorDescription ?? String(describing: error.errorType)
                     if errorText == "Device already registered." {
@@ -595,13 +602,13 @@ extension AccountDetailsViewController {
         
         if pushProvider == .apns {
             guard let apnsToken = userInfo["apnsToken"] as? String else {
-                NSLog("Error: no device token for .apns push provider")
+                Logger.error("APNS device token not found")
                 return (nil, nil)
             }
             deviceToken = apnsToken
         } else if pushProvider == .fcm {
             guard let fcmToken = userInfo["fcmToken"] as? String else {
-                NSLog("Error: no device token for .fcm push provider")
+                Logger.error("FCM device token not found")
                 return (nil, nil)
             }
             
@@ -627,17 +634,17 @@ extension AccountDetailsViewController {
     
     @objc func handleNotificationReceived(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
-            NSLog("Error: empty userInfo")
+            Logger.error("Notification userInfo empty")
             return
         }
         
         guard UIApplication.shared.applicationState == .active else {
-            NSLog("App is not in foreground")
+            Logger.info("App not in foreground")
             return
         }
         
         guard let senderID = userInfo["deeplink"] as? String else {
-            NSLog("Sender ID not found")
+            Logger.warning("Sender ID not found in notification")
             return
         }
         
@@ -663,7 +670,7 @@ extension AccountDetailsViewController {
                 topViewController.present(alertController, animated: true)
             }
         } else {
-            NSLog("Error retrieving UserInfo")
+            Logger.error("Failed to retrieve notification userInfo")
         }
     }
     
