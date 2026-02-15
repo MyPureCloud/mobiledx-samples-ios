@@ -13,6 +13,7 @@ protocol ChatWrapperViewControllerDelegate: AnyObject {
     func didReceive(chatElement: ChatElement)
     func authenticatedSessionError(message: String)
     func didLogout()
+    func didUnregisterPushNotifications()
     func minimize()
     func dismiss()
     func reauthorizationRequired()
@@ -48,7 +49,7 @@ class ChatWrapperViewController: UIViewController {
         guard let self else { return }
         
         self.startSpinner(activityView: self.chatViewControllerActivityView)
-        self.chatController.logoutFromAuthenticatedSession()
+        self.unregisterPushAndLogout()
     }
     
     private lazy var reconnectAction: UIAction = UIAction(title: "Reconnect", image: nil) { [weak self] _ in
@@ -109,6 +110,30 @@ class ChatWrapperViewController: UIViewController {
         removeSnackbar()
     }
 
+    /// Unregisters from push notifications (if registered) before calling logout API to prevent receiving notifications after logout.
+    private func unregisterPushAndLogout() {
+        guard isRegisteredToPushNotifications else {
+            chatController.logoutFromAuthenticatedSession()
+            return
+        }
+        
+        ChatPushNotificationIntegration.removePushToken(account: messengerAccount) { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success:
+                Logger.info("Push notifications unregistered before logout")
+                self.isRegisteredToPushNotifications = false
+                self.delegate?.didUnregisterPushNotifications()
+            case .failure(let error):
+                Logger.error("Failed to unregister push before logout: \(error.errorDescription ?? "unknown error"). Proceeding with logout.")
+            }
+            
+            // Proceed with logout regardless of push unregistration result
+            self.chatController.logoutFromAuthenticatedSession()
+        }
+    }
+    
     func dismissChat() {
         chatController.terminate()
         chatViewController = nil
