@@ -120,17 +120,16 @@ class ChatWrapperViewController: UIViewController {
         ChatPushNotificationIntegration.removePushToken(account: messengerAccount) { [weak self] result in
             guard let self else { return }
             
+            defer { chatController.logoutFromAuthenticatedSession() }
+            
             switch result {
             case .success:
                 Logger.info("Push notifications unregistered before logout")
-                self.isRegisteredToPushNotifications = false
-                self.delegate?.didUnregisterPushNotifications()
+                isRegisteredToPushNotifications = false
+                delegate?.didUnregisterPushNotifications()
             case .failure(let error):
                 Logger.error("Failed to unregister push before logout: \(error.errorDescription ?? "unknown error"). Proceeding with logout.")
             }
-            
-            // Proceed with logout regardless of push unregistration result
-            self.chatController.logoutFromAuthenticatedSession()
         }
     }
     
