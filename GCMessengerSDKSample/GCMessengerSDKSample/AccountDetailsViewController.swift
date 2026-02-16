@@ -628,4 +628,20 @@ extension AccountDetailsViewController {
         chatWrapperViewController = nil
         UserDefaults.hasOktaCode = false
     }
+    
+    func didUnregisterPushNotifications() {
+        guard let deploymentId = deploymentIdTextField.text else {
+            Logger.error("Deployment ID not available for push cleanup")
+            return
+        }
+        
+        UserDefaults.setPushProviderFor(deploymentId: deploymentId, pushProvider: nil)
+        UserDefaults.pushDeploymentId = nil
+        UserDefaults.pushDomain = nil
+        isRegisteredToPushNotifications = false
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.setPushNotificationsViews()
+        }
+    }
 }
