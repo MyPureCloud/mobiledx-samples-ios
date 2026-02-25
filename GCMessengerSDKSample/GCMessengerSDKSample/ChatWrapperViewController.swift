@@ -160,7 +160,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 
                 if chatState == .chatPrepared { //present is async, chatState might changed till we start the spinner
                     startSpinner(activityView: chatViewControllerActivityView)
-                    NSLog("ChatWrapperViewController shouldPresentChatViewController startSpinner")
+                    Logger.info("Chat view controller spinner started")
                 }
             }
         }
@@ -204,7 +204,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     func didFailWithError(_ error: GCError?) {
         if let error = error {
             if let errorDescription = error.errorDescription {
-                print("Error: \(errorDescription)")
+                Logger.error("Chat error: \(errorDescription)")
             }
 
             switch error.errorType {
@@ -225,74 +225,74 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                     }
                 }
             case .failedToSendMessage:
-                print("** CAN'T SEND MESSAGE: \(error.errorType.rawValue)")
+                Logger.error("Failed to send message: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .failedToLoadData:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Failed to load data: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 stopSpinner(activityView: chatViewControllerActivityView)
                 
             case .failedToAutostartConversation:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Autostart failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
             case .conversationCreationError:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Conversation creation failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
             case .failedToSendCustomAttributes:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Custom attributes send failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .attachmentDownloadError:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Attachment download failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 
             case .authLogoutFailed:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Auth logout failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
             case .clientNotAuthenticatedError:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Client not authenticated: \(error.errorType.rawValue)")
                 
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
                 
             case .clearConversationDisabled, .clearConversationFailure:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Clear conversation failed: \(error.errorType.rawValue)")
                 
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
                 stopSpinner(activityView: chatViewControllerActivityView)
             case .chatGeneralError:
-                print("** Error: \(error.errorType.rawValue)")
-
+                Logger.error("Chat general error: \(error.errorType.rawValue)")
+                
                 if let errorDescription = error.errorDescription {
                     showAuthenticatedSessionErrorAlert(message: errorDescription)
                 }
                 
             case .attachmentValidationError:
-                print("** Error: \(error.errorType.rawValue)")
+                Logger.error("Attachment validation failed: \(error.errorType.rawValue)")
                 if let errorDescription = error.errorDescription {
                     ToastManager.shared.showToast(message: errorDescription)
                 }
 
             case .authorizationRequired:
-                print("** Error: \(String(describing: error.errorDescription))")
+                Logger.error("** Error: \(String(describing: error.errorDescription))")
                 delegate?.reauthorizationRequired()
 
             case .failedToReconnect:
@@ -304,7 +304,7 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func didUpdateState(_ event: ChatStateEvent) {
-        print("Chat event_type: \(event.state)")
+        Logger.info("Chat state: \(event.state)")
         self.chatState = event.state
         
         DispatchQueue.main.async { [weak self] in
@@ -312,10 +312,10 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
             
             switch event.state {
             case .chatPreparing:
-                print("preparing")
+                Logger.info("Chat preparing")
                 startSpinner(activityView: wrapperActivityView)
             case .chatStarted:
-                print("started")
+                Logger.info("Chat started")
                 
                 setDefaultMenuItems()
                 stopSpinner(activityView: chatViewControllerActivityView)
@@ -344,14 +344,14 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
                 }
                 
             default:
-                print(event.state)
+                Logger.info("Chat state: \(event.state)")
             }
         }
     }
     
     private func present(alert: UIAlertController) {
         guard !isAlertCurrentlyPresented else {
-            NSLog("Won't present alert as another one is already presented")
+            Logger.warning("Alert already presented, skipping")
             return
         }
         
@@ -399,14 +399,14 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     }
     
     func didClickLink(_ url: String) {
-        NSLog("Link \(url) was pressed in the chat")
+        Logger.info("Link clicked: \(url)")
         if let url = URL(string: url) {
             UIApplication.shared.open(url)
         }
     }
     
     func didReceive(chatElement: ChatElement) {
-        NSLog("New meassage arrived: \(String(describing: chatElement.getText()))")
+        Logger.info("Message received: \(chatElement.getText() ?? "")")
         
         if !(chatElement is TypingIndicatorChatElement) && chatElement.kind == .agent {
             delegate?.didReceive(chatElement: chatElement)
