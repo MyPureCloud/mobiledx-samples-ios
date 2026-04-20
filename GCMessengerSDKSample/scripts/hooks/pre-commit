@@ -1,2 +1,0 @@
-#!/bin/bash
-git restore --staged -- ./GCMessengerSDKSample/Podfile ./GCMessengerSDKSample/.Podfile.dev ./GCMessengerSDKSample/.Podfile.local ./GCMessengerSDKSample/.Podfile.prod

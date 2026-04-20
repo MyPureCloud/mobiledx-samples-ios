@@ -15,10 +15,14 @@ install! 'cocoapods',
 source 'https://github.com/MyPureCloud/gc-sdk-specs-dev'
 source 'https://cdn.cocoapods.org/'
 
+version = File.read('../../VERSION.txt').strip
+version_suffix = ENV['VERSION_SUFFIX']
+version = "#{version}#{version_suffix}"
+
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
     pod 'FirebaseMessaging'
-    pod 'GenesysCloud'
+    pod 'GenesysCloud', version
 end
 
 post_install do |pi|
