@@ -17,14 +17,14 @@ concurrency:
 jobs:
   build:
     name: Build Application
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 10
 
-    # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
+    # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-26-Readme.md
     env:
-      XCODE_VERSION: "16.4"
-      IOS_VERSION: "18.5"
-      SIMULATOR_DEVICE: "iPhone 16"
+      XCODE_VERSION: "26.1.1"
+      IOS_VERSION: "26.1"
+      SIMULATOR_DEVICE: "iPhone 17"
       WORKSPACE_NAME: "GCMessengerSDKSample.xcworkspace"
       SCHEME_NAME: "GCMessengerSDKSample"
 
