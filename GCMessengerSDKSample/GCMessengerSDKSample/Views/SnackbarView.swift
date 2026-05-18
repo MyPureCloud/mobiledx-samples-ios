@@ -29,37 +29,32 @@ class SnackbarView: UIView {
         title: String,
         onButtonTap: @escaping () -> Void,
         onCloseTap: @escaping () -> Void
-    ) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+    ) async {
+        // Remove existing Snackbar view if any
+        self.remove()
 
-            // Remove existing Snackbar view if any
-            self.remove()
+        let snackbarView = self.createSnackbarView(message: message, title: title, onButtonTap: onButtonTap, onCloseTap: onCloseTap)
 
-            let snackbarView = self.createSnackbarView(message: message, title: title, onButtonTap: onButtonTap, onCloseTap: onCloseTap)
+        if let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first {
+            keyWindow.addSubview(snackbarView)
 
-            if let keyWindow = UIApplication.shared.connectedScenes
-                .filter({$0.activationState == .foregroundActive})
-                .compactMap({$0 as? UIWindowScene})
-                .first?.windows
-                .filter({$0.isKeyWindow}).first {
-                keyWindow.addSubview(snackbarView)
-
-                snackbarView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    snackbarView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 16),
-                    snackbarView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -16),
-                    snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 100),
-                    snackbarView.heightAnchor.constraint(equalToConstant: 48)
-                ])
-                self.activeSnackbarView = snackbarView
-            }
+            snackbarView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                snackbarView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 16),
+                snackbarView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -16),
+                snackbarView.topAnchor.constraint(equalTo: topAnchorView.topAnchor, constant: 100),
+                snackbarView.heightAnchor.constraint(equalToConstant: 48)
+            ])
+            self.activeSnackbarView = snackbarView
         }
-        
+
+        try? await Task.sleep(nanoseconds: 10_000_000_000)
         // Remove Snackbar 10 seconds after it was displayed
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {[weak self] in            
-            self?.remove()
-        }
+        self.remove()
     }
 
     public func remove() {

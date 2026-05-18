@@ -18,7 +18,7 @@ protocol AuthenticationViewControllerDelegate: AnyObject {
 @MainActor
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
-    
+
     private var authCode: String?
     private var codeVerifier: String?
     private var signInRedirectURI: String?
@@ -27,38 +27,42 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     var isImplicitFlowReauthorization: Bool = false
 
     weak var delegate: AuthenticationViewControllerDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         webView = WKWebView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height))
 
         webView.navigationDelegate = self
         view.addSubview(webView)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         guard let oktaAuthorizeUrl = buildOktaAuthorizeUrl() else {
             delegate?.error(message: "Please make sure you added Okta.plist file with proper values")
 
             return
         }
-        
+
         loadAuthenticationURL(url: oktaAuthorizeUrl)
     }
-    
+
     private func loadAuthenticationURL(url: URL) {
         if UIApplication.shared.canOpenURL(url) {
             webView.load(URLRequest(url: url))
         }
     }
-    
+
     private func buildOktaAuthorizeUrl() -> URL? {
         guard let plistPath = Bundle.main.path(forResource: "Okta", ofType: "plist"),
               let plistData = FileManager.default.contents(atPath: plistPath),
-              let plistDictionary = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: Any],
+              let plistDictionary = try? PropertyListSerialization.propertyList(
+                from: plistData,
+                options: [],
+                format: nil
+              ) as? [String: Any],
               let oktaDomain = plistDictionary["oktaDomain"] as? String, !oktaDomain.isEmpty,
               let clientId = plistDictionary["clientId"] as? String, !clientId.isEmpty,
               let signInRedirectURI = plistDictionary["signInRedirectURI"] as? String, !signInRedirectURI.isEmpty,
@@ -70,7 +74,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         else {
             return nil
         }
-        
+
         var urlComponents = URLComponents(string: "https://\(oktaDomain)/oauth2/default/v1/authorize")
 
         let responseType = isImplicitFlow ? "id_token" : "code"
@@ -93,10 +97,10 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         guard let url = urlComponents?.url else {
             return nil
         }
-        
+
         self.signInRedirectURI = signInRedirectURI
         self.codeVerifier = codeVerifier
-        
+
         return URL(string: url.absoluteString)
     }
 
@@ -132,7 +136,11 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         }
     }
 
-    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))) {
+    internal func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))
+    ) {
         defer { decisionHandler(.allow) }
         guard let url = navigationAction.request.url else { return }
 
@@ -142,7 +150,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
             handleAuthCodeFlowReturnURL(url)
         }
     }
-    
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let javascript = """
             try {
@@ -155,9 +163,9 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
                     e.message;
                 }
         """
-        
+
         // Execute the JavaScript
-        webView.evaluateJavaScript(javascript) { (result, error) in
+        webView.evaluateJavaScript(javascript) { (_, error) in
             if let error = error {
                 Logger.error("JavaScript evaluation failed: \(error.localizedDescription)")
             } else {
