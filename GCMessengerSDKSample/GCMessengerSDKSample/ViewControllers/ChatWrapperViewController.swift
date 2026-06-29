@@ -8,8 +8,8 @@ import UIKit
 import GenesysCloud
 import GenesysCloudMessenger
 
+@MainActor
 protocol ChatWrapperViewControllerDelegate: AnyObject {
-    @MainActor
     func didReceive(chatElement: ChatElement)
     func authenticatedSessionError(message: String)
     func didLogout()
@@ -21,7 +21,7 @@ protocol ChatWrapperViewControllerDelegate: AnyObject {
 
 class ChatWrapperViewController: UIViewController {
     weak var delegate: ChatWrapperViewControllerDelegate?
-    var chatController: ChatController!
+    var viewModel: ChatWrapperViewModel!
     var chatViewController: UIViewController?
     var messengerAccount = MessengerAccount()
     var chatState: ChatState?
@@ -61,7 +61,7 @@ class ChatWrapperViewController: UIViewController {
         guard let self else { return }
 
         chatVCSpinnerPresenter.start()
-        chatController.reconnectChat()
+        viewModel.reconnectChat()
     }
 
     private lazy var clearConversationAction = UIAction(title: "Clear Conversation", image: nil) { [weak self] _ in
@@ -77,7 +77,7 @@ class ChatWrapperViewController: UIViewController {
             guard let self else { return }
 
             chatVCSpinnerPresenter.start()
-            chatController.clearConversation()
+            viewModel.clearConversation()
             dismiss(alert: alert)
         }))
 
@@ -103,10 +103,8 @@ class ChatWrapperViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        chatController = ChatController(account: messengerAccount)
-        chatController.chatElementDelegate = self // Order matters
-        chatController.delegate = self
+        viewModel = ChatWrapperViewModel(account: messengerAccount)
+        viewModel.delegate = self
         errorHandler.delegate = self
     }
 
@@ -115,7 +113,7 @@ class ChatWrapperViewController: UIViewController {
         wrapperSpinnerPresenter.attach(to: view)
     }
 
-    public override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeSnackbar()
     }
@@ -123,14 +121,14 @@ class ChatWrapperViewController: UIViewController {
     /// Unregisters from push notifications (if registered) before calling logout API to prevent receiving notifications after logout.
     private func unregisterPushAndLogout() {
         guard isRegisteredToPushNotifications else {
-            chatController.logoutFromAuthenticatedSession()
+            viewModel.logoutFromAuthenticatedSession()
             return
         }
 
         ChatPushNotificationIntegration.removePushToken(account: messengerAccount) { [weak self] result in
             guard let self else { return }
 
-            defer { chatController.logoutFromAuthenticatedSession() }
+            defer { viewModel.logoutFromAuthenticatedSession() }
 
             switch result {
             case .success:
@@ -143,40 +141,8 @@ class ChatWrapperViewController: UIViewController {
         }
     }
 
-    func dismissChat() {
-        chatController.terminate()
-        chatViewController = nil
-        delegate?.dismiss()
-    }
-
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
-    }
-}
-
-extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate {
-    func shouldPresentChatViewController(_ viewController: UINavigationController!) {
-        viewController.modalPresentationStyle = .overFullScreen
-        chatViewController = viewController
-        if self.chatState == .chatPrepared {
-            self.present(viewController, animated: true) { [weak self] in
-                guard let self else { return }
-
-                chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
-
-                setDefaultMenuItems()
-                chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
-
-                guard let view = viewController.viewControllers.first?.view else { return }
-                chatVCSpinnerPresenter.attach(to: view)
-                checkNotificationAuthStatus()
-
-                if chatState == .chatPrepared { // present is async, chatState might changed till we start the spinner
-                    chatVCSpinnerPresenter.start()
-                    Logger.info("Chat view controller spinner started")
-                }
-            }
-        }
     }
 
     func checkNotificationAuthStatus() {
@@ -209,6 +175,88 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
     func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
+        }
+    }
+
+    private func present(alert: UIAlertController) {
+        guard !isAlertCurrentlyPresented else {
+            Logger.warning("Alert already presented, skipping")
+            return
+        }
+
+        if let topViewController = UIApplication.getTopViewController() {
+            topViewController.present(alert, animated: true)
+            isAlertCurrentlyPresented = true
+        }
+    }
+
+    private func dismiss(alert: UIAlertController) {
+        isAlertCurrentlyPresented = false
+        alert.dismiss(animated: true)
+    }
+
+    private func handleChatDisconnectedState() {
+        menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
+
+        let alert = UIAlertController(
+            title: "Chat was disconnected",
+            message: "We were not able to restore chat connection.\nMake sure your device is connected.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            self?.dismiss(alert: alert)
+        }))
+        present(alert: alert)
+    }
+
+    private func showAuthenticatedSessionErrorAlert(message: String) {
+        wrapperSpinnerPresenter.stop()
+
+        UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
+            guard let self else { return }
+
+            delegate?.authenticatedSessionError(message: message)
+        })
+    }
+
+    private func showUnavailableAlert() {
+        let alert = UIAlertController(
+            title: "Error occurred",
+            message: "Messenger was restricted and can't be processed.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak self] _ in
+            self?.dismiss(alert: alert)
+        }))
+
+        present(alert: alert)
+    }
+}
+
+extension ChatWrapperViewController: ChatWrapperViewModelDelegate {
+    func shouldPresentChatViewController(_ viewController: UINavigationController!) {
+        viewController.modalPresentationStyle = .overFullScreen
+        chatViewController = viewController
+        if self.chatState == .chatPrepared {
+            self.present(viewController, animated: true) { [weak self] in
+                guard let self else { return }
+
+                chatControllerNavigationItem = viewController.viewControllers.first?.navigationItem
+
+                setDefaultMenuItems()
+                chatControllerNavigationItem?.rightBarButtonItem = menuBarButtonItem
+
+                guard let view = viewController.viewControllers.first?.view else { return }
+                chatVCSpinnerPresenter.attach(to: view)
+                checkNotificationAuthStatus()
+
+                if chatState == .chatPrepared { // present is async, chatState might changed till we start the spinner
+                    chatVCSpinnerPresenter.start()
+                    Logger.info("Chat view controller spinner started")
+                }
+            }
         }
     }
 
@@ -274,62 +322,6 @@ extension ChatWrapperViewController: ChatControllerDelegate, ChatElementDelegate
         }
     }
 
-    private func present(alert: UIAlertController) {
-        guard !isAlertCurrentlyPresented else {
-            Logger.warning("Alert already presented, skipping")
-            return
-        }
-
-        if let topViewController = UIApplication.getTopViewController() {
-            topViewController.present(alert, animated: true)
-            isAlertCurrentlyPresented = true
-        }
-    }
-
-    private func dismiss(alert: UIAlertController) {
-        isAlertCurrentlyPresented = false
-        alert.dismiss(animated: true)
-    }
-
-    private func handleChatDisconnectedState() {
-        menuBarButtonItem.menu = UIMenu(children: [reconnectAction, endChatAction])
-
-        let alert = UIAlertController(
-            title: "Chat was disconnected",
-            message: "We were not able to restore chat connection.\nMake sure your device is connected.",
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-            self?.dismiss(alert: alert)
-        }))
-        present(alert: alert)
-    }
-
-    private func showAuthenticatedSessionErrorAlert(message: String) {
-        wrapperSpinnerPresenter.stop()
-
-        UIApplication.safelyDismissTopViewController(animated: true, completion: { [weak self] in
-            guard let self else { return }
-
-            delegate?.authenticatedSessionError(message: message)
-        })
-    }
-
-    private func showUnavailableAlert() {
-        let alert = UIAlertController(
-            title: "Error occurred",
-            message: "Messenger was restricted and can't be processed.",
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { [weak self] _ in
-            self?.dismiss(alert: alert)
-        }))
-
-        present(alert: alert)
-    }
-
     func didClickLink(_ url: String) {
         Logger.info("Link clicked: \(url)")
         if let url = URL(string: url) {
@@ -358,6 +350,12 @@ extension ChatWrapperViewController: ChatErrorHandlerDelegate {
         if let topViewController = UIApplication.getTopViewController() {
             topViewController.present(alert, animated: true)
         }
+    }
+
+    func dismissChat() {
+        viewModel.terminate()
+        chatViewController = nil
+        delegate?.dismiss()
     }
 
     func reauthorizationRequired() {

@@ -7,7 +7,7 @@
 
 import GenesysCloud
 
-actor PushNotificationService {
+final class PushNotificationService: Sendable {
     private let repository: AccountRepository
 
     init(repository: AccountRepository) {
@@ -20,7 +20,11 @@ actor PushNotificationService {
         account: Account
     ) async throws {
         try await withCheckedThrowingContinuation { continuation in
-            ChatPushNotificationIntegration.setPushToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account) { result in
+            ChatPushNotificationIntegration.setPushToken(
+                deviceToken: deviceToken,
+                pushProvider: pushProvider,
+                account: account
+            ) { result in
                 continuation.resume(with: result)
             }
         }

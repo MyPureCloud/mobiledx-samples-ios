@@ -8,6 +8,7 @@
 import Foundation
 import GenesysCloud
 
+@MainActor
 final class PushNotificationObserver {
     private var tasks: [Task<Void, Never>] = []
 

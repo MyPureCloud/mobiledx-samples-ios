@@ -136,19 +136,16 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         }
     }
 
-    internal func webView(
-        _ webView: WKWebView,
-        decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: @escaping (((WKNavigationActionPolicy) -> Void))
-    ) {
-        defer { decisionHandler(.allow) }
-        guard let url = navigationAction.request.url else { return }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction) async -> WKNavigationActionPolicy {
+        guard let url = navigationAction.request.url else { return .cancel }
 
         if isImplicitFlow {
             handleImplicitFlowReturnURL(url)
         } else {
             handleAuthCodeFlowReturnURL(url)
         }
+
+        return .allow
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

@@ -440,7 +440,7 @@ extension AccountDetailsViewController: AuthenticationViewControllerDelegate, Ch
         codeVerifier = nil
 
         if isReauthorization {
-            chatWrapperViewController?.chatController.reauthorizeImplicitFlow(idToken: idToken, nonce: nonce)
+            chatWrapperViewController?.viewModel.reauthorizeImplicitFlow(idToken: idToken, nonce: nonce)
         }
     }
 
@@ -518,8 +518,8 @@ extension AccountDetailsViewController {
 
             do {
                 try await pushService.removePushToken(account: accountToUse)
-                await pushService.persistPushProvider(pushProvider: nil, for: deploymentId)
-                await pushService.persistRegistration(deploymentId: nil, domain: nil)
+                pushService.persistPushProvider(pushProvider: nil, for: deploymentId)
+                pushService.persistRegistration(deploymentId: nil, domain: nil)
                 setPushNotificationsViews()
                 await toastPresenter.present(ToastView(message: "Push Notifications are DISABLED"))
             } catch let error as GCError {
@@ -561,13 +561,13 @@ extension AccountDetailsViewController {
         }
 
         spinnerPresenter.start()
-        Task { @MainActor in
+        Task { @MainActor [pushProvider] in
             defer { spinnerPresenter.stop() }
 
             do {
                 try await pushService.registerToken(deviceToken: deviceToken, pushProvider: pushProvider, account: account)
-                await pushService.persistRegistration(deploymentId: deploymentId, domain: domain)
-                await pushService.persistPushProvider(pushProvider: pushProvider, for: deploymentId)
+                pushService.persistRegistration(deploymentId: deploymentId, domain: domain)
+                pushService.persistPushProvider(pushProvider: pushProvider, for: deploymentId)
                 setPushNotificationsViews()
                 await toastPresenter.present(
                     ToastView(
@@ -576,8 +576,8 @@ extension AccountDetailsViewController {
                 )
                 Logger.info("Push provider registered: \(pushProvider)")
             } catch let error as GCError where error.errorDescription == "Device already registered." {
-                await pushService.persistRegistration(deploymentId: deploymentId, domain: domain)
-                await pushService.persistPushProvider(pushProvider: pushProvider, for: deploymentId)
+                pushService.persistRegistration(deploymentId: deploymentId, domain: domain)
+                pushService.persistPushProvider(pushProvider: pushProvider, for: deploymentId)
                 setPushNotificationsViews()
                 showErrorAlert(error: error)
             } catch let error as GCError {

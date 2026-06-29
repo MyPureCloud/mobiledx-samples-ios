@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AccountRepository {
+final class AccountRepository: Sendable {
     func deploymentId() -> String {
         UserDefaults.deploymentId
     }
