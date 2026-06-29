@@ -22,7 +22,7 @@ jobs:
 
     # check before changing versions https://github.com/actions/runner-images/blob/main/images/macos/macos-26-Readme.md
     env:
-      XCODE_VERSION: "26.5"
+      XCODE_VERSION: "26.3"
       IOS_VERSION: "26.5"
       SIMULATOR_DEVICE: "iPhone 17"
       WORKSPACE_NAME: "GCMessengerSDKSample.xcworkspace"
