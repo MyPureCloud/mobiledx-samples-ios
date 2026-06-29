@@ -77,16 +77,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { permission in
-            Task { @MainActor in
-                if permission.authorizationStatus == .authorized {
+            if permission.authorizationStatus == .authorized {
+                Task { @MainActor in
                     SnackbarView.shared.remove()
                 }
             }
         })
     }
 
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        self.fcmToken = fcmToken
+    nonisolated func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        Task { @MainActor in
+            self.fcmToken = fcmToken
+        }
 
         // Check that Notifications are authorized otherwise there is no need to post any token updates
         UNUserNotificationCenter.current().getNotificationSettings(

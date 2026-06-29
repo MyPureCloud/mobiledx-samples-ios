@@ -18,7 +18,7 @@ source 'https://cdn.cocoapods.org/'
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
     pod 'FirebaseMessaging'
-    pod 'GenesysCloud', '2.2.0'
+    pod 'GenesysCloud', '2.3.1'
 end
 
 post_install do |pi|
