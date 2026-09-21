@@ -1,0 +1,121 @@
+{
+    "meta": {
+        "title": "Genesys Cloud iOS Messenger SDK"
+    },
+    "theme": {
+        "color": {
+            "genesys-orange": "#FF451A",
+            "genesys-navy": "#152550",
+            "genesys-navy-shade-70": "#0B1228",
+            "genesys-navy-shade-50": "#0D1630",
+            "genesys-navy-tint-80": "#E8E9ED",
+            "genesys-azure": "#2243A2",
+            "genesys-patina": "#18CAA8",
+            "genesys-arctic": "#B1CADA",
+            "genesys-arctic-muted": "#D6E1E9",
+            "genesys-nimbus": "#F9F8F5",
+            "genesys-nimbus-shade": "#F1EFEA",
+
+            "text-background": {
+                "light": "var(--color-genesys-nimbus)",
+                "dark": "var(--color-genesys-navy-shade-70)"
+            },
+            "fill": {
+                "light": "var(--color-genesys-nimbus-shade)",
+                "dark": "var(--color-genesys-navy-shade-50)"
+            },
+            "fill-secondary": {
+                "light": "var(--color-genesys-arctic-muted)",
+                "dark": "var(--color-genesys-navy)"
+            },
+            "code-background": {
+                "light": "var(--color-genesys-navy-tint-80)",
+                "dark": "var(--color-genesys-navy-shade-50)"
+            },
+            "inline-code-background": {
+                "light": "var(--color-genesys-navy-tint-80)",
+                "dark": "var(--color-genesys-navy-shade-50)"
+            },
+            "fill-tertiary": "var(--color-fill-secondary)",
+            "fill-quaternary": "var(--color-fill)",
+            "fill-gray-tertiary": "var(--color-fill-secondary)",
+            "fill-gray-quaternary": "var(--color-fill)",
+
+            "text": {
+                "light": "var(--color-genesys-navy)",
+                "dark": "var(--color-genesys-nimbus)"
+            },
+            "header-text": {
+                "light": "var(--color-genesys-navy)",
+                "dark": "var(--color-genesys-nimbus)"
+            },
+
+            "link": {
+                "light": "var(--color-genesys-azure)",
+                "dark": "var(--color-genesys-patina)"
+            },
+
+            "figure-blue": "var(--color-genesys-arctic)",
+            "figure-orange": "var(--color-genesys-orange)",
+            "figure-gray": {
+                "light": "hsl(220, 30%, 40%)",
+                "dark": "var(--color-genesys-arctic)"
+            },
+            "figure-gray-secondary": {
+                "light": "hsl(220, 30%, 55%)",
+                "dark": "hsl(200, 20%, 65%)"
+            },
+
+            "grid": {
+                "light": "var(--color-genesys-arctic)",
+                "dark": "hsl(220, 60%, 30%)"
+            },
+
+            "documentation-intro-fill": {
+                "light": "var(--color-genesys-arctic-muted)",
+                "dark": "var(--color-genesys-navy)"
+            },
+            "documentation-intro-figure": "var(--color-header-text)",
+            "documentation-intro-title": "var(--color-header-text)",
+            "documentation-intro-eyebrow": {
+                "light": "hsl(220, 30%, 40%)",
+                "dark": "var(--color-genesys-arctic)"
+            },
+            "documentation-intro-accent": "var(--color-genesys-orange)",
+
+            "nav-solid-background": "var(--color-genesys-navy)",
+            "nav-keyline": "var(--color-genesys-orange)",
+            "nav-root-title": "var(--color-genesys-nimbus)",
+            "nav-link-color": "var(--color-genesys-navy-tint-80)",
+            "nav-sticking-expanded-keyline": "var(--color-nav-keyline)",
+            "navigator-item-hover": "var(--color-fill-secondary)",
+
+            "button-border": "var(--color-genesys-orange)",
+            "badge-deprecated": "var(--color-genesys-orange)",
+            "step-focused": "var(--color-genesys-orange)",
+
+            "aside-note-background": "var(--color-fill-secondary)",
+            "aside-note-border": "var(--color-genesys-azure)",
+            "aside-tip-background": "var(--color-fill-secondary)",
+            "aside-tip-border": "var(--color-genesys-arctic)",
+            "aside-important-background": "var(--color-fill-secondary)",
+            "aside-important-border": "var(--color-genesys-orange)",
+            "aside-warning-background": "var(--color-fill-secondary)",
+            "aside-warning-border": "var(--color-genesys-orange)",
+            "aside-deprecated-background": "var(--color-fill-secondary)",
+            "aside-deprecated-border": "var(--color-genesys-orange)",
+
+            "tutorial-background": "var(--color-fill)",
+            "tutorial-hero-background": "var(--color-genesys-navy)",
+            "tutorials-overview-content": "var(--color-genesys-nimbus)",
+            "tutorials-overview-content-alt": "var(--color-tutorials-overview-content)",
+            "tutorials-overview-eyebrow": "var(--color-genesys-arctic)",
+            "tutorials-overview-fill": "var(--color-genesys-navy)",
+            "tutorials-overview-fill-secondary": "var(--color-genesys-navy-shade-70)",
+            "tutorials-overview-header-text": "var(--color-genesys-nimbus)",
+            "tutorials-overview-navigation-link": "var(--color-genesys-arctic)",
+            "tutorials-overview-navigation-link-active": "var(--color-genesys-orange)",
+            "tutorials-overview-navigation-link-hover": "var(--color-genesys-orange)"
+        }
+    }
+}
