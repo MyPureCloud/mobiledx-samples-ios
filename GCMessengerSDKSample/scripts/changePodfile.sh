@@ -15,7 +15,7 @@ cd "$SCRIPT_DIR/../"
 PROD_FILE=".Podfile.prod"
 DEV_FILE=".Podfile.dev"
 LOCAL_FILE=".Podfile.local"
-LOCAL_TRANSPORT_FILE=".Podfile.local-transport"
+LOCAL_ALL_FILE=".Podfile.local-all"
 LINK_NAME="Podfile"
 
 # Function to update the symbolic link
@@ -37,8 +37,8 @@ update_symlink() {
             pod_install_update
             ;;
         4)
-            ln -sf "$LOCAL_TRANSPORT_FILE" "$LINK_NAME"
-            echo -e "${PURPLE}The symbolic link $LINK_NAME now points to $LOCAL_TRANSPORT_FILE.${NC}"
+            ln -sf "$LOCAL_ALL_FILE" "$LINK_NAME"
+            echo -e "${PURPLE}The symbolic link $LINK_NAME now points to $LOCAL_ALL_FILE.${NC}"
             pod_install_update
             ;;
         *)
@@ -78,7 +78,7 @@ else
     echo "1) Production (.Podfile.prod)"
     echo "2) Development (.Podfile.dev)"
     echo "3) Local (.Podfile.local)"
-    echo "4) Local + Transport (.Podfile.local-transport)"
+    echo "4) Local (all pods, incl. Transport + Tracking) (.Podfile.local-all)"
     echo -n "Enter your choice [1-4]: "
 
     # Read a single character from input

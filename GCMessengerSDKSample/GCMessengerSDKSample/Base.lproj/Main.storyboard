@@ -134,11 +134,11 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gJ-sJ-223">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1gJ-sJ-223">
                                                 <rect key="frame" x="20" y="573.66666666666663" width="390" height="34.333333333333371"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdr-TZ-Lrp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="34.333333333333336"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="ENABLE PUSH"/>
                                                         <connections>
@@ -146,7 +146,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3O-Ry-5ha">
-                                                        <rect key="frame" x="195" y="0.0" width="195" height="34.333333333333336"/>
+                                                        <rect key="frame" x="138" y="0.0" width="126" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Login"/>
                                                         <connections>

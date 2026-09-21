@@ -369,7 +369,7 @@
 				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -377,7 +377,6 @@
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Access is needed to use camera as an attachment source.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need microphone access for uploading videos";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Need your permission for recognising your speech";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -389,7 +388,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -409,14 +408,13 @@
 				CODE_SIGN_ENTITLEMENTS = GCMessengerSDKSample/GCMessengerSDKSample.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 9U57N843V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GCMessengerSDKSample/Info.plist;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Access is needed to use camera as an attachment source.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need microphone access for uploading videos";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Need your permission for recognising your speech";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -428,7 +426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesys.mobile.messenger.sdk.iOS.GCMessengerSDKSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

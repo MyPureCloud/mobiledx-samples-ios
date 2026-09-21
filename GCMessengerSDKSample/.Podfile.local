@@ -16,7 +16,10 @@ DX_CORE="../../mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
 DX_MESSENGER="../../mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 DX_UI="../../mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 
+source 'git@bitbucket.org:inindca/gc-sdk-specs-dev.git'
 source 'https://cdn.cocoapods.org/'
+
+tracking_version = File.read('../../TRACKING_VERSION.txt').strip
 
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
@@ -25,6 +28,8 @@ target 'GCMessengerSDKSample' do
     pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
     pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
     pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
+    pod 'GenesysCloudMobileUserTracking', tracking_version
+
 end
 
 post_install do |pi|

@@ -16,6 +16,7 @@ DX_CORE="../../mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
 DX_MESSENGER="../../mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 DX_UI="../../mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 DX_TRANSPORT="../../genesys-messenger-transport-mobile-sdk/transport/GenesysCloudMessengerTransport-Dev.podspec"
+DX_TRACKING="../../../mobile-tracking-sdk/GenesysCloudMobileUserTracking-Dev.podspec"
 
 source 'https://cdn.cocoapods.org/'
 
@@ -27,6 +28,7 @@ target 'GCMessengerSDKSample' do
     pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
     pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
     pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
+    pod 'GenesysCloudMobileUserTracking', :path => DX_TRACKING
 end
 
 post_install do |pi|

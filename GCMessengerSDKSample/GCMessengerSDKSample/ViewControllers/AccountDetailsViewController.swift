@@ -24,6 +24,8 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var pushButton: UIButton!
 
+    private let trackingButton = UIButton(type: .system)
+
     private var chatWrapperViewController: ChatWrapperViewController?
 
     private var authCode: String?
@@ -61,12 +63,14 @@ class AccountDetailsViewController: UIViewController {
            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String,
            let transportVersionNumber = Bundle(for: MessengerTransportSDK.self).infoDictionary?["CFBundleShortVersionString"] as? String,
            let transportBuildNumber = Bundle(for: MessengerTransportSDK.self).infoDictionary?["CFBundleVersion"] as? String {
-            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber), Transport: \(transportVersionNumber).\(transportBuildNumber)"
+            versionAndBuildLabel.text = "Version: \(versionNumber), Build: \(buildNumber)"
+                + ", Transport: \(transportVersionNumber).\(transportBuildNumber)"
         }
 
         loginButton.setTitle("LOGIN", for: .normal)
 
         setPushNotificationsViews()
+        setupTrackingButton()
     }
 
     override func viewDidLayoutSubviews() {
@@ -261,23 +265,26 @@ class AccountDetailsViewController: UIViewController {
             return nil
         }
 
-        let account: MessengerAccount
-
-        if let sessionExpirationNoticeString = sessionExpirationNoticeIntervalTextField.text,
-           let sessionExpirationNoticeInterval = try? Int(sessionExpirationNoticeString, format: .number) {
-            account = MessengerAccount(
-                deploymentId: deploymentIdTextField.text ?? "",
-                domain: domainIdTextField.text ?? "",
-                logging: loggingSwitch.isOn,
-                sessionExpirationNoticeInterval: sessionExpirationNoticeInterval
-            )
-        } else {
-            account = MessengerAccount(
-                deploymentId: deploymentIdTextField.text ?? "",
-                domain: domainIdTextField.text ?? "",
-                logging: loggingSwitch.isOn
-            )
+        // authenticationInfo has a private setter and can't be cleared; force a fresh instance when
+        // the form drops auth but the cached one has it.
+        if authCode == nil, let cached = SampleAccountHolder.shared.account, cached.authenticationInfo != nil {
+            SampleAccountHolder.shared.clear()
         }
+
+        let sessionExpirationNoticeInterval: Int
+        if let sessionExpirationNoticeString = sessionExpirationNoticeIntervalTextField.text,
+           let interval = try? Int(sessionExpirationNoticeString, format: .number) {
+            sessionExpirationNoticeInterval = interval
+        } else {
+            sessionExpirationNoticeInterval = 300
+        }
+
+        let account = SampleAccountHolder.shared.getOrUpdate(
+            deploymentId: deploymentIdTextField.text ?? "",
+            domain: domainIdTextField.text ?? "",
+            logging: loggingSwitch.isOn,
+            sessionExpirationNoticeInterval: sessionExpirationNoticeInterval
+        )
 
         let customAttributes = (customAttributesTextField.text ?? "").convertStringToDictionary()
 
@@ -387,6 +394,61 @@ extension AccountDetailsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - Mobile Tracking demo
+extension AccountDetailsViewController {
+    private func setupTrackingButton() {
+        trackingButton.setTitle("TRACKING", for: .normal)
+        trackingButton.accessibilityIdentifier = "trackingButton"
+        trackingButton.addTarget(self, action: #selector(trackingButtonTapped), for: .touchUpInside)
+        (pushButton.superview as? UIStackView)?.addArrangedSubview(trackingButton)
+    }
+
+    @objc private func trackingButtonTapped() {
+        guard let account = createAccountForValidInputFields() else {
+            Logger.error("Invalid account: required fields missing")
+            return
+        }
+
+        if account.tracking == nil {
+            account.initiateTracking(config: defaultTrackingConfig())
+        }
+
+        let trackingViewController = TrackingViewController()
+        trackingViewController.onStartChat = { [weak self] trackingAccount in
+            self?.dismiss(animated: true) {
+                self?.openMainController(with: trackingAccount)
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: trackingViewController)
+        trackingViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            systemItem: .close,
+            primaryAction: UIAction { [weak self] _ in self?.dismiss(animated: true) }
+        )
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
+    }
+
+    private func defaultTrackingConfig() -> TrackingConfig {
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "GCMessengerSDKSample"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+        let appBuildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+
+        return TrackingConfig(
+            appName: appName,
+            appNamespace: Bundle.main.bundleIdentifier ?? "",
+            appVersion: appVersion,
+            appBuildNumber: appBuildNumber,
+            deviceCategory: .mobile,
+            deviceType: UIDevice.current.model,
+            osFamily: "iOS",
+            osVersion: UIDevice.current.systemVersion,
+            isMobile: true,
+            manufacturer: "Apple"
+        )
     }
 }
 
