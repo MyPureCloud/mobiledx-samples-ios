@@ -5,12 +5,11 @@
 #===================================================================================================
 
 platform :ios, "15.0"
-install! 'cocoapods', :disable_input_output_paths => true
+install! 'cocoapods',
+         :disable_input_output_paths => true,
+         :deterministic_uuids => false
 #inhibit_all_warnings!
 use_frameworks! :linkage => :static
-
-install! 'cocoapods',
-         :deterministic_uuids => false
 
 DX_CORE="../../mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
 DX_MESSENGER="../../mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
