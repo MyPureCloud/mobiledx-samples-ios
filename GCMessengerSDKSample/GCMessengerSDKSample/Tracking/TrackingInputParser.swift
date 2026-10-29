@@ -5,7 +5,7 @@
 // ===================================================================================================
 
 import Foundation
-import GenesysCloudMessenger
+import GenesysCloud
 
 /// Parses the two free-text inputs of the tracking screen into Mobile Tracking SDK calls.
 ///

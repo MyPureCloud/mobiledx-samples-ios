@@ -5,7 +5,7 @@
 // ===================================================================================================
 
 import Foundation
-import GenesysCloudMessenger
+import GenesysCloud
 
 /// Process-wide holder for the single `MessengerAccount` instance the sample app currently operates
 /// on. Chat, availability, push and tracking actions all reuse this same instance instead of
@@ -20,7 +20,7 @@ final class SampleAccountHolder {
 
     private(set) var account: MessengerAccount?
 
-    // `MessengerAccount.deploymentId` is internal to GenesysCloudMessenger, unlike `domain`
+    // `MessengerAccount.deploymentId` is internal to GenesysCloud, unlike `domain`
     // (public), so only deploymentId needs tracking here to detect an identity change.
     private var deploymentId: String?
 

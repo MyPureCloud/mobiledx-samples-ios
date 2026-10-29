@@ -6,7 +6,6 @@
 
 import UIKit
 import GenesysCloud
-import GenesysCloudMessenger
 
 @MainActor
 protocol ChatWrapperViewControllerDelegate: AnyObject {
@@ -125,18 +124,23 @@ class ChatWrapperViewController: UIViewController {
             return
         }
 
-        ChatPushNotificationIntegration.removePushToken(account: messengerAccount) { [weak self] result in
-            guard let self else { return }
+        // The SDK calls this completion on a background thread, so it must be @Sendable and hop back to the main actor.
+        ChatPushNotificationIntegration.removePushToken(
+            account: messengerAccount
+        ) { @Sendable [weak self] (result: Result<Void, GCError>) in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
 
-            defer { viewModel.logoutFromAuthenticatedSession() }
+                defer { viewModel.logoutFromAuthenticatedSession() }
 
-            switch result {
-            case .success:
-                Logger.info("Push notifications unregistered before logout")
-                isRegisteredToPushNotifications = false
-                delegate?.didUnregisterPushNotifications()
-            case .failure(let error):
-                Logger.error("Failed to unregister push before logout: \(error.errorDescription ?? "unknown error"). Proceeding with logout.")
+                switch result {
+                case .success:
+                    Logger.info("Push notifications unregistered before logout")
+                    isRegisteredToPushNotifications = false
+                    delegate?.didUnregisterPushNotifications()
+                case .failure(let error):
+                    Logger.error("Failed to unregister push before logout: \(error.errorDescription ?? "unknown error"). Proceeding with logout.")
+                }
             }
         }
     }

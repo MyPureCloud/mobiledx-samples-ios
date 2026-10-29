@@ -7,13 +7,16 @@
 
 import GenesysCloud
 
-final class PushNotificationService: Sendable {
+@MainActor
+final class PushNotificationService {
     private let repository: AccountRepository
 
     init(repository: AccountRepository) {
         self.repository = repository
     }
 
+    // The SDK calls these completions on a background thread. They must stay @Sendable:
+    // a MainActor-isolated closure traps at runtime under Swift 6 when called off the main thread.
     func registerToken(
         deviceToken: String,
         pushProvider: PushProvider,
@@ -24,7 +27,7 @@ final class PushNotificationService: Sendable {
                 deviceToken: deviceToken,
                 pushProvider: pushProvider,
                 account: account
-            ) { result in
+            ) { @Sendable result in
                 continuation.resume(with: result)
             }
         }
@@ -32,7 +35,7 @@ final class PushNotificationService: Sendable {
 
     func removePushToken(account: MessengerAccount) async throws {
         try await withCheckedThrowingContinuation { continuation in
-            ChatPushNotificationIntegration.removePushToken(account: account) { result in
+            ChatPushNotificationIntegration.removePushToken(account: account) { @Sendable (result: Result<Void, GCError>) in
                 continuation.resume(with: result)
             }
         }

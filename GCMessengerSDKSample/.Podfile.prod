@@ -18,7 +18,7 @@ source 'https://cdn.cocoapods.org/'
 target 'GCMessengerSDKSample' do
     pod 'FirebaseCrashlytics'
     pod 'FirebaseMessaging'
-    pod 'GenesysCloud', '2.6.0'
+    pod 'GenesysCloud', '3.0.0'
 end
 
 post_install do |pi|
@@ -27,6 +27,7 @@ post_install do |pi|
         config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
         config.build_settings["DEVELOPMENT_TEAM"] = "9U57N843V9"
+	config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       end
     end
 end

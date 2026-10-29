@@ -7,12 +7,11 @@
 import UIKit
 import FirebaseCore
 import UserNotifications
-import GenesysCloudCore
+import GenesysCloud
 import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
     private var fcmToken: String?
     private let toastPresenter = ToastPresenter()
 
@@ -25,6 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
 
         return true
+    }
+
+    // MARK: UIScene lifecycle
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
     private func setupFirebase() {
@@ -73,16 +81,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
 
         NotificationCenter.default.post(name: Notification.Name.notificationReceived, object: nil, userInfo: userInfo)
         completionHandler(.noData)
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { permission in
-            if permission.authorizationStatus == .authorized {
-                Task { @MainActor in
-                    SnackbarView.shared.remove()
-                }
-            }
-        })
     }
 
     nonisolated func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {

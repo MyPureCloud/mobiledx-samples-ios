@@ -12,8 +12,6 @@ use_frameworks! :linkage => :static
 install! 'cocoapods',
          :deterministic_uuids => false
 
-DX_CORE="../../mobiledx-ios-sdk-core/GenesysCloudCore-Dev.podspec"
-DX_MESSENGER="../../mobiledx-ios-sdk-messenger/GenesysCloudMessenger-Dev.podspec"
 DX_UI="../../mobiledx-ios-sdk-ui/GenesysCloud-Dev.podspec"
 DX_TRANSPORT="../../genesys-messenger-transport-mobile-sdk/transport/GenesysCloudMessengerTransport-Dev.podspec"
 DX_TRACKING="../../../mobile-tracking-sdk/GenesysCloudMobileUserTracking-Dev.podspec"
@@ -25,8 +23,6 @@ target 'GCMessengerSDKSample' do
     pod 'FirebaseMessaging'
 
     pod 'GenesysCloudMessengerTransport', :path => DX_TRANSPORT
-    pod 'GenesysCloudCore', :path => DX_CORE, :testspecs => ['UnitTests']
-    pod 'GenesysCloudMessenger', :path => DX_MESSENGER, :testspecs => ['UnitTests']
     pod 'GenesysCloud', :path => DX_UI, :testspecs => ['UnitTests', 'ObjcUnitTests']
     pod 'GenesysCloudMobileUserTracking', :path => DX_TRACKING
 end
@@ -37,6 +33,7 @@ post_install do |pi|
         config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
         config.build_settings["DEVELOPMENT_TEAM"] = "9U57N843V9"
+	config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       end
     end
 end

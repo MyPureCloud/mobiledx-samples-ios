@@ -5,7 +5,7 @@
 // ===================================================================================================
 
 import UIKit
-import GenesysCloudMessenger
+import GenesysCloud
 
 /// Actions that can be performed on the active tracker. Each maps to a button on the screen.
 private enum TrackingAction {

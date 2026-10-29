@@ -92,7 +92,7 @@ extension ChatWrapperViewModel: ChatControllerDelegate {
 }
 
 extension ChatWrapperViewModel: ChatElementDelegate {
-    func didReceive(chatElement: GenesysCloudCore.ChatElement) {
+    func didReceive(chatElement: GenesysCloud.ChatElement) {
         guard !isTerminated else { return }
 
         nonisolated(unsafe) let element = chatElement

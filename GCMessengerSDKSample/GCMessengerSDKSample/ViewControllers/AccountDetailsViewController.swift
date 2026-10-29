@@ -7,7 +7,6 @@
 import Foundation
 import UIKit
 import GenesysCloud
-import GenesysCloudMessenger
 import MessengerTransport
 import FirebaseMessaging
 
@@ -355,7 +354,8 @@ class AccountDetailsViewController: UIViewController {
             account = MessengerAccount(
                 deploymentId: savedPushDeploymentId,
                 domain: savedPushDomain,
-                logging: loggingSwitch.isOn
+                logging: loggingSwitch.isOn,
+                sessionExpirationNoticeInterval: 300
             )
         }
 
@@ -454,7 +454,7 @@ extension AccountDetailsViewController {
 
 // MARK: Handle Authentication
 extension AccountDetailsViewController: AuthenticationViewControllerDelegate, ChatWrapperViewControllerDelegate {
-    func didReceive(chatElement: GenesysCloudCore.ChatElement) {
+    func didReceive(chatElement: GenesysCloud.ChatElement) {
         Task { @MainActor in
             if let topViewController = UIApplication.getTopViewController(), topViewController is AccountDetailsViewController {
                 let alertController = UIAlertController(
@@ -587,6 +587,8 @@ extension AccountDetailsViewController {
             } catch let error as GCError {
                 let errorText = error.errorDescription ?? String(describing: error.errorType)
                 showErrorAlert(message: "\(errorText), Deployment ID: \(deploymentId)")
+            } catch {
+                showErrorAlert(message: "\(error.localizedDescription), Deployment ID: \(deploymentId)")
             }
         }
     }
@@ -644,6 +646,8 @@ extension AccountDetailsViewController {
                 showErrorAlert(error: error)
             } catch let error as GCError {
                 showErrorAlert(error: error)
+            } catch {
+                showErrorAlert(message: error.localizedDescription)
             }
         }
     }
