@@ -1,8 +1,8 @@
-![](https://github.com/genesys/mobiledx-samples-ios/blob/master/GenesysMessengerSample/1280x720-PR-Meta-Image.jpeg)
-
 # Overview
 
-This repository contains sample iOS application demonstrating the use of the GC Mobile Messenger SDK.
+This repository contains sample iOS application demonstrating the use of the Genesys Messenger Mobile SDK.
+
+If you want to integrate the SDK in your own application please read the [Getting Started](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-mobile-sdk/ios/) guide on the Genesys Cloud Developer Center.
 
 ## Getting Started
 To get started with these samples, clone this repository to your local machine:
@@ -13,14 +13,14 @@ git clone git@github.com:MyPureCloud/mobiledx-samples-ios.git
 
 ## Prerequisites
 - iOS 15 and above
-- Automatic Reference Counting (ARC) is required in your project.
-- CocoaPods.
+- Xcode 26 and above
+- CocoaPods
 
 ## Installation
 - Navigate to the cloned repository
-- Run ```bash pod install ``` in your terminal
+- Run ```pod install ``` in your terminal
 - Open "GCMessengerSDKSample.xcworkspace" file with Xcode
-- Wait for the project to build
+- Build the project
 - Run the application on your device or simulator
 
 ## Documentation
