@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains sample iOS application demonstrating the use of the Genesys Messenger Mobile SDK.
+This repository contains a sample iOS application demonstrating the use of the Genesys Messenger Mobile SDK.
 
 If you want to integrate the SDK in your own application please read the [Getting Started](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-mobile-sdk/ios/) guide on the Genesys Cloud Developer Center.
 
@@ -17,19 +17,19 @@ git clone git@github.com:MyPureCloud/mobiledx-samples-ios.git
 - CocoaPods
 
 ## Installation
-- Navigate to the cloned repository
-- Run ```pod install ``` in your terminal
+- Navigate to the GCMessengerSDKSample folder in the cloned repository
+- Run `pod install` in your terminal
 - Open "GCMessengerSDKSample.xcworkspace" file with Xcode
 - Build the project
 - Run the application on your device or simulator
 
 ## Documentation
-[Mobile Messenger SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-mobile-sdk/)
-[Transport Mobile SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-transport-mobile-sdk/)
+[Messenger Mobile SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-mobile-sdk/)
+[Messenger Transport Mobile SDK](https://developer.genesys.cloud/commdigital/digital/webmessaging/mobile-messaging/messenger-transport-mobile-sdk/)
 
 ## Questions and Support
 
-For help, troubleshooting, or to share feedback about the Mobile Messenger SDK, please post in the [Genesys Cloud Community Forum](https://community.genesys.com/communities/gc-developer-community?CommunityKey=a39cc4d6-857e-43cb-be7b-019581ab9f38).
+For help, troubleshooting, or to share feedback about the Messenger Mobile SDK, please post in the [Genesys Cloud Community Forum](https://community.genesys.com/communities/gc-developer-community?CommunityKey=a39cc4d6-857e-43cb-be7b-019581ab9f38).
 It's the best place to get quick responses from Genesys experts and the developer community.
 
 # License
